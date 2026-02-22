@@ -71,7 +71,6 @@
       "createdAt": "2024-01-01T00:00:00.000Z"
     }
   ],
-
   "doctors": [
     {
       "id": "d1",
@@ -83,12 +82,27 @@
       "rating": 4.8,
       "totalPatients": 847,
       "about": "Dr. Sarah Johnson is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
-      "availableDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "availableTimeSlots": [
-        { "start": "09:00", "end": "12:00" },
-        { "start": "14:00", "end": "17:00" }
+      "availableDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
       ],
-      "languages": ["English", "Spanish"],
+      "availableTimeSlots": [
+        {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "start": "14:00",
+          "end": "17:00"
+        }
+      ],
+      "languages": [
+        "English",
+        "Spanish"
+      ],
       "achievements": [
         "Best Cardiologist Award 2023",
         "Published 15+ research papers"
@@ -104,12 +118,24 @@
       "rating": 4.6,
       "totalPatients": 623,
       "about": "Dr. Michael Smith specializes in sports medicine and joint replacement surgery.",
-      "availableDays": ["Monday", "Wednesday", "Friday"],
-      "availableTimeSlots": [
-        { "start": "10:00", "end": "13:00" },
-        { "start": "15:00", "end": "18:00" }
+      "availableDays": [
+        "Monday",
+        "Wednesday",
+        "Friday"
       ],
-      "languages": ["English"],
+      "availableTimeSlots": [
+        {
+          "start": "10:00",
+          "end": "13:00"
+        },
+        {
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "languages": [
+        "English"
+      ],
       "achievements": [
         "Performed 500+ successful surgeries",
         "Specialist in minimally invasive procedures"
@@ -128,19 +154,31 @@
       "lastName": "Lee",
       "phone": "+1-555-0104",
       "email": "dr.lee@healthsync.com",
-      "availableDays": ["Tuesday", "Thursday", "Saturday"],
-      "availableTimeSlots": [
-        { "start": "08:00", "end": "12:00" },
-        { "start": "14:00", "end": "16:00" }
+      "availableDays": [
+        "Tuesday",
+        "Thursday",
+        "Saturday"
       ],
-      "languages": ["English", "Mandarin"],
+      "availableTimeSlots": [
+        {
+          "start": "08:00",
+          "end": "12:00"
+        },
+        {
+          "start": "14:00",
+          "end": "16:00"
+        }
+      ],
+      "languages": [
+        "English",
+        "Mandarin"
+      ],
       "achievements": [
         "Children's Hospital Excellence Award",
         "20 years of pediatric care"
       ]
     }
   ],
-
   "patients": [
     {
       "id": "p1",
@@ -156,10 +194,19 @@
       },
       "insuranceProvider": "HealthFirst Insurance",
       "insuranceNumber": "HF123456789",
-      "allergies": ["Penicillin", "Peanuts"],
-      "chronicConditions": ["Hypertension"],
+      "allergies": [
+        "Penicillin",
+        "Peanuts"
+      ],
+      "chronicConditions": [
+        "Hypertension"
+      ],
       "currentMedications": [
-        { "name": "Lisinopril", "dosage": "10mg", "frequency": "Once daily" }
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily"
+        }
       ],
       "registeredDate": "2024-01-15T00:00:00.000Z",
       "lastVisit": "2026-02-10T09:00:00.000Z"
@@ -178,7 +225,9 @@
       },
       "insuranceProvider": "BlueCross BlueShield",
       "insuranceNumber": "BC987654321",
-      "allergies": ["Latex"],
+      "allergies": [
+        "Latex"
+      ],
       "chronicConditions": [],
       "currentMedications": [],
       "registeredDate": "2024-02-01T00:00:00.000Z",
@@ -203,15 +252,20 @@
       "insuranceProvider": "Aetna",
       "insuranceNumber": "AE456789123",
       "allergies": [],
-      "chronicConditions": ["Type 2 Diabetes"],
+      "chronicConditions": [
+        "Type 2 Diabetes"
+      ],
       "currentMedications": [
-        { "name": "Metformin", "dosage": "500mg", "frequency": "Twice daily" }
+        {
+          "name": "Metformin",
+          "dosage": "500mg",
+          "frequency": "Twice daily"
+        }
       ],
       "registeredDate": "2023-12-10T00:00:00.000Z",
       "lastVisit": "2026-01-20T11:00:00.000Z"
     }
   ],
-
   "appointments": [
     {
       "id": "a1",
@@ -299,7 +353,6 @@
       "updatedAt": "2026-02-09T09:30:00.000Z"
     }
   ],
-
   "medicalRecords": [
     {
       "id": "mr1",
@@ -308,7 +361,9 @@
       "doctorId": "d1",
       "date": "2026-02-10",
       "diagnosis": "Controlled Hypertension",
-      "symptoms": ["Occasional headaches"],
+      "symptoms": [
+        "Occasional headaches"
+      ],
       "vitalSigns": {
         "bloodPressure": "128/82",
         "heartRate": 75,
@@ -342,7 +397,10 @@
       "doctorId": "d1",
       "date": "2026-01-20",
       "diagnosis": "Type 2 Diabetes - Controlled",
-      "symptoms": ["Increased thirst", "Frequent urination"],
+      "symptoms": [
+        "Increased thirst",
+        "Frequent urination"
+      ],
       "vitalSigns": {
         "bloodPressure": "130/85",
         "heartRate": 78,
@@ -373,7 +431,6 @@
       "followUpDate": "2026-04-20"
     }
   ],
-
   "prescriptions": [
     {
       "id": "rx1",
@@ -414,7 +471,6 @@
       "status": "active"
     }
   ],
-
   "notifications": [
     {
       "id": "n1",
@@ -456,7 +512,6 @@
       "createdAt": "2026-02-09T08:00:00.000Z"
     }
   ],
-
   "payments": [
     {
       "id": "pay1",
@@ -484,7 +539,6 @@
       "insuranceClaimed": false
     }
   ],
-
   "departments": [
     {
       "id": "dept1",
@@ -514,7 +568,6 @@
       "email": "pediatrics@healthsync.com"
     }
   ],
-
   "statistics": {
     "totalAppointments": 847,
     "completedAppointments": 789,
@@ -529,13 +582,34 @@
       "thisYear": 456780
     },
     "appointmentsByDay": [
-      { "day": "Monday", "count": 145 },
-      { "day": "Tuesday", "count": 132 },
-      { "day": "Wednesday", "count": 156 },
-      { "day": "Thursday", "count": 128 },
-      { "day": "Friday", "count": 141 },
-      { "day": "Saturday", "count": 89 },
-      { "day": "Sunday", "count": 56 }
+      {
+        "day": "Monday",
+        "count": 145
+      },
+      {
+        "day": "Tuesday",
+        "count": 132
+      },
+      {
+        "day": "Wednesday",
+        "count": 156
+      },
+      {
+        "day": "Thursday",
+        "count": 128
+      },
+      {
+        "day": "Friday",
+        "count": 141
+      },
+      {
+        "day": "Saturday",
+        "count": 89
+      },
+      {
+        "day": "Sunday",
+        "count": 56
+      }
     ]
   }
 }

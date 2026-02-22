@@ -1,1 +1,143 @@
-<p>registeration-form works!</p>
+```
+<div class="container">
+  <div class="form-group">
+    <div class="form-wrapper">
+      <div>
+        <h2 class="text-center">Register Your Account</h2>
+        <i class="bi bi-person center"></i>
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [class.is-valid]="email?.valid && email?.touched"
+            [class.is-invalid]="email?.invalid && email?.touched"
+          />
+          @if (email?.invalid && email?.touched) {
+            <div class="invalid-feedback">
+              @if (email?.errors?.["required"]) {
+                <p>Please Enter your Email Address</p>
+              }
+              @if (email?.errors?.["email"]) {
+                <p>Please Enter a Valid Email Address</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [class.is-valid]="password?.valid && password?.touched"
+            [class.is-invalid]="password?.invalid && password?.touched"
+          />
+          @if (password?.invalid && password?.touched) {
+            <div class="invalid-feedback">
+              @if (password?.errors?.["required"]) {
+                <p>Please Enter your password</p>
+              }
+              @if (password?.errors?.["pattern"]) {
+                <ul>
+                  <li>Password must be at least 8 Characters</li>
+                  <li>Password must have uppercase</li>
+                  <li>Password must have lowercase</li>
+                  <li>Password must contain special character</li>
+                </ul>
+              }
+            </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            formControlName="firstName"
+            [class.is-valid]="firstName?.valid && firstName?.touched"
+            [class.is-invalid]="firstName?.invalid && firstName?.touched"
+          />
+          @if (firstName?.invalid && firstName?.touched) {
+            <div class="invalid-feedback">
+              @if (firstName?.errors?.["required"]) {
+                <p>Please Enter your first name</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            formControlName="lastName"
+            [class.is-valid]="lastName?.valid && lastName?.touched"
+            [class.is-invalid]="lastName?.invalid && lastName?.touched"
+          />
+          @if (lastName?.invalid && lastName?.touched) {
+            <div class="invalid-feedback">
+              @if (lastName?.errors?.["required"]) {
+                <p>Please Enter your last name</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            [class.is-valid]="phone?.valid && phone?.touched"
+            [class.is-invalid]="phone?.invalid && phone?.touched"
+          />
+                    @if (phone?.invalid && phone?.touched) {
+            <div class="invalid-feedback">
+              @if (phone?.errors?.["required"]) {
+                <p>Please Enter your Phone number</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <select
+            name="role"
+            id="role"
+            formControlName="role"
+            class="form-select"
+            [class.is-valid]="role?.valid && role?.touched"
+            [class.is-invalid]="role?.invalid && role?.touched"
+          >
+            <option value="admin">Admin</option>
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+            <option value="receptionist">Receptionist</option>
+          </select>
+          @if(role?.invalid&&role?.touched){
+            <p>please select your role</p>
+          }
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmit()"
+          [disabled]="registerForm.invalid"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
