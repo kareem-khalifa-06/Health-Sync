@@ -1,0 +1,541 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@healthsync.com",
+      "password": "admin123",
+      "role": "admin",
+      "firstName": "Admin",
+      "lastName": "User",
+      "phone": "+1-555-0100",
+      "avatar": "https://i.pravatar.cc/150?img=1",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "email": "dr.johnson@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "phone": "+1-555-0101",
+      "avatar": "https://i.pravatar.cc/150?img=5",
+      "doctorId": "d1",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "email": "dr.smith@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Michael",
+      "lastName": "Smith",
+      "phone": "+1-555-0102",
+      "avatar": "https://i.pravatar.cc/150?img=12",
+      "doctorId": "d2",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "email": "john.patient@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "John",
+      "lastName": "Patient",
+      "phone": "+1-555-0201",
+      "avatar": "https://i.pravatar.cc/150?img=8",
+      "patientId": "p1",
+      "createdAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "email": "emily.davis@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "phone": "+1-555-0202",
+      "avatar": "https://i.pravatar.cc/150?img=9",
+      "patientId": "p2",
+      "createdAt": "2024-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "email": "receptionist@healthsync.com",
+      "password": "recep123",
+      "role": "receptionist",
+      "firstName": "Lisa",
+      "lastName": "Martinez",
+      "phone": "+1-555-0103",
+      "avatar": "https://i.pravatar.cc/150?img=10",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+
+  "doctors": [
+    {
+      "id": "d1",
+      "userId": "2",
+      "specialization": "Cardiology",
+      "qualifications": "MD, FACC",
+      "experience": 12,
+      "consultationFee": 150,
+      "rating": 4.8,
+      "totalPatients": 847,
+      "about": "Dr. Sarah Johnson is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
+      "availableDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "availableTimeSlots": [
+        { "start": "09:00", "end": "12:00" },
+        { "start": "14:00", "end": "17:00" }
+      ],
+      "languages": ["English", "Spanish"],
+      "achievements": [
+        "Best Cardiologist Award 2023",
+        "Published 15+ research papers"
+      ]
+    },
+    {
+      "id": "d2",
+      "userId": "3",
+      "specialization": "Orthopedics",
+      "qualifications": "MD, FAAOS",
+      "experience": 8,
+      "consultationFee": 120,
+      "rating": 4.6,
+      "totalPatients": 623,
+      "about": "Dr. Michael Smith specializes in sports medicine and joint replacement surgery.",
+      "availableDays": ["Monday", "Wednesday", "Friday"],
+      "availableTimeSlots": [
+        { "start": "10:00", "end": "13:00" },
+        { "start": "15:00", "end": "18:00" }
+      ],
+      "languages": ["English"],
+      "achievements": [
+        "Performed 500+ successful surgeries",
+        "Specialist in minimally invasive procedures"
+      ]
+    },
+    {
+      "id": "d3",
+      "userId": null,
+      "specialization": "Pediatrics",
+      "qualifications": "MD, FAAP",
+      "experience": 10,
+      "consultationFee": 100,
+      "rating": 4.9,
+      "totalPatients": 1120,
+      "firstName": "Jennifer",
+      "lastName": "Lee",
+      "phone": "+1-555-0104",
+      "email": "dr.lee@healthsync.com",
+      "availableDays": ["Tuesday", "Thursday", "Saturday"],
+      "availableTimeSlots": [
+        { "start": "08:00", "end": "12:00" },
+        { "start": "14:00", "end": "16:00" }
+      ],
+      "languages": ["English", "Mandarin"],
+      "achievements": [
+        "Children's Hospital Excellence Award",
+        "20 years of pediatric care"
+      ]
+    }
+  ],
+
+  "patients": [
+    {
+      "id": "p1",
+      "userId": "4",
+      "dateOfBirth": "1985-06-15",
+      "gender": "male",
+      "bloodGroup": "O+",
+      "address": "123 Main St, New York, NY 10001",
+      "emergencyContact": {
+        "name": "Jane Patient",
+        "relationship": "Spouse",
+        "phone": "+1-555-0301"
+      },
+      "insuranceProvider": "HealthFirst Insurance",
+      "insuranceNumber": "HF123456789",
+      "allergies": ["Penicillin", "Peanuts"],
+      "chronicConditions": ["Hypertension"],
+      "currentMedications": [
+        { "name": "Lisinopril", "dosage": "10mg", "frequency": "Once daily" }
+      ],
+      "registeredDate": "2024-01-15T00:00:00.000Z",
+      "lastVisit": "2026-02-10T09:00:00.000Z"
+    },
+    {
+      "id": "p2",
+      "userId": "5",
+      "dateOfBirth": "1992-03-22",
+      "gender": "female",
+      "bloodGroup": "A+",
+      "address": "456 Oak Ave, Brooklyn, NY 11201",
+      "emergencyContact": {
+        "name": "Robert Davis",
+        "relationship": "Father",
+        "phone": "+1-555-0302"
+      },
+      "insuranceProvider": "BlueCross BlueShield",
+      "insuranceNumber": "BC987654321",
+      "allergies": ["Latex"],
+      "chronicConditions": [],
+      "currentMedications": [],
+      "registeredDate": "2024-02-01T00:00:00.000Z",
+      "lastVisit": "2026-02-08T14:30:00.000Z"
+    },
+    {
+      "id": "p3",
+      "userId": null,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "mbrown@email.com",
+      "phone": "+1-555-0203",
+      "dateOfBirth": "1978-11-08",
+      "gender": "male",
+      "bloodGroup": "B+",
+      "address": "789 Pine Rd, Queens, NY 11354",
+      "emergencyContact": {
+        "name": "Susan Brown",
+        "relationship": "Wife",
+        "phone": "+1-555-0303"
+      },
+      "insuranceProvider": "Aetna",
+      "insuranceNumber": "AE456789123",
+      "allergies": [],
+      "chronicConditions": ["Type 2 Diabetes"],
+      "currentMedications": [
+        { "name": "Metformin", "dosage": "500mg", "frequency": "Twice daily" }
+      ],
+      "registeredDate": "2023-12-10T00:00:00.000Z",
+      "lastVisit": "2026-01-20T11:00:00.000Z"
+    }
+  ],
+
+  "appointments": [
+    {
+      "id": "a1",
+      "patientId": "p1",
+      "doctorId": "d1",
+      "appointmentDate": "2026-02-12",
+      "appointmentTime": "09:00",
+      "duration": 30,
+      "type": "Checkup",
+      "status": "confirmed",
+      "reason": "Routine cardiology checkup",
+      "notes": "Patient reports feeling well. Regular medication check.",
+      "createdAt": "2026-02-05T10:30:00.000Z",
+      "updatedAt": "2026-02-06T14:20:00.000Z"
+    },
+    {
+      "id": "a2",
+      "patientId": "p2",
+      "doctorId": "d1",
+      "appointmentDate": "2026-02-12",
+      "appointmentTime": "10:30",
+      "duration": 30,
+      "type": "Follow-up",
+      "status": "pending",
+      "reason": "Follow-up consultation after ECG",
+      "notes": "Review recent test results",
+      "createdAt": "2026-02-08T09:15:00.000Z",
+      "updatedAt": "2026-02-08T09:15:00.000Z"
+    },
+    {
+      "id": "a3",
+      "patientId": "p3",
+      "doctorId": "d1",
+      "appointmentDate": "2026-02-12",
+      "appointmentTime": "14:00",
+      "duration": 45,
+      "type": "Annual Physical",
+      "status": "confirmed",
+      "reason": "Annual health screening",
+      "notes": "Comprehensive physical examination",
+      "createdAt": "2026-01-25T13:00:00.000Z",
+      "updatedAt": "2026-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "a4",
+      "patientId": "p1",
+      "doctorId": "d2",
+      "appointmentDate": "2026-02-13",
+      "appointmentTime": "10:00",
+      "duration": 30,
+      "type": "Consultation",
+      "status": "pending",
+      "reason": "Knee pain evaluation",
+      "notes": "",
+      "createdAt": "2026-02-10T16:45:00.000Z",
+      "updatedAt": "2026-02-10T16:45:00.000Z"
+    },
+    {
+      "id": "a5",
+      "patientId": "p2",
+      "doctorId": "d1",
+      "appointmentDate": "2026-02-10",
+      "appointmentTime": "14:30",
+      "duration": 30,
+      "type": "Checkup",
+      "status": "completed",
+      "reason": "Blood pressure monitoring",
+      "notes": "BP within normal range. Continue current treatment.",
+      "createdAt": "2026-02-03T11:20:00.000Z",
+      "updatedAt": "2026-02-10T15:00:00.000Z"
+    },
+    {
+      "id": "a6",
+      "patientId": "p3",
+      "doctorId": "d1",
+      "appointmentDate": "2026-02-11",
+      "appointmentTime": "09:30",
+      "duration": 30,
+      "type": "Follow-up",
+      "status": "cancelled",
+      "reason": "Medication adjustment follow-up",
+      "notes": "Patient requested reschedule",
+      "cancelReason": "Personal emergency",
+      "createdAt": "2026-02-04T14:00:00.000Z",
+      "updatedAt": "2026-02-09T09:30:00.000Z"
+    }
+  ],
+
+  "medicalRecords": [
+    {
+      "id": "mr1",
+      "patientId": "p1",
+      "appointmentId": "a5",
+      "doctorId": "d1",
+      "date": "2026-02-10",
+      "diagnosis": "Controlled Hypertension",
+      "symptoms": ["Occasional headaches"],
+      "vitalSigns": {
+        "bloodPressure": "128/82",
+        "heartRate": 75,
+        "temperature": 98.4,
+        "weight": 180,
+        "height": 71
+      },
+      "prescription": [
+        {
+          "medication": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "duration": "90 days",
+          "refills": 2
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Lipid Panel",
+          "orderedDate": "2026-02-10",
+          "status": "pending"
+        }
+      ],
+      "notes": "Patient shows good compliance with medication. Blood pressure well controlled.",
+      "followUpDate": "2026-05-10"
+    },
+    {
+      "id": "mr2",
+      "patientId": "p3",
+      "appointmentId": null,
+      "doctorId": "d1",
+      "date": "2026-01-20",
+      "diagnosis": "Type 2 Diabetes - Controlled",
+      "symptoms": ["Increased thirst", "Frequent urination"],
+      "vitalSigns": {
+        "bloodPressure": "130/85",
+        "heartRate": 78,
+        "temperature": 98.6,
+        "weight": 195,
+        "height": 70,
+        "bloodSugar": 142
+      },
+      "prescription": [
+        {
+          "medication": "Metformin",
+          "dosage": "500mg",
+          "frequency": "Twice daily with meals",
+          "duration": "180 days",
+          "refills": 3
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "HbA1c",
+          "orderedDate": "2026-01-20",
+          "status": "completed",
+          "result": "6.8%",
+          "normalRange": "< 5.7%"
+        }
+      ],
+      "notes": "HbA1c improved from 7.5% to 6.8%. Continue current medication and diet plan.",
+      "followUpDate": "2026-04-20"
+    }
+  ],
+
+  "prescriptions": [
+    {
+      "id": "rx1",
+      "patientId": "p1",
+      "doctorId": "d1",
+      "medicalRecordId": "mr1",
+      "date": "2026-02-10",
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily in the morning",
+          "duration": "90 days",
+          "refills": 2,
+          "instructions": "Take with or without food. Monitor blood pressure regularly."
+        }
+      ],
+      "pharmacyNotes": "Generic substitution allowed",
+      "status": "active"
+    },
+    {
+      "id": "rx2",
+      "patientId": "p3",
+      "doctorId": "d1",
+      "medicalRecordId": "mr2",
+      "date": "2026-01-20",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg",
+          "frequency": "Twice daily with meals",
+          "duration": "180 days",
+          "refills": 3,
+          "instructions": "Take with breakfast and dinner. May cause stomach upset initially."
+        }
+      ],
+      "pharmacyNotes": "Brand name required",
+      "status": "active"
+    }
+  ],
+
+  "notifications": [
+    {
+      "id": "n1",
+      "userId": "4",
+      "type": "appointment_reminder",
+      "title": "Appointment Reminder",
+      "message": "Your appointment with Dr. Sarah Johnson is tomorrow at 09:00 AM",
+      "appointmentId": "a1",
+      "read": false,
+      "createdAt": "2026-02-11T09:00:00.000Z"
+    },
+    {
+      "id": "n2",
+      "userId": "2",
+      "type": "new_appointment",
+      "title": "New Appointment Request",
+      "message": "Emily Davis has requested an appointment for Feb 12 at 10:30 AM",
+      "appointmentId": "a2",
+      "read": false,
+      "createdAt": "2026-02-08T09:15:00.000Z"
+    },
+    {
+      "id": "n3",
+      "userId": "5",
+      "type": "appointment_confirmation",
+      "title": "Appointment Confirmed",
+      "message": "Your appointment has been confirmed for Feb 12 at 10:30 AM",
+      "appointmentId": "a2",
+      "read": true,
+      "createdAt": "2026-02-08T10:00:00.000Z"
+    },
+    {
+      "id": "n4",
+      "userId": "4",
+      "type": "prescription_refill",
+      "title": "Prescription Refill Reminder",
+      "message": "Your prescription for Lisinopril needs refill in 5 days",
+      "read": false,
+      "createdAt": "2026-02-09T08:00:00.000Z"
+    }
+  ],
+
+  "payments": [
+    {
+      "id": "pay1",
+      "appointmentId": "a5",
+      "patientId": "p2",
+      "doctorId": "d1",
+      "amount": 150,
+      "paymentMethod": "Credit Card",
+      "status": "paid",
+      "paymentDate": "2026-02-10T15:15:00.000Z",
+      "invoiceNumber": "INV-2026-001",
+      "insuranceClaimed": true,
+      "insuranceAmount": 120,
+      "patientAmount": 30
+    },
+    {
+      "id": "pay2",
+      "appointmentId": "a1",
+      "patientId": "p1",
+      "doctorId": "d1",
+      "amount": 150,
+      "paymentMethod": "pending",
+      "status": "pending",
+      "invoiceNumber": "INV-2026-002",
+      "insuranceClaimed": false
+    }
+  ],
+
+  "departments": [
+    {
+      "id": "dept1",
+      "name": "Cardiology",
+      "description": "Heart and cardiovascular system care",
+      "head": "Dr. Sarah Johnson",
+      "totalDoctors": 5,
+      "contactNumber": "+1-555-1001",
+      "email": "cardiology@healthsync.com"
+    },
+    {
+      "id": "dept2",
+      "name": "Orthopedics",
+      "description": "Bone, joint, and muscle treatment",
+      "head": "Dr. Michael Smith",
+      "totalDoctors": 4,
+      "contactNumber": "+1-555-1002",
+      "email": "orthopedics@healthsync.com"
+    },
+    {
+      "id": "dept3",
+      "name": "Pediatrics",
+      "description": "Children's healthcare",
+      "head": "Dr. Jennifer Lee",
+      "totalDoctors": 6,
+      "contactNumber": "+1-555-1003",
+      "email": "pediatrics@healthsync.com"
+    }
+  ],
+
+  "statistics": {
+    "totalAppointments": 847,
+    "completedAppointments": 789,
+    "cancelledAppointments": 42,
+    "pendingAppointments": 16,
+    "totalPatients": 1234,
+    "activeDoctors": 15,
+    "revenue": {
+      "today": 2400,
+      "thisWeek": 18900,
+      "thisMonth": 67500,
+      "thisYear": 456780
+    },
+    "appointmentsByDay": [
+      { "day": "Monday", "count": 145 },
+      { "day": "Tuesday", "count": 132 },
+      { "day": "Wednesday", "count": 156 },
+      { "day": "Thursday", "count": 128 },
+      { "day": "Friday", "count": 141 },
+      { "day": "Saturday", "count": 89 },
+      { "day": "Sunday", "count": 56 }
+    ]
+  }
+}
