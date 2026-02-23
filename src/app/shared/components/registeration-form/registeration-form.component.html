@@ -45,6 +45,7 @@
               }
               @if (password?.errors?.["pattern"]) {
                 <ul>
+                  <li>Dont use #</li>
                   <li>Password must be at least 8 Characters</li>
                   <li>Password must have uppercase</li>
                   <li>Password must have lowercase</li>

@@ -1,8 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from "@angular/router";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { ElementSchemaRegistry } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -14,30 +18,30 @@ import { ElementSchemaRegistry } from '@angular/compiler';
 export class LoginComponent {
   private _AuthService = inject(AuthService);
   private _Router = inject(Router);
-  loginForm = new FormGroup({
-    email: new FormControl('', {
-      validators: [Validators.email, Validators.required],
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required],
-    }),
-  });
-  onSubmit() {
-    const logIn = this._AuthService.login(
-      this.loginForm.value.email!,
-      this.loginForm.value.password!,
-    );
-    if (logIn) {
-      alert('Logged in successfully')
-      this._Router.navigate(['/register']);
-    }
-    else{
 
-      alert('wrong Credentials!!')
-      this._Router.navigate(['/login']);
-    }
-    this.loginForm.reset();
-    
-    console.log('Kareem!!');
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
+
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    this._AuthService
+      .login(this.loginForm.value.email!, this.loginForm.value.password!)
+      .subscribe({
+        next: (user) => {
+          if(this._AuthService.isLoggedIn()){
+            alert('Logged in successfully');
+            if(this._AuthService.getRole()==='admin')
+          this._Router.navigate(['/adminLayout']);
+          }
+          
+        },
+        error: (err) => {
+          alert('Wrong credentials!!');
+          this.loginForm.reset();
+        },
+      });
   }
 }

@@ -69,6 +69,17 @@
       "phone": "+1-555-0103",
       "avatar": "https://i.pravatar.cc/150?img=10",
       "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "6f02803a-6b1f-4c92-b930-f9bc26b1a7ed",
+      "email": "karemkhalifaa@gmail.com",
+      "password": "Kareem20",
+      "role": "admin",
+      "firstName": "Kareem",
+      "lastName": "Khalifa",
+      "phone": "01090222247",
+      "avatar": "",
+      "createdAt": "2026-02-23T20:49:46.554Z"
     }
   ],
   "doctors": [
