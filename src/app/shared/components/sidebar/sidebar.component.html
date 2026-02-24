@@ -1,1 +1,123 @@
-<p>sidebar works!</p>
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark align-items-start justify-content-between h-100 sidebar-wrapper"
+  [ngClass]="collapsed ? 'sidebar-collapsed' : 'sidebar-expanded'"
+>
+  <!-- Logo -->
+  <div class="d-flex align-items-center justify-content-between w-100 mb-3">
+    <a
+      routerLink="/login"
+      class="d-flex align-items-center text-white text-decoration-none overflow-hidden" 
+    >
+      <i class="bi bi-prescription fs-4 text-primary flex-shrink-0"></i>
+      <span class="fs-4 text-primary ms-2 sidebar-label">HealthSync</span>
+    </a>
+    <button
+      class="btn btn-sm btn-outline-secondary text-white border-0 flex-shrink-0"
+      (click)="collapsed = !collapsed"
+      [title]="collapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+    >
+      <i class="bi" [ngClass]="collapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
+    </button>
+  </div>
+
+  <hr class="w-100" />
+
+  <!-- Nav -->
+<ul class="nav nav-pills flex-column mb-auto w-100">
+  <li class="nav-item">
+    
+     <a routerLink="dashboard"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Dashboard"
+    >
+      <i class="bi bi-file-bar-graph flex-shrink-0"></i>
+      <span class="sidebar-label">Dashboard</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+     <a routerLink="appointments"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Appointments"
+    >
+      <i class="bi bi-calendar flex-shrink-0"></i>
+      <span class="sidebar-label">Appointments</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+    <a  routerLink="patients"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Patients"
+    >
+      <i class="bi bi-people flex-shrink-0"></i>
+      <span class="sidebar-label">Patients</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+    <a  routerLink="doctors"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Doctors"
+    >
+      <i class="bi bi-person-badge flex-shrink-0"></i>
+      <span class="sidebar-label">Doctors</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+     <a routerLink="medical-records"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Medical Records"
+    >
+      <i class="bi bi-folder2-open flex-shrink-0"></i>
+      <span class="sidebar-label">Medical Records</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+     <a routerLink="prescriptions"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Prescriptions"
+    >
+      <i class="bi bi-capsule flex-shrink-0"></i>
+      <span class="sidebar-label">Prescriptions</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    
+     <a routerLink="analytics"
+      routerLinkActive="active"
+      class="nav-link text-white d-flex align-items-center gap-2"
+      title="Analytics"
+    >
+      <i class="bi bi-graph-up flex-shrink-0"></i>
+      <span class="sidebar-label">Analytics</span>
+    </a>
+  </li>
+</ul>
+
+  <hr class="w-100" />
+<div class="custom-dropdown">
+  <button class="btn text-white d-flex align-items-center gap-2">
+    <i class="bi bi-gear-fill"></i>
+    <span>Settings</span>
+    <i class="bi bi-chevron-up small"></i>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+    <li>
+      <button class="dropdown-item" (click)="_AuthService.logout()">
+        <i class="bi bi-box-arrow-right me-2"></i>Sign out
+      </button>
+    </li>
+  </ul>
+</div>
+
+</div>

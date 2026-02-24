@@ -1,0 +1,41 @@
+.sidebar-wrapper {
+  transition: width 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+
+  &.sidebar-expanded {
+    width: 280px;
+  }
+
+  &.sidebar-collapsed {
+    width: 72px;
+
+    .sidebar-label {
+      display: none;
+    }
+  }
+}
+.nav-item:hover{
+    transition: ease 0.3s;
+    background-color: rgb(12, 12, 145);
+    border-radius: 9px;
+}
+.nav-item{
+    margin: 5px;
+}
+.custom-dropdown {
+  position: relative;
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    min-width: 160px;
+    z-index: 1000;
+  }
+
+  &:focus-within .dropdown-menu {
+    display: block;
+  }
+}

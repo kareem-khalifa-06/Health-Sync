@@ -1,8 +1,9 @@
 // core/services/auth.service.ts
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
   constructor(private _HttpClient: HttpClient) {
     this.restoreSession();
   }
+  _Router=inject(Router);
 
   private generateFakeJWT(user: User): string {
     const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
@@ -86,6 +88,8 @@ export class AuthService {
   }
 
   logout(): void {
+    console.log('logged out');
+    this._Router.navigate(['/']);
     localStorage.removeItem('token');
     this.currentUser.set(null);
   }
