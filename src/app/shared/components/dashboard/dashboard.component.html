@@ -1,1 +1,114 @@
-<p>dashboard works!</p>
+<div
+  class="d-flex w-100 flex-column gap-4 justify-content-between h-100 dashboard-page flex-fill"
+>
+  <div class="d-flex w-100 align-items-center justify-content-between">
+    <h1 class="fw-bold mb-0">Dashboard</h1>
+    <div class="d-flex align-items-center gap-3">
+      <button
+        class="btn btn-light rounded-circle p-0"
+        style="width: 40px; height: 40px"
+      >
+        <i class="bi bi-bell-fill text-warning"></i>
+      </button>
+      <button
+        class="btn btn-light rounded-circle p-0"
+        style="width: 40px; height: 40px"
+      >
+        <i class="bi bi-gear-fill text-primary"></i>
+      </button>
+      <button
+        class="btn btn-primary rounded-circle p-0 fw-bold"
+        style="width: 40px; height: 40px"
+        routerLink="user-profile"
+      >
+        DR
+      </button>
+    </div>
+  </div>
+
+  <!-- Cards Row -->
+  <div class="d-flex gap-4 w-100 justify-content-between h-25">
+    <div
+      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
+    >
+      <p class="fw-bold mb-1 text-muted">Today's Appointments</p>
+      <p class="mb-0 fw-bolder">12</p>
+      <p class="fw-bold text-success">
+        <i class="bi bi-arrow-up"></i> 3 form yesterday
+      </p>
+    </div>
+    <div
+      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
+    >
+      <p class="fw-bold mb-1 text-muted">Total patients</p>
+      <p class="mb-0 fw-bolder">847</p>
+      <p class="fw-bold text-success">
+        <i class="bi bi-arrow-up"></i> 23 this month
+      </p>
+    </div>
+    <div
+      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
+    >
+      <p class="fw-bold mb-1 text-muted">Pending Approvals</p>
+      <p class="mb-0 fw-bolder">5</p>
+      <p class="fw-bold text-warning">
+        <i class="bi bi-bullseye"></i> Needs Attention
+      </p>
+    </div>
+    <div
+      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
+    >
+      <p class="fw-bold mb-1 text-muted">Active Doctors</p>
+      <p class="mb-0 fw-bolder">28</p>
+      <p class="fw-bold text-success">
+        <i class="bi bi-arrow-up"></i> 2 new this week
+      </p>
+    </div>
+  </div>
+  <!-- schedule table -->
+  <div class="card p-3 wrapper h-50">
+    <div class="d-flex justify-content-between">
+       <h2 class="fw-bold mb-3">Today's schedule</h2>
+    <button class="btn btn-primary">+New Appointment</button>
+    </div>
+   <hr>
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr class="table-light">
+          <th scope="col" class="text-muted">Patient Name</th>
+          <th scope="col" class="text-muted">Doctor</th>
+          <th scope="col" class="text-muted">Date & Time</th>
+          <th scope="col" class="text-muted">type</th>
+          <th scope="col" class="text-muted">Status</th>
+          <th scope="col" class="text-muted">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John Doe</td>
+          <td>Dr. Smith</td>
+          <td>2024-06-15 10:00 AM</td>
+          <td>Checkup</td>
+          <td><span class="badge bg-success">Confirmed</span></td>
+          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
+        </tr>
+        <tr>
+          <td>Jane Roe</td>
+          <td>Dr. Adams</td>
+          <td>2024-06-15 11:30 AM</td>
+          <td>Follow-up</td>
+          <td><span class="badge bg-warning text-white">Pending</span></td>
+          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
+        </tr>
+        <tr>
+          <td>Bob Johnson</td>
+          <td>Dr. Lee</td>
+          <td>2024-06-16 09:00 AM</td>
+          <td>Annual Physical</td>
+          <td><span class="badge bg-danger">Cancelled</span></td>
+          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
+        </tr>
+        <!-- More rows as needed -->
+      </tbody>
+    </table>
+</div>

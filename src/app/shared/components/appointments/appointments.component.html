@@ -1,0 +1,61 @@
+<div
+  class="d-flex w-100 flex-column gap-4 justify-content-between h-100 dashboard-page flex-fill"
+>
+  <div class="d-flex w-100 align-items-center justify-content-between">
+    <h1 class="fw-bold mb-0">Appointments</h1>
+    <button class="btn btn-primary">+New Appointment</button>
+  </div>
+
+  <!-- filters Row -->
+  <div class="d-flex gap-3">
+    <div class="input-container">
+      <i class="bi bi-search icon"></i>
+      <input
+        type="text"
+        placeholder="Search Appointments..."
+        class="input-field form-control"
+        
+      />
+    </div>
+    <select name="sataus" id="" class="form-control">
+      <option value="All">All Status</option>
+      <option value="sarah-Johnson">Confirmed</option>
+    </select>
+    <select name="doctors" id="" class="form-control">
+      <option value="All">All Doctors</option>
+      <option value="sarah-Johnson">DR.Sarah Johnson</option>
+    </select>
+    <input type="date" name="" id="" class="form-control" />
+  </div>
+  <!-- Appointments table -->
+  <div class=" p-4 fs-5 wrapper h-50">
+    <table class="table table-hover ">
+      <thead>
+        <tr class="table-light ">
+          <th scope="col" class="text-muted">ID</th>
+          <th scope="col" class="text-muted">Date & Time</th>
+          <th scope="col" class="text-muted">Patient</th>
+          <th scope="col" class="text-muted">Doctor</th>
+          <th scope="col" class="text-muted">Type</th>
+          <th scope="col" class="text-muted">Status</th>
+          <th scope="col" class="text-muted">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="align-baseline">
+          <td>#A001</td>
+          <td>2024-06-15 10:00 AM</td>
+          <td>John Smith</td>
+          <td>Dr.Sarah Johnson</td>
+          <td>Checkup</td>
+          <td><span class="badge bg-success">Confirmed</span></td>
+          <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary">View Details</button>
+            <button class="btn btn-secondary">Edit</button>
+          </td>
+        </tr>
+        <!-- More rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>

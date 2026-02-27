@@ -1,0 +1,29 @@
+.wrapper{
+    background-color: white;
+    border-radius: 12px;
+    border: none;
+    padding: 10px;
+   
+}
+.dashboard-page{
+    background-color: rgb(238, 238, 238);
+    padding: 50px 25px;
+}
+
+.input-container {
+  position: relative;
+  display: flex; 
+  align-items: center; 
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  color: #666;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+}

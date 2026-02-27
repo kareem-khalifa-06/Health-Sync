@@ -1,0 +1,65 @@
+<div class="container p-5 d-flex flex-column gap-lg-5
+ flex-grow-1">
+  <!-- header row -->
+  <div class="d-flex justify-content-between">
+    <h1>Doctors List</h1>
+    <button class="btn btn-primary">
+      <i class="bi bi-plus-circle"> </i>
+      Add Doctor
+    </button>
+  </div>
+  <!-- search row -->
+   <div class="d-flex gap-3">
+    <div class="input-container">
+      <i class="bi bi-search icon"></i>
+      <input
+        type="text"
+        placeholder="Search Doctors..."
+        class="input-field form-control"
+        
+      />
+    </div>
+    <select name="status" id="" class="form-control">
+      <option value="All">Specialization</option>
+      <option value="sarah-Johnson">Cardiologist</option>
+    </select>
+    <select name="status" id="" class="form-control">
+      <option value="All">All Status</option>
+      <option value="sarah-Johnson">Available</option>
+    </select>
+    <select name="status" id="" class="form-control">
+      <option value="All">Rating</option>
+      <option value="sarah-Johnson">5</option>
+    </select>
+  </div>
+  <!-- doctors table -->
+    <table class="table table-hover mb-0" >
+      <thead>
+        <tr class="table-light">
+          <th scope="col" class="text-muted">ID</th>
+          <th scope="col" class="text-muted">Name</th>
+          <th scope="col" class="text-muted">Specialization</th>
+          <th scope="col" class="text-muted">Consultation Fee</th>
+          <th scope="col" class="text-muted">Status</th>
+          <th scope="col" class="text-muted">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (doctor of doctorsList(); track doctor.id) {
+            <tr class="align-baseline">
+          <td>{{doctor.id}}</td>
+          <td>Dr. Smith</td>
+          <td>{{doctor.specialization}}</td>
+          <td><span class="badge bg-success">{{doctor.consultationFee}}</span></td>
+          <td><span class="badge bg-danger">{{doctor.availableDays}}</span></td>
+          <td class="gap-2  d-flex">
+            <button class="btn btn-sm btn-outline-primary">Update</button>
+            <button class="btn btn-sm btn-outline-danger">Delete</button>
+        </td>
+        </tr> 
+        }
+       
+        <!-- More rows as needed -->
+      </tbody>
+    </table>
+</div>

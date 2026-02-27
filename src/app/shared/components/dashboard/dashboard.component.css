@@ -1,0 +1,21 @@
+.wrapper{
+    background-color: white;
+    border-radius: 12px;
+    border: none;
+    padding: 10px;
+   
+}
+.dashboard-page{
+    background-color: rgb(238, 238, 238);
+    padding: 50px 25px;
+}
+.card{
+    font-size:22px;
+}
+.card:hover{
+    transition: ease;
+    position: relative;
+    top: -5px;
+    cursor: pointer;
+
+}

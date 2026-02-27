@@ -1,0 +1,17 @@
+.input-container {
+  position: relative;
+  display: flex; 
+  align-items: center; 
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  color: #666;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+}

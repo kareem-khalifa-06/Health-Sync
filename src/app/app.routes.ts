@@ -22,7 +22,6 @@ export const routes: Routes = [
           return m.RegisterationFormComponent;
         },
       ),
-    canActivate: [authGuard],
   },
   {
     path: 'adminLayout',
@@ -36,8 +35,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo:'dashboard',
-        pathMatch:'full'
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
@@ -47,13 +46,24 @@ export const routes: Routes = [
               return m.DashboardComponent;
             },
           ),
+        children: [
+          {
+            path: 'user-profile',
+            loadComponent: () =>
+              import('./shared/layouts/admin-layout/admin-layout.component').then(
+                (m) => {
+                  return m.AdminLayoutComponent;
+                },
+              ),
+          },
+        ],
       },
       {
         path: 'appointments',
         loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
+          import('./shared/components/appointments/appointments.component').then(
             (m) => {
-              return m.AdminLayoutComponent;
+              return m.AppointmentsComponent;
             },
           ),
       },
@@ -69,9 +79,9 @@ export const routes: Routes = [
       {
         path: 'doctors',
         loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
+          import('./shared/components/doctors-list/doctors-list.component').then(
             (m) => {
-              return m.AdminLayoutComponent;
+              return m.DoctorsListComponent;
             },
           ),
       },
@@ -101,7 +111,6 @@ export const routes: Routes = [
               return m.AdminLayoutComponent;
             },
           ),
-        
       },
     ],
   },
