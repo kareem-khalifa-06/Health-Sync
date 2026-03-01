@@ -24,7 +24,7 @@ export class DoctorsService {
       updatedDoctor,
     );
   }
-  deleteDoctor(id: number) :Observable<Doctor>{
+  deleteDoctor(id: string) :Observable<Doctor>{
     return this._HttpClient.delete<Doctor>(this.base_url + `/${id}`);
   }
 }

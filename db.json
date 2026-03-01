@@ -85,11 +85,12 @@
   "doctors": [
     {
       "id": "d1",
-      "userId": "2",
+      "name": "Dr.Khadija Elbakry",
+      "userId": "1",
       "specialization": "Cardiology",
       "qualifications": "MD, FACC",
       "experience": 12,
-      "consultationFee": 150,
+      "consultationFee": 750,
       "rating": 4.8,
       "totalPatients": 847,
       "about": "Dr. Sarah Johnson is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
@@ -121,7 +122,8 @@
     },
     {
       "id": "d2",
-      "userId": "3",
+      "name": "Dr.Smith",
+      "userId": "2",
       "specialization": "Orthopedics",
       "qualifications": "MD, FAAOS",
       "experience": 8,
@@ -154,15 +156,14 @@
     },
     {
       "id": "d3",
-      "userId": null,
+      "name": "Dr.Sarah Johnson",
+      "userId": "3",
       "specialization": "Pediatrics",
       "qualifications": "MD, FAAP",
       "experience": 10,
       "consultationFee": 100,
       "rating": 4.9,
       "totalPatients": 1120,
-      "firstName": "Jennifer",
-      "lastName": "Lee",
       "phone": "+1-555-0104",
       "email": "dr.lee@healthsync.com",
       "availableDays": [
