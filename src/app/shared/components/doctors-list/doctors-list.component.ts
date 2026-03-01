@@ -16,18 +16,22 @@ export class DoctorsListComponent {
   private _DoctorsService = inject(DoctorsService);
   private destroyRef = inject(DestroyRef);
   todayDate = dayjs().format('dddd');
-
   searchQuery = '';
-  statusFilter = '';
+  statusFilter = 'All';
+  ratingFilter = '6';
+  specializationFilter='All';
   doctorsList = signal<Doctor[] | null>(null);
   filteredDoctors = signal<Doctor[] | null>(null);
-  renderDoctors(){
+  showAddDoctorForm:boolean=false;
+  renderDoctors() {
     const sub = this._DoctorsService.renderDoctors().subscribe({
       next: (res) => {
         this.doctorsList.set(res);
         this.filteredDoctors.set(res);
-        this.searchQuery='';
-        this.statusFilter='All';
+        this.searchQuery = '';
+        this.ratingFilter = '6';
+        this.statusFilter = 'All';
+        this.specializationFilter = 'All';
       },
     });
     this.destroyRef.onDestroy(() => sub.unsubscribe());
@@ -38,36 +42,68 @@ export class DoctorsListComponent {
   }
 
   onSearch(query: string) {
-    if (!query.trim()) {
-      this.filteredDoctors.set(this.doctorsList());
-      return;
-    }
-    this.filteredDoctors.set(
-      this.doctorsList()?.filter((doc) =>
-        doc.name.toLowerCase().includes(query.toLowerCase()),
-      ) ?? null,
-    );
+    this.searchQuery = query;
+    this.applyFilters();
   }
-  onFilter(query:string){
-     if (!query.trim()||query==='all') {
-       this.filteredDoctors.set(this.doctorsList());
-       return;
-     }
-     this.filteredDoctors.set(
-      this.doctorsList()?.filter((doc)=>
-        query==='available'?this.handleDoctorAvailabilityStatus(doc):!this.handleDoctorAvailabilityStatus(doc)
-      )??null
-     )
-    
+
+  onFilterStatus(query: string) {
+    this.statusFilter = query;
+    this.applyFilters();
+  }
+
+  onFilterRating(rating: string) {
+    this.ratingFilter = rating;
+    this.applyFilters();
+  }
+  onFilterSpecialization(query: string) {
+    this.specializationFilter=query;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    let doctors = this.doctorsList() ?? [];
+
+    // search filter
+    if (this.searchQuery.trim()) {
+      doctors = doctors.filter((doc) =>
+        doc.name.toLowerCase().includes(this.searchQuery.toLowerCase()),
+      );
+    }
+
+    // status filter
+    if (this.statusFilter === 'available') {
+      doctors = doctors.filter((doc) =>
+        this.handleDoctorAvailabilityStatus(doc),
+      );
+    } else if (this.statusFilter === 'not-available') {
+      doctors = doctors.filter(
+        (doc) => !this.handleDoctorAvailabilityStatus(doc),
+      );
+    }
+
+    // rating filter
+    if (this.ratingFilter !== '6') {
+      doctors = doctors.filter(
+        (doc) => Number(doc.rating) >= +this.ratingFilter,
+      );
+    }
+    //specializaiton filter
+     if (this.specializationFilter.trim()) {
+      doctors = doctors.filter((doc) =>
+        doc.specialization.toLowerCase().includes(this.specializationFilter.toLowerCase()),
+      );
+    }
+    this.filteredDoctors.set(doctors);
   }
   handleDoctorAvailabilityStatus(doc: Doctor): boolean {
     return doc.availableDays.includes(this.todayDate);
   }
-  onDelete(id:string){
+  onDelete(id: string) {
     this._DoctorsService.deleteDoctor(id).subscribe({
-      next:()=>{
-        this.renderDoctors()
-      }
+      next: () => {
+        this.renderDoctors();
+      },
     });
   }
+
 }

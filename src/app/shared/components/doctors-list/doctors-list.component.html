@@ -19,18 +19,34 @@
         (input)="onSearch(searchQuery)"
       />
     </div>
-    <select name="status" id="" class="form-control">
-      <option value="All">Specialization</option>
-      <option value="sarah-Johnson">Cardiologist</option>
+    <select
+      name="status"
+      id=""
+      class="form-control"
+      [(ngModel)]="specializationFilter"
+      (ngModelChange)="onFilterSpecialization($event)"
+    >
+      <option value="All" selected>All Specialization</option>
+      <option value="Cardiology">Cardiology</option>
     </select>
-    <select name="status" id="" class="form-control" [(ngModel)]="statusFilter" (ngModelChange)="onFilter($event)">
+    <select
+      name="status"
+      id=""
+      class="form-control"
+      [(ngModel)]="statusFilter"
+      (ngModelChange)="onFilterStatus($event)"
+    >
       <option value="All" selected>All Status</option>
       <option value="available">Available</option>
       <option value="not-available">Unavailable</option>
     </select>
-    <select name="status" id="" class="form-control">
-      <option value="All">Rating</option>
-      <option value="sarah-Johnson">5</option>
+    <select name="rating" id="" class="form-control" [(ngModel)]="ratingFilter" (ngModelChange)="onFilterRating($event)">
+      <option value="6" selected>All</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
     </select>
   </div>
   <!-- doctors table -->
@@ -71,7 +87,12 @@
 
           <td class="gap-2 d-flex">
             <button class="btn btn-sm btn-outline-primary">Update</button>
-            <button class="btn btn-sm btn-outline-danger" (click)="onDelete(doctor.id)">Delete</button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(doctor.id)"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       }
