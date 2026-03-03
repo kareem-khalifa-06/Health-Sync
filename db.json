@@ -60,7 +60,7 @@
       "createdAt": "2024-02-01T00:00:00.000Z"
     },
     {
-      "id": "6",
+      "id": "7",
       "email": "receptionist@healthsync.com",
       "password": "recep123",
       "role": "receptionist",
@@ -84,16 +84,19 @@
   ],
   "doctors": [
     {
-      "id": "d1",
+      "id": "1",
       "name": "Dr.Khadija Elbakry",
       "userId": "1",
       "specialization": "Cardiology",
-      "qualifications": "MD, FACC",
+      "qualifications": [
+        "MD",
+        "FACC"
+      ],
       "experience": 12,
       "consultationFee": 750,
-      "rating": 4.8,
+      "rating": 5,
       "totalPatients": 847,
-      "about": "Dr. Sarah Johnson is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
+      "about": "Dr. Khadija Elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
       "availableDays": [
         "Monday",
         "Tuesday",
@@ -120,77 +123,239 @@
         "Published 15+ research papers"
       ]
     },
-    {
-      "id": "d2",
-      "name": "Dr.Smith",
-      "userId": "2",
-      "specialization": "Orthopedics",
-      "qualifications": "MD, FAAOS",
-      "experience": 8,
-      "consultationFee": 120,
-      "rating": 4.6,
-      "totalPatients": 623,
-      "about": "Dr. Michael Smith specializes in sports medicine and joint replacement surgery.",
-      "availableDays": [
-        "Monday",
-        "Wednesday",
-        "Friday"
-      ],
-      "availableTimeSlots": [
-        {
-          "start": "10:00",
-          "end": "13:00"
-        },
-        {
-          "start": "15:00",
-          "end": "18:00"
-        }
-      ],
-      "languages": [
-        "English"
-      ],
-      "achievements": [
-        "Performed 500+ successful surgeries",
-        "Specialist in minimally invasive procedures"
-      ]
-    },
-    {
-      "id": "d3",
-      "name": "Dr.Sarah Johnson",
-      "userId": "3",
-      "specialization": "Pediatrics",
-      "qualifications": "MD, FAAP",
-      "experience": 10,
-      "consultationFee": 100,
-      "rating": 4.9,
-      "totalPatients": 1120,
-      "phone": "+1-555-0104",
-      "email": "dr.lee@healthsync.com",
-      "availableDays": [
-        "Tuesday",
-        "Thursday",
-        "Saturday"
-      ],
-      "availableTimeSlots": [
-        {
-          "start": "08:00",
-          "end": "12:00"
-        },
-        {
-          "start": "14:00",
-          "end": "16:00"
-        }
-      ],
-      "languages": [
-        "English",
-        "Mandarin"
-      ],
-      "achievements": [
-        "Children's Hospital Excellence Award",
-        "20 years of pediatric care"
-      ]
-    }
-  ],
+  {
+    "id": "2",
+    "name": "Dr. James Mitchell",
+    "userId": "2",
+    "specialization": "Neurology",
+    "qualifications": ["MD", "PhD", "FAAN"],
+    "experience": 15,
+    "consultationFee": 900,
+    "rating": 4.9,
+    "totalPatients": 1234,
+    "about": "Dr. James Mitchell is a renowned neurologist specializing in movement disorders and neurodegenerative diseases with 15 years of clinical experience.",
+    "availableDays": ["Monday", "Wednesday", "Thursday", "Friday"],
+    "availableTimeSlots": [
+      {
+        "start": "08:00",
+        "end": "13:00"
+      },
+      {
+        "start": "15:00",
+        "end": "18:00"
+      }
+    ],
+    "languages": ["English", "French"],
+    "achievements": [
+      "Parkinson's Foundation Research Grant 2024",
+      "Published 30+ peer-reviewed articles",
+      "Keynote speaker at World Neurology Congress 2023"
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Dr. Priya Sharma",
+    "userId": "3",
+    "specialization": "Pediatrics",
+    "qualifications": ["MBBS", "MD", "FAAP"],
+    "experience": 8,
+    "consultationFee": 500,
+    "rating": 4.8,
+    "totalPatients": 2150,
+    "about": "Dr. Priya Sharma is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence.",
+    "availableDays": ["Tuesday", "Wednesday", "Thursday", "Saturday"],
+    "availableTimeSlots": [
+      {
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "start": "16:00",
+        "end": "19:00"
+      }
+    ],
+    "languages": ["English", "Hindi", "Punjabi"],
+    "achievements": [
+      "Young Achiever Award in Pediatrics 2022",
+      "Child Health Initiative Program Founder"
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Dr. Ahmed Hassan",
+    "userId": "4",
+    "specialization": "Orthopedics",
+    "qualifications": ["MBBS", "MS", "MCh Orth"],
+    "experience": 20,
+    "consultationFee": 1000,
+    "rating": 5,
+    "totalPatients": 3200,
+    "about": "Dr. Ahmed Hassan is a senior orthopedic surgeon specializing in sports injuries, joint replacements, and trauma surgery with two decades of experience.",
+    "availableDays": ["Sunday", "Monday", "Tuesday", "Wednesday"],
+    "availableTimeSlots": [
+      {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "start": "18:00",
+        "end": "21:00"
+      }
+    ],
+    "languages": ["English", "Arabic"],
+    "achievements": [
+      "Lifetime Achievement Award in Orthopedics 2023",
+      "Pioneered minimally invasive knee replacement technique",
+      "Team Doctor for National Football Team"
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Dr. Elena Vasquez",
+    "userId": "5",
+    "specialization": "Dermatology",
+    "qualifications": ["MD", "FAAD"],
+    "experience": 10,
+    "consultationFee": 600,
+    "rating": 4.7,
+    "totalPatients": 1850,
+    "about": "Dr. Elena Vasquez is a board-certified dermatologist specializing in medical, surgical, and cosmetic dermatology with a focus on skin cancer detection.",
+    "availableDays": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
+    "availableTimeSlots": [
+      {
+        "start": "08:00",
+        "end": "12:00"
+      },
+      {
+        "start": "13:00",
+        "end": "16:00"
+      }
+    ],
+    "languages": ["English", "Spanish", "Portuguese"],
+    "achievements": [
+      "Rising Star in Dermatology 2021",
+      "Inventor of innovative acne treatment protocol",
+      "Published research in Journal of Investigative Dermatology"
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Dr. Robert Chen",
+    "userId": "6",
+    "specialization": "Oncology",
+    "qualifications": ["MD", "PhD", "FASCO"],
+    "experience": 18,
+    "consultationFee": 1200,
+    "rating": 4.9,
+    "totalPatients": 950,
+    "about": "Dr. Robert Chen is a medical oncologist specializing in breast cancer and immunotherapy, leading clinical trials for innovative cancer treatments.",
+    "availableDays": ["Tuesday", "Wednesday", "Thursday"],
+    "availableTimeSlots": [
+      {
+        "start": "09:00",
+        "end": "13:00"
+      },
+      {
+        "start": "14:00",
+        "end": "17:00"
+      }
+    ],
+    "languages": ["English", "Mandarin"],
+    "achievements": [
+      "ASCO Merit Award 2023",
+      "Principal Investigator for 5 major clinical trials",
+      "Published in New England Journal of Medicine"
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Dr. Fatima Al-Rashid",
+    "userId": "7",
+    "specialization": "Ophthalmology",
+    "qualifications": ["MBBS", "MS", "FRCS"],
+    "experience": 14,
+    "consultationFee": 650,
+    "rating": 4.8,
+    "totalPatients": 1675,
+    "about": "Dr. Fatima Al-Rashid is an ophthalmologist specializing in cataract surgery, glaucoma management, and refractive procedures.",
+    "availableDays": ["Sunday", "Monday", "Wednesday", "Thursday"],
+    "availableTimeSlots": [
+      {
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "start": "16:00",
+        "end": "20:00"
+      }
+    ],
+    "languages": ["English", "Arabic", "Urdu"],
+    "achievements": [
+      "Excellence in Cataract Surgery Award 2022",
+      "Performed 2000+ successful cataract surgeries",
+      "Community Eye Health Advocate"
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Dr. Michael Okafor",
+    "userId": "8",
+    "specialization": "Psychiatry",
+    "qualifications": ["MD", "DFAPA"],
+    "experience": 12,
+    "consultationFee": 550,
+    "rating": 4.9,
+    "totalPatients": 750,
+    "about": "Dr. Michael Okafor is a compassionate psychiatrist specializing in mood disorders, anxiety, and PTSD, with a holistic approach to mental health.",
+    "availableDays": ["Monday", "Tuesday", "Friday", "Saturday"],
+    "availableTimeSlots": [
+      {
+        "start": "11:00",
+        "end": "15:00"
+      },
+      {
+        "start": "17:00",
+        "end": "20:00"
+      }
+    ],
+    "languages": ["English", "Yoruba"],
+    "achievements": [
+      "Mental Health Advocate of the Year 2023",
+      "Developed community-based PTSD support program",
+      "Author of 'Understanding Anxiety' guidebook"
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Dr. Sophie Laurent",
+    "userId": "9",
+    "specialization": "Endocrinology",
+    "qualifications": ["MD", "FACE"],
+    "experience": 9,
+    "consultationFee": 600,
+    "rating": 4.7,
+    "totalPatients": 1120,
+    "about": "Dr. Sophie Laurent is an endocrinologist dedicated to managing diabetes, thyroid disorders, and hormonal imbalances with personalized care plans.",
+    "availableDays": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+    "availableTimeSlots": [
+      {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "start": "15:00",
+        "end": "18:00"
+      }
+    ],
+    "languages": ["English", "French", "German"],
+    "achievements": [
+      "Young Investigator Award - Endocrine Society 2022",
+      "Developed diabetes management mobile app",
+      "Published research on thyroid disorders in pregnancy"
+    ]
+  }
+]
+  ,
   "patients": [
     {
       "id": "p1",
@@ -623,5 +788,6 @@
         "count": 56
       }
     ]
-  }
+  },
+  "$schema": "./node_modules/json-server/schema.json"
 }

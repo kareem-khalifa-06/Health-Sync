@@ -3,28 +3,44 @@ import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
 import dayjs from 'dayjs';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { SPECIALIZATIONS } from '../../../Data/specializations';
 
 @Component({
   selector: 'app-doctors-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './doctors-list.component.html',
   styleUrl: './doctors-list.component.css',
 })
 export class DoctorsListComponent {
+  id = signal<number>(3);
   private _DoctorsService = inject(DoctorsService);
   private destroyRef = inject(DestroyRef);
   todayDate = dayjs().format('dddd');
+  specs = SPECIALIZATIONS;
   searchQuery = '';
   statusFilter = 'All';
   ratingFilter = '6';
-  specializationFilter='All';
+  specializationFilter = 'All';
   doctorsList = signal<Doctor[] | null>(null);
   filteredDoctors = signal<Doctor[] | null>(null);
-  showAddDoctorForm:boolean=false;
+  showAddDoctorForm: boolean = false;
+  addDoctorForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    experience: new FormControl('', Validators.required),
+    specialzation: new FormControl('', Validators.required),
+    consultationFee: new FormControl('', Validators.required),
+    availableDays: new FormControl('', Validators.required),
+  });
   renderDoctors() {
-    const sub = this._DoctorsService.renderDoctors().subscribe({
+    this._DoctorsService.renderDoctors().subscribe({
       next: (res) => {
         this.doctorsList.set(res);
         this.filteredDoctors.set(res);
@@ -34,7 +50,6 @@ export class DoctorsListComponent {
         this.specializationFilter = 'All';
       },
     });
-    this.destroyRef.onDestroy(() => sub.unsubscribe());
   }
 
   ngOnInit() {
@@ -56,7 +71,7 @@ export class DoctorsListComponent {
     this.applyFilters();
   }
   onFilterSpecialization(query: string) {
-    this.specializationFilter=query;
+    this.specializationFilter = query;
     this.applyFilters();
   }
 
@@ -87,10 +102,10 @@ export class DoctorsListComponent {
         (doc) => Number(doc.rating) >= +this.ratingFilter,
       );
     }
-    //specializaiton filter
-     if (this.specializationFilter.trim()) {
-      doctors = doctors.filter((doc) =>
-        doc.specialization.toLowerCase().includes(this.specializationFilter.toLowerCase()),
+    // specialization filter
+    if (this.specializationFilter !== 'All') {
+      doctors = doctors.filter(
+        (doc) => doc.specialization === this.specializationFilter,
       );
     }
     this.filteredDoctors.set(doctors);
@@ -98,12 +113,47 @@ export class DoctorsListComponent {
   handleDoctorAvailabilityStatus(doc: Doctor): boolean {
     return doc.availableDays.includes(this.todayDate);
   }
-  onDelete(id: string) {
+  onDelete(id: number) {
+    if (!confirm('Are you sure?')) return; 
     this._DoctorsService.deleteDoctor(id).subscribe({
-      next: () => {
-        this.renderDoctors();
-      },
+      next: () => this.renderDoctors(),
+      error: (err) => console.error('Delete failed', err),
     });
   }
+  showForm() {
+    this.showAddDoctorForm = true;
+  }
+  addDoctor(): void {
+    if (!this.addDoctorForm.valid) {
+      return;
+    }
 
+    const form = this.addDoctorForm.value;
+
+    const newDoctor: Doctor = {
+      id: this.id(),
+      userId: crypto.randomUUID(),
+      name: 'Dr.' + form.name!,
+      experience: Number(form.experience),
+      specialization: form.specialzation!,
+      consultationFee: Number(form.consultationFee),
+      availableDays: Array.isArray(form.availableDays!)
+        ? form.availableDays!
+        : [form.availableDays!],
+      qualifications: [],
+      rating: 5,
+      totalPatients: 120,
+      about: '',
+      availableTimeSlots: [{ start: '', end: '' }],
+      languages: [],
+      achievements: [],
+    };
+
+    this._DoctorsService
+      .addDoctor(newDoctor)
+      .subscribe(() => this.renderDoctors());
+    this.id.update((id) => id + 1);
+    this.showAddDoctorForm = false;
+    this.addDoctorForm.reset();
+  }
 }

@@ -1,0 +1,30 @@
+
+export const SPECIALIZATIONS = [
+  'Cardiology',
+  'Dermatology',
+  'Neurology',
+  'Orthopedics',
+  'Pediatrics',
+  'Psychiatry',
+  'Oncology',
+  'Ophthalmology',
+  'Gynecology',
+  'Urology',
+  'Endocrinology',
+  'Gastroenterology',
+  'Pulmonology',
+  'Rheumatology',
+  'Nephrology',
+  'Hematology',
+  'Radiology',
+  'Anesthesiology',
+  'General Surgery',
+  'Emergency Medicine',
+  'Dentistry',
+  'Plastic Surgery',
+  'Vascular Surgery',
+  'Immunology',
+  'Geriatrics',
+] 
+
+

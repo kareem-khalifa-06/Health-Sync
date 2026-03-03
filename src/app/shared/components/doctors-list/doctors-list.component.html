@@ -2,7 +2,7 @@
   <!-- header row -->
   <div class="d-flex justify-content-between">
     <h1>Doctors List</h1>
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" (click)="showForm()">
       <i class="bi bi-plus-circle"> </i>
       Add Doctor
     </button>
@@ -20,14 +20,15 @@
       />
     </div>
     <select
-      name="status"
-      id=""
+      name="specialization"
       class="form-control"
       [(ngModel)]="specializationFilter"
       (ngModelChange)="onFilterSpecialization($event)"
     >
-      <option value="All" selected>All Specialization</option>
-      <option value="Cardiology">Cardiology</option>
+      <option value="All">All Specializations</option>
+      @for (spec of specs; track spec) {
+        <option [value]="spec">{{ spec }}</option>
+      }
     </select>
     <select
       name="status"
@@ -40,7 +41,13 @@
       <option value="available">Available</option>
       <option value="not-available">Unavailable</option>
     </select>
-    <select name="rating" id="" class="form-control" [(ngModel)]="ratingFilter" (ngModelChange)="onFilterRating($event)">
+    <select
+      name="rating"
+      id=""
+      class="form-control"
+      [(ngModel)]="ratingFilter"
+      (ngModelChange)="onFilterRating($event)"
+    >
       <option value="6" selected>All</option>
       <option value="5">⭐⭐⭐⭐⭐</option>
       <option value="4">⭐⭐⭐⭐</option>
@@ -86,7 +93,6 @@
           </td>
 
           <td class="gap-2 d-flex">
-            <button class="btn btn-sm btn-outline-primary">Update</button>
             <button
               class="btn btn-sm btn-outline-danger"
               (click)="onDelete(doctor.id)"
@@ -101,3 +107,83 @@
     </tbody>
   </table>
 </div>
+<!-- add doctor form -->
+@if (showAddDoctorForm) {
+  <div class="overlay">
+    <form
+      [formGroup]="addDoctorForm"
+      class="modal-form"
+      (ngSubmit)="addDoctor()"
+    >
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="experience" class="form-label">Experience</label>
+        <input
+          type="number"
+          class="form-control"
+          id="experience"
+          formControlName="experience"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="consultation-fee" class="form-label"
+          >Consultation fee</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="consultation-fee"
+          formControlName="consultationFee"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="specialization" class="form-label">Specialization</label>
+        <select
+          name="specialization"
+          class="form-control"
+          formControlName="specialzation"
+        >
+          <option value="All">All Specializations</option>
+          @for (spec of specs; track spec) {
+            <option [value]="spec">{{ spec }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="available-days" class="form-label">Available Days</label>
+        <select
+          name="available-days"
+          class="form-control"
+          formControlName="availableDays"
+          multiple
+        >
+          <option value="Sunday" class="mb-2">Sunday</option>
+          <option value="Monday" class="mb-2">Monday</option>
+          <option value="Tuesday" class="mb-2">Tuesday</option>
+          <option value="Wednesday" class="mb-2">Wednesday</option>
+          <option value="Thursday" class="mb-2">Thursday</option>
+          <option value="Friday" class="mb-2">Friday</option>
+          <option value="Saturday" class="mb-2">Saturday</option>
+        </select>
+      </div>
+      <div class="d-flex gap-3 w-100 justify-content-between">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button
+          type="cancel"
+          class="btn btn-danger"
+          (click)="showAddDoctorForm = false"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+}
