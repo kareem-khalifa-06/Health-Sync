@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, output, signal } from '@angular/core';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
 import dayjs from 'dayjs';
@@ -11,15 +11,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { SPECIALIZATIONS } from '../../../Data/specializations';
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-doctors-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './doctors-list.component.html',
   styleUrl: './doctors-list.component.css',
 })
 export class DoctorsListComponent {
+  doctor=output<Doctor>();
   id = signal<number>(3);
   private _DoctorsService = inject(DoctorsService);
   private destroyRef = inject(DestroyRef);
@@ -81,7 +83,7 @@ export class DoctorsListComponent {
     // search filter
     if (this.searchQuery.trim()) {
       doctors = doctors.filter((doc) =>
-        doc.name.toLowerCase().includes(this.searchQuery.toLowerCase()),
+        doc.fullName .toLowerCase().includes(this.searchQuery.toLowerCase()),
       );
     }
 
@@ -105,7 +107,7 @@ export class DoctorsListComponent {
     // specialization filter
     if (this.specializationFilter !== 'All') {
       doctors = doctors.filter(
-        (doc) => doc.specialization === this.specializationFilter,
+        (doc) => doc.specialty === this.specializationFilter,
       );
     }
     this.filteredDoctors.set(doctors);
@@ -113,9 +115,9 @@ export class DoctorsListComponent {
   handleDoctorAvailabilityStatus(doc: Doctor): boolean {
     return doc.availableDays.includes(this.todayDate);
   }
-  onDelete(id: number) {
+  onDelete(id: string) {
     if (!confirm('Are you sure?')) return; 
-    this._DoctorsService.deleteDoctor(id).subscribe({
+    this._DoctorsService.deleteDoctor(`${id}`).subscribe({
       next: () => this.renderDoctors(),
       error: (err) => console.error('Delete failed', err),
     });
@@ -131,23 +133,37 @@ export class DoctorsListComponent {
     const form = this.addDoctorForm.value;
 
     const newDoctor: Doctor = {
-      id: this.id(),
-      userId: crypto.randomUUID(),
-      name: 'Dr.' + form.name!,
-      experience: Number(form.experience),
-      specialization: form.specialzation!,
-      consultationFee: Number(form.consultationFee),
-      availableDays: Array.isArray(form.availableDays!)
-        ? form.availableDays!
-        : [form.availableDays!],
-      qualifications: [],
-      rating: 5,
-      totalPatients: 120,
-      about: '',
-      availableTimeSlots: [{ start: '', end: '' }],
-      languages: [],
-      achievements: [],
-    };
+      id: `d${this.id()}`,
+        userId: crypto.randomUUID(),
+        firstName: '',
+        lastName: '',
+        fullName: form.name!,
+        initials: '',
+        avatarUrl: '',
+        specialty:form.specialzation!,
+        subSpecialty: '',
+        department:  '',
+        hospital:    '',
+        location: '',
+        email: '',
+        phone: '',
+        bio: '',
+        status: 'active',
+        isAvailableToday: true,
+        consultationFee: Number(form.consultationFee!),
+        experience: Number(form.experience!),
+        totalPatients: 140,
+        rating: 5,
+        totalReviews: 140,
+        qualifications: [],
+        languages: [],
+        services: [],
+        education: [],
+        achievements: [],
+        availableDays: [],
+        availableTimeSlots: [
+          { start: '', end: ''},
+        ]}
 
     this._DoctorsService
       .addDoctor(newDoctor)
@@ -156,4 +172,5 @@ export class DoctorsListComponent {
     this.showAddDoctorForm = false;
     this.addDoctorForm.reset();
   }
+
 }

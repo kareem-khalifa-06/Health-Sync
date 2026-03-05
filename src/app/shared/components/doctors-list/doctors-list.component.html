@@ -73,8 +73,8 @@
       @for (doctor of filteredDoctors(); track doctor.id) {
         <tr class="align-baseline">
           <td>{{ doctor.id }}</td>
-          <td>{{ doctor.name }}</td>
-          <td>{{ doctor.specialization }}</td>
+          <td>{{ doctor.fullName }}</td>
+          <td>{{ doctor.specialty }}</td>
           <td>
             <span class="badge bg-success">{{ doctor.consultationFee }}</span>
           </td>
@@ -99,6 +99,11 @@
             >
               Delete
             </button>
+            <a [routerLink]="['/adminLayout/doctors/details/', doctor.id]">
+              <button class="btn btn-sm btn-outline-primary">
+                View Details
+              </button>
+            </a>
           </td>
         </tr>
       }

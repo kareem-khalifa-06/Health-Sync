@@ -13,23 +13,23 @@
     },
     {
       "id": "2",
-      "email": "dr.johnson@healthsync.com",
+      "email": "dr.khadija@healthsync.com",
       "password": "doctor123",
       "role": "doctor",
-      "firstName": "Sarah",
-      "lastName": "Johnson",
+      "firstName": "Khadija",
+      "lastName": "Elbakry",
       "phone": "+1-555-0101",
-      "avatar": "https://i.pravatar.cc/150?img=5",
+      "avatar": "https://i.pravatar.cc/150?img=47",
       "doctorId": "d1",
       "createdAt": "2024-01-01T00:00:00.000Z"
     },
     {
       "id": "3",
-      "email": "dr.smith@healthsync.com",
+      "email": "dr.mitchell@healthsync.com",
       "password": "doctor123",
       "role": "doctor",
-      "firstName": "Michael",
-      "lastName": "Smith",
+      "firstName": "James",
+      "lastName": "Mitchell",
       "phone": "+1-555-0102",
       "avatar": "https://i.pravatar.cc/150?img=12",
       "doctorId": "d2",
@@ -37,18 +37,102 @@
     },
     {
       "id": "4",
+      "email": "dr.sharma@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Priya",
+      "lastName": "Sharma",
+      "phone": "+1-555-0103",
+      "avatar": "https://i.pravatar.cc/150?img=25",
+      "doctorId": "d3",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "email": "dr.hassan@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Ahmed",
+      "lastName": "Hassan",
+      "phone": "+1-555-0104",
+      "avatar": "https://i.pravatar.cc/150?img=33",
+      "doctorId": "d4",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "email": "dr.vasquez@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Elena",
+      "lastName": "Vasquez",
+      "phone": "+1-555-0105",
+      "avatar": "https://i.pravatar.cc/150?img=44",
+      "doctorId": "d5",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "email": "dr.chen@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Robert",
+      "lastName": "Chen",
+      "phone": "+1-555-0106",
+      "avatar": "https://i.pravatar.cc/150?img=15",
+      "doctorId": "d6",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "8",
+      "email": "dr.alrashid@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Fatima",
+      "lastName": "Al-Rashid",
+      "phone": "+1-555-0107",
+      "avatar": "https://i.pravatar.cc/150?img=56",
+      "doctorId": "d7",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "9",
+      "email": "dr.okafor@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Michael",
+      "lastName": "Okafor",
+      "phone": "+1-555-0108",
+      "avatar": "https://i.pravatar.cc/150?img=18",
+      "doctorId": "d8",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "10",
+      "email": "dr.laurent@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Sophie",
+      "lastName": "Laurent",
+      "phone": "+1-555-0109",
+      "avatar": "https://i.pravatar.cc/150?img=60",
+      "doctorId": "d9",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "11",
       "email": "john.patient@email.com",
       "password": "patient123",
       "role": "patient",
       "firstName": "John",
-      "lastName": "Patient",
+      "lastName": "Smith",
       "phone": "+1-555-0201",
       "avatar": "https://i.pravatar.cc/150?img=8",
       "patientId": "p1",
       "createdAt": "2024-01-15T00:00:00.000Z"
     },
     {
-      "id": "5",
+      "id": "12",
       "email": "emily.davis@email.com",
       "password": "patient123",
       "role": "patient",
@@ -60,13 +144,13 @@
       "createdAt": "2024-02-01T00:00:00.000Z"
     },
     {
-      "id": "7",
+      "id": "13",
       "email": "receptionist@healthsync.com",
       "password": "recep123",
       "role": "receptionist",
       "firstName": "Lisa",
       "lastName": "Martinez",
-      "phone": "+1-555-0103",
+      "phone": "+1-555-0110",
       "avatar": "https://i.pravatar.cc/150?img=10",
       "createdAt": "2024-01-01T00:00:00.000Z"
     },
@@ -82,319 +166,735 @@
       "createdAt": "2026-02-23T20:49:46.554Z"
     }
   ],
+
   "doctors": [
     {
-      "id": "1",
-      "name": "Dr.Khadija Elbakry",
-      "userId": "1",
-      "specialization": "Cardiology",
-      "qualifications": [
-        "MD",
-        "FACC"
-      ],
-      "experience": 12,
+      "id": "d1",
+      "userId": "2",
+      "firstName": "Khadija",
+      "lastName": "Elbakry",
+      "fullName": "Dr. Khadija Elbakry",
+      "initials": "KE",
+      "avatarUrl": "https://i.pravatar.cc/150?img=47",
+      "specialty": "Cardiology",
+      "subSpecialty": "Interventional Cardiology",
+      "department": "Heart & Vascular",
+      "hospital": "Metropolitan Heart Institute",
+      "location": "New York, NY",
+      "email": "dr.khadija@healthsync.com",
+      "phone": "+1-555-0101",
+      "bio": "Dr. Khadija Elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
+      "status": "active",
+      "isAvailableToday": true,
       "consultationFee": 750,
-      "rating": 5,
+      "experience": 12,
       "totalPatients": 847,
-      "about": "Dr. Khadija Elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions.",
-      "availableDays": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
+      "rating": 5.0,
+      "totalReviews": 312,
+      "qualifications": ["MD", "FACC"],
+      "languages": ["English", "Spanish"],
+      "services": [
+        "ECG & Echocardiography",
+        "Angioplasty",
+        "Cardiac Catheterization",
+        "Hypertension Management",
+        "Arrhythmia Treatment",
+        "Heart Failure Care",
+        "Preventive Cardiology"
       ],
-      "availableTimeSlots": [
+      "education": [
         {
-          "start": "09:00",
-          "end": "12:00"
+          "degree": "MD, FACC — Board-Certified Cardiologist",
+          "institution": "Johns Hopkins Hospital",
+          "year": "2012"
         },
         {
-          "start": "14:00",
-          "end": "17:00"
+          "degree": "Residency, Internal Medicine",
+          "institution": "NYU Langone Health",
+          "year": "2009"
+        },
+        {
+          "degree": "MBBS, Doctor of Medicine",
+          "institution": "Columbia University",
+          "year": "2005"
         }
-      ],
-      "languages": [
-        "English",
-        "Spanish"
       ],
       "achievements": [
         "Best Cardiologist Award 2023",
-        "Published 15+ research papers"
+        "Published 15+ research papers in peer-reviewed journals",
+        "American College of Cardiology Fellow (FACC)"
+      ],
+      "availableDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "availableTimeSlots": [
+        { "start": "09:00", "end": "12:00" },
+        { "start": "14:00", "end": "17:00" }
       ]
     },
-  {
-    "id": "2",
-    "name": "Dr. James Mitchell",
-    "userId": "2",
-    "specialization": "Neurology",
-    "qualifications": ["MD", "PhD", "FAAN"],
-    "experience": 15,
-    "consultationFee": 900,
-    "rating": 4.9,
-    "totalPatients": 1234,
-    "about": "Dr. James Mitchell is a renowned neurologist specializing in movement disorders and neurodegenerative diseases with 15 years of clinical experience.",
-    "availableDays": ["Monday", "Wednesday", "Thursday", "Friday"],
-    "availableTimeSlots": [
-      {
-        "start": "08:00",
-        "end": "13:00"
-      },
-      {
-        "start": "15:00",
-        "end": "18:00"
-      }
-    ],
-    "languages": ["English", "French"],
-    "achievements": [
-      "Parkinson's Foundation Research Grant 2024",
-      "Published 30+ peer-reviewed articles",
-      "Keynote speaker at World Neurology Congress 2023"
-    ]
-  },
-  {
-    "id": "3",
-    "name": "Dr. Priya Sharma",
-    "userId": "3",
-    "specialization": "Pediatrics",
-    "qualifications": ["MBBS", "MD", "FAAP"],
-    "experience": 8,
-    "consultationFee": 500,
-    "rating": 4.8,
-    "totalPatients": 2150,
-    "about": "Dr. Priya Sharma is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence.",
-    "availableDays": ["Tuesday", "Wednesday", "Thursday", "Saturday"],
-    "availableTimeSlots": [
-      {
-        "start": "10:00",
-        "end": "14:00"
-      },
-      {
-        "start": "16:00",
-        "end": "19:00"
-      }
-    ],
-    "languages": ["English", "Hindi", "Punjabi"],
-    "achievements": [
-      "Young Achiever Award in Pediatrics 2022",
-      "Child Health Initiative Program Founder"
-    ]
-  },
-  {
-    "id": "4",
-    "name": "Dr. Ahmed Hassan",
-    "userId": "4",
-    "specialization": "Orthopedics",
-    "qualifications": ["MBBS", "MS", "MCh Orth"],
-    "experience": 20,
-    "consultationFee": 1000,
-    "rating": 5,
-    "totalPatients": 3200,
-    "about": "Dr. Ahmed Hassan is a senior orthopedic surgeon specializing in sports injuries, joint replacements, and trauma surgery with two decades of experience.",
-    "availableDays": ["Sunday", "Monday", "Tuesday", "Wednesday"],
-    "availableTimeSlots": [
-      {
-        "start": "09:00",
-        "end": "12:00"
-      },
-      {
-        "start": "18:00",
-        "end": "21:00"
-      }
-    ],
-    "languages": ["English", "Arabic"],
-    "achievements": [
-      "Lifetime Achievement Award in Orthopedics 2023",
-      "Pioneered minimally invasive knee replacement technique",
-      "Team Doctor for National Football Team"
-    ]
-  },
-  {
-    "id": "5",
-    "name": "Dr. Elena Vasquez",
-    "userId": "5",
-    "specialization": "Dermatology",
-    "qualifications": ["MD", "FAAD"],
-    "experience": 10,
-    "consultationFee": 600,
-    "rating": 4.7,
-    "totalPatients": 1850,
-    "about": "Dr. Elena Vasquez is a board-certified dermatologist specializing in medical, surgical, and cosmetic dermatology with a focus on skin cancer detection.",
-    "availableDays": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
-    "availableTimeSlots": [
-      {
-        "start": "08:00",
-        "end": "12:00"
-      },
-      {
-        "start": "13:00",
-        "end": "16:00"
-      }
-    ],
-    "languages": ["English", "Spanish", "Portuguese"],
-    "achievements": [
-      "Rising Star in Dermatology 2021",
-      "Inventor of innovative acne treatment protocol",
-      "Published research in Journal of Investigative Dermatology"
-    ]
-  },
-  {
-    "id": "6",
-    "name": "Dr. Robert Chen",
-    "userId": "6",
-    "specialization": "Oncology",
-    "qualifications": ["MD", "PhD", "FASCO"],
-    "experience": 18,
-    "consultationFee": 1200,
-    "rating": 4.9,
-    "totalPatients": 950,
-    "about": "Dr. Robert Chen is a medical oncologist specializing in breast cancer and immunotherapy, leading clinical trials for innovative cancer treatments.",
-    "availableDays": ["Tuesday", "Wednesday", "Thursday"],
-    "availableTimeSlots": [
-      {
-        "start": "09:00",
-        "end": "13:00"
-      },
-      {
-        "start": "14:00",
-        "end": "17:00"
-      }
-    ],
-    "languages": ["English", "Mandarin"],
-    "achievements": [
-      "ASCO Merit Award 2023",
-      "Principal Investigator for 5 major clinical trials",
-      "Published in New England Journal of Medicine"
-    ]
-  },
-  {
-    "id": "7",
-    "name": "Dr. Fatima Al-Rashid",
-    "userId": "7",
-    "specialization": "Ophthalmology",
-    "qualifications": ["MBBS", "MS", "FRCS"],
-    "experience": 14,
-    "consultationFee": 650,
-    "rating": 4.8,
-    "totalPatients": 1675,
-    "about": "Dr. Fatima Al-Rashid is an ophthalmologist specializing in cataract surgery, glaucoma management, and refractive procedures.",
-    "availableDays": ["Sunday", "Monday", "Wednesday", "Thursday"],
-    "availableTimeSlots": [
-      {
-        "start": "10:00",
-        "end": "14:00"
-      },
-      {
-        "start": "16:00",
-        "end": "20:00"
-      }
-    ],
-    "languages": ["English", "Arabic", "Urdu"],
-    "achievements": [
-      "Excellence in Cataract Surgery Award 2022",
-      "Performed 2000+ successful cataract surgeries",
-      "Community Eye Health Advocate"
-    ]
-  },
-  {
-    "id": "8",
-    "name": "Dr. Michael Okafor",
-    "userId": "8",
-    "specialization": "Psychiatry",
-    "qualifications": ["MD", "DFAPA"],
-    "experience": 12,
-    "consultationFee": 550,
-    "rating": 4.9,
-    "totalPatients": 750,
-    "about": "Dr. Michael Okafor is a compassionate psychiatrist specializing in mood disorders, anxiety, and PTSD, with a holistic approach to mental health.",
-    "availableDays": ["Monday", "Tuesday", "Friday", "Saturday"],
-    "availableTimeSlots": [
-      {
-        "start": "11:00",
-        "end": "15:00"
-      },
-      {
-        "start": "17:00",
-        "end": "20:00"
-      }
-    ],
-    "languages": ["English", "Yoruba"],
-    "achievements": [
-      "Mental Health Advocate of the Year 2023",
-      "Developed community-based PTSD support program",
-      "Author of 'Understanding Anxiety' guidebook"
-    ]
-  },
-  {
-    "id": "9",
-    "name": "Dr. Sophie Laurent",
-    "userId": "9",
-    "specialization": "Endocrinology",
-    "qualifications": ["MD", "FACE"],
-    "experience": 9,
-    "consultationFee": 600,
-    "rating": 4.7,
-    "totalPatients": 1120,
-    "about": "Dr. Sophie Laurent is an endocrinologist dedicated to managing diabetes, thyroid disorders, and hormonal imbalances with personalized care plans.",
-    "availableDays": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-    "availableTimeSlots": [
-      {
-        "start": "09:00",
-        "end": "12:00"
-      },
-      {
-        "start": "15:00",
-        "end": "18:00"
-      }
-    ],
-    "languages": ["English", "French", "German"],
-    "achievements": [
-      "Young Investigator Award - Endocrine Society 2022",
-      "Developed diabetes management mobile app",
-      "Published research on thyroid disorders in pregnancy"
-    ]
-  }
-]
-  ,
+    {
+      "id": "d2",
+      "userId": "3",
+      "firstName": "James",
+      "lastName": "Mitchell",
+      "fullName": "Dr. James Mitchell",
+      "initials": "JM",
+      "avatarUrl": "https://i.pravatar.cc/150?img=12",
+      "specialty": "Neurology",
+      "subSpecialty": "Movement Disorders & Neurodegeneration",
+      "department": "Neuroscience",
+      "hospital": "Neurology Center of Excellence",
+      "location": "Boston, MA",
+      "email": "dr.mitchell@healthsync.com",
+      "phone": "+1-555-0102",
+      "bio": "Dr. James Mitchell is a renowned neurologist specializing in movement disorders and neurodegenerative diseases with 15 years of clinical experience.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 900,
+      "experience": 15,
+      "totalPatients": 1234,
+      "rating": 4.9,
+      "totalReviews": 278,
+      "qualifications": ["MD", "PhD", "FAAN"],
+      "languages": ["English", "French"],
+      "services": [
+        "EEG & Neuroimaging",
+        "Movement Disorder Evaluation",
+        "Parkinson's Disease Management",
+        "Multiple Sclerosis Care",
+        "Epilepsy Management",
+        "Stroke Rehabilitation"
+      ],
+      "education": [
+        {
+          "degree": "PhD, Neuroscience",
+          "institution": "Harvard Medical School",
+          "year": "2011"
+        },
+        {
+          "degree": "MD, Neurology Residency",
+          "institution": "Massachusetts General Hospital",
+          "year": "2008"
+        },
+        {
+          "degree": "MBBS",
+          "institution": "University of Oxford",
+          "year": "2004"
+        }
+      ],
+      "achievements": [
+        "Parkinson's Foundation Research Grant 2024",
+        "Published 30+ peer-reviewed articles",
+        "Keynote speaker at World Neurology Congress 2023"
+      ],
+      "availableDays": ["Monday", "Wednesday", "Thursday", "Friday"],
+      "availableTimeSlots": [
+        { "start": "08:00", "end": "13:00" },
+        { "start": "15:00", "end": "18:00" }
+      ]
+    },
+    {
+      "id": "d3",
+      "userId": "4",
+      "firstName": "Priya",
+      "lastName": "Sharma",
+      "fullName": "Dr. Priya Sharma",
+      "initials": "PS",
+      "avatarUrl": "https://i.pravatar.cc/150?img=25",
+      "specialty": "Pediatrics",
+      "subSpecialty": "General Pediatrics & Adolescent Medicine",
+      "department": "Pediatrics",
+      "hospital": "Children's Health Center",
+      "location": "Chicago, IL",
+      "email": "dr.sharma@healthsync.com",
+      "phone": "+1-555-0103",
+      "bio": "Dr. Priya Sharma is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence.",
+      "status": "active",
+      "isAvailableToday": false,
+      "consultationFee": 500,
+      "experience": 8,
+      "totalPatients": 2150,
+      "rating": 4.8,
+      "totalReviews": 401,
+      "qualifications": ["MBBS", "MD", "FAAP"],
+      "languages": ["English", "Hindi", "Punjabi"],
+      "services": [
+        "Well-Child Visits",
+        "Vaccination Programs",
+        "Developmental Screenings",
+        "Adolescent Health",
+        "Asthma Management",
+        "Nutritional Counseling"
+      ],
+      "education": [
+        {
+          "degree": "MD, Pediatrics Fellowship",
+          "institution": "Ann & Robert H. Lurie Children's Hospital",
+          "year": "2016"
+        },
+        {
+          "degree": "Residency, Pediatrics",
+          "institution": "Children's Hospital of Philadelphia",
+          "year": "2014"
+        },
+        {
+          "degree": "MBBS",
+          "institution": "All India Institute of Medical Sciences",
+          "year": "2011"
+        }
+      ],
+      "achievements": [
+        "Young Achiever Award in Pediatrics 2022",
+        "Child Health Initiative Program Founder",
+        "FAAP — Fellow of the American Academy of Pediatrics"
+      ],
+      "availableDays": ["Tuesday", "Wednesday", "Thursday", "Saturday"],
+      "availableTimeSlots": [
+        { "start": "10:00", "end": "14:00" },
+        { "start": "16:00", "end": "19:00" }
+      ]
+    },
+    {
+      "id": "d4",
+      "userId": "5",
+      "firstName": "Ahmed",
+      "lastName": "Hassan",
+      "fullName": "Dr. Ahmed Hassan",
+      "initials": "AH",
+      "avatarUrl": "https://i.pravatar.cc/150?img=33",
+      "specialty": "Orthopedics",
+      "subSpecialty": "Sports Medicine & Joint Replacement",
+      "department": "Orthopedics & Trauma",
+      "hospital": "Advanced Orthopedic Institute",
+      "location": "Houston, TX",
+      "email": "dr.hassan@healthsync.com",
+      "phone": "+1-555-0104",
+      "bio": "Dr. Ahmed Hassan is a senior orthopedic surgeon specializing in sports injuries, joint replacements, and trauma surgery with two decades of experience.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 1000,
+      "experience": 20,
+      "totalPatients": 3200,
+      "rating": 5.0,
+      "totalReviews": 512,
+      "qualifications": ["MBBS", "MS", "MCh Orth"],
+      "languages": ["English", "Arabic"],
+      "services": [
+        "Total Knee Replacement",
+        "Total Hip Replacement",
+        "Sports Injury Treatment",
+        "Arthroscopic Surgery",
+        "Fracture Management",
+        "Spine Surgery Consultation"
+      ],
+      "education": [
+        {
+          "degree": "MCh Orthopaedics",
+          "institution": "Cleveland Clinic",
+          "year": "2007"
+        },
+        {
+          "degree": "MS, Orthopedic Surgery",
+          "institution": "University of Texas Medical Branch",
+          "year": "2004"
+        },
+        {
+          "degree": "MBBS",
+          "institution": "Cairo University Faculty of Medicine",
+          "year": "2000"
+        }
+      ],
+      "achievements": [
+        "Lifetime Achievement Award in Orthopedics 2023",
+        "Pioneered minimally invasive knee replacement technique",
+        "Team Doctor for National Football Team"
+      ],
+      "availableDays": ["Sunday", "Monday", "Tuesday", "Wednesday"],
+      "availableTimeSlots": [
+        { "start": "09:00", "end": "12:00" },
+        { "start": "18:00", "end": "21:00" }
+      ]
+    },
+    {
+      "id": "d5",
+      "userId": "6",
+      "firstName": "Elena",
+      "lastName": "Vasquez",
+      "fullName": "Dr. Elena Vasquez",
+      "initials": "EV",
+      "avatarUrl": "https://i.pravatar.cc/150?img=44",
+      "specialty": "Dermatology",
+      "subSpecialty": "Medical, Surgical & Cosmetic Dermatology",
+      "department": "Dermatology",
+      "hospital": "Skin Health Clinic",
+      "location": "Miami, FL",
+      "email": "dr.vasquez@healthsync.com",
+      "phone": "+1-555-0105",
+      "bio": "Dr. Elena Vasquez is a board-certified dermatologist specializing in medical, surgical, and cosmetic dermatology with a focus on skin cancer detection.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 600,
+      "experience": 10,
+      "totalPatients": 1850,
+      "rating": 4.7,
+      "totalReviews": 289,
+      "qualifications": ["MD", "FAAD"],
+      "languages": ["English", "Spanish", "Portuguese"],
+      "services": [
+        "Skin Cancer Screening",
+        "Acne Treatment",
+        "Eczema & Psoriasis Care",
+        "Cosmetic Procedures",
+        "Laser Therapy",
+        "Mole & Lesion Removal"
+      ],
+      "education": [
+        {
+          "degree": "MD, Dermatology Fellowship",
+          "institution": "University of Miami Miller School of Medicine",
+          "year": "2014"
+        },
+        {
+          "degree": "Residency, Dermatology",
+          "institution": "Jackson Memorial Hospital",
+          "year": "2013"
+        },
+        {
+          "degree": "MD",
+          "institution": "Universidad de Barcelona",
+          "year": "2010"
+        }
+      ],
+      "achievements": [
+        "Rising Star in Dermatology 2021",
+        "Inventor of innovative acne treatment protocol",
+        "Published research in Journal of Investigative Dermatology"
+      ],
+      "availableDays": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
+      "availableTimeSlots": [
+        { "start": "08:00", "end": "12:00" },
+        { "start": "13:00", "end": "16:00" }
+      ]
+    },
+    {
+      "id": "d6",
+      "userId": "7",
+      "firstName": "Robert",
+      "lastName": "Chen",
+      "fullName": "Dr. Robert Chen",
+      "initials": "RC",
+      "avatarUrl": "https://i.pravatar.cc/150?img=15",
+      "specialty": "Oncology",
+      "subSpecialty": "Breast Cancer & Immunotherapy",
+      "department": "Oncology & Cancer Care",
+      "hospital": "Cancer Treatment Center",
+      "location": "San Francisco, CA",
+      "email": "dr.chen@healthsync.com",
+      "phone": "+1-555-0106",
+      "bio": "Dr. Robert Chen is a medical oncologist specializing in breast cancer and immunotherapy, leading clinical trials for innovative cancer treatments.",
+      "status": "active",
+      "isAvailableToday": false,
+      "consultationFee": 1200,
+      "experience": 18,
+      "totalPatients": 950,
+      "rating": 4.9,
+      "totalReviews": 198,
+      "qualifications": ["MD", "PhD", "FASCO"],
+      "languages": ["English", "Mandarin"],
+      "services": [
+        "Cancer Diagnosis & Staging",
+        "Chemotherapy Management",
+        "Immunotherapy",
+        "Clinical Trial Enrollment",
+        "Breast Cancer Surgery Consultation",
+        "Palliative Care"
+      ],
+      "education": [
+        {
+          "degree": "PhD, Cancer Biology",
+          "institution": "Stanford University",
+          "year": "2009"
+        },
+        {
+          "degree": "MD, Oncology Fellowship",
+          "institution": "UCSF Medical Center",
+          "year": "2006"
+        },
+        {
+          "degree": "MD",
+          "institution": "Johns Hopkins University",
+          "year": "2002"
+        }
+      ],
+      "achievements": [
+        "ASCO Merit Award 2023",
+        "Principal Investigator for 5 major clinical trials",
+        "Published in New England Journal of Medicine"
+      ],
+      "availableDays": ["Tuesday", "Wednesday", "Thursday"],
+      "availableTimeSlots": [
+        { "start": "09:00", "end": "13:00" },
+        { "start": "14:00", "end": "17:00" }
+      ]
+    },
+    {
+      "id": "d7",
+      "userId": "8",
+      "firstName": "Fatima",
+      "lastName": "Al-Rashid",
+      "fullName": "Dr. Fatima Al-Rashid",
+      "initials": "FA",
+      "avatarUrl": "https://i.pravatar.cc/150?img=56",
+      "specialty": "Ophthalmology",
+      "subSpecialty": "Cataract Surgery & Glaucoma",
+      "department": "Eye Care",
+      "hospital": "Vision & Eye Health Center",
+      "location": "Dallas, TX",
+      "email": "dr.alrashid@healthsync.com",
+      "phone": "+1-555-0107",
+      "bio": "Dr. Fatima Al-Rashid is an ophthalmologist specializing in cataract surgery, glaucoma management, and refractive procedures.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 650,
+      "experience": 14,
+      "totalPatients": 1675,
+      "rating": 4.8,
+      "totalReviews": 334,
+      "qualifications": ["MBBS", "MS", "FRCS"],
+      "languages": ["English", "Arabic", "Urdu"],
+      "services": [
+        "Cataract Surgery",
+        "Glaucoma Management",
+        "LASIK & Refractive Surgery",
+        "Retinal Examination",
+        "Pediatric Eye Care",
+        "Diabetic Eye Disease"
+      ],
+      "education": [
+        {
+          "degree": "FRCS, Ophthalmology",
+          "institution": "Royal College of Surgeons of Edinburgh",
+          "year": "2013"
+        },
+        {
+          "degree": "MS, Ophthalmology",
+          "institution": "King Edward Medical University",
+          "year": "2010"
+        },
+        {
+          "degree": "MBBS",
+          "institution": "University of Jordan",
+          "year": "2006"
+        }
+      ],
+      "achievements": [
+        "Excellence in Cataract Surgery Award 2022",
+        "Performed 2000+ successful cataract surgeries",
+        "Community Eye Health Advocate"
+      ],
+      "availableDays": ["Sunday", "Monday", "Wednesday", "Thursday"],
+      "availableTimeSlots": [
+        { "start": "10:00", "end": "14:00" },
+        { "start": "16:00", "end": "20:00" }
+      ]
+    },
+    {
+      "id": "d8",
+      "userId": "9",
+      "firstName": "Michael",
+      "lastName": "Okafor",
+      "fullName": "Dr. Michael Okafor",
+      "initials": "MO",
+      "avatarUrl": "https://i.pravatar.cc/150?img=18",
+      "specialty": "Psychiatry",
+      "subSpecialty": "Mood Disorders, Anxiety & PTSD",
+      "department": "Mental Health",
+      "hospital": "Behavioral Health Institute",
+      "location": "Atlanta, GA",
+      "email": "dr.okafor@healthsync.com",
+      "phone": "+1-555-0108",
+      "bio": "Dr. Michael Okafor is a compassionate psychiatrist specializing in mood disorders, anxiety, and PTSD, with a holistic approach to mental health.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 550,
+      "experience": 12,
+      "totalPatients": 750,
+      "rating": 4.9,
+      "totalReviews": 215,
+      "qualifications": ["MD", "DFAPA"],
+      "languages": ["English", "Yoruba"],
+      "services": [
+        "Depression & Anxiety Treatment",
+        "PTSD Therapy",
+        "Medication Management",
+        "Cognitive Behavioral Therapy",
+        "Group Therapy Sessions",
+        "Crisis Intervention"
+      ],
+      "education": [
+        {
+          "degree": "DFAPA, Distinguished Fellow",
+          "institution": "American Psychiatric Association",
+          "year": "2018"
+        },
+        {
+          "degree": "Residency, Psychiatry",
+          "institution": "Emory University Hospital",
+          "year": "2015"
+        },
+        {
+          "degree": "MD",
+          "institution": "Morehouse School of Medicine",
+          "year": "2011"
+        }
+      ],
+      "achievements": [
+        "Mental Health Advocate of the Year 2023",
+        "Developed community-based PTSD support program",
+        "Author of 'Understanding Anxiety' guidebook"
+      ],
+      "availableDays": ["Monday", "Tuesday", "Friday", "Saturday"],
+      "availableTimeSlots": [
+        { "start": "11:00", "end": "15:00" },
+        { "start": "17:00", "end": "20:00" }
+      ]
+    },
+    {
+      "id": "d9",
+      "userId": "10",
+      "firstName": "Sophie",
+      "lastName": "Laurent",
+      "fullName": "Dr. Sophie Laurent",
+      "initials": "SL",
+      "avatarUrl": "https://i.pravatar.cc/150?img=60",
+      "specialty": "Endocrinology",
+      "subSpecialty": "Diabetes, Thyroid & Hormonal Disorders",
+      "department": "Endocrinology & Metabolism",
+      "hospital": "Metabolic Health Center",
+      "location": "Seattle, WA",
+      "email": "dr.laurent@healthsync.com",
+      "phone": "+1-555-0109",
+      "bio": "Dr. Sophie Laurent is an endocrinologist dedicated to managing diabetes, thyroid disorders, and hormonal imbalances with personalized care plans.",
+      "status": "active",
+      "isAvailableToday": false,
+      "consultationFee": 600,
+      "experience": 9,
+      "totalPatients": 1120,
+      "rating": 4.7,
+      "totalReviews": 187,
+      "qualifications": ["MD", "FACE"],
+      "languages": ["English", "French", "German"],
+      "services": [
+        "Diabetes Type 1 & 2 Management",
+        "Thyroid Disorder Treatment",
+        "Hormonal Imbalance Evaluation",
+        "Osteoporosis Management",
+        "Adrenal Disorder Care",
+        "Weight Management"
+      ],
+      "education": [
+        {
+          "degree": "FACE, Endocrine Society Fellow",
+          "institution": "American College of Endocrinology",
+          "year": "2019"
+        },
+        {
+          "degree": "Residency, Internal Medicine & Endocrinology",
+          "institution": "University of Washington Medical Center",
+          "year": "2017"
+        },
+        {
+          "degree": "MD",
+          "institution": "Université de Paris",
+          "year": "2013"
+        }
+      ],
+      "achievements": [
+        "Young Investigator Award — Endocrine Society 2022",
+        "Developed diabetes management mobile app",
+        "Published research on thyroid disorders in pregnancy"
+      ],
+      "availableDays": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      "availableTimeSlots": [
+        { "start": "09:00", "end": "12:00" },
+        { "start": "15:00", "end": "18:00" }
+      ]
+    }
+  ],
+
+  "doctorSchedules": [
+    {
+      "id": "sch-d1-1",
+      "doctorId": "d1",
+      "day": "Monday",
+      "date": "2026-03-04",
+      "dayShort": "Mon",
+      "slots": [
+        { "time": "09:00 AM", "available": true },
+        { "time": "10:00 AM", "available": true },
+        { "time": "11:00 AM", "available": false },
+        { "time": "02:00 PM", "available": true },
+        { "time": "03:00 PM", "available": true },
+        { "time": "04:00 PM", "available": false }
+      ]
+    },
+    {
+      "id": "sch-d1-2",
+      "doctorId": "d1",
+      "day": "Tuesday",
+      "date": "2026-03-05",
+      "dayShort": "Tue",
+      "slots": [
+        { "time": "09:00 AM", "available": false },
+        { "time": "10:00 AM", "available": true },
+        { "time": "11:30 AM", "available": true },
+        { "time": "02:00 PM", "available": true },
+        { "time": "04:00 PM", "available": false }
+      ]
+    },
+    {
+      "id": "sch-d1-3",
+      "doctorId": "d1",
+      "day": "Wednesday",
+      "date": "2026-03-06",
+      "dayShort": "Wed",
+      "slots": [
+        { "time": "09:00 AM", "available": true },
+        { "time": "10:30 AM", "available": true },
+        { "time": "12:00 PM", "available": false },
+        { "time": "02:30 PM", "available": true },
+        { "time": "04:00 PM", "available": true }
+      ]
+    },
+    {
+      "id": "sch-d1-4",
+      "doctorId": "d1",
+      "day": "Thursday",
+      "date": "2026-03-07",
+      "dayShort": "Thu",
+      "slots": [
+        { "time": "08:30 AM", "available": true },
+        { "time": "10:00 AM", "available": true },
+        { "time": "11:30 AM", "available": false },
+        { "time": "03:00 PM", "available": true },
+        { "time": "04:30 PM", "available": true }
+      ]
+    },
+    {
+      "id": "sch-d1-5",
+      "doctorId": "d1",
+      "day": "Friday",
+      "date": "2026-03-08",
+      "dayShort": "Fri",
+      "slots": [
+        { "time": "09:00 AM", "available": true },
+        { "time": "11:00 AM", "available": true },
+        { "time": "02:00 PM", "available": true }
+      ]
+    }
+  ],
+
+  "doctorReviews": [
+    {
+      "id": "rev1",
+      "doctorId": "d1",
+      "patientId": "p1",
+      "patientName": "James Roberts",
+      "patientInitials": "JR",
+      "rating": 5,
+      "date": "2026-02-12",
+      "comment": "Dr. Elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
+      "createdAt": "2026-02-12T11:00:00.000Z"
+    },
+    {
+      "id": "rev2",
+      "doctorId": "d1",
+      "patientId": "p2",
+      "patientName": "Maria Lopez",
+      "patientInitials": "ML",
+      "rating": 5,
+      "date": "2026-01-28",
+      "comment": "Dr. Elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
+      "createdAt": "2026-01-28T14:30:00.000Z"
+    },
+    {
+      "id": "rev3",
+      "doctorId": "d1",
+      "patientId": "p3",
+      "patientName": "Thomas Brown",
+      "patientInitials": "TB",
+      "rating": 4,
+      "date": "2026-01-05",
+      "comment": "Great experience overall. Very knowledgeable and attentive. Highly recommend.",
+      "createdAt": "2026-01-05T10:00:00.000Z"
+    },
+    {
+      "id": "rev4",
+      "doctorId": "d1",
+      "patientId": "p4",
+      "patientName": "Sophia Chen",
+      "patientInitials": "SC",
+      "rating": 5,
+      "date": "2025-12-20",
+      "comment": "Exceptional doctor. Her expertise and compassion made my recovery journey much easier.",
+      "createdAt": "2025-12-20T09:00:00.000Z"
+    },
+    {
+      "id": "rev5",
+      "doctorId": "d2",
+      "patientId": "p1",
+      "patientName": "John Smith",
+      "patientInitials": "JS",
+      "rating": 5,
+      "date": "2026-02-01",
+      "comment": "Dr. Mitchell is brilliant. He diagnosed my condition accurately and explained every step of the treatment.",
+      "createdAt": "2026-02-01T13:00:00.000Z"
+    }
+  ],
+
   "patients": [
     {
       "id": "p1",
-      "userId": "4",
+      "userId": "11",
+      "firstName": "John",
+      "lastName": "Smith",
+      "fullName": "John Smith",
+      "initials": "JS",
+      "avatarUrl": "https://i.pravatar.cc/150?img=8",
       "dateOfBirth": "1985-06-15",
       "gender": "male",
       "bloodGroup": "O+",
       "address": "123 Main St, New York, NY 10001",
+      "email": "john.patient@email.com",
+      "phone": "+1-555-0201",
       "emergencyContact": {
-        "name": "Jane Patient",
+        "name": "Jane Smith",
         "relationship": "Spouse",
         "phone": "+1-555-0301"
       },
       "insuranceProvider": "HealthFirst Insurance",
       "insuranceNumber": "HF123456789",
-      "allergies": [
-        "Penicillin",
-        "Peanuts"
-      ],
-      "chronicConditions": [
-        "Hypertension"
-      ],
+      "allergies": ["Penicillin", "Peanuts"],
+      "chronicConditions": ["Hypertension"],
       "currentMedications": [
-        {
-          "name": "Lisinopril",
-          "dosage": "10mg",
-          "frequency": "Once daily"
-        }
+        { "name": "Lisinopril", "dosage": "10mg", "frequency": "Once daily" }
       ],
       "registeredDate": "2024-01-15T00:00:00.000Z",
-      "lastVisit": "2026-02-10T09:00:00.000Z"
+      "lastVisit": "2026-02-10T09:00:00.000Z",
+      "status": "active"
     },
     {
       "id": "p2",
-      "userId": "5",
+      "userId": "12",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "fullName": "Emily Davis",
+      "initials": "ED",
+      "avatarUrl": "https://i.pravatar.cc/150?img=9",
       "dateOfBirth": "1992-03-22",
       "gender": "female",
       "bloodGroup": "A+",
       "address": "456 Oak Ave, Brooklyn, NY 11201",
+      "email": "emily.davis@email.com",
+      "phone": "+1-555-0202",
       "emergencyContact": {
         "name": "Robert Davis",
         "relationship": "Father",
@@ -402,75 +902,105 @@
       },
       "insuranceProvider": "BlueCross BlueShield",
       "insuranceNumber": "BC987654321",
-      "allergies": [
-        "Latex"
-      ],
+      "allergies": ["Latex"],
       "chronicConditions": [],
       "currentMedications": [],
       "registeredDate": "2024-02-01T00:00:00.000Z",
-      "lastVisit": "2026-02-08T14:30:00.000Z"
+      "lastVisit": "2026-02-08T14:30:00.000Z",
+      "status": "active"
     },
     {
       "id": "p3",
       "userId": null,
       "firstName": "Michael",
       "lastName": "Brown",
-      "email": "mbrown@email.com",
-      "phone": "+1-555-0203",
+      "fullName": "Michael Brown",
+      "initials": "MB",
+      "avatarUrl": "https://i.pravatar.cc/150?img=20",
       "dateOfBirth": "1978-11-08",
       "gender": "male",
       "bloodGroup": "B+",
       "address": "789 Pine Rd, Queens, NY 11354",
+      "email": "mbrown@email.com",
+      "phone": "+1-555-0203",
       "emergencyContact": {
         "name": "Susan Brown",
-        "relationship": "Wife",
+        "relationship": "Spouse",
         "phone": "+1-555-0303"
       },
       "insuranceProvider": "Aetna",
       "insuranceNumber": "AE456789123",
       "allergies": [],
-      "chronicConditions": [
-        "Type 2 Diabetes"
-      ],
+      "chronicConditions": ["Type 2 Diabetes"],
       "currentMedications": [
-        {
-          "name": "Metformin",
-          "dosage": "500mg",
-          "frequency": "Twice daily"
-        }
+        { "name": "Metformin", "dosage": "500mg", "frequency": "Twice daily" }
       ],
       "registeredDate": "2023-12-10T00:00:00.000Z",
-      "lastVisit": "2026-01-20T11:00:00.000Z"
+      "lastVisit": "2026-01-20T11:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p4",
+      "userId": null,
+      "firstName": "Sophia",
+      "lastName": "Chen",
+      "fullName": "Sophia Chen",
+      "initials": "SC",
+      "avatarUrl": "https://i.pravatar.cc/150?img=32",
+      "dateOfBirth": "1990-07-14",
+      "gender": "female",
+      "bloodGroup": "AB+",
+      "address": "321 Elm St, Manhattan, NY 10012",
+      "email": "sophia.chen@email.com",
+      "phone": "+1-555-0204",
+      "emergencyContact": {
+        "name": "Kevin Chen",
+        "relationship": "Spouse",
+        "phone": "+1-555-0304"
+      },
+      "insuranceProvider": "UnitedHealth",
+      "insuranceNumber": "UH789456123",
+      "allergies": ["Aspirin"],
+      "chronicConditions": [],
+      "currentMedications": [],
+      "registeredDate": "2024-06-01T00:00:00.000Z",
+      "lastVisit": "2025-12-20T09:00:00.000Z",
+      "status": "active"
     }
   ],
+
   "appointments": [
     {
       "id": "a1",
       "patientId": "p1",
       "doctorId": "d1",
-      "appointmentDate": "2026-02-12",
+      "appointmentDate": "2026-03-04",
       "appointmentTime": "09:00",
       "duration": 30,
       "type": "Checkup",
       "status": "confirmed",
       "reason": "Routine cardiology checkup",
       "notes": "Patient reports feeling well. Regular medication check.",
-      "createdAt": "2026-02-05T10:30:00.000Z",
-      "updatedAt": "2026-02-06T14:20:00.000Z"
+      "slotId": "sch-d1-1",
+      "consultationFee": 750,
+      "createdAt": "2026-02-25T10:30:00.000Z",
+      "updatedAt": "2026-02-26T14:20:00.000Z"
     },
     {
       "id": "a2",
       "patientId": "p2",
       "doctorId": "d1",
-      "appointmentDate": "2026-02-12",
-      "appointmentTime": "10:30",
+      "appointmentDate": "2026-03-04",
+      "appointmentTime": "10:00",
       "duration": 30,
       "type": "Follow-up",
       "status": "pending",
       "reason": "Follow-up consultation after ECG",
       "notes": "Review recent test results",
-      "createdAt": "2026-02-08T09:15:00.000Z",
-      "updatedAt": "2026-02-08T09:15:00.000Z"
+      "slotId": "sch-d1-1",
+      "consultationFee": 750,
+      "createdAt": "2026-02-28T09:15:00.000Z",
+      "updatedAt": "2026-02-28T09:15:00.000Z"
     },
     {
       "id": "a3",
@@ -480,25 +1010,29 @@
       "appointmentTime": "14:00",
       "duration": 45,
       "type": "Annual Physical",
-      "status": "confirmed",
+      "status": "completed",
       "reason": "Annual health screening",
-      "notes": "Comprehensive physical examination",
+      "notes": "Comprehensive physical examination completed.",
+      "slotId": null,
+      "consultationFee": 750,
       "createdAt": "2026-01-25T13:00:00.000Z",
-      "updatedAt": "2026-02-01T10:00:00.000Z"
+      "updatedAt": "2026-02-12T15:00:00.000Z"
     },
     {
       "id": "a4",
       "patientId": "p1",
       "doctorId": "d2",
-      "appointmentDate": "2026-02-13",
+      "appointmentDate": "2026-03-05",
       "appointmentTime": "10:00",
       "duration": 30,
       "type": "Consultation",
       "status": "pending",
-      "reason": "Knee pain evaluation",
+      "reason": "Headache evaluation",
       "notes": "",
-      "createdAt": "2026-02-10T16:45:00.000Z",
-      "updatedAt": "2026-02-10T16:45:00.000Z"
+      "slotId": null,
+      "consultationFee": 900,
+      "createdAt": "2026-02-28T16:45:00.000Z",
+      "updatedAt": "2026-02-28T16:45:00.000Z"
     },
     {
       "id": "a5",
@@ -511,6 +1045,8 @@
       "status": "completed",
       "reason": "Blood pressure monitoring",
       "notes": "BP within normal range. Continue current treatment.",
+      "slotId": null,
+      "consultationFee": 750,
       "createdAt": "2026-02-03T11:20:00.000Z",
       "updatedAt": "2026-02-10T15:00:00.000Z"
     },
@@ -526,10 +1062,13 @@
       "reason": "Medication adjustment follow-up",
       "notes": "Patient requested reschedule",
       "cancelReason": "Personal emergency",
+      "slotId": null,
+      "consultationFee": 750,
       "createdAt": "2026-02-04T14:00:00.000Z",
       "updatedAt": "2026-02-09T09:30:00.000Z"
     }
   ],
+
   "medicalRecords": [
     {
       "id": "mr1",
@@ -538,9 +1077,7 @@
       "doctorId": "d1",
       "date": "2026-02-10",
       "diagnosis": "Controlled Hypertension",
-      "symptoms": [
-        "Occasional headaches"
-      ],
+      "symptoms": ["Occasional headaches"],
       "vitalSigns": {
         "bloodPressure": "128/82",
         "heartRate": 75,
@@ -570,14 +1107,11 @@
     {
       "id": "mr2",
       "patientId": "p3",
-      "appointmentId": null,
+      "appointmentId": "a3",
       "doctorId": "d1",
       "date": "2026-01-20",
-      "diagnosis": "Type 2 Diabetes - Controlled",
-      "symptoms": [
-        "Increased thirst",
-        "Frequent urination"
-      ],
+      "diagnosis": "Type 2 Diabetes — Controlled",
+      "symptoms": ["Increased thirst", "Frequent urination"],
       "vitalSigns": {
         "bloodPressure": "130/85",
         "heartRate": 78,
@@ -608,6 +1142,7 @@
       "followUpDate": "2026-04-20"
     }
   ],
+
   "prescriptions": [
     {
       "id": "rx1",
@@ -648,146 +1183,234 @@
       "status": "active"
     }
   ],
+
   "notifications": [
     {
       "id": "n1",
-      "userId": "4",
+      "userId": "11",
       "type": "appointment_reminder",
       "title": "Appointment Reminder",
-      "message": "Your appointment with Dr. Sarah Johnson is tomorrow at 09:00 AM",
+      "message": "Your appointment with Dr. Khadija Elbakry is tomorrow at 09:00 AM",
       "appointmentId": "a1",
       "read": false,
-      "createdAt": "2026-02-11T09:00:00.000Z"
+      "createdAt": "2026-03-03T09:00:00.000Z"
     },
     {
       "id": "n2",
       "userId": "2",
       "type": "new_appointment",
       "title": "New Appointment Request",
-      "message": "Emily Davis has requested an appointment for Feb 12 at 10:30 AM",
+      "message": "Emily Davis has requested an appointment for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
       "read": false,
-      "createdAt": "2026-02-08T09:15:00.000Z"
+      "createdAt": "2026-02-28T09:15:00.000Z"
     },
     {
       "id": "n3",
-      "userId": "5",
+      "userId": "12",
       "type": "appointment_confirmation",
       "title": "Appointment Confirmed",
-      "message": "Your appointment has been confirmed for Feb 12 at 10:30 AM",
+      "message": "Your appointment with Dr. Khadija Elbakry has been confirmed for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
       "read": true,
-      "createdAt": "2026-02-08T10:00:00.000Z"
+      "createdAt": "2026-02-28T10:00:00.000Z"
     },
     {
       "id": "n4",
-      "userId": "4",
+      "userId": "11",
       "type": "prescription_refill",
       "title": "Prescription Refill Reminder",
       "message": "Your prescription for Lisinopril needs refill in 5 days",
       "read": false,
-      "createdAt": "2026-02-09T08:00:00.000Z"
+      "createdAt": "2026-02-27T08:00:00.000Z"
     }
   ],
+
   "payments": [
     {
       "id": "pay1",
       "appointmentId": "a5",
       "patientId": "p2",
       "doctorId": "d1",
-      "amount": 150,
+      "amount": 750,
       "paymentMethod": "Credit Card",
       "status": "paid",
       "paymentDate": "2026-02-10T15:15:00.000Z",
       "invoiceNumber": "INV-2026-001",
       "insuranceClaimed": true,
-      "insuranceAmount": 120,
-      "patientAmount": 30
+      "insuranceAmount": 600,
+      "patientAmount": 150
     },
     {
       "id": "pay2",
       "appointmentId": "a1",
       "patientId": "p1",
       "doctorId": "d1",
-      "amount": 150,
+      "amount": 750,
       "paymentMethod": "pending",
       "status": "pending",
       "invoiceNumber": "INV-2026-002",
       "insuranceClaimed": false
+    },
+    {
+      "id": "pay3",
+      "appointmentId": "a3",
+      "patientId": "p3",
+      "doctorId": "d1",
+      "amount": 750,
+      "paymentMethod": "Insurance",
+      "status": "paid",
+      "paymentDate": "2026-02-12T16:00:00.000Z",
+      "invoiceNumber": "INV-2026-003",
+      "insuranceClaimed": true,
+      "insuranceAmount": 750,
+      "patientAmount": 0
     }
   ],
+
   "departments": [
     {
       "id": "dept1",
       "name": "Cardiology",
       "description": "Heart and cardiovascular system care",
-      "head": "Dr. Sarah Johnson",
+      "head": "Dr. Khadija Elbakry",
+      "headDoctorId": "d1",
       "totalDoctors": 5,
       "contactNumber": "+1-555-1001",
       "email": "cardiology@healthsync.com"
     },
     {
       "id": "dept2",
-      "name": "Orthopedics",
-      "description": "Bone, joint, and muscle treatment",
-      "head": "Dr. Michael Smith",
+      "name": "Neurology",
+      "description": "Brain, spine and nervous system disorders",
+      "head": "Dr. James Mitchell",
+      "headDoctorId": "d2",
       "totalDoctors": 4,
       "contactNumber": "+1-555-1002",
-      "email": "orthopedics@healthsync.com"
+      "email": "neurology@healthsync.com"
     },
     {
       "id": "dept3",
       "name": "Pediatrics",
-      "description": "Children's healthcare",
-      "head": "Dr. Jennifer Lee",
+      "description": "Children's healthcare from infancy to adolescence",
+      "head": "Dr. Priya Sharma",
+      "headDoctorId": "d3",
       "totalDoctors": 6,
       "contactNumber": "+1-555-1003",
       "email": "pediatrics@healthsync.com"
+    },
+    {
+      "id": "dept4",
+      "name": "Orthopedics",
+      "description": "Bone, joint and muscle treatment",
+      "head": "Dr. Ahmed Hassan",
+      "headDoctorId": "d4",
+      "totalDoctors": 4,
+      "contactNumber": "+1-555-1004",
+      "email": "orthopedics@healthsync.com"
+    },
+    {
+      "id": "dept5",
+      "name": "Dermatology",
+      "description": "Skin, hair and nail health",
+      "head": "Dr. Elena Vasquez",
+      "headDoctorId": "d5",
+      "totalDoctors": 3,
+      "contactNumber": "+1-555-1005",
+      "email": "dermatology@healthsync.com"
+    },
+    {
+      "id": "dept6",
+      "name": "Oncology",
+      "description": "Cancer diagnosis and treatment",
+      "head": "Dr. Robert Chen",
+      "headDoctorId": "d6",
+      "totalDoctors": 5,
+      "contactNumber": "+1-555-1006",
+      "email": "oncology@healthsync.com"
+    },
+    {
+      "id": "dept7",
+      "name": "Ophthalmology",
+      "description": "Eye care and vision health",
+      "head": "Dr. Fatima Al-Rashid",
+      "headDoctorId": "d7",
+      "totalDoctors": 3,
+      "contactNumber": "+1-555-1007",
+      "email": "ophthalmology@healthsync.com"
+    },
+    {
+      "id": "dept8",
+      "name": "Psychiatry",
+      "description": "Mental health and behavioral medicine",
+      "head": "Dr. Michael Okafor",
+      "headDoctorId": "d8",
+      "totalDoctors": 4,
+      "contactNumber": "+1-555-1008",
+      "email": "psychiatry@healthsync.com"
+    },
+    {
+      "id": "dept9",
+      "name": "Endocrinology",
+      "description": "Hormonal and metabolic disorders",
+      "head": "Dr. Sophie Laurent",
+      "headDoctorId": "d9",
+      "totalDoctors": 3,
+      "contactNumber": "+1-555-1009",
+      "email": "endocrinology@healthsync.com"
     }
   ],
+
   "statistics": {
     "totalAppointments": 847,
     "completedAppointments": 789,
     "cancelledAppointments": 42,
     "pendingAppointments": 16,
     "totalPatients": 1234,
-    "activeDoctors": 15,
+    "activeDoctors": 9,
+    "totalDoctors": 9,
+    "totalDepartments": 9,
     "revenue": {
-      "today": 2400,
-      "thisWeek": 18900,
-      "thisMonth": 67500,
-      "thisYear": 456780
+      "today": 4500,
+      "thisWeek": 28900,
+      "thisMonth": 97500,
+      "thisYear": 856780
     },
     "appointmentsByDay": [
+      { "day": "Monday", "count": 145 },
+      { "day": "Tuesday", "count": 132 },
+      { "day": "Wednesday", "count": 156 },
+      { "day": "Thursday", "count": 128 },
+      { "day": "Friday", "count": 141 },
+      { "day": "Saturday", "count": 89 },
+      { "day": "Sunday", "count": 56 }
+    ],
+    "appointmentsByStatus": [
+      { "status": "confirmed", "count": 312 },
+      { "status": "completed", "count": 789 },
+      { "status": "pending", "count": 16 },
+      { "status": "cancelled", "count": 42 }
+    ],
+    "topDoctors": [
       {
-        "day": "Monday",
-        "count": 145
+        "doctorId": "d4",
+        "name": "Dr. Ahmed Hassan",
+        "totalAppointments": 210,
+        "rating": 5.0
       },
       {
-        "day": "Tuesday",
-        "count": 132
+        "doctorId": "d1",
+        "name": "Dr. Khadija Elbakry",
+        "totalAppointments": 185,
+        "rating": 5.0
       },
       {
-        "day": "Wednesday",
-        "count": 156
-      },
-      {
-        "day": "Thursday",
-        "count": 128
-      },
-      {
-        "day": "Friday",
-        "count": 141
-      },
-      {
-        "day": "Saturday",
-        "count": 89
-      },
-      {
-        "day": "Sunday",
-        "count": 56
+        "doctorId": "d2",
+        "name": "Dr. James Mitchell",
+        "totalAppointments": 162,
+        "rating": 4.9
       }
     ]
-  },
-  "$schema": "./node_modules/json-server/schema.json"
+  }
+
 }

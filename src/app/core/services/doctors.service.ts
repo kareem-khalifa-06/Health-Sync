@@ -18,8 +18,11 @@ export class DoctorsService {
     return this._HttpClient.get<Doctor[]>(this.base_url);
   }
 
-  deleteDoctor(id: number): Observable<Doctor> {
+  deleteDoctor(id: string): Observable<Doctor> {
     
     return this._HttpClient.delete<Doctor>(`${this.base_url}/${id}`);
+  }
+  getDoctorById(id:string):Observable<Doctor>{
+    return this._HttpClient.get<Doctor>(`${this.base_url}/${id}`)
   }
 }
