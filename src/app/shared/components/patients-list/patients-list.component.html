@@ -1,0 +1,154 @@
+  <div class="d-flex justify-content-between bg-white p-3 fw-bold">
+    <h1 class="fw-bolder">Patients</h1>
+    <button class="btn btn-primary">
+      <i class="bi bi-plus-circle"> </i>
+      Add Patient
+    </button>
+  </div>
+<div class="p-5 d-flex flex-column gap-lg-5 bg-grey">
+
+  <!-- filters row -->
+  <div class="d-flex gap-3">
+    <div class="input-container w-50">
+      <i class="bi bi-search icon"></i>
+      <input
+        type="text"
+        placeholder="Search Patients..."
+        class="input-field form-control"
+      />
+    </div>
+<select name="Blood-Group" id="bloodGroup" class="form-control w-25">
+    <option value="All">All Blood Groups</option>
+    @for (bg of bloodGroups; track $index) { 
+        <option [value]="bg">{{bg}}</option>}
+   
+</select>
+<select name="Blood-Group" id="bloodGroup" class="form-control w-25">
+    <option value="All">All Conditions</option>
+    @for (condition of medicalConditons; track $index) { 
+        <option [value]="condition">{{condition}}</option>}
+   
+</select>
+  </div>
+  <!-- doctors table -->
+   <div class="wrapper">
+    <table class="table table-hover table-responsive bg-white ">
+    <thead class="bg-light-subtle fw-bold">
+        <th>PATIENT</th>
+        <th>DOB/AGE</th>
+        <th>BLOOD</th>
+        <th>INSURANCE</th>
+        <th>LAST VISIT</th>
+        <th>CONDITIONS</th>
+        <th>ACTIONS</th>
+    </thead>
+    <tbody>
+        @for(p of patientsList();track p.id){
+            <tr>
+                <td>
+                    {{p.fullName}}
+                </td>
+                <td>
+                    {{p.dateOfBirth}} (40)
+                </td>
+                <td class="">
+                    {{p.bloodGroup}}
+                </td>
+                <td>
+                    {{p.insuranceProvider}}
+                </td>
+                <td>
+                    {{p.lastVisit|date:'mediumDate'}}
+                </td>
+                <td>
+                 {{p.chronicConditions}} && None
+                
+                </td>
+
+            </tr>
+        }
+    </tbody>
+  </table>
+   </div>
+  
+</div>
+<!-- add doctor form -->
+<!-- @if (showAddDoctorForm) {
+  <div class="overlay">
+    <form
+      [formGroup]="addDoctorForm"
+      class="modal-form"
+      (ngSubmit)="addDoctor()"
+    >
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="experience" class="form-label">Experience</label>
+        <input
+          type="number"
+          class="form-control"
+          id="experience"
+          formControlName="experience"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="consultation-fee" class="form-label"
+          >Consultation fee</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="consultation-fee"
+          formControlName="consultationFee"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="specialization" class="form-label">Specialization</label>
+        <select
+          name="specialization"
+          class="form-control"
+          formControlName="specialzation"
+        >
+          <option value="All">All Specializations</option>
+          @for (spec of specs; track spec) {
+            <option [value]="spec">{{ spec }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="available-days" class="form-label">Available Days</label>
+        <select
+          name="available-days"
+          class="form-control"
+          formControlName="availableDays"
+          multiple
+        >
+          <option value="Sunday" class="mb-2">Sunday</option>
+          <option value="Monday" class="mb-2">Monday</option>
+          <option value="Tuesday" class="mb-2">Tuesday</option>
+          <option value="Wednesday" class="mb-2">Wednesday</option>
+          <option value="Thursday" class="mb-2">Thursday</option>
+          <option value="Friday" class="mb-2">Friday</option>
+          <option value="Saturday" class="mb-2">Saturday</option>
+        </select>
+      </div>
+      <div class="d-flex gap-3 w-100 justify-content-between">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button
+          type="cancel"
+          class="btn btn-danger"
+          (click)="showAddDoctorForm = false"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+} -->

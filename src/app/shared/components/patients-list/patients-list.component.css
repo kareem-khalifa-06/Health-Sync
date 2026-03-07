@@ -1,0 +1,28 @@
+.input-container {
+  position: relative;
+  display: flex; 
+  align-items: center; 
+}
+.icon{
+    display: flex;
+    position: absolute;
+    left: 10px;
+    color: #666;
+}
+.input-field {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+}
+.dd-tag-blue{
+    background: #eff6ff;
+    color: #0ea5e9;
+    border-radius: 12px;
+    border: 1px solid #bfdbfe;
+    
+}
+.dd-tag {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}

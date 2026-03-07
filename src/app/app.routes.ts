@@ -70,9 +70,9 @@ export const routes: Routes = [
       {
         path: 'patients',
         loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
+          import('./shared/components/patients-list/patients-list.component').then(
             (m) => {
-              return m.AdminLayoutComponent;
+              return m.PatientsListComponent;
             },
           ),
       },

@@ -20,7 +20,7 @@ export interface Doctor {
   userId: string; // "2"
   firstName: string;
   lastName: string;
-  fullName: string; // "Dr. Khadija Elbakry"
+  fullName: string; // "Dr. khadija elbakry"
   initials: string; // "KE"
   avatarUrl: string;
   specialty: string; // "Cardiology"

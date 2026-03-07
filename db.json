@@ -16,8 +16,8 @@
       "email": "dr.khadija@healthsync.com",
       "password": "doctor123",
       "role": "doctor",
-      "firstName": "Khadija",
-      "lastName": "Elbakry",
+      "firstName": "khadija",
+      "lastName": "elbakry",
       "phone": "+1-555-0101",
       "avatar": "https://i.pravatar.cc/150?img=47",
       "doctorId": "d1",
@@ -157,12 +157,12 @@
     {
       "id": "6f02803a-6b1f-4c92-b930-f9bc26b1a7ed",
       "email": "karemkhalifaa@gmail.com",
-      "password": "Kareem20",
+      "password": "kareem20",
       "role": "admin",
-      "firstName": "Kareem",
-      "lastName": "Khalifa",
+      "firstName": "kareem",
+      "lastName": "khalifa",
       "phone": "01090222247",
-      "avatar": "",
+      "avatar": "https://i.pravatar.cc/150?img=11",
       "createdAt": "2026-02-23T20:49:46.554Z"
     }
   ],
@@ -171,11 +171,11 @@
     {
       "id": "d1",
       "userId": "2",
-      "firstName": "Khadija",
-      "lastName": "Elbakry",
-      "fullName": "Dr. Khadija Elbakry",
+      "firstName": "khadija",
+      "lastName": "elbakry",
+      "fullName": "Dr. khadija elbakry",
       "initials": "KE",
-      "avatarUrl": "https://i.pravatar.cc/150?img=47",
+      "avatarUrl": "https://i.pravatar.cc/150?img=1",
       "specialty": "Cardiology",
       "subSpecialty": "Interventional Cardiology",
       "department": "Heart & Vascular",
@@ -183,7 +183,7 @@
       "location": "New York, NY",
       "email": "dr.khadija@healthsync.com",
       "phone": "+1-555-0101",
-      "bio": "Dr. Khadija Elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
+      "bio": "Dr. khadija elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
       "status": "active",
       "isAvailableToday": true,
       "consultationFee": 750,
@@ -801,7 +801,7 @@
       "patientInitials": "JR",
       "rating": 5,
       "date": "2026-02-12",
-      "comment": "Dr. Elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
+      "comment": "Dr. elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
       "createdAt": "2026-02-12T11:00:00.000Z"
     },
     {
@@ -812,7 +812,7 @@
       "patientInitials": "ML",
       "rating": 5,
       "date": "2026-01-28",
-      "comment": "Dr. Elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
+      "comment": "Dr. elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
       "createdAt": "2026-01-28T14:30:00.000Z"
     },
     {
@@ -1190,7 +1190,7 @@
       "userId": "11",
       "type": "appointment_reminder",
       "title": "Appointment Reminder",
-      "message": "Your appointment with Dr. Khadija Elbakry is tomorrow at 09:00 AM",
+      "message": "Your appointment with Dr. khadija elbakry is tomorrow at 09:00 AM",
       "appointmentId": "a1",
       "read": false,
       "createdAt": "2026-03-03T09:00:00.000Z"
@@ -1210,7 +1210,7 @@
       "userId": "12",
       "type": "appointment_confirmation",
       "title": "Appointment Confirmed",
-      "message": "Your appointment with Dr. Khadija Elbakry has been confirmed for Mar 4 at 10:00 AM",
+      "message": "Your appointment with Dr. khadija elbakry has been confirmed for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
       "read": true,
       "createdAt": "2026-02-28T10:00:00.000Z"
@@ -1273,7 +1273,7 @@
       "id": "dept1",
       "name": "Cardiology",
       "description": "Heart and cardiovascular system care",
-      "head": "Dr. Khadija Elbakry",
+      "head": "Dr. khadija elbakry",
       "headDoctorId": "d1",
       "totalDoctors": 5,
       "contactNumber": "+1-555-1001",
@@ -1400,7 +1400,7 @@
       },
       {
         "doctorId": "d1",
-        "name": "Dr. Khadija Elbakry",
+        "name": "Dr. khadija elbakry",
         "totalAppointments": 185,
         "rating": 5.0
       },
@@ -1412,5 +1412,4 @@
       }
     ]
   }
-
 }
