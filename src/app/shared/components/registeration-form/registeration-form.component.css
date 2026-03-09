@@ -1,163 +1,131 @@
-/* ── Container & Layout ────────────────────────────────────────── */
-.container {
-  min-height: 100vh;
+/* From Uiverse.io by Yaya12085 */ 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  background-color: #f1e6e6;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #f0f4f8;
-  padding: 2rem 1rem;
+  padding-left: 30px;
 }
 
-.form-group {
-  width: 100%;
-  max-width: 480px;
+.title::before,.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
 }
 
-.form-wrapper {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
 }
 
-/* ── Header & Icon ─────────────────────────────────────────────── */
-h2 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 0.5rem;
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
 }
 
-.bi-person {
-  font-size: 3.5rem;
-  color: #4f46e5;
-  display: block;
+.message, .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.signin {
   text-align: center;
-  margin-bottom: 1.5rem;
 }
 
-/* ── Labels ────────────────────────────────────────────────────── */
-.form-label {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: #374151;
-  margin-bottom: 0.35rem;
+.signin a {
+  color: royalblue;
 }
 
-/* ── Inputs ────────────────────────────────────────────────────── */
-.form-control,
-.form-select {
-  border: 1.5px solid #d1d5db;
-  border-radius: 8px;
-  padding: 0.6rem 0.85rem;
-  font-size: 0.95rem;
-  color: #1f2937;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background-color: #f9fafb;
+.signin a:hover {
+  text-decoration: underline royalblue;
 }
 
-.form-control:focus,
-.form-select:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-  background-color: #fff;
-  outline: none;
-}
-
-/* ── Validation States ─────────────────────────────────────────── */
-.form-control.is-valid,
-.form-select.is-valid {
-  border-color: #22c55e;
-  background-color: #f0fdf4;
-}
-
-.form-control.is-valid:focus,
-.form-select.is-valid:focus {
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
-}
-
-.form-control.is-invalid,
-.form-select.is-invalid {
-  border-color: #ef4444;
-  background-color: #fff5f5;
-}
-
-.form-control.is-invalid:focus,
-.form-select.is-invalid:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-}
-
-.invalid-feedback {
-  font-size: 0.8rem;
-  color: #ef4444;
-  margin-top: 0.3rem;
-  display: block;
-}
-
-/* ── Select Dropdown ───────────────────────────────────────────── */
-.form-select {
-  width: 100%;
-  cursor: pointer;
-  appearance: auto;
-}
-
-/* ── Submit Button ─────────────────────────────────────────────── */
-.btn-primary {
-  width: 100%;
-  padding: 0.7rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: #fff;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.25s ease, transform 0.1s ease, box-shadow 0.25s ease;
+.flex {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  width: 100%;
+  gap: 6px;
 }
 
-.btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #4338ca, #4f46e5);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+.form label {
+  position: relative;
 }
 
-.btn-primary:active:not(:disabled) {
-  transform: scale(0.98);
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
 }
 
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
 }
 
-/* ── Spinner ───────────────────────────────────────────────────── */
-.spinner-border {
-  width: 1rem;
-  height: 1rem;
-  border-width: 0.15em;
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
 }
 
-/* ── Spacing between fields ────────────────────────────────────── */
-.mb-3 {
-  margin-bottom: 1.1rem;
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
 }
 
-/* ── Responsive ────────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .form-wrapper {
-    padding: 1.75rem 1.25rem;
-    border-radius: 12px;
+.form label .input:valid + span {
+  color: green;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
   }
 
-  h2 {
-    font-size: 1.35rem;
-  }
-
-  .bi-person {
-    font-size: 2.8rem;
+  to {
+    transform: scale(1.8);
+    opacity: 0;
   }
 }

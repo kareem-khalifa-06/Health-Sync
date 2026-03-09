@@ -77,6 +77,15 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'new-patient',
+        loadComponent: () =>
+          import('./shared/components/new-patient/new-patient.component').then(
+            (m) => {
+              return m.NewPatientComponent;
+            },
+          ),
+      },
+      {
         path: 'doctors',
         children: [
           {

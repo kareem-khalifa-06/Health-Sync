@@ -13,16 +13,27 @@
   width: 100%;
   padding: 10px 10px 10px 40px;
 }
-.dd-tag-blue{
-    background: #eff6ff;
-    color: #0ea5e9;
-    border-radius: 12px;
-    border: 1px solid #bfdbfe;
-    
+
+.blood-group-wrapper{
+  background-color: #eff6ff;
+  color: #0ea5e9;
+  border-radius: 12px;
+  border: solid 1px #bfdbfe;
+  padding: 5px 12px;
 }
-.dd-tag {
-    padding: 5px 12px;
-    border-radius: 999px;
-    font-size: 11px;
+.condition-wrapper{
+     font-size: 14px;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.none{
+      font-size: 14px;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 3px 8px;
+    border-radius: 10px;
     font-weight: 600;
 }
