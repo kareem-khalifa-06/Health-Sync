@@ -166,7 +166,6 @@
       "createdAt": "2026-02-23T20:49:46.554Z"
     }
   ],
-
   "doctors": [
     {
       "id": "d1",
@@ -189,10 +188,16 @@
       "consultationFee": 750,
       "experience": 12,
       "totalPatients": 847,
-      "rating": 5.0,
+      "rating": 5,
       "totalReviews": 312,
-      "qualifications": ["MD", "FACC"],
-      "languages": ["English", "Spanish"],
+      "qualifications": [
+        "MD",
+        "FACC"
+      ],
+      "languages": [
+        "English",
+        "Spanish"
+      ],
       "services": [
         "ECG & Echocardiography",
         "Angioplasty",
@@ -224,10 +229,22 @@
         "Published 15+ research papers in peer-reviewed journals",
         "American College of Cardiology Fellow (FACC)"
       ],
-      "availableDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "availableDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
       "availableTimeSlots": [
-        { "start": "09:00", "end": "12:00" },
-        { "start": "14:00", "end": "17:00" }
+        {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "start": "14:00",
+          "end": "17:00"
+        }
       ]
     },
     {
@@ -253,8 +270,15 @@
       "totalPatients": 1234,
       "rating": 4.9,
       "totalReviews": 278,
-      "qualifications": ["MD", "PhD", "FAAN"],
-      "languages": ["English", "French"],
+      "qualifications": [
+        "MD",
+        "PhD",
+        "FAAN"
+      ],
+      "languages": [
+        "English",
+        "French"
+      ],
       "services": [
         "EEG & Neuroimaging",
         "Movement Disorder Evaluation",
@@ -285,10 +309,21 @@
         "Published 30+ peer-reviewed articles",
         "Keynote speaker at World Neurology Congress 2023"
       ],
-      "availableDays": ["Monday", "Wednesday", "Thursday", "Friday"],
+      "availableDays": [
+        "Monday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
       "availableTimeSlots": [
-        { "start": "08:00", "end": "13:00" },
-        { "start": "15:00", "end": "18:00" }
+        {
+          "start": "08:00",
+          "end": "13:00"
+        },
+        {
+          "start": "15:00",
+          "end": "18:00"
+        }
       ]
     },
     {
@@ -314,8 +349,16 @@
       "totalPatients": 2150,
       "rating": 4.8,
       "totalReviews": 401,
-      "qualifications": ["MBBS", "MD", "FAAP"],
-      "languages": ["English", "Hindi", "Punjabi"],
+      "qualifications": [
+        "MBBS",
+        "MD",
+        "FAAP"
+      ],
+      "languages": [
+        "English",
+        "Hindi",
+        "Punjabi"
+      ],
       "services": [
         "Well-Child Visits",
         "Vaccination Programs",
@@ -346,10 +389,21 @@
         "Child Health Initiative Program Founder",
         "FAAP — Fellow of the American Academy of Pediatrics"
       ],
-      "availableDays": ["Tuesday", "Wednesday", "Thursday", "Saturday"],
+      "availableDays": [
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Saturday"
+      ],
       "availableTimeSlots": [
-        { "start": "10:00", "end": "14:00" },
-        { "start": "16:00", "end": "19:00" }
+        {
+          "start": "10:00",
+          "end": "14:00"
+        },
+        {
+          "start": "16:00",
+          "end": "19:00"
+        }
       ]
     },
     {
@@ -373,10 +427,17 @@
       "consultationFee": 1000,
       "experience": 20,
       "totalPatients": 3200,
-      "rating": 5.0,
+      "rating": 5,
       "totalReviews": 512,
-      "qualifications": ["MBBS", "MS", "MCh Orth"],
-      "languages": ["English", "Arabic"],
+      "qualifications": [
+        "MBBS",
+        "MS",
+        "MCh Orth"
+      ],
+      "languages": [
+        "English",
+        "Arabic"
+      ],
       "services": [
         "Total Knee Replacement",
         "Total Hip Replacement",
@@ -407,10 +468,21 @@
         "Pioneered minimally invasive knee replacement technique",
         "Team Doctor for National Football Team"
       ],
-      "availableDays": ["Sunday", "Monday", "Tuesday", "Wednesday"],
+      "availableDays": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday"
+      ],
       "availableTimeSlots": [
-        { "start": "09:00", "end": "12:00" },
-        { "start": "18:00", "end": "21:00" }
+        {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "start": "18:00",
+          "end": "21:00"
+        }
       ]
     },
     {
@@ -436,8 +508,15 @@
       "totalPatients": 1850,
       "rating": 4.7,
       "totalReviews": 289,
-      "qualifications": ["MD", "FAAD"],
-      "languages": ["English", "Spanish", "Portuguese"],
+      "qualifications": [
+        "MD",
+        "FAAD"
+      ],
+      "languages": [
+        "English",
+        "Spanish",
+        "Portuguese"
+      ],
       "services": [
         "Skin Cancer Screening",
         "Acne Treatment",
@@ -468,10 +547,22 @@
         "Inventor of innovative acne treatment protocol",
         "Published research in Journal of Investigative Dermatology"
       ],
-      "availableDays": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
+      "availableDays": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
       "availableTimeSlots": [
-        { "start": "08:00", "end": "12:00" },
-        { "start": "13:00", "end": "16:00" }
+        {
+          "start": "08:00",
+          "end": "12:00"
+        },
+        {
+          "start": "13:00",
+          "end": "16:00"
+        }
       ]
     },
     {
@@ -497,8 +588,15 @@
       "totalPatients": 950,
       "rating": 4.9,
       "totalReviews": 198,
-      "qualifications": ["MD", "PhD", "FASCO"],
-      "languages": ["English", "Mandarin"],
+      "qualifications": [
+        "MD",
+        "PhD",
+        "FASCO"
+      ],
+      "languages": [
+        "English",
+        "Mandarin"
+      ],
       "services": [
         "Cancer Diagnosis & Staging",
         "Chemotherapy Management",
@@ -529,10 +627,20 @@
         "Principal Investigator for 5 major clinical trials",
         "Published in New England Journal of Medicine"
       ],
-      "availableDays": ["Tuesday", "Wednesday", "Thursday"],
+      "availableDays": [
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
       "availableTimeSlots": [
-        { "start": "09:00", "end": "13:00" },
-        { "start": "14:00", "end": "17:00" }
+        {
+          "start": "09:00",
+          "end": "13:00"
+        },
+        {
+          "start": "14:00",
+          "end": "17:00"
+        }
       ]
     },
     {
@@ -558,8 +666,16 @@
       "totalPatients": 1675,
       "rating": 4.8,
       "totalReviews": 334,
-      "qualifications": ["MBBS", "MS", "FRCS"],
-      "languages": ["English", "Arabic", "Urdu"],
+      "qualifications": [
+        "MBBS",
+        "MS",
+        "FRCS"
+      ],
+      "languages": [
+        "English",
+        "Arabic",
+        "Urdu"
+      ],
       "services": [
         "Cataract Surgery",
         "Glaucoma Management",
@@ -590,10 +706,21 @@
         "Performed 2000+ successful cataract surgeries",
         "Community Eye Health Advocate"
       ],
-      "availableDays": ["Sunday", "Monday", "Wednesday", "Thursday"],
+      "availableDays": [
+        "Sunday",
+        "Monday",
+        "Wednesday",
+        "Thursday"
+      ],
       "availableTimeSlots": [
-        { "start": "10:00", "end": "14:00" },
-        { "start": "16:00", "end": "20:00" }
+        {
+          "start": "10:00",
+          "end": "14:00"
+        },
+        {
+          "start": "16:00",
+          "end": "20:00"
+        }
       ]
     },
     {
@@ -619,8 +746,14 @@
       "totalPatients": 750,
       "rating": 4.9,
       "totalReviews": 215,
-      "qualifications": ["MD", "DFAPA"],
-      "languages": ["English", "Yoruba"],
+      "qualifications": [
+        "MD",
+        "DFAPA"
+      ],
+      "languages": [
+        "English",
+        "Yoruba"
+      ],
       "services": [
         "Depression & Anxiety Treatment",
         "PTSD Therapy",
@@ -651,10 +784,21 @@
         "Developed community-based PTSD support program",
         "Author of 'Understanding Anxiety' guidebook"
       ],
-      "availableDays": ["Monday", "Tuesday", "Friday", "Saturday"],
+      "availableDays": [
+        "Monday",
+        "Tuesday",
+        "Friday",
+        "Saturday"
+      ],
       "availableTimeSlots": [
-        { "start": "11:00", "end": "15:00" },
-        { "start": "17:00", "end": "20:00" }
+        {
+          "start": "11:00",
+          "end": "15:00"
+        },
+        {
+          "start": "17:00",
+          "end": "20:00"
+        }
       ]
     },
     {
@@ -680,8 +824,15 @@
       "totalPatients": 1120,
       "rating": 4.7,
       "totalReviews": 187,
-      "qualifications": ["MD", "FACE"],
-      "languages": ["English", "French", "German"],
+      "qualifications": [
+        "MD",
+        "FACE"
+      ],
+      "languages": [
+        "English",
+        "French",
+        "German"
+      ],
       "services": [
         "Diabetes Type 1 & 2 Management",
         "Thyroid Disorder Treatment",
@@ -712,14 +863,24 @@
         "Developed diabetes management mobile app",
         "Published research on thyroid disorders in pregnancy"
       ],
-      "availableDays": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      "availableDays": [
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
       "availableTimeSlots": [
-        { "start": "09:00", "end": "12:00" },
-        { "start": "15:00", "end": "18:00" }
+        {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "start": "15:00",
+          "end": "18:00"
+        }
       ]
     }
   ],
-
   "doctorSchedules": [
     {
       "id": "sch-d1-1",
@@ -728,12 +889,30 @@
       "date": "2026-03-04",
       "dayShort": "Mon",
       "slots": [
-        { "time": "09:00 AM", "available": true },
-        { "time": "10:00 AM", "available": true },
-        { "time": "11:00 AM", "available": false },
-        { "time": "02:00 PM", "available": true },
-        { "time": "03:00 PM", "available": true },
-        { "time": "04:00 PM", "available": false }
+        {
+          "time": "09:00 AM",
+          "available": true
+        },
+        {
+          "time": "10:00 AM",
+          "available": true
+        },
+        {
+          "time": "11:00 AM",
+          "available": false
+        },
+        {
+          "time": "02:00 PM",
+          "available": true
+        },
+        {
+          "time": "03:00 PM",
+          "available": true
+        },
+        {
+          "time": "04:00 PM",
+          "available": false
+        }
       ]
     },
     {
@@ -743,11 +922,26 @@
       "date": "2026-03-05",
       "dayShort": "Tue",
       "slots": [
-        { "time": "09:00 AM", "available": false },
-        { "time": "10:00 AM", "available": true },
-        { "time": "11:30 AM", "available": true },
-        { "time": "02:00 PM", "available": true },
-        { "time": "04:00 PM", "available": false }
+        {
+          "time": "09:00 AM",
+          "available": false
+        },
+        {
+          "time": "10:00 AM",
+          "available": true
+        },
+        {
+          "time": "11:30 AM",
+          "available": true
+        },
+        {
+          "time": "02:00 PM",
+          "available": true
+        },
+        {
+          "time": "04:00 PM",
+          "available": false
+        }
       ]
     },
     {
@@ -757,11 +951,26 @@
       "date": "2026-03-06",
       "dayShort": "Wed",
       "slots": [
-        { "time": "09:00 AM", "available": true },
-        { "time": "10:30 AM", "available": true },
-        { "time": "12:00 PM", "available": false },
-        { "time": "02:30 PM", "available": true },
-        { "time": "04:00 PM", "available": true }
+        {
+          "time": "09:00 AM",
+          "available": true
+        },
+        {
+          "time": "10:30 AM",
+          "available": true
+        },
+        {
+          "time": "12:00 PM",
+          "available": false
+        },
+        {
+          "time": "02:30 PM",
+          "available": true
+        },
+        {
+          "time": "04:00 PM",
+          "available": true
+        }
       ]
     },
     {
@@ -771,11 +980,26 @@
       "date": "2026-03-07",
       "dayShort": "Thu",
       "slots": [
-        { "time": "08:30 AM", "available": true },
-        { "time": "10:00 AM", "available": true },
-        { "time": "11:30 AM", "available": false },
-        { "time": "03:00 PM", "available": true },
-        { "time": "04:30 PM", "available": true }
+        {
+          "time": "08:30 AM",
+          "available": true
+        },
+        {
+          "time": "10:00 AM",
+          "available": true
+        },
+        {
+          "time": "11:30 AM",
+          "available": false
+        },
+        {
+          "time": "03:00 PM",
+          "available": true
+        },
+        {
+          "time": "04:30 PM",
+          "available": true
+        }
       ]
     },
     {
@@ -785,13 +1009,21 @@
       "date": "2026-03-08",
       "dayShort": "Fri",
       "slots": [
-        { "time": "09:00 AM", "available": true },
-        { "time": "11:00 AM", "available": true },
-        { "time": "02:00 PM", "available": true }
+        {
+          "time": "09:00 AM",
+          "available": true
+        },
+        {
+          "time": "11:00 AM",
+          "available": true
+        },
+        {
+          "time": "02:00 PM",
+          "available": true
+        }
       ]
     }
   ],
-
   "doctorReviews": [
     {
       "id": "rev1",
@@ -849,7 +1081,6 @@
       "createdAt": "2026-02-01T13:00:00.000Z"
     }
   ],
-
   "patients": [
     {
       "id": "p1",
@@ -872,10 +1103,19 @@
       },
       "insuranceProvider": "HealthFirst Insurance",
       "insuranceNumber": "HF123456789",
-      "allergies": ["Penicillin", "Peanuts"],
-      "chronicConditions": ["Hypertension"],
+      "allergies": [
+        "Penicillin",
+        "Peanuts"
+      ],
+      "chronicConditions": [
+        "Hypertension"
+      ],
       "currentMedications": [
-        { "name": "Lisinopril", "dosage": "10mg", "frequency": "Once daily" }
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily"
+        }
       ],
       "registeredDate": "2024-01-15T00:00:00.000Z",
       "lastVisit": "2026-02-10T09:00:00.000Z",
@@ -902,7 +1142,9 @@
       },
       "insuranceProvider": "BlueCross BlueShield",
       "insuranceNumber": "BC987654321",
-      "allergies": ["Latex"],
+      "allergies": [
+        "Latex"
+      ],
       "chronicConditions": [],
       "currentMedications": [],
       "registeredDate": "2024-02-01T00:00:00.000Z",
@@ -931,9 +1173,15 @@
       "insuranceProvider": "Aetna",
       "insuranceNumber": "AE456789123",
       "allergies": [],
-      "chronicConditions": ["Type 2 Diabetes"],
+      "chronicConditions": [
+        "Type 2 Diabetes"
+      ],
       "currentMedications": [
-        { "name": "Metformin", "dosage": "500mg", "frequency": "Twice daily" }
+        {
+          "name": "Metformin",
+          "dosage": "500mg",
+          "frequency": "Twice daily"
+        }
       ],
       "registeredDate": "2023-12-10T00:00:00.000Z",
       "lastVisit": "2026-01-20T11:00:00.000Z",
@@ -960,7 +1208,9 @@
       },
       "insuranceProvider": "UnitedHealth",
       "insuranceNumber": "UH789456123",
-      "allergies": ["Aspirin"],
+      "allergies": [
+        "Aspirin"
+      ],
       "chronicConditions": [],
       "currentMedications": [],
       "registeredDate": "2024-06-01T00:00:00.000Z",
@@ -968,7 +1218,6 @@
       "status": "active"
     }
   ],
-
   "appointments": [
     {
       "id": "a1",
@@ -1068,7 +1317,6 @@
       "updatedAt": "2026-02-09T09:30:00.000Z"
     }
   ],
-
   "medicalRecords": [
     {
       "id": "mr1",
@@ -1077,7 +1325,9 @@
       "doctorId": "d1",
       "date": "2026-02-10",
       "diagnosis": "Controlled Hypertension",
-      "symptoms": ["Occasional headaches"],
+      "symptoms": [
+        "Occasional headaches"
+      ],
       "vitalSigns": {
         "bloodPressure": "128/82",
         "heartRate": 75,
@@ -1111,7 +1361,10 @@
       "doctorId": "d1",
       "date": "2026-01-20",
       "diagnosis": "Type 2 Diabetes — Controlled",
-      "symptoms": ["Increased thirst", "Frequent urination"],
+      "symptoms": [
+        "Increased thirst",
+        "Frequent urination"
+      ],
       "vitalSigns": {
         "bloodPressure": "130/85",
         "heartRate": 78,
@@ -1142,7 +1395,6 @@
       "followUpDate": "2026-04-20"
     }
   ],
-
   "prescriptions": [
     {
       "id": "rx1",
@@ -1183,7 +1435,6 @@
       "status": "active"
     }
   ],
-
   "notifications": [
     {
       "id": "n1",
@@ -1225,7 +1476,6 @@
       "createdAt": "2026-02-27T08:00:00.000Z"
     }
   ],
-
   "payments": [
     {
       "id": "pay1",
@@ -1267,7 +1517,6 @@
       "patientAmount": 0
     }
   ],
-
   "departments": [
     {
       "id": "dept1",
@@ -1360,7 +1609,6 @@
       "email": "endocrinology@healthsync.com"
     }
   ],
-
   "statistics": {
     "totalAppointments": 847,
     "completedAppointments": 789,
@@ -1377,32 +1625,65 @@
       "thisYear": 856780
     },
     "appointmentsByDay": [
-      { "day": "Monday", "count": 145 },
-      { "day": "Tuesday", "count": 132 },
-      { "day": "Wednesday", "count": 156 },
-      { "day": "Thursday", "count": 128 },
-      { "day": "Friday", "count": 141 },
-      { "day": "Saturday", "count": 89 },
-      { "day": "Sunday", "count": 56 }
+      {
+        "day": "Monday",
+        "count": 145
+      },
+      {
+        "day": "Tuesday",
+        "count": 132
+      },
+      {
+        "day": "Wednesday",
+        "count": 156
+      },
+      {
+        "day": "Thursday",
+        "count": 128
+      },
+      {
+        "day": "Friday",
+        "count": 141
+      },
+      {
+        "day": "Saturday",
+        "count": 89
+      },
+      {
+        "day": "Sunday",
+        "count": 56
+      }
     ],
     "appointmentsByStatus": [
-      { "status": "confirmed", "count": 312 },
-      { "status": "completed", "count": 789 },
-      { "status": "pending", "count": 16 },
-      { "status": "cancelled", "count": 42 }
+      {
+        "status": "confirmed",
+        "count": 312
+      },
+      {
+        "status": "completed",
+        "count": 789
+      },
+      {
+        "status": "pending",
+        "count": 16
+      },
+      {
+        "status": "cancelled",
+        "count": 42
+      }
     ],
     "topDoctors": [
       {
         "doctorId": "d4",
         "name": "Dr. Ahmed Hassan",
         "totalAppointments": 210,
-        "rating": 5.0
+        "rating": 5
       },
       {
         "doctorId": "d1",
         "name": "Dr. khadija elbakry",
         "totalAppointments": 185,
-        "rating": 5.0
+        "rating": 5
       },
       {
         "doctorId": "d2",
@@ -1411,5 +1692,6 @@
         "rating": 4.9
       }
     ]
-  }
+  },
+  "$schema": "./node_modules/json-server/schema.json"
 }
