@@ -69,12 +69,22 @@ export const routes: Routes = [
       },
       {
         path: 'patients',
-        loadComponent: () =>
-          import('./shared/components/patients-list/patients-list.component').then(
-            (m) => {
-              return m.PatientsListComponent;
-            },
-          ),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./shared/components/patients-list/patients-list.component').then(
+                (m) => m.PatientsListComponent,
+              ),
+          },
+          {
+            path: 'details/:id',
+            loadComponent: () =>
+              import('./shared/components/patient-detail/patient-detail.component').then(
+                (m) => m.PatientDetailComponent,
+              ),
+          },
+        ],
       },
       {
         path: 'new-patient',

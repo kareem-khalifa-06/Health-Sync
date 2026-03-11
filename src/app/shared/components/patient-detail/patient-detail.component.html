@@ -1,0 +1,91 @@
+<div class="d-flex flex-column vh-100">
+    <!-- header -->
+    <div class="d-flex justify-content-between bg-white p-3 fw-bold flex-shrink-0">
+        <a routerLink="/adminLayout/patients">
+           <button class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left-square-fill"></i>
+            Back</button> 
+        </a>
+        
+        <h1 class="fw-bolder">Patients Details</h1>
+        <div class="d-flex gap-3">
+            <button class="btn btn-outline-secondary">Edit</button>
+            <button class="btn btn-primary">+New Appointmwnt</button>
+        </div>
+    </div>
+    <!-- body fills remaining space -->
+    <div class="bg-grey p-5 flex-grow-1 overflow-auto">
+        <div class=" d-flex flex-column justify-content-around  wrapper p-3 h-100">
+            <div class="d-flex gap-3">
+                <div class="profile-avatar">
+                    {{patient.initials}}
+                </div>
+                <div class="fw-bolder fs-6 d-flex flex-column gap-2">
+                    <h1 class="fw-bolder">{{patient.fullName}}</h1>
+                    <p class="text-muted fw-normal">Patient ID: #{{patient.id}} · Age: {{calculateAge(patient.dateOfBirth)}} · Blood Type: {{patient.bloodGroup}} · {{patient.gender}}</p>
+                    <div class="d-flex gap-4">
+                        <!-- Need to be Updated -->
+                        <div class="d-flex flex-column">
+
+                            <span class="value">6</span >
+                            <p class="text-muted fw-normal">Appointments</p>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="value">2</span>
+                            <p class="text-muted fw-normal">Medical Records</p>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="value">1</span>
+                            <p class="text-muted fw-normal">Active RX</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="row gap-4 m-3">
+                    <div class="detail-card col">
+                        <span>Email</span>
+                        <p>{{patient.email}}</p>
+                    </div>
+                    <div class="detail-card col">
+                        <span>Phone</span>
+                        <p>{{patient.phone}}</p>
+                    </div>
+                </div>
+                <div class="row gap-4 m-3">
+                    <div class="detail-card col">
+                        <span>Address</span>
+                        <p>{{patient.address}}</p>
+                    </div>
+                    <div class="detail-card col">
+                        <span>Insurance</span>
+                        <p>{{patient.insuranceProvider}}</p>
+                    </div>
+                </div>
+                <div class="row gap-4 m-3">
+                    <div class="detail-card col">
+                        <span>Allergies</span>
+                        <p class="text-danger fw-bold">{{patient.allergies.length?patient.allergies:'None'}}</p>
+                    </div>
+                    <div class="detail-card col">
+                        <span>Conditons</span>
+                        <p class="text-warning fw-bold">{{ patient.chronicConditions.length ? patient.chronicConditions : "None" }}</p>
+                    </div>
+                </div>
+                <div class="row gap-4 m-3">
+                    <div class="detail-card col">
+                        <span>Emergency Contact</span>
+                        <p>{{patient.emergencyContact.name}} ({{patient.emergencyContact.relationship}}) · {{patient.emergencyContact.phone}}</p>
+                    </div>
+                    <div class="detail-card col">
+                        <span>Last Visit</span>
+                        <p>{{patient.lastVisit}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

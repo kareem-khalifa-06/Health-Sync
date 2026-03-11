@@ -5,17 +5,19 @@ import { ALL_CHRONIC_CONDITIONS } from '../../../Data/MEDICALCONDITIONS';
 import { Patient } from '../../../models/patient';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import {  RouterLink  } from "@angular/router";
+import { calculateAge } from '../../../utils/calculateAge';
 
 @Component({
   selector: 'app-patients-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterOutlet],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './patients-list.component.html',
   styleUrl: './patients-list.component.css',
 })
 export class PatientsListComponent {
   bloodGroups = BLOODGROUPS;
+  calculateAge=calculateAge
   patientsList = signal<Patient[] | null>(null);
   filteredPatientsList = signal<Patient[] | null>(this.patientsList());
   medicalConditons = ALL_CHRONIC_CONDITIONS;
@@ -32,20 +34,7 @@ export class PatientsListComponent {
       this.conditionFilter = 'All';
     });
   }
-  calculateAge(dob: string | Date): number {
-    const birthDate = new Date(dob);
 
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
-    return age;
-  }
   onSearch(search: string) {
     this.searchQuery = search;
     console.log('khadija');
@@ -83,5 +72,8 @@ export class PatientsListComponent {
      }
 
     this.filteredPatientsList.set(patients);
+  }
+  viewDetails(){
+  
   }
 }

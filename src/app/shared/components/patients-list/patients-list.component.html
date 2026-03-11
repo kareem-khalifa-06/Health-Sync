@@ -1,4 +1,4 @@
-<router-outlet></router-outlet>
+
 <div class="d-flex justify-content-between bg-white p-3 fw-bold">
   <h1 class="fw-bolder">Patients</h1>
   <a routerLink="/adminLayout/new-patient">
@@ -99,7 +99,11 @@
             </td>
             <td>
               <div class="d-flex gap-2">
-                <button class="btn btn-primary">View</button>
+              <a [routerLink]="['/adminLayout/patients/details/', p.id]">
+                <button class="btn btn-primary">
+                  View 
+                </button>
+              </a>
                 <button class="btn btn-outline-secondary">Edit</button>
               </div>
             </td>

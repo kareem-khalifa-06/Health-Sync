@@ -10,19 +10,22 @@ import { ReturnStatement } from '@angular/compiler';
 export class PatientService {
   base_url = 'http://localhost:3000/patients';
   constructor(private _HttpClient: HttpClient) {}
-  getAllPatients():Observable<Patient[]> {
-    return this._HttpClient.get<Patient[]>(this.base_url)
+  getAllPatients(): Observable<Patient[]> {
+    return this._HttpClient.get<Patient[]>(this.base_url);
   }
-  addPatient(newPatient:Patient):Observable<Patient> {
-    return this._HttpClient.post<Patient>(this.base_url,newPatient)
+  addPatient(newPatient: Patient): Observable<Patient> {
+    return this._HttpClient.post<Patient>(this.base_url, newPatient);
   }
-  deletePatient(id:string) {
-     return this._HttpClient.delete<Patient>(this.base_url+id);
+  deletePatient(id: string) {
+    return this._HttpClient.delete<Patient>(this.base_url + `/${id}`);
   }
-  getPatientById(id:string) {
-     return this._HttpClient.get<Patient>(this.base_url+id);
+  getPatientById(id: string) {
+    return this._HttpClient.get<Patient>(this.base_url + `/${id}`);
   }
-  updatePatient(updatedPatient:Patient,id:string) {
-     return this._HttpClient.put<Patient>(this.base_url+id, updatedPatient);
+  updatePatient(updatedPatient: Patient, id: string) {
+    return this._HttpClient.put<Patient>(
+      this.base_url +`/${id}`,
+      updatedPatient,
+    );
   }
 }
