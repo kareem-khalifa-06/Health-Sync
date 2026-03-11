@@ -8,13 +8,14 @@ import {
 } from '../../models/doctor';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorsService } from '../../core/services/doctors.service';
+import { BackButtonComponent } from '../components/back-button/back-button.component';
 
 type TabType = 'overview' | 'schedule' | 'reviews';
 
 @Component({
   selector: 'app-doctor-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,BackButtonComponent],
   templateUrl: './doctor-detail.component.html',
   styleUrls: ['./doctor-detail.component.css'],
 })
@@ -221,7 +222,4 @@ export class DoctorDetailComponent implements OnInit {
     });
   }
 
-  goBack(): void {
-    window.history.back();
-  }
 }

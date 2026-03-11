@@ -10,3 +10,6 @@ h2{
 .captionss{
     font-size: 1.5rem;
 }
+.branding{
+    background: linear-gradient(90deg, #0f23fa 0%, #0f85fa 50%, #0fe7fa 100%);
+}
