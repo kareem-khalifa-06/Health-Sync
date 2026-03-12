@@ -1,5 +1,7 @@
+import { bootstrapApplication } from '@angular/platform-browser';
 import { Routes, CanActivateFn } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { AppointmentsComponent } from './shared/components/appointments/appointments.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +66,15 @@ export const routes: Routes = [
           import('./shared/components/appointments/appointments.component').then(
             (m) => {
               return m.AppointmentsComponent;
+            },
+          ),
+      },
+      {
+        path: 'new-appointment',
+        loadComponent: () =>
+          import('./shared/components/book-appointment-form/book-appointment-form.component').then(
+            (m) => {
+              return m.BookAppointmentFormComponent;
             },
           ),
       },
@@ -144,9 +155,12 @@ export const routes: Routes = [
     ],
   },
   {
-    path:'doctorLayout/:id',
-    loadComponent:()=>import('./shared/layouts/doctor-layout/doctor-layout.component').then((m)=>{
-    return m.DoctorLayoutComponent
-    })
-  }
+    path: 'doctorLayout/:id',
+    loadComponent: () =>
+      import('./shared/layouts/doctor-layout/doctor-layout.component').then(
+        (m) => {
+          return m.DoctorLayoutComponent;
+        },
+      ),
+  },
 ];

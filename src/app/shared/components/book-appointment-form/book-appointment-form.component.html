@@ -1,0 +1,169 @@
+<div class="appointment-form bg-grey">
+    <h1 class="page-title">Book Appointment</h1>
+
+    <div class="form-wrapper">
+        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="form">
+
+            <!-- Doctor & Patient -->
+            <div class="form-section">
+                <h2>Doctor & Patient</h2>
+                <hr>
+
+                <div class="form-row">
+
+                    <!-- Patient -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Select patient</label>
+
+                        <select formControlName="patientId" class="form-select"
+                            [class.is-valid]="patientId?.valid && patientId?.touched"
+                            [class.is-invalid]="patientId?.invalid && patientId?.touched">
+                            <option value="">Choose patient</option>
+
+                            @for (p of patients; track p.id) {
+                            <option [value]="p.id">{{p.fullName}} — #{{p.id}}</option>
+                            }
+                        </select>
+
+                        @if (patientId?.invalid && patientId?.touched) {
+                        <small class="text-danger">Patient is required</small>
+                        }
+                    </div>
+
+                    <!-- Doctor -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Select Doctor</label>
+
+                        <select formControlName="doctorId" class="form-select"
+                            [class.is-valid]="doctorId?.valid && doctorId?.touched"
+                            [class.is-invalid]="doctorId?.invalid && doctorId?.touched" >
+                            <option value="">Choose doctor</option>
+
+                            @for(d of doctors;track d.id){
+                            <option [value]="d.id">{{d.fullName}} — {{d.specialty}}</option>
+                            }
+                        </select>
+
+                        @if (doctorId?.invalid && doctorId?.touched) {
+                        <small class="text-danger">Doctor is required</small>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Date & Time -->
+            <div class="form-section">
+                <h2>Date & Time</h2>
+                <hr>
+
+                <div class="form-row">
+
+                    <!-- Date -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Appointment Date</label>
+
+                        <input type="date" formControlName="appointmentDate" class="form-control"
+                            [class.is-valid]="appointmentDate?.valid && appointmentDate?.touched"
+                            [class.is-invalid]="appointmentDate?.invalid && appointmentDate?.touched" />
+
+                        @if (appointmentDate?.invalid && appointmentDate?.touched) {
+                        <small class="text-danger">Date is required</small>
+                        }
+                    </div>
+
+                    <!-- Time -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Time Slot</label>
+
+                        <select formControlName="appointmentTime" class="form-select"
+                            [class.is-valid]="appointmentTime?.valid && appointmentTime?.touched"
+                            [class.is-invalid]="appointmentTime?.invalid && appointmentTime?.touched">
+                            <option value="">Select time</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                        </select>
+
+                        @if (appointmentTime?.invalid && appointmentTime?.touched) {
+                        <small class="text-danger">Time slot is required</small>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <!-- Duration -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Duration (minutes)</label>
+
+                        <input type="number" formControlName="appointmentDuration" class="form-control"
+                            [class.is-valid]="appointmentDuration?.valid && appointmentDuration?.touched"
+                            [class.is-invalid]="appointmentDuration?.invalid && appointmentDuration?.touched" />
+
+                        @if (appointmentDuration?.invalid && appointmentDuration?.touched) {
+                        <small class="text-danger">Enter a valid duration</small>
+                        }
+                    </div>
+
+                    <!-- Type -->
+                    <div class="form-input">
+                        <label class="input-subtitle">Appointment Type</label>
+
+                        <select formControlName="appointmentType" class="form-select"
+                            [class.is-valid]="appointmentType?.valid && appointmentType?.touched"
+                            [class.is-invalid]="appointmentType?.invalid && appointmentType?.touched">
+                            <option value="">Select type</option>
+                            <option value="checkup">Check-up</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="followup">Follow-up</option>
+                        </select>
+
+                        @if (appointmentType?.invalid && appointmentType?.touched) {
+                        <small class="text-danger">Appointment type is required</small>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="form-section">
+                <h2>Additional Information</h2>
+                <hr>
+
+                <div class="form-row">
+                    <div class="form-input">
+
+                        <label class="input-subtitle">Reason for Visit</label>
+
+                        <textarea formControlName="reason" class="form-control form-text-area"
+                            placeholder="Describe the reason for this appointment..."
+                            [class.is-valid]="reason?.valid && reason?.touched"
+                            [class.is-invalid]="reason?.invalid && reason?.touched"></textarea>
+
+                        @if (reason?.invalid && reason?.touched) {
+                        <small class="text-danger">
+                            Please describe the reason for the visit
+                        </small>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <button class="btn btn-primary" [disabled]="appointmentForm.invalid">
+                    Book Appointment
+                </button>
+
+                <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
