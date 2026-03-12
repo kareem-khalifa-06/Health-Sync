@@ -129,13 +129,13 @@
     </div>
 
     <!-- Availability Banner — doctor.isAvailableToday -->
-    <div class="availability-banner" [class.available]="doctor.isAvailableToday"
-      [class.unavailable]="!doctor.isAvailableToday">
+    <div class="availability-banner" [class.available]="handleDoctorAvailabilityStatus(doctor)"
+      [class.unavailable]="!handleDoctorAvailabilityStatus(doctor)">
       <div class="avail-left">
         <span class="avail-dot"></span>
-        <span>{{ doctor.isAvailableToday ? 'Available Today' : 'Not Available Today' }}</span>
+        <span>{{ handleDoctorAvailabilityStatus(doctor)? 'Available Today' : 'Not Available Today' }}</span>
       </div>
-      <span *ngIf="doctor.isAvailableToday" class="avail-slots">
+      <span *ngIf="handleDoctorAvailabilityStatus(doctor)" class="avail-slots">
         {{ doctor.availableDays.length }} working days →
       </span>
     </div>

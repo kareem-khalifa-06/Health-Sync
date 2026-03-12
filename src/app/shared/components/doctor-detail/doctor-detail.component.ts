@@ -5,24 +5,25 @@ import {
   DoctorSchedule,
   DoctorReview,
   TimeSlot,
-} from '../../models/doctor';
+} from '../../../models/doctor';
 import { ActivatedRoute } from '@angular/router';
-import { DoctorsService } from '../../core/services/doctors.service';
-import { BackButtonComponent } from '../components/back-button/back-button.component';
+import { DoctorsService } from '../../../core/services/doctors.service';
+import { BackButtonComponent } from '../back-button/back-button.component';
+import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 
 type TabType = 'overview' | 'schedule' | 'reviews';
 
 @Component({
   selector: 'app-doctor-detail',
   standalone: true,
-  imports: [CommonModule,BackButtonComponent],
+  imports: [CommonModule, BackButtonComponent],
   templateUrl: './doctor-detail.component.html',
   styleUrls: ['./doctor-detail.component.css'],
 })
 export class DoctorDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   doctorService = inject(DoctorsService);
-
+  handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor!: Doctor;
 
   ngOnInit() {
@@ -221,5 +222,4 @@ export class DoctorDetailComponent implements OnInit {
       fee: this.doctor.consultationFee,
     });
   }
-
 }

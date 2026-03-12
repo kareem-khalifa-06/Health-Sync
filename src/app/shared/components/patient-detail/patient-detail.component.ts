@@ -3,11 +3,12 @@ import { Component, inject, input } from '@angular/core';
 import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../core/services/patient.service';
 import { calculateAge } from '../../../utils/calculateAge';
+import { BackButtonComponent } from '../back-button/back-button.component';
 
 @Component({
   selector: 'app-patient-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [BackButtonComponent],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.css',
 })

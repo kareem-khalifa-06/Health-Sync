@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { SPECIALIZATIONS } from '../../../Data/specializations';
 import { RouterLink, RouterOutlet } from "@angular/router";
+import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 
 @Component({
   selector: 'app-doctors-list',
@@ -25,7 +26,7 @@ export class DoctorsListComponent {
   id = signal<number>(3);
   private _DoctorsService = inject(DoctorsService);
   private destroyRef = inject(DestroyRef);
-  todayDate = dayjs().format('dddd');
+  handleDoctorAvailabilityStatus=handleDoctorAvailabilityStatus
   specs = SPECIALIZATIONS;
   searchQuery = '';
   statusFilter = 'All';
@@ -111,9 +112,6 @@ export class DoctorsListComponent {
       );
     }
     this.filteredDoctors.set(doctors);
-  }
-  handleDoctorAvailabilityStatus(doc: Doctor): boolean {
-    return doc.availableDays.includes(this.todayDate);
   }
   onDelete(id: string) {
     if (!confirm('Are you sure?')) return; 

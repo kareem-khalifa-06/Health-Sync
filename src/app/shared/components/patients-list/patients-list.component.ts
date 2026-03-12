@@ -7,11 +7,12 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {  RouterLink  } from "@angular/router";
 import { calculateAge } from '../../../utils/calculateAge';
+import { BackButtonComponent } from "../back-button/back-button.component";
 
 @Component({
   selector: 'app-patients-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, BackButtonComponent],
   templateUrl: './patients-list.component.html',
   styleUrl: './patients-list.component.css',
 })

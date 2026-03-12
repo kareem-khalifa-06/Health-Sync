@@ -108,7 +108,7 @@ export const routes: Routes = [
           {
             path: 'details/:id',
             loadComponent: () =>
-              import('./shared/doctor-detail/doctor-detail.component').then(
+              import('./shared/components/doctor-detail/doctor-detail.component').then(
                 (m) => m.DoctorDetailComponent,
               ),
           },
