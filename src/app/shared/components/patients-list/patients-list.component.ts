@@ -12,7 +12,7 @@ import { BackButtonComponent } from "../back-button/back-button.component";
 @Component({
   selector: 'app-patients-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, BackButtonComponent],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './patients-list.component.html',
   styleUrl: './patients-list.component.css',
 })

@@ -29,7 +29,6 @@ export class DashboardComponent {
     })
   }
   viewAllDoctors(){
-    console.log('Khadija')
     this._Router.navigate(['adminLayout/doctors'])
   }
 }
