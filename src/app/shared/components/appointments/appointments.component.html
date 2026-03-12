@@ -1,61 +1,222 @@
-<div
-  class="d-flex w-100 flex-column gap-4 justify-content-between h-100 dashboard-page flex-fill"
->
-  <div class="d-flex w-100 align-items-center justify-content-between">
-    <h1 class="fw-bold mb-0">Appointments</h1>
-    <button class="btn btn-primary">+New Appointment</button>
+<div class="page-wrapper">
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1 class="page-title">Appointments</h1>
+      <span class="total-badge">128 total</span>
+    </div>
+    <button class="btn-add">
+      <i class="bi bi-plus-circle"></i> New Appointment
+    </button>
   </div>
 
-  <!-- filters Row -->
-  <div class="d-flex gap-3">
-    <div class="input-container">
-      <i class="bi bi-search icon"></i>
-      <input
-        type="text"
-        placeholder="Search Appointments..."
-        class="input-field form-control"
-        
-      />
+  <!-- ── Stats Row ───────────────────────────────────────────── -->
+  <div class="stats-row">
+    <div class="stat-card" style="--accent:#2563eb;">
+      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;">📅</div>
+      <div class="stat-body">
+        <span class="stat-label">Today</span>
+        <span class="stat-value">14</span>
+      </div>
     </div>
-    <select name="sataus" id="" class="form-control">
-      <option value="All">All Status</option>
-      <option value="sarah-Johnson">Confirmed</option>
-    </select>
-    <select name="doctors" id="" class="form-control">
-      <option value="All">All Doctors</option>
-      <option value="sarah-Johnson">DR.Sarah Johnson</option>
-    </select>
-    <input type="date" name="" id="" class="form-control" />
+    <div class="stat-card" style="--accent:#059669;">
+      <div class="stat-icon" style="background:#d1fae5; color:#059669;">✅</div>
+      <div class="stat-body">
+        <span class="stat-label">Confirmed</span>
+        <span class="stat-value">89</span>
+      </div>
+    </div>
+    <div class="stat-card" style="--accent:#d97706;">
+      <div class="stat-icon" style="background:#fef3c7; color:#d97706;">⏳</div>
+      <div class="stat-body">
+        <span class="stat-label">Pending</span>
+        <span class="stat-value">23</span>
+      </div>
+    </div>
+    <div class="stat-card" style="--accent:#dc2626;">
+      <div class="stat-icon" style="background:#fee2e2; color:#dc2626;">❌</div>
+      <div class="stat-body">
+        <span class="stat-label">Cancelled</span>
+        <span class="stat-value">16</span>
+      </div>
+    </div>
   </div>
-  <!-- Appointments table -->
-  <div class=" p-4 fs-5 wrapper h-50">
-    <table class="table table-hover ">
-      <thead>
-        <tr class="table-light ">
-          <th scope="col" class="text-muted">ID</th>
-          <th scope="col" class="text-muted">Date & Time</th>
-          <th scope="col" class="text-muted">Patient</th>
-          <th scope="col" class="text-muted">Doctor</th>
-          <th scope="col" class="text-muted">Type</th>
-          <th scope="col" class="text-muted">Status</th>
-          <th scope="col" class="text-muted">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="align-baseline">
-          <td>#A001</td>
-          <td>2024-06-15 10:00 AM</td>
-          <td>John Smith</td>
-          <td>Dr.Sarah Johnson</td>
-          <td>Checkup</td>
-          <td><span class="badge bg-success">Confirmed</span></td>
-          <td class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-primary">View Details</button>
-            <button class="btn btn-secondary">Edit</button>
-          </td>
-        </tr>
-        <!-- More rows as needed -->
-      </tbody>
-    </table>
+
+  <!-- ── Filters ─────────────────────────────────────────────── -->
+  <div class="filters-bar">
+    <div class="search-wrap">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" placeholder="Search appointments..." class="filter-input" />
+    </div>
+    <select class="filter-select">
+      <option value="All">All Status</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="pending">Pending</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+    <select class="filter-select">
+      <option value="All">All Doctors</option>
+      <option>Dr. Sarah Johnson</option>
+      <option>Dr. Khadija Elbakry</option>
+      <option>Dr. Ahmed Hassan</option>
+    </select>
+    <div class="date-wrap">
+      <i class="bi bi-calendar3 date-icon"></i>
+      <input type="date" class="filter-input date-input" />
+    </div>
+  </div>
+
+  <!-- ── Table Card ──────────────────────────────────────────── -->
+  <div class="table-card">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date &amp; Time</th>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row">
+            <td><span class="id-chip">#A001</span></td>
+            <td>
+              <div class="datetime-cell">
+                <span class="date-val">Jun 15, 2024</span>
+                <span class="time-val">10:00 AM</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-blue">JS</div>
+                <span class="person-name">John Smith</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-teal">SJ</div>
+                <span class="person-name">Dr. Sarah Johnson</span>
+              </div>
+            </td>
+            <td><span class="type-chip type-checkup">Checkup</span></td>
+            <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+            <td>
+              <div class="action-cell">
+                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
+                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-row">
+            <td><span class="id-chip">#A002</span></td>
+            <td>
+              <div class="datetime-cell">
+                <span class="date-val">Jun 15, 2024</span>
+                <span class="time-val">11:30 AM</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-purple">ED</div>
+                <span class="person-name">Emily Davis</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-green">KE</div>
+                <span class="person-name">Dr. Khadija Elbakry</span>
+              </div>
+            </td>
+            <td><span class="type-chip type-followup">Follow-up</span></td>
+            <td><span class="status-badge status-pending"><span class="s-dot"></span>Pending</span></td>
+            <td>
+              <div class="action-cell">
+                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
+                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-row">
+            <td><span class="id-chip">#A003</span></td>
+            <td>
+              <div class="datetime-cell">
+                <span class="date-val">Jun 16, 2024</span>
+                <span class="time-val">02:00 PM</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-orange">MB</div>
+                <span class="person-name">Michael Brown</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-red">AH</div>
+                <span class="person-name">Dr. Ahmed Hassan</span>
+              </div>
+            </td>
+            <td><span class="type-chip type-consult">Consultation</span></td>
+            <td><span class="status-badge status-cancelled"><span class="s-dot"></span>Cancelled</span></td>
+            <td>
+              <div class="action-cell">
+                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
+                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-row">
+            <td><span class="id-chip">#A004</span></td>
+            <td>
+              <div class="datetime-cell">
+                <span class="date-val">Jun 16, 2024</span>
+                <span class="time-val">03:30 PM</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-teal">SL</div>
+                <span class="person-name">Sara Liu</span>
+              </div>
+            </td>
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-teal">SJ</div>
+                <span class="person-name">Dr. Sarah Johnson</span>
+              </div>
+            </td>
+            <td><span class="type-chip type-emergency">Emergency</span></td>
+            <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+            <td>
+              <div class="action-cell">
+                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
+                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-bar">
+      <span class="pagination-info">Showing 1–4 of 128 appointments</span>
+      <nav>
+        <ul class="pagination-list">
+          <li><button class="page-btn" disabled><i class="bi bi-chevron-left"></i></button></li>
+          <li><button class="page-btn active">1</button></li>
+          <li><button class="page-btn">2</button></li>
+          <li><button class="page-btn">3</button></li>
+          <li><button class="page-btn">···</button></li>
+          <li><button class="page-btn">14</button></li>
+          <li><button class="page-btn"><i class="bi bi-chevron-right"></i></button></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>

@@ -1,52 +1,89 @@
-<div
-  class="login-page d-flex justify-content-between align-items-center min-vh-100 mx-0"
->
-  <!-- Left branding section -->
-  <section
-    class="d-flex flex-column justify-content-center px-5 w-50 branding text-white vh-100 align-items-center"
-  >
-    <div class="d-flex align-items-center gap-3 mb-5 ">
-      <i class="bi bi-prescription fs-1"></i>
-      <h1 class="fw-bold mb-0">HealthSync</h1>
+<div class="login-page">
+
+  <!-- ── Left Branding ─────────────────────────────────────────── -->
+  <section class="branding-panel">
+
+    <!-- Background decoration -->
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+
+    <div class="branding-content">
+      <div class="brand-logo">
+        <div class="brand-icon"><i class="bi bi-prescription2"></i></div>
+        <span class="brand-name">Health<span class="brand-accent">Sync</span></span>
+      </div>
+
+      <p class="brand-tagline">Modern Healthcare<br />Management System</p>
+
+      <div class="brand-features">
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span>Manage patients &amp; appointments</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span>Real-time doctor scheduling</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span>Secure medical records</span>
+        </div>
+      </div>
     </div>
-    <p class=" captionss">Modern Healthcare Management System</p>
+
+    <p class="brand-footer">© 2026 HealthSync. All rights reserved.</p>
   </section>
 
-  <!-- Right login form -->
-  <section class="card shadow  w-50 vh-100 mx-auto d-flex flex-column px-5 justify-content-center">
-    <h2 class="mb-5">Welcome Back</h2>
-    <form class="mt-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()"> 
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="you@example.com"
-          formControlName="email"/>
+  <!-- ── Right Form ─────────────────────────────────────────────── -->
+  <section class="form-panel">
+    <div class="form-card">
+
+      <div class="form-header">
+        <h2 class="form-title">Welcome back</h2>
+        <p class="form-subtitle">Sign in to your admin dashboard</p>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="......."
-          formControlName="password"
-        />
-      </div>
-      <div class="mb-3 form-check d-flex justify-content-between">
-        <div>
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="field-group">
+          <label class="field-label" for="email">Email address</label>
+          <div class="input-wrap">
+            <i class="bi bi-envelope input-icon"></i>
+            <input type="email" id="email" class="field-input" placeholder="you@example.com" formControlName="email" />
+          </div>
         </div>
-        
-        <a href="#" class="text-primary">Forgot password?</a>
-      </div>
-      <button type="submit" class="btn branding w-100 mb-4">Log In</button>
-      <div class="text-center text-muted">Don't have an account?
-         <a routerLink="/register">Sign up</a>
+
+        <div class="field-group">
+          <label class="field-label" for="password">Password</label>
+          <div class="input-wrap">
+            <i class="bi bi-lock input-icon"></i>
+            <input type="password" id="password" class="field-input" placeholder="Enter your password"
+              formControlName="password" />
+          </div>
         </div>
-    </form>
+
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" />
+            <span class="checkbox-custom"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Sign In</span>
+          <i class="bi bi-arrow-right"></i>
+        </button>
+
+        <p class="signup-prompt">
+          Don't have an account?
+          <a routerLink="/register" class="signup-link">Create one</a>
+        </p>
+
+      </form>
+    </div>
   </section>
+
 </div>

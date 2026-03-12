@@ -1,198 +1,303 @@
-<div class="bg-grey d-flex flex-column min-vh-100 ">
-  <!-- header row -->
-  <div class="w-100 bg-white">
-    <h1 class="m-3">Add Patient</h1>
+<div class="page-wrapper">
+
+  <!-- ── Page Header ──────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <button class="btn-back" type="button" (click)="onCancel()">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <div>
+        <h1 class="page-title">Add Patient</h1>
+        <p class="page-subtitle">Fill in the details below to register a new patient</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-cancel" type="button" (click)="onCancel()">Cancel</button>
+      <button class="btn-save" type="submit" form="addPatientForm">
+        <i class="bi bi-check-circle"></i> Save Patient
+      </button>
+    </div>
   </div>
-  <!-- Actual Form -->
-  <div class="bg-white p-5 m-lg-4 form-container">
-    <form [formGroup]="addPatientForm" (ngSubmit)="onSubmit()">
-      <!-- personal Information -->
-      <div>
-        <h2>Personal Information</h2>
-        <hr />
-      </div>
-      <div class="mb-3 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="firstName" class="form-label fw-bold text-muted">First Name</label>
-          <input type="text" class="form-control" id="firstName" placeholder="John" formControlName="firstName"
-            [class.is-valid]="addPatientForm.get('firstName')?.valid && addPatientForm.get('firstName')?.touched"
-            [class.is-invalid]="addPatientForm.get('firstName')?.invalid && addPatientForm.get('firstName')?.touched" />
-          @if (addPatientForm.get('firstName')?.invalid && addPatientForm.get('firstName')?.touched) {
-          <div class="invalid-feedback d-block">Please enter your first name</div>
-          }
-        </div>
-        <div class="w-50">
-          <label for="lastName" class="form-label fw-bold text-muted">Last Name</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Smith" formControlName="lastName"
-            [class.is-valid]="addPatientForm.get('lastName')?.valid && addPatientForm.get('lastName')?.touched"
-            [class.is-invalid]="addPatientForm.get('lastName')?.invalid && addPatientForm.get('lastName')?.touched" />
-          @if (addPatientForm.get('lastName')?.invalid && addPatientForm.get('lastName')?.touched) {
-          <div class="invalid-feedback d-block">Please enter your last name</div>
-          }
-        </div>
-      </div>
 
-      <div class="mb-3 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="dateOfBirth" class="form-label fw-bold text-muted">Date of Birth</label>
-          <input type="date" class="form-control" id="dateOfBirth" formControlName="dateOfBirth"
-            [class.is-valid]="addPatientForm.get('dateOfBirth')?.valid && addPatientForm.get('dateOfBirth')?.touched"
-            [class.is-invalid]="addPatientForm.get('dateOfBirth')?.invalid && addPatientForm.get('dateOfBirth')?.touched" />
-          @if (addPatientForm.get('dateOfBirth')?.invalid && addPatientForm.get('dateOfBirth')?.touched) {
-          <div class="invalid-feedback d-block">Please enter your date of birth</div>
-          }
-        </div>
-        <div class="w-50">
-          <label for="gender" class="form-label fw-bold text-muted">Gender</label>
-          <select id="gender" class="form-control" formControlName="gender"
-            [class.is-valid]="addPatientForm.get('gender')?.valid && addPatientForm.get('gender')?.touched"
-            [class.is-invalid]="addPatientForm.get('gender')?.invalid && addPatientForm.get('gender')?.touched">
-            <option value="" disabled selected>-- Select Gender --</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="none">Prefer not to say</option>
-          </select>
-          @if (addPatientForm.get('gender')?.invalid && addPatientForm.get('gender')?.touched) {
-          <div class="invalid-feedback d-block">Please select a gender</div>
-          }
-        </div>
-      </div>
+  <!-- ── Form ─────────────────────────────────────────────────── -->
+  <div class="form-body">
+    <form id="addPatientForm" [formGroup]="addPatientForm" (ngSubmit)="onSubmit()">
 
-      <div class="mb-5 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="bloodGroup" class="form-label fw-bold text-muted">Blood Group</label>
-          <select id="bloodGroup" class="form-control" formControlName="bloodGroup"
-            [class.is-valid]="addPatientForm.get('bloodGroup')?.valid && addPatientForm.get('bloodGroup')?.touched"
-            [class.is-invalid]="addPatientForm.get('bloodGroup')?.invalid && addPatientForm.get('bloodGroup')?.touched">
-            <option value="" disabled selected>-- Select Blood Group --</option>
-            @for (bg of bloodGroups; track $index) {
-            <option [value]="bg">{{ bg }}</option>
+      <!-- ── Personal Information ─────────────────────────────── -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon" style="background:#eff6ff; color:#2563eb;">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div>
+            <h2 class="section-title">Personal Information</h2>
+            <p class="section-subtitle">Basic patient identity details</p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="firstName">First Name</label>
+            <div class="input-wrap">
+              <i class="bi bi-person input-icon"></i>
+              <input type="text" id="firstName" class="field-input" placeholder="John" formControlName="firstName"
+                [class.valid]="addPatientForm.get('firstName')?.valid && addPatientForm.get('firstName')?.touched"
+                [class.invalid]="addPatientForm.get('firstName')?.invalid && addPatientForm.get('firstName')?.touched" />
+            </div>
+            @if (addPatientForm.get('firstName')?.invalid && addPatientForm.get('firstName')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter first name</div>
             }
-          </select>
-          @if (addPatientForm.get('bloodGroup')?.invalid && addPatientForm.get('bloodGroup')?.touched) {
-          <div class="invalid-feedback d-block">Please select a blood group</div>
-          }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="lastName">Last Name</label>
+            <div class="input-wrap">
+              <i class="bi bi-person input-icon"></i>
+              <input type="text" id="lastName" class="field-input" placeholder="Smith" formControlName="lastName"
+                [class.valid]="addPatientForm.get('lastName')?.valid && addPatientForm.get('lastName')?.touched"
+                [class.invalid]="addPatientForm.get('lastName')?.invalid && addPatientForm.get('lastName')?.touched" />
+            </div>
+            @if (addPatientForm.get('lastName')?.invalid && addPatientForm.get('lastName')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter last name</div>
+            }
+          </div>
         </div>
-        <div class="w-50">
-          <label for="phone" class="form-label fw-bold text-muted">Phone Number</label>
-          <input type="number" class="form-control" id="phone" placeholder="+201111445265" formControlName="phone"
-            [class.is-valid]="addPatientForm.get('phone')?.valid && addPatientForm.get('phone')?.touched"
-            [class.is-invalid]="addPatientForm.get('phone')?.invalid && addPatientForm.get('phone')?.touched" />
-          @if (addPatientForm.get('phone')?.invalid && addPatientForm.get('phone')?.touched) {
-          <div class="invalid-feedback d-block">Please enter your phone number</div>
-          }
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="dateOfBirth">Date of Birth</label>
+            <div class="input-wrap">
+              <i class="bi bi-calendar3 input-icon"></i>
+              <input type="date" id="dateOfBirth" class="field-input" formControlName="dateOfBirth"
+                [class.valid]="addPatientForm.get('dateOfBirth')?.valid && addPatientForm.get('dateOfBirth')?.touched"
+                [class.invalid]="addPatientForm.get('dateOfBirth')?.invalid && addPatientForm.get('dateOfBirth')?.touched" />
+            </div>
+            @if (addPatientForm.get('dateOfBirth')?.invalid && addPatientForm.get('dateOfBirth')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter date of birth</div>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="gender">Gender</label>
+            <div class="input-wrap">
+              <i class="bi bi-gender-ambiguous input-icon"></i>
+              <select id="gender" class="field-input field-select" formControlName="gender"
+                [class.valid]="addPatientForm.get('gender')?.valid && addPatientForm.get('gender')?.touched"
+                [class.invalid]="addPatientForm.get('gender')?.invalid && addPatientForm.get('gender')?.touched">
+                <option value="" disabled selected>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="none">Prefer not to say</option>
+              </select>
+            </div>
+            @if (addPatientForm.get('gender')?.invalid && addPatientForm.get('gender')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please select a gender</div>
+            }
+          </div>
         </div>
-      </div>
-      <!-- Medical History  -->
-      <div>
-        <h2>Medical History</h2>
-        <hr />
-      </div>
-      <div class="mb-5 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="allergies" class="form-label fw-bold text-muted">Allergies</label>
-          <input type="text" class="form-control" id="insuranceProvider" placeholder="eg. pencillin,peanuts"
-            formControlName="allergies"
-            [class.is-valid]="addPatientForm.get('allergies')?.valid && addPatientForm.get('allergies')?.touched"
-            [class.is-invalid]="addPatientForm.get('allergies')?.invalid && addPatientForm.get('allergies')?.touched" />
-          @if (addPatientForm.get('allergies')?.invalid && addPatientForm.get('allergies')?.touched) {
-          <div class="invalid-feedback d-block">Please enter allergies</div>
-          }
-        </div>
-        <div class="w-50">
-          <label for="insuranceNumber" class="form-label fw-bold text-muted">Insurance Number</label>
-          <input type="text" class="form-control" id="insuranceNumber" placeholder="eg. AE456789123"
-            formControlName="insuranceNumber"
-            [class.is-valid]="addPatientForm.get('insuranceNumber')?.valid && addPatientForm.get('insuranceNumber')?.touched"
-            [class.is-invalid]="addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched" />
-          @if (addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched) {
-          <div class="invalid-feedback d-block">Please enter insurance number</div>
-          }
-        </div>
-      </div>
-      <!-- Emergency Contact -->
-      <div>
-        <h2>Emergency Contact</h2>
-        <hr />
-      </div>
-      <div class="mb-3 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="emergencyContactName" class="form-label fw-bold text-muted">Name</label>
-          <input type="text" class="form-control" id="emergencyContactName" placeholder="Tiffany"
-            formControlName="emergencyContactName"
-            [class.is-valid]="addPatientForm.get('emergencyContactName')?.valid && addPatientForm.get('emergencyContactName')?.touched"
-            [class.is-invalid]="addPatientForm.get('emergencyContactName')?.invalid && addPatientForm.get('emergencyContactName')?.touched" />
-          @if (addPatientForm.get('emergencyContactName')?.invalid &&
-          addPatientForm.get('emergencyContactName')?.touched) {
-          <div class="invalid-feedback d-block">Please enter emergency contact name</div>
-          }
-        </div>
-        <div class="w-50">
-          <label for="emergencyContactRelationShip" class="form-label fw-bold text-muted">Relationship</label>
-          <select id="emergencyContactRelationShip" class="form-control" formControlName="emergencyContactRelationShip"
-            [class.is-valid]="addPatientForm.get('emergencyContactRelationShip')?.valid && addPatientForm.get('emergencyContactRelationShip')?.touched"
-            [class.is-invalid]="addPatientForm.get('emergencyContactRelationShip')?.invalid && addPatientForm.get('emergencyContactRelationShip')?.touched">
-            <option value="" disabled selected>-- Select Relationship --</option>
-            <option value="partner">Partner</option>
-            <option value="friend">Friend</option>
-          </select>
-          @if (addPatientForm.get('emergencyContactRelationShip')?.invalid &&
-          addPatientForm.get('emergencyContactRelationShip')?.touched) {
-          <div class="invalid-feedback d-block">Please select a relationship</div>
-          }
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="bloodGroup">Blood Group</label>
+            <div class="input-wrap">
+              <i class="bi bi-droplet-fill input-icon" style="color:#ef4444;"></i>
+              <select id="bloodGroup" class="field-input field-select" formControlName="bloodGroup"
+                [class.valid]="addPatientForm.get('bloodGroup')?.valid && addPatientForm.get('bloodGroup')?.touched"
+                [class.invalid]="addPatientForm.get('bloodGroup')?.invalid && addPatientForm.get('bloodGroup')?.touched">
+                <option value="" disabled selected>Select blood group</option>
+                @for (bg of bloodGroups; track $index) {
+                <option [value]="bg">{{ bg }}</option>
+                }
+              </select>
+            </div>
+            @if (addPatientForm.get('bloodGroup')?.invalid && addPatientForm.get('bloodGroup')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please select a blood group</div>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="phone">Phone Number</label>
+            <div class="input-wrap">
+              <i class="bi bi-telephone input-icon"></i>
+              <input type="text" id="phone" class="field-input" placeholder="+20 111 144 5265" formControlName="phone"
+                [class.valid]="addPatientForm.get('phone')?.valid && addPatientForm.get('phone')?.touched"
+                [class.invalid]="addPatientForm.get('phone')?.invalid && addPatientForm.get('phone')?.touched" />
+            </div>
+            @if (addPatientForm.get('phone')?.invalid && addPatientForm.get('phone')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter phone number</div>
+            }
+          </div>
         </div>
       </div>
 
-      <div class="w-100 mb-5">
-        <label for="emergencyContactNumber" class="form-label fw-bold text-muted">Phone Number</label>
-        <input type="number" class="form-control" id="emergencyContactNumber" placeholder="+201090222247"
-          formControlName="emergencyContactNumber"
-          [class.is-valid]="addPatientForm.get('emergencyContactNumber')?.valid && addPatientForm.get('emergencyContactNumber')?.touched"
-          [class.is-invalid]="addPatientForm.get('emergencyContactNumber')?.invalid && addPatientForm.get('emergencyContactNumber')?.touched" />
-        @if (addPatientForm.get('emergencyContactNumber')?.invalid &&
-        addPatientForm.get('emergencyContactNumber')?.touched) {
-        <div class="invalid-feedback d-block">Please enter emergency contact number</div>
-        }
-      </div>
-
-      <!-- Insurance Information -->
-      <div>
-        <h2>Insurance Information</h2>
-        <hr />
-      </div>
-      <div class="mb-5 d-flex justify-content-between gap-4">
-        <div class="w-50">
-          <label for="insuranceProvider" class="form-label fw-bold text-muted">Insurance Provider</label>
-          <input type="text" class="form-control" id="insuranceProvider" placeholder="eg. Aetna"
-            formControlName="insuranceProvider"
-            [class.is-valid]="addPatientForm.get('insuranceProvider')?.valid && addPatientForm.get('insuranceProvider')?.touched"
-            [class.is-invalid]="addPatientForm.get('insuranceProvider')?.invalid && addPatientForm.get('insuranceProvider')?.touched" />
-          @if (addPatientForm.get('insuranceProvider')?.invalid && addPatientForm.get('insuranceProvider')?.touched) {
-          <div class="invalid-feedback d-block">Please enter insurance provider</div>
-          }
+      <!-- ── Medical History ──────────────────────────────────── -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon" style="background:#fef3c7; color:#d97706;">
+            <i class="bi bi-clipboard2-pulse-fill"></i>
+          </div>
+          <div>
+            <h2 class="section-title">Medical History</h2>
+            <p class="section-subtitle">Known conditions and insurance details</p>
+          </div>
         </div>
-        <div class="w-50">
-          <label for="insuranceNumber" class="form-label fw-bold text-muted">Insurance Number</label>
-          <input type="text" class="form-control" id="insuranceNumber" placeholder="eg. AE456789123"
-            formControlName="insuranceNumber"
-            [class.is-valid]="addPatientForm.get('insuranceNumber')?.valid && addPatientForm.get('insuranceNumber')?.touched"
-            [class.is-invalid]="addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched" />
-          @if (addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched) {
-          <div class="invalid-feedback d-block">Please enter insurance number</div>
-          }
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="allergies">Allergies</label>
+            <div class="input-wrap">
+              <i class="bi bi-shield-exclamation input-icon"></i>
+              <input type="text" id="allergies" class="field-input" placeholder="e.g. penicillin, peanuts"
+                formControlName="allergies"
+                [class.valid]="addPatientForm.get('allergies')?.valid && addPatientForm.get('allergies')?.touched"
+                [class.invalid]="addPatientForm.get('allergies')?.invalid && addPatientForm.get('allergies')?.touched" />
+            </div>
+            @if (addPatientForm.get('allergies')?.invalid && addPatientForm.get('allergies')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter allergies</div>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="insuranceNumberMed">Insurance Number</label>
+            <div class="input-wrap">
+              <i class="bi bi-card-text input-icon"></i>
+              <input type="text" id="insuranceNumberMed" class="field-input" placeholder="e.g. AE456789123"
+                formControlName="insuranceNumber"
+                [class.valid]="addPatientForm.get('insuranceNumber')?.valid && addPatientForm.get('insuranceNumber')?.touched"
+                [class.invalid]="addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched" />
+            </div>
+            @if (addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter insurance number</div>
+            }
+          </div>
         </div>
       </div>
 
-      <div class="d-flex gap-3 justify-content-end">
-        <button class="btn btn-outline-secondary" type="reset" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Patient</button>
+      <!-- ── Emergency Contact ────────────────────────────────── -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon" style="background:#fee2e2; color:#dc2626;">
+            <i class="bi bi-telephone-fill"></i>
+          </div>
+          <div>
+            <h2 class="section-title">Emergency Contact</h2>
+            <p class="section-subtitle">Who to contact in case of emergency</p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="emergencyContactName">Contact Name</label>
+            <div class="input-wrap">
+              <i class="bi bi-person-lines-fill input-icon"></i>
+              <input type="text" id="emergencyContactName" class="field-input" placeholder="Tiffany"
+                formControlName="emergencyContactName"
+                [class.valid]="addPatientForm.get('emergencyContactName')?.valid && addPatientForm.get('emergencyContactName')?.touched"
+                [class.invalid]="addPatientForm.get('emergencyContactName')?.invalid && addPatientForm.get('emergencyContactName')?.touched" />
+            </div>
+            @if (addPatientForm.get('emergencyContactName')?.invalid &&
+            addPatientForm.get('emergencyContactName')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter contact name</div>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="emergencyContactRelationShip">Relationship</label>
+            <div class="input-wrap">
+              <i class="bi bi-people-fill input-icon"></i>
+              <select id="emergencyContactRelationShip" class="field-input field-select"
+                formControlName="emergencyContactRelationShip"
+                [class.valid]="addPatientForm.get('emergencyContactRelationShip')?.valid && addPatientForm.get('emergencyContactRelationShip')?.touched"
+                [class.invalid]="addPatientForm.get('emergencyContactRelationShip')?.invalid && addPatientForm.get('emergencyContactRelationShip')?.touched">
+                <option value="" disabled selected>Select relationship</option>
+                <option value="partner">Partner</option>
+                <option value="spouse">Spouse</option>
+                <option value="parent">Parent</option>
+                <option value="sibling">Sibling</option>
+                <option value="child">Child</option>
+                <option value="friend">Friend</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            @if (addPatientForm.get('emergencyContactRelationShip')?.invalid &&
+            addPatientForm.get('emergencyContactRelationShip')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please select a relationship</div>
+            }
+          </div>
+        </div>
+
+        <div class="field-row field-row-single">
+          <div class="field-group">
+            <label class="field-label" for="emergencyContactNumber">Phone Number</label>
+            <div class="input-wrap">
+              <i class="bi bi-telephone input-icon"></i>
+              <input type="text" id="emergencyContactNumber" class="field-input" placeholder="+20 109 022 2247"
+                formControlName="emergencyContactNumber"
+                [class.valid]="addPatientForm.get('emergencyContactNumber')?.valid && addPatientForm.get('emergencyContactNumber')?.touched"
+                [class.invalid]="addPatientForm.get('emergencyContactNumber')?.invalid && addPatientForm.get('emergencyContactNumber')?.touched" />
+            </div>
+            @if (addPatientForm.get('emergencyContactNumber')?.invalid &&
+            addPatientForm.get('emergencyContactNumber')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter contact number</div>
+            }
+          </div>
+        </div>
       </div>
 
-      @if(addPatientForm.invalid && addPatientForm.touched){
-      <div class="alert alert-danger mt-3" role="alert">
-        ⚠️ Please make sure to fill in all required fields before submitting.
+      <!-- ── Insurance Information ────────────────────────────── -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon" style="background:#d1fae5; color:#059669;">
+            <i class="bi bi-shield-fill"></i>
+          </div>
+          <div>
+            <h2 class="section-title">Insurance Information</h2>
+            <p class="section-subtitle">Patient's insurance provider and policy</p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="insuranceProvider">Insurance Provider</label>
+            <div class="input-wrap">
+              <i class="bi bi-building input-icon"></i>
+              <input type="text" id="insuranceProvider" class="field-input" placeholder="e.g. Aetna"
+                formControlName="insuranceProvider"
+                [class.valid]="addPatientForm.get('insuranceProvider')?.valid && addPatientForm.get('insuranceProvider')?.touched"
+                [class.invalid]="addPatientForm.get('insuranceProvider')?.invalid && addPatientForm.get('insuranceProvider')?.touched" />
+            </div>
+            @if (addPatientForm.get('insuranceProvider')?.invalid && addPatientForm.get('insuranceProvider')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter insurance provider</div>
+            }
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="insuranceNumber">Insurance Number</label>
+            <div class="input-wrap">
+              <i class="bi bi-card-text input-icon"></i>
+              <input type="text" id="insuranceNumber" class="field-input" placeholder="e.g. AE456789123"
+                formControlName="insuranceNumber"
+                [class.valid]="addPatientForm.get('insuranceNumber')?.valid && addPatientForm.get('insuranceNumber')?.touched"
+                [class.invalid]="addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched" />
+            </div>
+            @if (addPatientForm.get('insuranceNumber')?.invalid && addPatientForm.get('insuranceNumber')?.touched) {
+            <div class="field-error"><i class="bi bi-exclamation-circle"></i> Please enter insurance number</div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Form Error Alert ─────────────────────────────────── -->
+      @if (addPatientForm.invalid && addPatientForm.touched) {
+      <div class="form-alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>Please fill in all required fields before submitting.</span>
       </div>
       }
+
+      <!-- ── Form Actions ─────────────────────────────────────── -->
+      <div class="form-actions">
+        <button class="btn-cancel" type="button" (click)="onCancel()">
+          <i class="bi bi-x"></i> Cancel
+        </button>
+        <button class="btn-save" type="submit">
+          <i class="bi bi-check-circle"></i> Save Patient
+        </button>
+      </div>
 
     </form>
   </div>

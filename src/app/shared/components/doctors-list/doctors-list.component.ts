@@ -1,7 +1,6 @@
-import { Component, DestroyRef, inject, output, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
-import dayjs from 'dayjs';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -11,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SPECIALIZATIONS } from '../../../Data/specializations';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { RouterLink } from '@angular/router';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 
 @Component({
@@ -22,11 +21,44 @@ import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvail
   styleUrl: './doctors-list.component.css',
 })
 export class DoctorsListComponent {
-  doctor=output<Doctor>();
-  id = signal<number>(3);
+
+  pageSize = 9;
+  currentPage = 1;
+
+  get totalPages(): number {
+   
+    return Math.ceil((this.filteredDoctors() ?? []).length / this.pageSize);
+  }
+
+  get pages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  get paginatedDoctors(): Doctor[] {
+  
+    const start = (this.currentPage - 1) * this.pageSize;
+    return (this.filteredDoctors() ?? []).slice(start, start + this.pageSize);
+  }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.pageSize + 1;
+  }
+
+  get endIndex(): number {
+    return Math.min(
+      this.currentPage * this.pageSize,
+      (this.filteredDoctors() ?? []).length,
+    );
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+  id = signal<number>(10);
   private _DoctorsService = inject(DoctorsService);
-  private destroyRef = inject(DestroyRef);
-  handleDoctorAvailabilityStatus=handleDoctorAvailabilityStatus
+  handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   specs = SPECIALIZATIONS;
   searchQuery = '';
   statusFilter = 'All';
@@ -34,7 +66,8 @@ export class DoctorsListComponent {
   specializationFilter = 'All';
   doctorsList = signal<Doctor[] | null>(null);
   filteredDoctors = signal<Doctor[] | null>(null);
-  showAddDoctorForm: boolean = false;
+  showAddDoctorForm = false;
+
   addDoctorForm = new FormGroup({
     name: new FormControl('', Validators.required),
     experience: new FormControl('', Validators.required),
@@ -42,6 +75,8 @@ export class DoctorsListComponent {
     consultationFee: new FormControl('', Validators.required),
     availableDays: new FormControl('', Validators.required),
   });
+
+
   renderDoctors() {
     this._DoctorsService.renderDoctors().subscribe({
       next: (res) => {
@@ -51,6 +86,7 @@ export class DoctorsListComponent {
         this.ratingFilter = '6';
         this.statusFilter = 'All';
         this.specializationFilter = 'All';
+        this.currentPage = 1;
       },
     });
   }
@@ -59,6 +95,7 @@ export class DoctorsListComponent {
     this.renderDoctors();
   }
 
+  // ── Filters ───────────────────────────────────────────────────
   onSearch(query: string) {
     this.searchQuery = query;
     this.applyFilters();
@@ -73,22 +110,24 @@ export class DoctorsListComponent {
     this.ratingFilter = rating;
     this.applyFilters();
   }
+
   onFilterSpecialization(query: string) {
     this.specializationFilter = query;
     this.applyFilters();
   }
 
   applyFilters() {
+  
+    this.currentPage = 1;
+
     let doctors = this.doctorsList() ?? [];
 
-    // search filter
     if (this.searchQuery.trim()) {
       doctors = doctors.filter((doc) =>
-        doc.fullName .toLowerCase().includes(this.searchQuery.toLowerCase()),
+        doc.fullName.toLowerCase().includes(this.searchQuery.toLowerCase()),
       );
     }
 
-    // status filter
     if (this.statusFilter === 'available') {
       doctors = doctors.filter((doc) =>
         this.handleDoctorAvailabilityStatus(doc),
@@ -99,69 +138,70 @@ export class DoctorsListComponent {
       );
     }
 
-    // rating filter
     if (this.ratingFilter !== '6') {
       doctors = doctors.filter(
         (doc) => Number(doc.rating) >= +this.ratingFilter,
       );
     }
-    // specialization filter
+
     if (this.specializationFilter !== 'All') {
       doctors = doctors.filter(
         (doc) => doc.specialty === this.specializationFilter,
       );
     }
+
     this.filteredDoctors.set(doctors);
   }
+
+  // ── Actions ───────────────────────────────────────────────────
   onDelete(id: string) {
-    if (!confirm('Are you sure?')) return; 
+    if (!confirm('Are you sure you want to delete this doctor?')) return;
     this._DoctorsService.deleteDoctor(`${id}`).subscribe({
       next: () => this.renderDoctors(),
       error: (err) => console.error('Delete failed', err),
     });
   }
+
   showForm() {
     this.showAddDoctorForm = true;
   }
+
   addDoctor(): void {
-    if (!this.addDoctorForm.valid) {
-      return;
-    }
+    if (!this.addDoctorForm.valid) return;
 
     const form = this.addDoctorForm.value;
 
     const newDoctor: Doctor = {
       id: `d${this.id()}`,
-        userId: crypto.randomUUID(),
-        firstName: '',
-        lastName: '',
-        fullName: form.name!,
-        initials: '',
-        avatarUrl: '',
-        specialty:form.specialzation!,
-        subSpecialty: '',
-        department:  '',
-        hospital:    '',
-        location: '',
-        email: '',
-        phone: '',
-        bio: '',
-        status: 'active',
-        isAvailableToday: true,
-        consultationFee: Number(form.consultationFee!),
-        experience: Number(form.experience!),
-        totalPatients: 140,
-        rating: 5,
-        totalReviews: 140,
-        qualifications: [],
-        languages: [],
-        services: [],
-        education: [],
-        achievements: [],
-        availableDays: [],
-        availableTimeSlots: [
-          { start: '', end: ''},
-        ]}
+      userId: crypto.randomUUID(),
+      firstName: '',
+      lastName: '',
+      fullName: form.name!,
+      initials: '',
+      avatarUrl: '',
+      specialty: form.specialzation!,
+      subSpecialty: '',
+      department: '',
+      hospital: '',
+      location: '',
+      email: '',
+      phone: '',
+      bio: '',
+      status: 'active',
+      isAvailableToday: true,
+      consultationFee: Number(form.consultationFee!),
+      experience: Number(form.experience!),
+      totalPatients: 140,
+      rating: 5,
+      totalReviews: 140,
+      qualifications: [],
+      languages: [],
+      services: [],
+      education: [],
+      achievements: [],
+      availableDays: [],
+      availableTimeSlots: [{ start: '', end: '' }],
+    };
 
     this._DoctorsService
       .addDoctor(newDoctor)
@@ -170,5 +210,4 @@ export class DoctorsListComponent {
     this.showAddDoctorForm = false;
     this.addDoctorForm.reset();
   }
-
 }

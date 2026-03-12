@@ -1,87 +1,149 @@
-<div class="d-flex flex-column vh-100">
-    <!-- header -->
-    <div class="d-flex justify-content-between bg-white p-3 fw-bold flex-shrink-0">
-<app-back-button></app-back-button>
-        
-        <h1 class="fw-bolder">Patients Details</h1>
-        <div class="d-flex gap-3">
-            <button class="btn btn-outline-secondary">Edit</button>
-            <button class="btn btn-primary">+New Appointmwnt</button>
+<div class="page-wrapper">
+
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <app-back-button></app-back-button>
+            <div>
+                <h1 class="page-title">Patient Details</h1>
+                <p class="page-subtitle">Full profile and medical overview</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+            <button class="btn-primary"><i class="bi bi-plus-circle"></i> New Appointment</button>
         </div>
     </div>
-    <!-- body fills remaining space -->
-    <div class="bg-grey p-5 flex-grow-1 overflow-auto">
-        <div class=" d-flex flex-column justify-content-around  wrapper p-3 h-100">
-            <div class="d-flex gap-3">
-                <div class="profile-avatar">
-                    {{patient.initials}}
-                </div>
-                <div class="fw-bolder fs-6 d-flex flex-column gap-2">
-                    <h1 class="fw-bolder">{{patient.fullName}}</h1>
-                    <p class="text-muted fw-normal">Patient ID: #{{patient.id}} · Age: {{calculateAge(patient.dateOfBirth)}} · Blood Type: {{patient.bloodGroup}} · {{patient.gender}}</p>
-                    <div class="d-flex gap-4">
-                        <!-- Need to be Updated -->
-                        <div class="d-flex flex-column">
 
-                            <span class="value">6</span >
-                            <p class="text-muted fw-normal">Appointments</p>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <span class="value">2</span>
-                            <p class="text-muted fw-normal">Medical Records</p>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <span class="value">1</span>
-                            <p class="text-muted fw-normal">Active RX</p>
-                        </div>
+    <!-- ── Body ────────────────────────────────────────────────── -->
+    <div class="page-body">
+
+        <!-- ── Profile Card ──────────────────────────────────────── -->
+        <div class="profile-card">
+            <div class="profile-top">
+                <div class="profile-avatar">{{ patient.initials }}</div>
+                <div class="profile-info">
+                    <h2 class="profile-name">{{ patient.fullName }}</h2>
+                    <div class="profile-meta">
+                        <span class="meta-chip"><i class="bi bi-hash"></i>{{ patient.id }}</span>
+                        <span class="meta-chip"><i class="bi bi-cake2"></i>Age {{ calculateAge(patient.dateOfBirth)
+                            }}</span>
+                        <span class="meta-chip blood"><i class="bi bi-droplet-fill"></i>{{ patient.bloodGroup }}</span>
+                        <span class="meta-chip"><i class="bi bi-gender-ambiguous"></i>{{ patient.gender }}</span>
                     </div>
-
                 </div>
             </div>
 
-            <div>
-                <div class="row gap-4 m-3">
-                    <div class="detail-card col">
-                        <span>Email</span>
-                        <p>{{patient.email}}</p>
-                    </div>
-                    <div class="detail-card col">
-                        <span>Phone</span>
-                        <p>{{patient.phone}}</p>
-                    </div>
-                </div>
-                <div class="row gap-4 m-3">
-                    <div class="detail-card col">
-                        <span>Address</span>
-                        <p>{{patient.address}}</p>
-                    </div>
-                    <div class="detail-card col">
-                        <span>Insurance</span>
-                        <p>{{patient.insuranceProvider}}</p>
-                    </div>
-                </div>
-                <div class="row gap-4 m-3">
-                    <div class="detail-card col">
-                        <span>Allergies</span>
-                        <p class="text-danger fw-bold">{{patient.allergies.length?patient.allergies:'None'}}</p>
-                    </div>
-                    <div class="detail-card col">
-                        <span>Conditons</span>
-                        <p class="text-warning fw-bold">{{ patient.chronicConditions.length ? patient.chronicConditions : "None" }}</p>
-                    </div>
-                </div>
-                <div class="row gap-4 m-3">
-                    <div class="detail-card col">
-                        <span>Emergency Contact</span>
-                        <p>{{patient.emergencyContact.name}} ({{patient.emergencyContact.relationship}}) · {{patient.emergencyContact.phone}}</p>
-                    </div>
-                    <div class="detail-card col">
-                        <span>Last Visit</span>
-                        <p>{{patient.lastVisit}}</p>
-                    </div>
-                </div>
+            <div class="profile-divider"></div>
 
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">6</span>
+                    <span class="stat-label">Appointments</span>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat-item">
+                    <span class="stat-value">2</span>
+                    <span class="stat-label">Medical Records</span>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat-item">
+                    <span class="stat-value">1</span>
+                    <span class="stat-label">Active Rx</span>
+                </div>
             </div>
+        </div>
+
+        <!-- ── Detail Grid ────────────────────────────────────────── -->
+        <div class="detail-grid">
+
+            <!-- Contact Information -->
+            <div class="detail-section">
+                <div class="section-header">
+                    <div class="section-icon" style="background:#eff6ff; color:#2563eb;">
+                        <i class="bi bi-person-lines-fill"></i>
+                    </div>
+                    <h3 class="section-title">Contact Information</h3>
+                </div>
+                <div class="detail-list">
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-envelope"></i> Email</span>
+                        <span class="detail-val">{{ patient.email }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-telephone"></i> Phone</span>
+                        <span class="detail-val">{{ patient.phone }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-geo-alt"></i> Address</span>
+                        <span class="detail-val">{{ patient.address }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-calendar-check"></i> Last Visit</span>
+                        <span class="detail-val">{{ patient.lastVisit }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Information -->
+            <div class="detail-section">
+                <div class="section-header">
+                    <div class="section-icon" style="background:#fef3c7; color:#d97706;">
+                        <i class="bi bi-clipboard2-pulse-fill"></i>
+                    </div>
+                    <h3 class="section-title">Medical Information</h3>
+                </div>
+                <div class="detail-list">
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-shield-fill"></i> Insurance</span>
+                        <span class="detail-val">{{ patient.insuranceProvider }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-shield-exclamation"></i> Allergies</span>
+                        <span class="detail-val">
+                            @if (patient.allergies.length) {
+                            <span class="tag tag-red">{{ patient.allergies }}</span>
+                            } @else {
+                            <span class="tag tag-green">None</span>
+                            }
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-key"><i class="bi bi-activity"></i> Conditions</span>
+                        <span class="detail-val">
+                            @if (patient.chronicConditions.length) {
+                            <span class="tag tag-amber">{{ patient.chronicConditions }}</span>
+                            } @else {
+                            <span class="tag tag-green">None</span>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Contact -->
+            <div class="detail-section detail-section-full">
+                <div class="section-header">
+                    <div class="section-icon" style="background:#fee2e2; color:#dc2626;">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <h3 class="section-title">Emergency Contact</h3>
+                </div>
+                <div class="emergency-card">
+                    <div class="emergency-avatar">
+                        {{ patient.emergencyContact.name | slice:0:2 | uppercase }}
+                    </div>
+                    <div class="emergency-info">
+                        <div class="emergency-name">{{ patient.emergencyContact.name }}</div>
+                        <div class="emergency-meta">
+                            <span class="tag tag-blue">{{ patient.emergencyContact.relationship }}</span>
+                            <span class="emergency-phone"><i class="bi bi-telephone"></i> {{
+                                patient.emergencyContact.phone }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -4,11 +4,12 @@ import { Patient } from '../../../models/patient';
 import { PatientService } from '../../../core/services/patient.service';
 import { calculateAge } from '../../../utils/calculateAge';
 import { BackButtonComponent } from '../back-button/back-button.component';
+import { SlicePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-patient-detail',
   standalone: true,
-  imports: [BackButtonComponent],
+  imports: [BackButtonComponent,SlicePipe,UpperCasePipe],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.css',
 })

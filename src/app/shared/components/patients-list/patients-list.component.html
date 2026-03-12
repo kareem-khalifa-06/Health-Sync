@@ -1,116 +1,138 @@
-
-<div class="d-flex justify-content-between bg-white p-3 fw-bold">
-  
-  <h1 class="fw-bolder">Patients</h1>
+<!-- ── Page Header ────────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="page-header-left">
+    <h1 class="page-title">Patients</h1>
+    <span class="total-badge">{{ (filteredPatientsList() ?? []).length }} total</span>
+  </div>
   <a routerLink="/adminLayout/new-patient">
-    <button class="btn btn-primary">
-    <i class="bi bi-plus-circle"> </i>
-    Add Patient
-  </button>
+    <button class="btn-add">
+      <i class="bi bi-plus-circle"></i> Add Patient
+    </button>
   </a>
-  
 </div>
-<div class="p-5 d-flex flex-column gap-lg-5 bg-grey flex-fill h-100">
-  <!-- filters row -->
-  <div class="d-flex gap-3">
-    <div class="input-container w-50">
-      <i class="bi bi-search icon"></i>
-      <input
-        type="text"
-        placeholder="Search Patients..."
-        class="input-field form-control"
-        [(ngModel)]="searchQuery"
-        (input)="onSearch(searchQuery)"
-      />
+
+<!-- ── Main Content ───────────────────────────────────────────── -->
+<div class="page-body">
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-wrap">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" placeholder="Search patients by name or ID..." class="filter-input" [(ngModel)]="searchQuery"
+        (input)="onSearch(searchQuery)" />
     </div>
-    <select name="Blood-Group" id="bloodGroup" class="form-control w-25" [(ngModel)]="bloodGroupFilter" (ngModelChange)="onBloodGroupFilter(bloodGroupFilter)">
-      <option value="All" selected>All Blood Groups</option>
+
+    <select class="filter-select" [(ngModel)]="bloodGroupFilter" (ngModelChange)="onBloodGroupFilter(bloodGroupFilter)">
+      <option value="All">All Blood Groups</option>
       @for (bg of bloodGroups; track $index) {
-        <option [value]="bg">{{ bg }}</option>
+      <option [value]="bg">{{ bg }}</option>
       }
     </select>
-    <select name="medicalCondtion" id="medicalCondition" class="form-control w-25" [(ngModel)]="conditionFilter" (ngModelChange)="onConditionFilter(conditionFilter)">
+
+    <select class="filter-select" [(ngModel)]="conditionFilter" (ngModelChange)="onConditionFilter(conditionFilter)">
       <option value="All">All Conditions</option>
       @for (condition of medicalConditons; track $index) {
-        <option [value]="condition">{{ condition }}</option>
+      <option [value]="condition">{{ condition }}</option>
       }
     </select>
   </div>
-  <!-- patients table -->
-  <div class="wrapper">
-    <table class="table table-hover table-responsive bg-white align-middle">
-      <thead class="bg-light-subtle fw-bold">
-        <th>PATIENT</th>
-        <th>DOB/AGE</th>
-        <th>BLOOD</th>
-        <th>INSURANCE</th>
-        <th>LAST VISIT</th>
-        <th>CONDITIONS</th>
-        <th>ACTIONS</th>
-      </thead>
-      <tbody>
-        @for (p of filteredPatientsList(); track p.id) {
+
+  <!-- Table Card -->
+  <div class="table-card">
+
+    @if ((filteredPatientsList() ?? []).length === 0) {
+    <div class="empty-state">
+      <i class="bi bi-person-x empty-icon"></i>
+      <p>No patients match your filters.</p>
+      <span>Try adjusting your search or filter criteria.</span>
+    </div>
+    } @else {
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
           <tr>
-            <td>
-              <div style="display: flex; align-items: center; gap: 9px">
-                <div
-                  style="
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #0ea5e9, #2563eb);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    font-size: 11px;
-                    font-weight: 700;
-                  "
-                >
-                  {{p.initials}}
-                </div>
-                <div>
-                  <div style="font-weight: 600; font-size: 13px">
-                    {{p.fullName}}
-                  </div>
-                  <div style="font-size: 11px; color: #94a3b8">#{{p.id}}</div>
-                </div>
-              </div>
-            </td>
-            <td>{{ p.dateOfBirth | date: "mediumDate" }} ({{calculateAge(p.dateOfBirth)}})</td>
-            <td>
-              <span class="blood-group-wrapper">
-                {{ p.bloodGroup }}
-              </span>
-            </td>
-            <td>
-              {{ p.insuranceProvider }}
-            </td>
-            <td>
-              {{ p.lastVisit | date: "mediumDate" }}
-            </td>
-            <td>
-              <span
-                [class]="
-                  p.chronicConditions.length ? 'condition-wrapper' : 'none'
-                "
-              >
-                {{ p.chronicConditions.length ? p.chronicConditions : "None" }}
-              </span>
-            </td>
-            <td>
-              <div class="d-flex gap-2">
-              <a [routerLink]="['/adminLayout/patients/details/', p.id]">
-                <button class="btn btn-primary">
-                  View 
-                </button>
-              </a>
-                <button class="btn btn-outline-secondary">Edit</button>
-              </div>
-            </td>
+            <th>Patient</th>
+            <th>DOB / Age</th>
+            <th>Blood</th>
+            <th>Insurance</th>
+            <th>Last Visit</th>
+            <th>Conditions</th>
+            <th>Actions</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (p of filteredPatientsList(); track p.id) {
+          <tr class="table-row">
+
+            <!-- Patient -->
+            <td>
+              <div class="person-cell">
+                <div class="avatar av-gradient">{{ p.initials }}</div>
+                <div>
+                  <div class="person-name">{{ p.fullName }}</div>
+                  <div class="person-id">#{{ p.id }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- DOB -->
+            <td>
+              <div class="datetime-cell">
+                <span class="date-val">{{ p.dateOfBirth | date: 'mediumDate' }}</span>
+                <span class="time-val">Age {{ calculateAge(p.dateOfBirth) }}</span>
+              </div>
+            </td>
+
+            <!-- Blood Group -->
+            <td>
+              <span class="blood-chip">{{ p.bloodGroup }}</span>
+            </td>
+
+            <!-- Insurance -->
+            <td>
+              <span class="insurance-text">{{ p.insuranceProvider }}</span>
+            </td>
+
+            <!-- Last Visit -->
+            <td>
+              <span class="date-val">{{ p.lastVisit | date: 'mediumDate' }}</span>
+            </td>
+
+            <!-- Conditions -->
+            <td>
+              @if (p.chronicConditions.length) {
+              <span class="condition-chip condition-active">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ p.chronicConditions.join(', ') }}
+              </span>
+              } @else {
+              <span class="condition-chip condition-none">
+                <i class="bi bi-check-circle-fill"></i> None
+              </span>
+              }
+            </td>
+
+            <!-- Actions -->
+            <td>
+              <div class="action-cell">
+                <a [routerLink]="['/adminLayout/patients/details/', p.id]">
+                  <button class="btn-view"><i class="bi bi-eye"></i> View</button>
+                </a>
+                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+              </div>
+            </td>
+
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      <span class="footer-info">
+        Showing {{ (filteredPatientsList() ?? []).length }} patients
+      </span>
+    </div>
+    }
   </div>
 </div>

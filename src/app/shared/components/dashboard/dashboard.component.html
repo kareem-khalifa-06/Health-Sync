@@ -1,114 +1,309 @@
-<div
-  class="d-flex w-100 flex-column gap-4 justify-content-between h-100 dashboard-page flex-fill"
->
-  <div class="d-flex w-100 align-items-center justify-content-between">
-    <h1 class="fw-bold mb-0">Dashboard</h1>
-    <div class="d-flex align-items-center gap-3">
-      <button
-        class="btn btn-light rounded-circle p-0"
-        style="width: 40px; height: 40px"
-      >
-        <i class="bi bi-bell-fill text-warning"></i>
+<div class="page-wrapper">
+
+  <!-- ── Top Bar ─────────────────────────────────────────────── -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="greeting-block">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="greeting-sub">Welcome back, Kinoo — here's today's overview.</p>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <div class="search-wrap">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" placeholder="Search patients, doctors…" class="search-input" />
+      </div>
+      <button class="icon-btn" title="Notifications">
+        <i class="bi bi-bell-fill"></i>
+        <span class="notif-dot"></span>
       </button>
-      <button
-        class="btn btn-light rounded-circle p-0"
-        style="width: 40px; height: 40px"
-      >
-        <i class="bi bi-gear-fill text-primary"></i>
+      <button class="icon-btn" title="Settings">
+        <i class="bi bi-gear-fill"></i>
       </button>
-      <button
-        class="btn btn-primary rounded-circle p-0 fw-bold"
-        style="width: 40px; height: 40px"
-        routerLink="user-profile"
-      >
-        DR
-      </button>
+      <button class="avatar-btn" routerLink="user-profile" title="Profile">KI</button>
     </div>
   </div>
 
-  <!-- Cards Row -->
-  <div class="d-flex gap-4 w-100 justify-content-between h-25">
-    <div
-      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
-    >
-      <p class="fw-bold mb-1 text-muted">Today's Appointments</p>
-      <p class="mb-0 fw-bolder">12</p>
-      <p class="fw-bold text-success">
-        <i class="bi bi-arrow-up"></i> 3 form yesterday
-      </p>
+  <!-- ── Metric Cards ─────────────────────────────────────────── -->
+  <div class="metrics-grid">
+    <div class="metric-card" style="--accent:#2563eb; --accent-lt:#eff6ff;">
+      <div class="metric-top">
+        <div class="metric-icon-wrap" style="background:#eff6ff; color:#2563eb;">
+          <i class="bi bi-calendar-check-fill"></i>
+        </div>
+        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 3 from yesterday</span>
+      </div>
+      <div class="metric-value">12</div>
+      <div class="metric-label">Today's Appointments</div>
     </div>
-    <div
-      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
-    >
-      <p class="fw-bold mb-1 text-muted">Total patients</p>
-      <p class="mb-0 fw-bolder">847</p>
-      <p class="fw-bold text-success">
-        <i class="bi bi-arrow-up"></i> 23 this month
-      </p>
+
+    <div class="metric-card" style="--accent:#059669; --accent-lt:#d1fae5;">
+      <div class="metric-top">
+        <div class="metric-icon-wrap" style="background:#d1fae5; color:#059669;">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 23 this month</span>
+      </div>
+      <div class="metric-value">{{patientsCount+1130}}</div>
+      <div class="metric-label">Total Patients</div>
     </div>
-    <div
-      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
-    >
-      <p class="fw-bold mb-1 text-muted">Pending Approvals</p>
-      <p class="mb-0 fw-bolder">5</p>
-      <p class="fw-bold text-warning">
-        <i class="bi bi-bullseye"></i> Needs Attention
-      </p>
+
+    <div class="metric-card" style="--accent:#d97706; --accent-lt:#fef3c7;">
+      <div class="metric-top">
+        <div class="metric-icon-wrap" style="background:#fef3c7; color:#d97706;">
+          <i class="bi bi-hourglass-split"></i>
+        </div>
+        <span class="metric-trend trend-warn"><i class="bi bi-exclamation-circle"></i> Needs attention</span>
+      </div>
+      <div class="metric-value">5</div>
+      <div class="metric-label">Pending Approvals</div>
     </div>
-    <div
-      class="card p-3 w-25 wrapper d-flex flex-column justify-content-between"
-    >
-      <p class="fw-bold mb-1 text-muted">Active Doctors</p>
-      <p class="mb-0 fw-bolder">28</p>
-      <p class="fw-bold text-success">
-        <i class="bi bi-arrow-up"></i> 2 new this week
-      </p>
+
+    <div class="metric-card" style="--accent:#7c3aed; --accent-lt:#f3e8ff;">
+      <div class="metric-top">
+        <div class="metric-icon-wrap" style="background:#f3e8ff; color:#7c3aed;">
+          <i class="bi bi-person-badge-fill"></i>
+        </div>
+        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 2 new this week</span>
+      </div>
+      <div class="metric-value">{{doctorsCount}}</div>
+      <div class="metric-label">Active Doctors</div>
     </div>
   </div>
-  <!-- schedule table -->
-  <div class="card p-3 wrapper h-50">
-    <div class="d-flex justify-content-between">
-       <h2 class="fw-bold mb-3">Today's schedule</h2>
-    <button class="btn btn-primary">+New Appointment</button>
+
+  <!-- ── Content Row ──────────────────────────────────────────── -->
+  <div class="content-row">
+
+    <!-- Schedule Table -->
+    <div class="table-card">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Today's Schedule</h2>
+          <p class="card-subtitle">{{todayDate}} · 12 appointments</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn-ghost">Export</button>
+          <button class="btn-primary-sm">+ New Appointment</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Doctor</th>
+              <th>Date &amp; Time</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          <!-- need to be updated -->
+            <tr class="table-row">
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-blue">JD</div>
+                  <div>
+                    <div class="person-name">John Doe</div>
+                    <div class="person-sub">#PT-0041</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-teal">SS</div>
+                  <span class="person-name">Dr. Smith</span>
+                </div>
+              </td>
+              <td>
+                <div class="datetime-cell">
+                  <span class="date-val">Jun 15, 2024</span>
+                  <span class="time-val">10:00 AM</span>
+                </div>
+              </td>
+              <td><span class="type-chip type-checkup">Checkup</span></td>
+              <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
+            </tr>
+            <tr class="table-row">
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-purple">JR</div>
+                  <div>
+                    <div class="person-name">Jane Roe</div>
+                    <div class="person-sub">#PT-0082</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-green">DA</div>
+                  <span class="person-name">Dr. Adams</span>
+                </div>
+              </td>
+              <td>
+                <div class="datetime-cell">
+                  <span class="date-val">Jun 15, 2024</span>
+                  <span class="time-val">11:30 AM</span>
+                </div>
+              </td>
+              <td><span class="type-chip type-followup">Follow-up</span></td>
+              <td><span class="status-badge status-pending"><span class="s-dot"></span>Pending</span></td>
+              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
+            </tr>
+            <tr class="table-row">
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-orange">BJ</div>
+                  <div>
+                    <div class="person-name">Bob Johnson</div>
+                    <div class="person-sub">#PT-0114</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-red">DL</div>
+                  <span class="person-name">Dr. Lee</span>
+                </div>
+              </td>
+              <td>
+                <div class="datetime-cell">
+                  <span class="date-val">Jun 16, 2024</span>
+                  <span class="time-val">09:00 AM</span>
+                </div>
+              </td>
+              <td><span class="type-chip type-physical">Annual Physical</span></td>
+              <td><span class="status-badge status-cancelled"><span class="s-dot"></span>Cancelled</span></td>
+              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
+            </tr>
+            <tr class="table-row">
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-teal">SL</div>
+                  <div>
+                    <div class="person-name">Sara Liu</div>
+                    <div class="person-sub">#PT-0199</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="person-cell">
+                  <div class="avatar av-purple">KE</div>
+                  <span class="person-name">Dr.Khadija Elbakry</span>
+                </div>
+              </td>
+              <td>
+                <div class="datetime-cell">
+                  <span class="date-val">Jun 16, 2024</span>
+                  <span class="time-val">02:00 PM</span>
+                </div>
+              </td>
+              <td><span class="type-chip type-consult">Consultation</span></td>
+              <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <span class="footer-info">Showing 4 of 12 appointments today</span>
+        <button class="btn-ghost">View all →</button>
+      </div>
     </div>
-   <hr>
-    <table class="table table-hover mb-0">
-      <thead>
-        <tr class="table-light">
-          <th scope="col" class="text-muted">Patient Name</th>
-          <th scope="col" class="text-muted">Doctor</th>
-          <th scope="col" class="text-muted">Date & Time</th>
-          <th scope="col" class="text-muted">type</th>
-          <th scope="col" class="text-muted">Status</th>
-          <th scope="col" class="text-muted">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td>Dr. Smith</td>
-          <td>2024-06-15 10:00 AM</td>
-          <td>Checkup</td>
-          <td><span class="badge bg-success ">Confirmed</span></td>
-          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
-        </tr>
-        <tr>
-          <td>Jane Roe</td>
-          <td>Dr. Adams</td>
-          <td>2024-06-15 11:30 AM</td>
-          <td>Follow-up</td>
-          <td><span class="badge bg-warning ">Pending</span></td>
-          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
-        </tr>
-        <tr>
-          <td>Bob Johnson</td>
-          <td>Dr. Lee</td>
-          <td>2024-06-16 09:00 AM</td>
-          <td>Annual Physical</td>
-          <td><span class="badge bg-danger ">Cancelled</span></td>
-          <td><button class="btn btn-sm btn-outline-primary">View Details</button></td>
-        </tr>
-        <!-- More rows as needed -->
-      </tbody>
-    </table>
+
+    <!-- Right Column -->
+    <div class="right-col">
+
+      <!-- Quick Stats -->
+      <div class="side-card">
+        <div class="card-header">
+          <h3 class="card-title">Clinic Status</h3>
+        </div>
+        <div class="stat-list">
+          <div class="stat-row">
+            <div class="stat-row-left">
+              <span class="stat-dot" style="background:#2563eb;"></span>
+              <span class="stat-row-label">Beds Available</span>
+            </div>
+            <span class="stat-row-val">34 / 60</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-row-left">
+              <span class="stat-dot" style="background:#059669;"></span>
+              <span class="stat-row-label">Discharged Today</span>
+            </div>
+            <span class="stat-row-val">7</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-row-left">
+              <span class="stat-dot" style="background:#d97706;"></span>
+              <span class="stat-row-label">New Admissions</span>
+            </div>
+            <span class="stat-row-val">5</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-row-left">
+              <span class="stat-dot" style="background:#dc2626;"></span>
+              <span class="stat-row-label">Critical Cases</span>
+            </div>
+            <span class="stat-row-val">3</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-row-left">
+              <span class="stat-dot" style="background:#7c3aed;"></span>
+              <span class="stat-row-label">In Surgery</span>
+            </div>
+            <span class="stat-row-val">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- On Duty Doctors -->
+      <div class="side-card">
+        <div class="card-header">
+          <h3 class="card-title">On-Duty Doctors</h3>
+          <button class="btn-ghost-sm" (click)="viewAllDoctors()">View All</button>
+        </div>
+        <div class="doctor-list">
+          <div class="doctor-row">
+            <div class="avatar av-teal">SS</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Smith</div>
+              <div class="doctor-spec">Cardiology</div>
+            </div>
+            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
+          </div>
+          <div class="doctor-row">
+            <div class="avatar av-green">DA</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Adams</div>
+              <div class="doctor-spec">Neurology</div>
+            </div>
+            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
+          </div>
+          <div class="doctor-row">
+            <div class="avatar av-red">DL</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Lee</div>
+              <div class="doctor-spec">Orthopedics</div>
+            </div>
+            <span class="duty-badge duty-surgery"><span class="s-dot"></span>Surgery</span>
+          </div>
+          <div class="doctor-row">
+            <div class="avatar av-purple">KE</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr.Khadija Elbakry</div>
+              <div class="doctor-spec">Internal Med.</div>
+            </div>
+            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

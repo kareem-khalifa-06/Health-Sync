@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-registeration-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './registeration-form.component.html',
   styleUrl: './registeration-form.component.css',
 })
