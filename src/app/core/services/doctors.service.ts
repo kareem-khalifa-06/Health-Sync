@@ -14,6 +14,10 @@ export class DoctorsService {
     return this._HttpClient.post<Doctor>(this.base_url, newDoctor);
   }
 
+  updateDoctor(updatedDoctor: Doctor): Observable<Doctor> {
+    return this._HttpClient.put<Doctor>(this.base_url, updatedDoctor);
+  }
+
   renderDoctors(): Observable<Doctor[]> {
     return this._HttpClient.get<Doctor[]>(this.base_url);
   }

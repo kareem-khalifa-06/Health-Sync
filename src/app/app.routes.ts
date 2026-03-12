@@ -143,4 +143,10 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path:'doctorLayout/:id',
+    loadComponent:()=>import('./shared/layouts/doctor-layout/doctor-layout.component').then((m)=>{
+    return m.DoctorLayoutComponent
+    })
+  }
 ];

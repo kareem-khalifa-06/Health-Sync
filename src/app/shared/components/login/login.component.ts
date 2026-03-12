@@ -35,6 +35,8 @@ export class LoginComponent {
             alert('Logged in successfully');
             if(this._AuthService.getRole()==='admin')
           this._Router.navigate(['/adminLayout']);
+            if(this._AuthService.getRole()==='doctor')
+          this._Router.navigate(['/doctorLayout/' + user.doctorId]);
           }
           
         },
