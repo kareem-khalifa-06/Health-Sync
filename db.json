@@ -1422,6 +1422,22 @@
       "consultationFee": 900,
       "createdAt": "2026-03-14T22:36:54.376Z",
       "updatedAt": "2026-03-14T22:36:54.376Z"
+    },
+    {
+      "id": "afe1",
+      "patientId": "p2",
+      "doctorId": "d1",
+      "appointmentDate": "2026-03-15",
+      "appointmentTime": "14:00",
+      "type": "checkup",
+      "reason": "wkfnfnwel",
+      "duration": 30,
+      "status": "pending",
+      "notes": "",
+      "slotId": "sch-d1-1773530825452",
+      "consultationFee": 0,
+      "createdAt": "2026-03-14T23:27:05.452Z",
+      "updatedAt": "2026-03-14T23:27:05.452Z"
     }
   ],
   "medicalRecords": [

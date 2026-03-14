@@ -1,0 +1,75 @@
+<!-- Backdrop -->
+<div class="dialog-backdrop" (click)="onCancel()"></div>
+
+<!-- Dialog -->
+<div class="dialog-card">
+
+    <div class="dialog-header">
+        <div class="dialog-icon">
+            <i class="bi bi-calendar-check-fill"></i>
+        </div>
+        <div>
+            <h2 class="dialog-title">Confirm Appointment</h2>
+            <p class="dialog-subtitle">Please review the details before booking.</p>
+        </div>
+    </div>
+
+    <div class="dialog-body">
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-person-fill"></i> Patient</span>
+            <span class="summary-value">{{ patientName }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-person-badge-fill"></i> Doctor</span>
+            <span class="summary-value">{{ doctorName }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-calendar3"></i> Date</span>
+            <span class="summary-value">{{ payload.appointmentDate }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-clock-fill"></i> Time</span>
+            <span class="summary-value">{{ payload.appointmentTime }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-hourglass-split"></i> Duration</span>
+            <span class="summary-value">{{ payload.appointmentDuration }} minutes</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-tag-fill"></i> Type</span>
+            <span class="summary-value type-chip">{{ payload.appointmentType }}</span>
+        </div>
+
+        <div class="summary-row reason-row">
+            <span class="summary-label"><i class="bi bi-chat-left-text-fill"></i> Reason</span>
+            <span class="summary-value reason-val">{{ payload.reason }}</span>
+        </div>
+
+        @if (error) {
+        <div class="error-banner">
+            <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+        </div>
+        }
+
+    </div>
+
+    <div class="dialog-footer">
+        <button class="btn-cancel" (click)="onCancel()" [disabled]="isLoading">
+            Go Back
+        </button>
+        <button class="btn-confirm" (click)="onConfirm()" [disabled]="isLoading">
+            @if (isLoading) {
+            <span class="spinner"></span> Booking…
+            } @else {
+            <i class="bi bi-check-lg"></i> Confirm Booking
+            }
+        </button>
+    </div>
+
+</div>
