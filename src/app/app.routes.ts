@@ -162,5 +162,6 @@ export const routes: Routes = [
           return m.DoctorLayoutComponent;
         },
       ),
+      canActivate:[authGuard]
   },
 ];

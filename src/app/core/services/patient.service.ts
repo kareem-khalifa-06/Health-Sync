@@ -16,15 +16,15 @@ export class PatientService {
   addPatient(newPatient: Patient): Observable<Patient> {
     return this._HttpClient.post<Patient>(this.base_url, newPatient);
   }
-  deletePatient(id: string) {
+  deletePatient(id: string): Observable<Patient> {
     return this._HttpClient.delete<Patient>(this.base_url + `/${id}`);
   }
-  getPatientById(id: string) {
+  getPatientById(id: string): Observable<Patient> {
     return this._HttpClient.get<Patient>(this.base_url + `/${id}`);
   }
-  updatePatient(updatedPatient: Patient, id: string) {
+  updatePatient(updatedPatient: Patient, id: string): Observable<Patient> {
     return this._HttpClient.put<Patient>(
-      this.base_url +`/${id}`,
+      this.base_url + `/${id}`,
       updatedPatient,
     );
   }

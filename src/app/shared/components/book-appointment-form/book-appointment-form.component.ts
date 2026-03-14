@@ -12,7 +12,7 @@ import { DoctorsService } from '../../../core/services/doctors.service';
 import { PatientService } from '../../../core/services/patient.service';
 import { Patient } from '../../../models/patient';
 import { AppointmentService } from '../../../core/services/appointments.service';
-import { single } from 'rxjs';
+
 
 @Component({
   selector: 'app-book-appointment-form',
@@ -75,12 +75,13 @@ export class BookAppointmentFormComponent {
       return;
     }
 
+
     this._DoctorsService
       .getDoctorById(this.appointmentForm.value.doctorId!)
       .subscribe({
         next: (doctor) => {
           this.selectedDoctor.set(doctor);
-
+          
           const newAppointment: Appointment = {
             id: `a${this.id()}`,
             patientId: this.appointmentForm.value.patientId!,
@@ -101,6 +102,7 @@ export class BookAppointmentFormComponent {
           this._AppointmentService.addAppointment(newAppointment).subscribe({
             next:()=>{
               alert('Appointment Booked Succesfully')
+              this.id.update((id)=>id++);
               this.appointmentForm.reset();
               window.history.back();
             }

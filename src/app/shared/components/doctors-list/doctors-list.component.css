@@ -30,7 +30,11 @@
   min-height: 100vh;
   background: var(--slate-50);
   font-family: 'Segoe UI', system-ui, sans-serif;
+  animation: cardIn .35s ease both;
 }
+.page-wrapper:nth-child(1){animation-delay: 0.05s;}
+.page-wrapper:nth-child(2){animation-delay: 0.1s;}
+.page-wrapper:nth-child(3){animation-delay: 0.15s;}
 
 /* ── Page Header ───────────────────────────────────────────────── */
 .page-header {
@@ -609,4 +613,14 @@ select.form-input[multiple] option {
   opacity: .5;
   cursor: not-allowed;
   box-shadow: none;
+}
+@keyframes cardIn {
+   from{
+    opacity: 0;
+    transform: translateY(10px);
+   }
+   to{
+    opacity: 1;
+    transform: translateY(0px);
+   }
 }

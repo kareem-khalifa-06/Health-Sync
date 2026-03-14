@@ -31,7 +31,7 @@ export class LoginComponent {
       .login(this.loginForm.value.email!, this.loginForm.value.password!)
       .subscribe({
         next: (user) => {
-          if(this._AuthService.isLoggedIn()){
+          if(this._AuthService.isLoggedIn()){ 
             alert('Logged in successfully');
             if(this._AuthService.getRole()==='admin')
           this._Router.navigate(['/adminLayout']);

@@ -8,7 +8,7 @@ const _Router=inject(Router);
 if(_AuthService.isLoggedIn()){
   return true
 }
-alert('Access Denied !!')
+alert('Login First !!')
   _Router.navigate(['/login']);
   return false;
 };

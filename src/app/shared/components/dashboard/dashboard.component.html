@@ -33,7 +33,7 @@
         </div>
         <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 3 from yesterday</span>
       </div>
-      <div class="metric-value">12</div>
+      <div class="metric-value">{{ todayRows.length }}</div>
       <div class="metric-label">Today's Appointments</div>
     </div>
 
@@ -44,7 +44,7 @@
         </div>
         <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 23 this month</span>
       </div>
-      <div class="metric-value">{{patientsCount+1130}}</div>
+      <div class="metric-value">{{ patientsCount + 1130 }}</div>
       <div class="metric-label">Total Patients</div>
     </div>
 
@@ -66,7 +66,7 @@
         </div>
         <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 2 new this week</span>
       </div>
-      <div class="metric-value">{{doctorsCount}}</div>
+      <div class="metric-value">{{ doctorsCount }}</div>
       <div class="metric-label">Active Doctors</div>
     </div>
   </div>
@@ -79,7 +79,10 @@
       <div class="card-header">
         <div>
           <h2 class="card-title">Today's Schedule</h2>
-          <p class="card-subtitle">{{todayDate}} · 12 appointments</p>
+          <p class="card-subtitle">
+            {{ todayDate }} · {{ todayRows.length }}
+            {{ todayRows.length > 1 ? 'appointments' : 'appointment' }}
+          </p>
         </div>
         <div class="card-actions">
           <button class="btn-primary-sm" [routerLink]="['/adminLayout/new-appointment']">+ New Appointment</button>
@@ -99,118 +102,54 @@
             </tr>
           </thead>
           <tbody>
-          <!-- need to be updated -->
+            @for (row of todayRows; track row.appointment.id) {
             <tr class="table-row">
               <td>
                 <div class="person-cell">
-                  <div class="avatar av-blue">JD</div>
+                  <div class="avatar av-blue">{{ row.patient.initials }}</div>
                   <div>
-                    <div class="person-name">John Doe</div>
-                    <div class="person-sub">#PT-0041</div>
+                    <div class="person-name">{{ row.patient.fullName }}</div>
+                    <div class="person-sub">{{ row.appointment.patientId }}</div>
                   </div>
                 </div>
               </td>
               <td>
                 <div class="person-cell">
-                  <div class="avatar av-teal">SS</div>
-                  <span class="person-name">Dr. Smith</span>
+                  <div class="avatar av-teal">{{ row.doctor.initials }}</div>
+                  <span class="person-name">{{ row.doctor.fullName }}</span>
                 </div>
               </td>
               <td>
                 <div class="datetime-cell">
-                  <span class="date-val">Jun 15, 2024</span>
-                  <span class="time-val">10:00 AM</span>
+                  <span class="date-val">{{ row.appointment.appointmentDate }}</span>
+                  <span class="time-val">{{ row.appointment.appointmentTime }}</span>
                 </div>
               </td>
-              <td><span class="type-chip type-checkup">Checkup</span></td>
-              <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+              <td><span class="type-chip type-checkup">{{ row.appointment.type }}</span></td>
+              <td>
+                <span class="status-badge status-confirmed">
+                  <span class="s-dot"></span>{{ row.appointment.status }}
+                </span>
+              </td>
               <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
             </tr>
-            <tr class="table-row">
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-purple">JR</div>
-                  <div>
-                    <div class="person-name">Jane Roe</div>
-                    <div class="person-sub">#PT-0082</div>
-                  </div>
-                </div>
+            } @empty {
+            <tr>
+              <td colspan="6" style="text-align:center; padding: 2rem; color: var(--text-muted, #6b7280);">
+                No appointments scheduled for today.
               </td>
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-green">DA</div>
-                  <span class="person-name">Dr. Adams</span>
-                </div>
-              </td>
-              <td>
-                <div class="datetime-cell">
-                  <span class="date-val">Jun 15, 2024</span>
-                  <span class="time-val">11:30 AM</span>
-                </div>
-              </td>
-              <td><span class="type-chip type-followup">Follow-up</span></td>
-              <td><span class="status-badge status-pending"><span class="s-dot"></span>Pending</span></td>
-              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
             </tr>
-            <tr class="table-row">
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-orange">BJ</div>
-                  <div>
-                    <div class="person-name">Bob Johnson</div>
-                    <div class="person-sub">#PT-0114</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-red">DL</div>
-                  <span class="person-name">Dr. Lee</span>
-                </div>
-              </td>
-              <td>
-                <div class="datetime-cell">
-                  <span class="date-val">Jun 16, 2024</span>
-                  <span class="time-val">09:00 AM</span>
-                </div>
-              </td>
-              <td><span class="type-chip type-physical">Annual Physical</span></td>
-              <td><span class="status-badge status-cancelled"><span class="s-dot"></span>Cancelled</span></td>
-              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
-            </tr>
-            <tr class="table-row">
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-teal">SL</div>
-                  <div>
-                    <div class="person-name">Sara Liu</div>
-                    <div class="person-sub">#PT-0199</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-purple">KE</div>
-                  <span class="person-name">Dr.Khadija Elbakry</span>
-                </div>
-              </td>
-              <td>
-                <div class="datetime-cell">
-                  <span class="date-val">Jun 16, 2024</span>
-                  <span class="time-val">02:00 PM</span>
-                </div>
-              </td>
-              <td><span class="type-chip type-consult">Consultation</span></td>
-              <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
-              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
-            </tr>
+            }
           </tbody>
         </table>
       </div>
 
       <div class="table-footer">
-        <span class="footer-info">Showing 4 of 12 appointments today</span>
-        <button class="btn-ghost">View all →</button>
+        <span class="footer-info">
+          Showing {{ todayRows.length }} of {{ todayRows.length }}
+          {{ todayRows.length > 1 ? 'appointments' : 'appointment' }} today
+        </span>
+        <button class="btn-ghost" [routerLink]="['/adminLayout/appointments']">View all →</button>
       </div>
     </div>
 
@@ -265,7 +204,7 @@
       <div class="side-card">
         <div class="card-header">
           <h3 class="card-title">On-Duty Doctors</h3>
-          <button class="btn-ghost-sm" (click)="viewAllDoctors()">View All</button>
+          <button class="btn-ghost-sm" [routerLink]="['/adminLayout/doctors']">View All</button>
         </div>
         <div class="doctor-list">
           <div class="doctor-row">
@@ -295,7 +234,7 @@
           <div class="doctor-row">
             <div class="avatar av-purple">KE</div>
             <div class="doctor-info">
-              <div class="doctor-name">Dr.Khadija Elbakry</div>
+              <div class="doctor-name">Dr. Khadija Elbakry</div>
               <div class="doctor-spec">Internal Med.</div>
             </div>
             <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>

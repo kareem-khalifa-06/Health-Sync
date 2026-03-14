@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Appointment } from '../../models/appointment';
+import dayjs from 'dayjs';
 
 
 @Injectable({
@@ -11,12 +12,13 @@ import { Appointment } from '../../models/appointment';
 export class AppointmentService {
   _HttpClient = inject(HttpClient);
   base_url = 'http://localhost:3000/appointments';
-
-  addAppointment (newAppointment:Appointment): Observable<Appointment> {
+  today = dayjs().format('dddd MMMM YYYY');
+  
+  addAppointment(newAppointment: Appointment): Observable<Appointment> {
     return this._HttpClient.post<Appointment>(this.base_url, newAppointment);
   }
 
-  updateAppointment(updatedAppointment :Appointment): Observable<Appointment> {
+  updateAppointment(updatedAppointment: Appointment): Observable<Appointment> {
     return this._HttpClient.put<Appointment>(this.base_url, updatedAppointment);
   }
 
@@ -30,5 +32,4 @@ export class AppointmentService {
   getAppointmentyId(id: string): Observable<Appointment> {
     return this._HttpClient.get<Appointment>(`${this.base_url}/${id}`);
   }
-
 }

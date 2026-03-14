@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
 import { BackButtonComponent } from '../../components/back-button/back-button.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 export interface ScheduleSlot {
   start: string;
@@ -25,13 +26,14 @@ export interface ScheduleDay {
 @Component({
   selector: 'app-doctor-layout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,BackButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './doctor-layout.component.html',
   styleUrl: './doctor-layout.component.css',
 })
 export class DoctorLayoutComponent implements OnInit {
   private _route = inject(ActivatedRoute);
   private _doctorsService = inject(DoctorsService);
+  private _authService = inject(AuthService);
 
   doctor: Doctor | undefined = undefined;
   editMode = false;
@@ -211,5 +213,8 @@ export class DoctorLayoutComponent implements OnInit {
       next: () => (this.doctor = updated),
       error: (err) => console.error('Schedule save failed', err),
     });
+  }
+  logout(){
+    this._authService.logout()
   }
 }
