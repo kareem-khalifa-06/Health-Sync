@@ -1,53 +1,92 @@
-import { Appointment } from './../../../models/appointment';
-import { Doctor } from './../../../models/doctor';
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { combineLatest, filter, Subject, switchMap, takeUntil } from 'rxjs';
+
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { PatientService } from '../../../core/services/patient.service';
-import { Patient } from '../../../models/patient';
-import { AppointmentService } from '../../../core/services/appointments.service';
 
+
+import { Patient } from '../../../models/patient';
+import { Doctor } from '../../../models/doctor';
+import { BookingPayload, BookingResult, BookingService, SlotStatus } from '../../../core/services/booking.service';
+import { AppointmentConfirmDialogComponent } from '../appointment-confirm-dialog/appointment-confirm-dialog.component';
+import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 
 @Component({
   selector: 'app-book-appointment-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AppointmentConfirmDialogComponent],
   templateUrl: './book-appointment-form.component.html',
   styleUrl: './book-appointment-form.component.css',
 })
-export class BookAppointmentFormComponent {
-  id = signal<number>(7);
-  selectedDoctor = signal<Doctor | null>(null);
-  doctors!: Doctor[];
-  patients!: Patient[];
-  appointmentForm = new FormGroup({
-    patientId: new FormControl('', Validators.required),
-    doctorId: new FormControl('', Validators.required),
-    appointmentDate: new FormControl('', Validators.required),
-    appointmentDuration: new FormControl('', Validators.required),
-    appointmentType: new FormControl('', Validators.required),
-    appointmentTime: new FormControl('', Validators.required),
-    reason: new FormControl('', [Validators.required, Validators.minLength(5)]),
-  });
+export class BookAppointmentFormComponent implements OnInit, OnDestroy {
+  appointmentForm!: FormGroup;
+
+  patients: Patient[] = [];
+  doctors: Doctor[] = [];
+  slotStatuses: SlotStatus[] = [];
+
+  showDialog = false;
+  isLoading = false;
+  bookingError: string | null = null;
+
+  selectedPatientName = '';
+  selectedDoctorName = '';
+
+  private _destroy$ = new Subject<void>();
+
   constructor(
+    private _fb: FormBuilder,
+    private _PatientService: PatientService,
     private _DoctorsService: DoctorsService,
-    private _PatientsService: PatientService,
-    private _AppointmentService: AppointmentService,
+    private _BookingService: BookingService,
+    private _Router: Router,
   ) {}
+
   ngOnInit() {
-    this._DoctorsService.renderDoctors().subscribe((r) => {
-      this.doctors = r;
+    this.appointmentForm = this._fb.group({
+      patientId: ['', Validators.required],
+      doctorId: ['', Validators.required],
+      appointmentDate: ['', Validators.required],
+      appointmentTime: ['', Validators.required],
+      appointmentDuration: [30, [Validators.required, Validators.min(1)]],
+      appointmentType: ['', Validators.required],
+      reason: ['', Validators.required],
     });
-    this._PatientsService.getAllPatients().subscribe((r) => {
-      this.patients = r;
-    });
+
+    this._PatientService
+      .getAllPatients()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((res) => (this.patients = res));
+
+    this._DoctorsService
+      .renderDoctors()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((res) => (this.doctors = res));
+
+    combineLatest([
+      this.appointmentForm.get('doctorId')!.valueChanges,
+      this.appointmentForm.get('appointmentDate')!.valueChanges,
+    ])
+      .pipe(
+        takeUntil(this._destroy$),
+        filter(([doctorId, date]) => !!doctorId && !!date),
+        switchMap(([doctorId, date]) =>
+          this._BookingService.getSlotStatuses(doctorId, date),
+        ),
+      )
+      .subscribe((statuses) => {
+        this.slotStatuses = statuses;
+        this.appointmentForm.get('appointmentTime')!.reset();
+      });
   }
+
   get patientId() {
     return this.appointmentForm.get('patientId');
   }
@@ -60,57 +99,70 @@ export class BookAppointmentFormComponent {
   get appointmentTime() {
     return this.appointmentForm.get('appointmentTime');
   }
-  get appointmentType() {
-    return this.appointmentForm.get('appointmentType');
-  }
   get appointmentDuration() {
     return this.appointmentForm.get('appointmentDuration');
+  }
+  get appointmentType() {
+    return this.appointmentForm.get('appointmentType');
   }
   get reason() {
     return this.appointmentForm.get('reason');
   }
+
+  handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   onSubmit() {
-    if (this.appointmentForm.invalid) {
-      this.appointmentForm.markAllAsTouched();
-      return;
-    }
+    if (this.appointmentForm.invalid) return;
 
+    this.selectedPatientName =
+      this.patients.find((p) => p.id === this.appointmentForm.value.patientId)
+        ?.fullName ?? '';
+    this.selectedDoctorName =
+      this.doctors.find((d) => d.id === this.appointmentForm.value.doctorId)
+        ?.fullName ?? '';
 
-    this._DoctorsService
-      .getDoctorById(this.appointmentForm.value.doctorId!)
-      .subscribe({
-        next: (doctor) => {
-          this.selectedDoctor.set(doctor);
-          
-          const newAppointment: Appointment = {
-            id: `a${this.id()}`,
-            patientId: this.appointmentForm.value.patientId!,
-            doctorId: this.appointmentForm.value.doctorId!,
-            appointmentDate: this.appointmentForm.value.appointmentDate!,
-            appointmentTime: this.appointmentForm.value.appointmentTime!,
-            duration: Number(this.appointmentForm.value.appointmentDuration!),
-            type: this.appointmentForm.value.appointmentType!,
-            status: 'pending',
-            reason: this.appointmentForm.value.reason!,
-            notes: '',
-            slotId: `sch-${this.appointmentForm.value.doctorId!}-1`,
-            consultationFee: doctor.consultationFee,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          };
+    this.bookingError = null;
+    this.showDialog = true;
+  }
 
-          this._AppointmentService.addAppointment(newAppointment).subscribe({
-            next:()=>{
-              alert('Appointment Booked Succesfully')
-              this.id.update((id)=>id++);
-              this.appointmentForm.reset();
-              window.history.back();
-            }
-          });
-        },
+  onConfirm() {
+    this.isLoading = true;
+    this.bookingError = null;
+
+    const payload: BookingPayload = {
+      patientId: this.appointmentForm.value.patientId,
+      doctorId: this.appointmentForm.value.doctorId,
+      appointmentDate: this.appointmentForm.value.appointmentDate,
+      appointmentTime: this.appointmentForm.value.appointmentTime,
+      appointmentDuration: this.appointmentForm.value.appointmentDuration,
+      type: this.appointmentForm.value.appointmentType,
+      reason: this.appointmentForm.value.reason,
+    };
+
+    this._BookingService
+      .book(payload)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((result: BookingResult) => {
+        this.isLoading = false;
+        if (result.success) {
+          this.showDialog = false;
+          this._Router.navigate(['/adminLayout/appointments']);
+        } else {
+          this.bookingError = result.error ?? 'Booking failed.';
+        }
       });
   }
+
   onCancel() {
-    window.history.back();
+    this._Router.navigate(['/adminLayout/appointments']);
+  }
+
+  onDialogCancelled() {
+    this.showDialog = false;
+    this.bookingError = null;
+  }
+
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

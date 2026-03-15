@@ -1438,6 +1438,22 @@
       "consultationFee": 0,
       "createdAt": "2026-03-14T23:27:05.452Z",
       "updatedAt": "2026-03-14T23:27:05.452Z"
+    },
+    {
+      "id": "55bc",
+      "patientId": "p1",
+      "doctorId": "d1",
+      "appointmentDate": "2026-03-15",
+      "appointmentTime": "16:30",
+      "type": "consultation",
+      "reason": "ccccccc",
+      "duration": 30,
+      "status": "pending",
+      "notes": "",
+      "slotId": "sch-d1-1773581997766",
+      "consultationFee": 0,
+      "createdAt": "2026-03-15T13:39:57.766Z",
+      "updatedAt": "2026-03-15T13:39:57.766Z"
     }
   ],
   "medicalRecords": [
