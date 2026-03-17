@@ -163,7 +163,7 @@ export class BookingService {
     }, 1000);
   }
 
-  private _formatLabel(time: string): string {
+   _formatLabel(time: string): string {
     const [h, m] = time.split(':').map(Number);
     const period = h >= 12 ? 'PM' : 'AM';
     const hour = h > 12 ? h - 12 : h === 0 ? 12 : h;

@@ -1,0 +1,81 @@
+<!-- Backdrop -->
+<div class="dialog-backdrop" (click)="onCancel()"></div>
+
+<!-- Dialog -->
+<div class="dialog-card">
+
+    <div class="dialog-header">
+        <div class="dialog-icon">
+            <i class="bi bi-calendar2-week-fill"></i>
+        </div>
+        <div>
+            <h2 class="dialog-title">Reschedule Appointment</h2>
+            <p class="dialog-subtitle">
+                {{ row.patient.fullName }} with {{ row.doctor.fullName }}
+            </p>
+        </div>
+    </div>
+
+    <form [formGroup]="form" class="dialog-body">
+
+        <!-- Current slot info -->
+        <div class="current-slot">
+            <span class="current-label">Current slot</span>
+            <span class="current-value">
+                {{ row.appointment.appointmentDate }} at {{ formatTime(row.appointment.appointmentTime) }}
+            </span>
+        </div>
+
+        <!-- New Date -->
+        <div class="form-input">
+            <label class="input-subtitle">New Date</label>
+            <input type="date" formControlName="appointmentDate" class="form-control"
+                [class.is-invalid]="appointmentDate?.invalid && appointmentDate?.touched" />
+            @if (appointmentDate?.invalid && appointmentDate?.touched) {
+            <small class="text-danger">Date is required</small>
+            }
+        </div>
+
+        <!-- New Time -->
+        <div class="form-input">
+            <label class="input-subtitle">New Time Slot</label>
+            <select formControlName="appointmentTime" class="form-select"
+                [class.is-invalid]="appointmentTime?.invalid && appointmentTime?.touched">
+                <option value="">
+                    {{ slotStatuses.length === 0 ? 'Pick a date first' : 'Select time' }}
+                </option>
+                @for (slot of slotStatuses; track slot.time) {
+                <option [value]="slot.time" [disabled]="!slot.available">
+                    {{ slot.label }}{{ slot.available ? '' : ' — Booked' }}
+                    {{ slot.time === row.appointment.appointmentTime ? ' (current)' : '' }}
+                </option>
+                }
+            </select>
+            @if (appointmentTime?.invalid && appointmentTime?.touched) {
+            <small class="text-danger">Time slot is required</small>
+            }
+        </div>
+
+        <!-- Error banner -->
+        @if (error) {
+        <div class="error-banner">
+            <i class="bi bi-exclamation-triangle-fill"></i> {{ error }}
+        </div>
+        }
+
+    </form>
+
+    <div class="dialog-footer">
+        <button class="btn-cancel" (click)="onCancel()" [disabled]="isLoading">
+            Cancel
+        </button>
+        <button class="btn-confirm" (click)="onConfirm()" [disabled]="isLoading || form.invalid">
+            @if (isLoading) {
+            <span class="spinner"></span> Saving…
+            } @else {
+            <i class="bi bi-calendar-check"></i> Confirm Reschedule
+            }
+        </button>
+    </div>
+
+</div>

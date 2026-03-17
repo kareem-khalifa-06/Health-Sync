@@ -104,9 +104,9 @@
                             [class.is-valid]="appointmentType?.valid && appointmentType?.touched"
                             [class.is-invalid]="appointmentType?.invalid && appointmentType?.touched">
                             <option value="">Select type</option>
-                            <option value="checkup">Check-up</option>
-                            <option value="consultation">Consultation</option>
-                            <option value="followup">Follow-up</option>
+                            <option value="Checkup">Check-up</option>
+                            <option value="Consultation">Consultation</option>
+                            <option value="Follow-up">Follow-up</option>
                         </select>
                         @if (appointmentType?.invalid && appointmentType?.touched) {
                         <small class="text-danger">Appointment type is required</small>

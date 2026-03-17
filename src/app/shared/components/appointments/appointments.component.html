@@ -4,42 +4,50 @@
   <div class="page-header">
     <div class="page-header-left">
       <h1 class="page-title">Appointments</h1>
-      <span class="total-badge">128 total</span>
+      <span class="total-badge">{{ appointments().length }} total</span>
+      @if (lastUpdated) {
+      <span class="live-badge"><span class="live-dot"></span>Live · {{ lastUpdated }}</span>
+      }
     </div>
-    <button class="btn-add" routerLink="/adminLayout/new-appointment">
-      <i class="bi bi-plus-circle"></i> New Appointment
-    </button>
+    <div class="page-header-right">
+      <div class="view-toggle">
+        <button class="view-btn" [class.active]="currentView === 'list'" (click)="setView('list')" title="List"> <i
+            class="bi bi-list-ul"></i></button>
+        <button class="view-btn" [class.active]="currentView === 'kanban'" (click)="setView('kanban')" title="Kanban">
+          <i class="bi bi-kanban"></i></button>
+        <button class="view-btn" [class.active]="currentView === 'calendar'" (click)="setView('calendar')"
+          title="Calendar"><i class="bi bi-calendar3"></i></button>
+      </div>
+      <button class="btn-ghost-sm" (click)="exportCSV()">
+        <i class="bi bi-download"></i> Export
+      </button>
+      <button class="btn-add" routerLink="/adminLayout/new-appointment">
+        <i class="bi bi-plus-circle"></i> New Appointment
+      </button>
+    </div>
   </div>
 
   <!-- ── Stats Row ───────────────────────────────────────────── -->
   <div class="stats-row">
     <div class="stat-card" style="--accent:#2563eb;">
-      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;">📅</div>
-      <div class="stat-body">
-        <span class="stat-label">Today</span>
-        <span class="stat-value">14</span>
-      </div>
+      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;"><i class="bi bi-calendar-check"></i></div>
+      <div class="stat-body"><span class="stat-label">Today</span><span class="stat-value">{{ todayAppointments.length
+          }}</span></div>
     </div>
     <div class="stat-card" style="--accent:#059669;">
-      <div class="stat-icon" style="background:#d1fae5; color:#059669;">✅</div>
-      <div class="stat-body">
-        <span class="stat-label">Confirmed</span>
-        <span class="stat-value">89</span>
-      </div>
+      <div class="stat-icon" style="background:#d1fae5; color:#059669;"><i class="bi bi-check-circle"></i></div>
+      <div class="stat-body"><span class="stat-label">Confirmed</span><span class="stat-value">{{
+          confirmedAppointments.length }}</span></div>
     </div>
     <div class="stat-card" style="--accent:#d97706;">
-      <div class="stat-icon" style="background:#fef3c7; color:#d97706;">⏳</div>
-      <div class="stat-body">
-        <span class="stat-label">Pending</span>
-        <span class="stat-value">23</span>
-      </div>
+      <div class="stat-icon" style="background:#fef3c7; color:#d97706;"><i class="bi bi-hourglass-split"></i></div>
+      <div class="stat-body"><span class="stat-label">Pending</span><span class="stat-value">{{
+          pendingAppointments.length }}</span></div>
     </div>
     <div class="stat-card" style="--accent:#dc2626;">
-      <div class="stat-icon" style="background:#fee2e2; color:#dc2626;">❌</div>
-      <div class="stat-body">
-        <span class="stat-label">Cancelled</span>
-        <span class="stat-value">16</span>
-      </div>
+      <div class="stat-icon" style="background:#fee2e2; color:#dc2626;"><i class="bi bi-x-circle"></i></div>
+      <div class="stat-body"><span class="stat-label">Cancelled</span><span class="stat-value">{{
+          cancelledAppointments.length }}</span></div>
     </div>
   </div>
 
@@ -47,32 +55,60 @@
   <div class="filters-bar">
     <div class="search-wrap">
       <i class="bi bi-search search-icon"></i>
-      <input type="text" placeholder="Search appointments..." class="filter-input" />
+      <input type="text" placeholder="Search patients, doctors…" class="filter-input" [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch($event)" />
     </div>
-    <select class="filter-select">
+    <select class="filter-select" [(ngModel)]="statusFilter" (ngModelChange)="onStatusFilter($event)">
       <option value="All">All Status</option>
       <option value="confirmed">Confirmed</option>
       <option value="pending">Pending</option>
       <option value="cancelled">Cancelled</option>
+      <option value="completed">Completed</option>
     </select>
-    <select class="filter-select">
+    <select class="filter-select" [(ngModel)]="doctorFilter" (ngModelChange)="onDoctorFilter($event)">
       <option value="All">All Doctors</option>
-      <option>Dr. Sarah Johnson</option>
-      <option>Dr. Khadija Elbakry</option>
-      <option>Dr. Ahmed Hassan</option>
+      @for (doc of doctors; track doc.id) {
+      <option [value]="doc.fullName">{{ doc.fullName }}</option>
+      }
     </select>
     <div class="date-wrap">
       <i class="bi bi-calendar3 date-icon"></i>
-      <input type="date" class="filter-input date-input" />
+      <input type="date" class="filter-input date-input" [(ngModel)]="dateFilter"
+        (ngModelChange)="onDateFilter($event)" />
     </div>
   </div>
 
-  <!-- ── Table Card ──────────────────────────────────────────── -->
+  <!-- ── Bulk Action Bar — shows only when rows are selected ─── -->
+  @if (selectedCount > 0) {
+  <div class="bulk-bar">
+    <span class="bulk-info">{{ selectedCount }} selected</span>
+    <div class="bulk-actions">
+      <button class="bulk-btn bulk-confirm" (click)="bulkUpdateStatus('confirmed')">
+        <i class="bi bi-check-lg"></i> Confirm All
+      </button>
+      <button class="bulk-btn bulk-cancel" (click)="bulkUpdateStatus('cancelled')">
+        <i class="bi bi-x-lg"></i> Cancel All
+      </button>
+      <button class="bulk-btn bulk-export" (click)="exportCSV()">
+        <i class="bi bi-download"></i> Export Selected
+      </button>
+      <button class="bulk-btn bulk-clear" (click)="clearSelection()">
+        <i class="bi bi-x-circle"></i> Clear
+      </button>
+    </div>
+  </div>
+  }
+
+  @if (currentView === 'list') {
   <div class="table-card">
     <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
+            <!-- Select all checkbox -->
+            <th style="width:40px;">
+              <input type="checkbox" class="row-checkbox" [checked]="allSelected" (change)="toggleSelectAll()" />
+            </th>
             <th>ID</th>
             <th>Date &amp; Time</th>
             <th>Patient</th>
@@ -83,140 +119,193 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-row">
-            <td><span class="id-chip">#A001</span></td>
+          @for (row of filterAppointments(); track row.appointment.id) {
+          <tr class="table-row" [class.selected]="selectedIds.has(row.appointment.id)">
+            <td>
+              <input type="checkbox" class="row-checkbox" [checked]="selectedIds.has(row.appointment.id)"
+                (change)="toggleSelect(row.appointment.id)" />
+            </td>
+            <td><span class="id-chip">{{ row.appointment.id }}</span></td>
             <td>
               <div class="datetime-cell">
-                <span class="date-val">Jun 15, 2024</span>
-                <span class="time-val">10:00 AM</span>
+                <span class="date-val">{{ row.appointment.appointmentDate | date }}</span>
+                <span class="time-val">{{ formatTime(row.appointment.appointmentTime) }}</span>
               </div>
             </td>
             <td>
               <div class="person-cell">
-                <div class="avatar av-blue">JS</div>
-                <span class="person-name">John Smith</span>
+                <div class="avatar av-purple">{{ row.patient.initials }}</div>
+                <span class="person-name">{{ row.patient.fullName }}</span>
               </div>
             </td>
             <td>
               <div class="person-cell">
-                <div class="avatar av-teal">SJ</div>
-                <span class="person-name">Dr. Sarah Johnson</span>
+                <div class="avatar av-green">{{ row.doctor.initials }}</div>
+                <span class="person-name">{{ row.doctor.fullName }}</span>
               </div>
             </td>
-            <td><span class="type-chip type-checkup">Checkup</span></td>
-            <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
+            <td>
+              <span class="type-chip" [class.type-consult]="row.appointment.type === 'Consultation'"
+                [class.type-checkup]="row.appointment.type === 'Checkup'"
+                [class.type-followup]="row.appointment.type === 'Follow-up'">
+                {{ row.appointment.type }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [class.status-confirmed]="row.appointment.status === 'confirmed'"
+                [class.status-pending]="row.appointment.status === 'pending'"
+                [class.status-cancelled]="row.appointment.status === 'cancelled'"
+                [class.status-completed]="row.appointment.status === 'completed'">
+                <span class="s-dot"></span>{{ row.appointment.status }}
+              </span>
+            </td>
             <td>
               <div class="action-cell">
-                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
-                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+                <button class="btn-view"><i class="bi bi-eye"></i></button>
+                <button class="btn-edit" (click)="openReschedule(row)"><i class="bi bi-calendar2-week"></i></button>
+
+                @if (row.appointment.status === 'pending') {
+                <button class="btn-status-confirm" (click)="updateStatus(row, 'confirmed')">
+                  <i class="bi bi-check-lg"></i>
+                </button>
+                <button class="btn-status-cancel" (click)="updateStatus(row, 'cancelled')">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                }
+
+                @if (row.appointment.status === 'confirmed') {
+                <button class="btn-status-complete" (click)="updateStatus(row, 'completed')">
+                  <i class="bi bi-patch-check"></i>
+                </button>
+                <button class="btn-status-cancel" (click)="updateStatus(row, 'cancelled')">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                }
               </div>
             </td>
           </tr>
-          <tr class="table-row">
-            <td><span class="id-chip">#A002</span></td>
-            <td>
-              <div class="datetime-cell">
-                <span class="date-val">Jun 15, 2024</span>
-                <span class="time-val">11:30 AM</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-purple">ED</div>
-                <span class="person-name">Emily Davis</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-green">KE</div>
-                <span class="person-name">Dr. Khadija Elbakry</span>
-              </div>
-            </td>
-            <td><span class="type-chip type-followup">Follow-up</span></td>
-            <td><span class="status-badge status-pending"><span class="s-dot"></span>Pending</span></td>
-            <td>
-              <div class="action-cell">
-                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
-                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-              </div>
-            </td>
+          } @empty {
+          <tr>
+            <td colspan="8" class="empty-row">No appointments match your filters.</td>
           </tr>
-          <tr class="table-row">
-            <td><span class="id-chip">#A003</span></td>
-            <td>
-              <div class="datetime-cell">
-                <span class="date-val">Jun 16, 2024</span>
-                <span class="time-val">02:00 PM</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-orange">MB</div>
-                <span class="person-name">Michael Brown</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-red">AH</div>
-                <span class="person-name">Dr. Ahmed Hassan</span>
-              </div>
-            </td>
-            <td><span class="type-chip type-consult">Consultation</span></td>
-            <td><span class="status-badge status-cancelled"><span class="s-dot"></span>Cancelled</span></td>
-            <td>
-              <div class="action-cell">
-                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
-                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-              </div>
-            </td>
-          </tr>
-          <tr class="table-row">
-            <td><span class="id-chip">#A004</span></td>
-            <td>
-              <div class="datetime-cell">
-                <span class="date-val">Jun 16, 2024</span>
-                <span class="time-val">03:30 PM</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-teal">SL</div>
-                <span class="person-name">Sara Liu</span>
-              </div>
-            </td>
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-teal">SJ</div>
-                <span class="person-name">Dr. Sarah Johnson</span>
-              </div>
-            </td>
-            <td><span class="type-chip type-emergency">Emergency</span></td>
-            <td><span class="status-badge status-confirmed"><span class="s-dot"></span>Confirmed</span></td>
-            <td>
-              <div class="action-cell">
-                <button class="btn-view"><i class="bi bi-eye"></i> View</button>
-                <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-              </div>
-            </td>
-          </tr>
+          }
         </tbody>
       </table>
     </div>
 
-    <!-- Pagination -->
     <div class="pagination-bar">
-      <span class="pagination-info">Showing 1–4 of 128 appointments</span>
+      <span class="pagination-info">
+        Showing {{ filterAppointments().length }} of {{ appointments().length }} appointments
+      </span>
       <nav>
         <ul class="pagination-list">
           <li><button class="page-btn" disabled><i class="bi bi-chevron-left"></i></button></li>
           <li><button class="page-btn active">1</button></li>
-          <li><button class="page-btn">2</button></li>
-          <li><button class="page-btn">3</button></li>
-          <li><button class="page-btn">···</button></li>
-          <li><button class="page-btn">14</button></li>
           <li><button class="page-btn"><i class="bi bi-chevron-right"></i></button></li>
         </ul>
       </nav>
     </div>
   </div>
+  }
+
+
+  @if (currentView === 'kanban') {
+  <div class="kanban-board">
+
+    @for (col of [
+    { key: 'pending', label: 'Pending', icon: 'hourglass-split', color: '#d97706', bg: '#fef3c7', rows: kanbanPending },
+    { key: 'confirmed', label: 'Confirmed', icon: 'check-circle', color: '#2563eb', bg: '#eff6ff', rows: kanbanConfirmed
+    },
+    { key: 'completed', label: 'Completed', icon: 'patch-check', color: '#059669', bg: '#d1fae5', rows: kanbanCompleted
+    },
+    { key: 'cancelled', label: 'Cancelled', icon: 'x-circle', color: '#dc2626', bg: '#fee2e2', rows: kanbanCancelled }
+    ]; track col.key) {
+    <div class="kanban-col">
+      <div class="kanban-col-header" [style.--col-color]="col.color" [style.--col-bg]="col.bg">
+        <span class="kanban-col-title"><i class="bi bi-{{ col.icon }}"></i> {{ col.label }}</span>
+        <span class="kanban-col-count">{{ col.rows.length }}</span>
+      </div>
+
+      @for (row of col.rows; track row.appointment.id) {
+      <div class="kanban-card">
+        <div class="kanban-card-top">
+          <span class="kanban-id">{{ row.appointment.id }}</span>
+          <span class="type-chip" [class.type-checkup]="row.appointment.type === 'checkup'"
+            [class.type-consult]="row.appointment.type === 'consultation'"
+            [class.type-followup]="row.appointment.type === 'followup'">
+            {{ row.appointment.type }}
+          </span>
+        </div>
+        <div class="kanban-patient">
+          <div class="avatar av-purple" style="width:28px;height:28px;font-size:10px;">{{ row.patient.initials }}</div>
+          <span>{{ row.patient.fullName }}</span>
+        </div>
+        <div class="kanban-doctor"><i class="bi bi-person-badge"></i> {{ row.doctor.fullName }}</div>
+        <div class="kanban-datetime">
+          <i class="bi bi-calendar3"></i> {{ row.appointment.appointmentDate }}
+          &nbsp;<i class="bi bi-clock"></i> {{ formatTime(row.appointment.appointmentTime) }}
+        </div>
+        <!-- Inline status actions on kanban cards -->
+        <div class="kanban-actions">
+          @if (row.appointment.status === 'pending') {
+          <button class="kbtn-confirm" (click)="updateStatus(row, 'confirmed')"><i class="bi bi-check-lg"></i>
+            Confirm</button>
+          <button class="kbtn-cancel" (click)="updateStatus(row, 'cancelled')"><i class="bi bi-x-lg"></i></button>
+          }
+          @if (row.appointment.status === 'confirmed') {
+          <button class="kbtn-complete" (click)="updateStatus(row, 'completed')"><i class="bi bi-patch-check"></i>
+            Complete</button>
+          <button class="kbtn-cancel" (click)="updateStatus(row, 'cancelled')"><i class="bi bi-x-lg"></i></button>
+          }
+          <button class="kbtn-reschedule" (click)="openReschedule(row)"><i class="bi bi-calendar2-week"></i></button>
+        </div>
+      </div>
+      } @empty {
+      <div class="kanban-empty">No {{ col.label.toLowerCase() }} appointments</div>
+      }
+    </div>
+    }
+
+  </div>
+  }
+
+  @if (currentView === 'calendar') {
+  <div class="calendar-card">
+    <div class="calendar-nav">
+      <button class="cal-nav-btn" (click)="prevMonth()"><i class="bi bi-chevron-left"></i></button>
+      <h2 class="cal-title">{{ calendarTitle }}</h2>
+      <button class="cal-nav-btn" (click)="nextMonth()"><i class="bi bi-chevron-right"></i></button>
+    </div>
+    <div class="cal-weekdays">
+      @for (day of weekDays; track day) {
+      <div class="cal-weekday">{{ day }}</div>
+      }
+    </div>
+    <div class="cal-grid">
+      @for (day of calendarDays; track day.date) {
+      <div class="cal-cell" [class.today]="day.isToday" [class.other-month]="!day.isCurrentMonth"
+        [class.has-appointments]="day.rows.length > 0">
+        <span class="cal-day-num">{{ day.label }}</span>
+        @for (row of day.rows.slice(0, 2); track row.appointment.id) {
+        <div class="cal-event" [class.cal-event-confirmed]="row.appointment.status === 'confirmed'"
+          [class.cal-event-pending]="row.appointment.status === 'pending'"
+          [class.cal-event-cancelled]="row.appointment.status === 'cancelled'"
+          [class.cal-event-completed]="row.appointment.status === 'completed'">
+          {{ formatTime(row.appointment.appointmentTime) }} · {{ row.patient.fullName }}
+        </div>
+        }
+        @if (day.rows.length > 2) {
+        <div class="cal-more">+{{ day.rows.length - 2 }} more</div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+  }
+
 </div>
+
+@if (showReschedule && rescheduleRow) {
+<app-reschedule-dialog [row]="rescheduleRow" (confirmed)="onRescheduleConfirmed($event)"
+  (cancelled)="onRescheduleCancelled()" />
+}

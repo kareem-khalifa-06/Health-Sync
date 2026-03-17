@@ -8,7 +8,7 @@ import { Appointment } from '../../../models/appointment';
 import { Patient } from '../../../models/patient';
 import { Doctor } from '../../../models/doctor';
 import { forkJoin, of, switchMap } from 'rxjs';
-interface AppointmentRow {
+export interface AppointmentRow {
   appointment: Appointment;
   patient: Patient;
   doctor: Doctor;
