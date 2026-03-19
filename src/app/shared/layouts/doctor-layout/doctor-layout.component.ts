@@ -7,10 +7,15 @@ import {
   FormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterOutlet,
+  RouterLinkActive,
+} from '@angular/router';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
-import { BackButtonComponent } from '../../components/back-button/back-button.component';
 import { AuthService } from '../../../core/services/auth.service';
 
 export interface ScheduleSlot {
@@ -26,19 +31,40 @@ export interface ScheduleDay {
 @Component({
   selector: 'app-doctor-layout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterLink,
+    RouterOutlet,
+    RouterLinkActive,
+  ],
   templateUrl: './doctor-layout.component.html',
   styleUrl: './doctor-layout.component.css',
 })
 export class DoctorLayoutComponent implements OnInit {
   private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
   private _doctorsService = inject(DoctorsService);
   private _authService = inject(AuthService);
 
   doctor: Doctor | undefined = undefined;
+  doctorId = '';
   editMode = false;
   selectedFile: File | null = null;
   previewUrl: string | null = null;
+
+  // ── Tabs ────────────────────────────────────────────────────
+  activeTab: 'profile' | 'schedule' = 'profile';
+
+  setTab(tab: 'profile' | 'schedule') {
+    this.activeTab = tab;
+    if (tab === 'schedule') {
+      this._router.navigate(['/doctorLayout', this.doctorId, 'schedule']);
+    } else {
+      this._router.navigate(['/doctorLayout', this.doctorId]);
+    }
+  }
 
   // ── Edit Form ────────────────────────────────────────────────
   editForm = new FormGroup({
@@ -86,8 +112,13 @@ export class DoctorLayoutComponent implements OnInit {
 
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
-    const id = this._route.snapshot.paramMap.get('id');
-    this._doctorsService.getDoctorById(id!).subscribe({
+    this.doctorId = this._route.snapshot.paramMap.get('id') ?? '';
+
+    // Set active tab from current URL
+    const url = this._router.url;
+    this.activeTab = url.includes('/schedule') ? 'schedule' : 'profile';
+
+    this._doctorsService.getDoctorById(this.doctorId).subscribe({
       next: (doc) => {
         this.doctor = doc;
         this.syncScheduleFromDoctor(doc);
@@ -127,20 +158,12 @@ export class DoctorLayoutComponent implements OnInit {
 
   saveProfile(): void {
     if (this.editForm.invalid || !this.doctor) return;
-
     const v = this.editForm.value;
     const updated: Doctor = {
       ...this.doctor,
       ...(v as Partial<Doctor>),
       fullName: `${v.firstName} ${v.lastName}`,
     };
-
-    if (this.selectedFile) {
-      // TODO: replace with your upload service
-      // this._uploadService.upload(this.selectedFile).subscribe(url => updated.avatarUrl = url)
-      console.log('Uploading:', this.selectedFile.name);
-    }
-
     this._doctorsService.updateDoctor(updated).subscribe({
       next: () => {
         this.doctor = updated;
@@ -156,7 +179,6 @@ export class DoctorLayoutComponent implements OnInit {
   onPhotoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
-
     const file = input.files[0];
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file.');
@@ -166,7 +188,6 @@ export class DoctorLayoutComponent implements OnInit {
       alert('Image must be under 2MB.');
       return;
     }
-
     this.selectedFile = file;
     const reader = new FileReader();
     reader.onload = (e) => (this.previewUrl = e.target?.result as string);
@@ -193,9 +214,8 @@ export class DoctorLayoutComponent implements OnInit {
   addSlot(day: ScheduleDay): void {
     day.slots.push({ start: '09:00', end: '17:00' });
   }
-
-  removeSlot(day: ScheduleDay, index: number): void {
-    day.slots.splice(index, 1);
+  removeSlot(day: ScheduleDay, i: number): void {
+    day.slots.splice(i, 1);
   }
 
   saveSchedule(): void {
@@ -214,7 +234,8 @@ export class DoctorLayoutComponent implements OnInit {
       error: (err) => console.error('Schedule save failed', err),
     });
   }
-  logout(){
-    this._authService.logout()
+
+  logout() {
+    this._authService.logout();
   }
 }

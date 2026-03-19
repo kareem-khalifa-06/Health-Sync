@@ -1,7 +1,5 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { Routes, CanActivateFn } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { AppointmentsComponent } from './shared/components/appointments/appointments.component';
 
 export const routes: Routes = [
   {
@@ -12,50 +10,38 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./shared/components/login/login.component').then((m) => {
-        return m.LoginComponent;
-      }),
+      import('./shared/components/login/login.component').then(
+        (m) => m.LoginComponent,
+      ),
   },
   {
     path: 'register',
     loadComponent: () =>
       import('./shared/components/registeration-form/registeration-form.component').then(
-        (m) => {
-          return m.RegisterationFormComponent;
-        },
+        (m) => m.RegisterationFormComponent,
       ),
   },
   {
     path: 'adminLayout',
     loadComponent: () =>
       import('./shared/layouts/admin-layout/admin-layout.component').then(
-        (m) => {
-          return m.AdminLayoutComponent;
-        },
+        (m) => m.AdminLayoutComponent,
       ),
     canActivate: [authGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadComponent: () =>
           import('./shared/components/dashboard/dashboard.component').then(
-            (m) => {
-              return m.DashboardComponent;
-            },
+            (m) => m.DashboardComponent,
           ),
         children: [
           {
             path: 'user-profile',
             loadComponent: () =>
               import('./shared/layouts/admin-layout/admin-layout.component').then(
-                (m) => {
-                  return m.AdminLayoutComponent;
-                },
+                (m) => m.AdminLayoutComponent,
               ),
           },
         ],
@@ -64,18 +50,14 @@ export const routes: Routes = [
         path: 'appointments',
         loadComponent: () =>
           import('./shared/components/appointments/appointments.component').then(
-            (m) => {
-              return m.AppointmentsComponent;
-            },
+            (m) => m.AppointmentsComponent,
           ),
       },
       {
         path: 'new-appointment',
         loadComponent: () =>
           import('./shared/components/book-appointment-form/book-appointment-form.component').then(
-            (m) => {
-              return m.BookAppointmentFormComponent;
-            },
+            (m) => m.BookAppointmentFormComponent,
           ),
       },
       {
@@ -101,9 +83,7 @@ export const routes: Routes = [
         path: 'new-patient',
         loadComponent: () =>
           import('./shared/components/new-patient/new-patient.component').then(
-            (m) => {
-              return m.NewPatientComponent;
-            },
+            (m) => m.NewPatientComponent,
           ),
       },
       {
@@ -129,39 +109,54 @@ export const routes: Routes = [
         path: 'medical-records',
         loadComponent: () =>
           import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => {
-              return m.AdminLayoutComponent;
-            },
+            (m) => m.AdminLayoutComponent,
           ),
       },
       {
         path: 'prescriptions',
         loadComponent: () =>
           import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => {
-              return m.AdminLayoutComponent;
-            },
+            (m) => m.AdminLayoutComponent,
           ),
       },
       {
         path: 'analytics',
         loadComponent: () =>
           import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => {
-              return m.AdminLayoutComponent;
-            },
+            (m) => m.AdminLayoutComponent,
           ),
       },
     ],
   },
+
+
   {
     path: 'doctorLayout/:id',
     loadComponent: () =>
       import('./shared/layouts/doctor-layout/doctor-layout.component').then(
-        (m) => {
-          return m.DoctorLayoutComponent;
-        },
+        (m) => m.DoctorLayoutComponent,
       ),
-      canActivate:[authGuard]
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'profile',
+        pathMatch: 'full',
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./shared/layouts/doctor-layout/doctor-layout.component').then(
+            (m) => m.DoctorLayoutComponent,
+          ),
+      },
+      {
+        path: 'schedule',
+        loadComponent: () =>
+          import('./shared/components/doctor-schedule/doctor-schedule.component').then(
+            (m) => m.DoctorScheduleComponent,
+          ),
+      },
+    ],
   },
 ];

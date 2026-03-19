@@ -1,0 +1,333 @@
+
+<div class="page-wrapper">
+
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <div>
+                <h1 class="page-title">Doctor Schedule</h1>
+                <p class="page-sub">{{ todayFull }}</p>
+            </div>
+            @if (lastUpdated) {
+            <span class="live-badge"><span class="live-dot"></span>Live · {{ lastUpdated }}</span>
+            }
+        </div>
+        <div class="page-header-right">
+            <!-- Doctor selector -->
+            <select class="doctor-select" [(ngModel)]="selectedDoctorId" (ngModelChange)="onDoctorChange($event)">
+                @for (doc of doctors; track doc.id) {
+                <option [value]="doc.id">{{ doc.fullName }} — {{ doc.specialty }}</option>
+                }
+            </select>
+
+            <!-- View toggle -->
+            <div class="view-toggle">
+                <button class="view-btn" [class.active]="currentView === 'timeline'" (click)="currentView = 'timeline'">
+                    <i class="bi bi-layout-text-sidebar"></i> Timeline
+                </button>
+                <button class="view-btn" [class.active]="currentView === 'week'"
+                    (click)="currentView = 'week'; buildWeek()">
+                    <i class="bi bi-calendar-week"></i> Week
+                </button>
+            </div>
+
+            <button class="btn-block" (click)="openBlockDialog()">
+                <i class="bi bi-slash-circle"></i> Block Slot
+            </button>
+        </div>
+    </div>
+
+    <!-- ── Stat Cards ───────────────────────────────────────────── -->
+    <div class="stats-row">
+        <div class="stat-card" style="--accent:#2563eb;">
+            <div class="stat-icon" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-calendar-check"></i></div>
+            <div class="stat-body"><span class="stat-label">Today Total</span><span class="stat-value">{{ todayTotal
+                    }}</span></div>
+        </div>
+        <div class="stat-card" style="--accent:#059669;">
+            <div class="stat-icon" style="background:#d1fae5;color:#059669;"><i class="bi bi-check-circle"></i></div>
+            <div class="stat-body"><span class="stat-label">Confirmed</span><span class="stat-value">{{ todayConfirmed
+                    }}</span></div>
+        </div>
+        <div class="stat-card" style="--accent:#d97706;">
+            <div class="stat-icon" style="background:#fef3c7;color:#d97706;"><i class="bi bi-hourglass-split"></i></div>
+            <div class="stat-body"><span class="stat-label">Pending</span><span class="stat-value">{{ todayPending
+                    }}</span></div>
+        </div>
+        <div class="stat-card" style="--accent:#7c3aed;">
+            <div class="stat-icon" style="background:#f3e8ff;color:#7c3aed;"><i class="bi bi-patch-check"></i></div>
+            <div class="stat-body"><span class="stat-label">Completed</span><span class="stat-value">{{ todayCompleted
+                    }}</span></div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+       TIMELINE VIEW — Today's appointments hour by hour
+  ════════════════════════════════════════════════════════════ -->
+    @if (currentView === 'timeline') {
+    <div class="timeline-card">
+        <div class="timeline-header">
+            <h2 class="card-title">Today's Schedule</h2>
+            <span class="timeline-count">{{ todayRows.length }} appointments</span>
+        </div>
+
+        <div class="timeline-body">
+            @for (time of timelineHours; track time) {
+            <div class="timeline-row" [class.current-slot]="isCurrentSlot(time)">
+
+                <!-- Time label -->
+                <div class="timeline-time">
+                    <span class="time-label">{{ formatTime(time) }}</span>
+                    @if (isCurrentSlot(time)) {
+                    <span class="now-pill">Now</span>
+                    }
+                </div>
+
+                <!-- Slot content -->
+                <div class="timeline-slot">
+
+                    <!-- Blocked slot -->
+                    @if (getSlotBlock(time)) {
+                    <div class="slot-blocked">
+                        <i class="bi bi-slash-circle"></i>
+                        <span>{{ getSlotBlock(time)!.reason }}</span>
+                        <button class="unblock-btn" (click)="removeBlock(getSlotBlock(time)!.id)">
+                            <i class="bi bi-x"></i> Unblock
+                        </button>
+                    </div>
+                    } @else if (getSlotRow(time)) {
+                    <div class="slot-appointment"
+                        [class.slot-confirmed]="getSlotRow(time)!.appointment.status === 'confirmed'"
+                        [class.slot-pending]="getSlotRow(time)!.appointment.status === 'pending'"
+                        [class.slot-completed]="getSlotRow(time)!.appointment.status === 'completed'"
+                        [class.slot-cancelled]="getSlotRow(time)!.appointment.status === 'cancelled'">
+
+                        <div class="slot-left">
+                            <div class="avatar av-purple">{{ getSlotRow(time)!.patient.initials }}</div>
+                            <div class="slot-info">
+                                <span class="slot-patient">{{ getSlotRow(time)!.patient.fullName }}</span>
+                                <span class="slot-type">{{ getSlotRow(time)!.appointment.type }}</span>
+                            </div>
+                        </div>
+
+                        <div class="slot-right">
+                            <span class="status-badge"
+                                [class.status-confirmed]="getSlotRow(time)!.appointment.status === 'confirmed'"
+                                [class.status-pending]="getSlotRow(time)!.appointment.status === 'pending'"
+                                [class.status-completed]="getSlotRow(time)!.appointment.status === 'completed'"
+                                [class.status-cancelled]="getSlotRow(time)!.appointment.status === 'cancelled'">
+                                <span class="s-dot"></span>{{ getSlotRow(time)!.appointment.status }}
+                            </span>
+
+                            <button class="slot-btn-preview" (click)="showPreview(getSlotRow(time)!)">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </button>
+
+                            @if (getSlotRow(time)!.appointment.status !== 'completed' &&
+                            getSlotRow(time)!.appointment.status !== 'cancelled') {
+                            <button class="slot-btn-complete" (click)="markCompleted(getSlotRow(time)!)">
+                                <i class="bi bi-patch-check"></i> Done
+                            </button>
+                            }
+                        </div>
+
+                    </div>
+                    } @else{
+                    <div class="slot-empty">
+                        <button class="block-slot-btn" (click)="openBlockDialog(td, time)">
+                            <i class="bi bi-slash-circle"></i>
+                        </button>
+                    </div>
+                    }
+
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+    <!-- ════════════════════════════════════════════════════════════
+       WEEK VIEW
+  ════════════════════════════════════════════════════════════ -->
+    @if (currentView === 'week') {
+    <div class="week-card">
+
+        <!-- Week nav -->
+        <div class="week-nav">
+            <button class="cal-nav-btn" (click)="prevWeek()"><i class="bi bi-chevron-left"></i></button>
+            <div class="week-nav-center">
+                <h2 class="week-title">{{ weekLabel }}</h2>
+                <button class="today-btn" (click)="goToday()">Today</button>
+            </div>
+            <button class="cal-nav-btn" (click)="nextWeek()"><i class="bi bi-chevron-right"></i></button>
+        </div>
+
+        <!-- Week grid -->
+        <div class="week-grid">
+
+            <!-- Time gutter header -->
+            <div class="week-gutter-header"></div>
+
+            <!-- Day headers -->
+            @for (day of weekDays; track day.date) {
+            <div class="week-day-header" [class.today]="day.isToday">
+                <span class="week-day-label">{{ day.label }}</span>
+                <span class="week-day-num" [class.today-num]="day.isToday">{{ day.dayNum }}</span>
+                @if (day.rows.length > 0) {
+                <span class="week-day-count">{{ day.rows.length }}</span>
+                }
+            </div>
+            }
+
+            <!-- Time rows -->
+            @for (time of timelineHours; track time) {
+
+            <!-- Gutter -->
+            <div class="week-gutter" [class.current-gutter]="isCurrentSlot(time)">
+                <span>{{ formatTime(time) }}</span>
+            </div>
+
+            <!-- Day cells -->
+            @for (day of weekDays; track day.date) {
+            <div class="week-cell" [class.today-col]="day.isToday" [class.current-row]="isCurrentSlot(time)">
+
+                @if (getSlotBlock(time, day.date)) {
+                <div class="week-blocked">
+                    <i class="bi bi-slash-circle"></i>
+                    <span>{{ getSlotBlock(time, day.date)!.reason }}</span>
+                    <button class="week-unblock" (click)="removeBlock(getSlotBlock(time, day.date)!.id)">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                }
+
+                @else if (getSlotRow(time, day.date)) {
+                <div class="week-appt"
+                    [class.week-confirmed]="getSlotRow(time, day.date)!.appointment.status === 'confirmed'"
+                    [class.week-pending]="getSlotRow(time, day.date)!.appointment.status === 'pending'"
+                    [class.week-completed]="getSlotRow(time, day.date)!.appointment.status === 'completed'"
+                    [class.week-cancelled]="getSlotRow(time, day.date)!.appointment.status === 'cancelled'"
+                    (click)="showPreview(getSlotRow(time, day.date)!)">
+                    <span class="week-appt-name">{{ getSlotRow(time, day.date)!.patient.fullName }}</span>
+                    <span class="week-appt-type">{{ getSlotRow(time, day.date)!.appointment.type }}</span>
+                </div>
+                }
+
+                @else {
+                <button class="week-block-btn" (click)="openBlockDialog(day.date, time)">
+                    <i class="bi bi-plus"></i>
+                </button>
+                }
+
+            </div>
+            }
+            }
+
+        </div>
+    </div>
+    }
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PATIENT PREVIEW PANEL
+════════════════════════════════════════════════════════════ -->
+@if (previewVisible && previewRow) {
+<div class="preview-backdrop" (click)="hidePreview()"></div>
+<div class="preview-panel">
+    <div class="preview-header">
+        <div class="preview-avatar av-purple">{{ previewRow.patient.initials }}</div>
+        <div>
+            <h3 class="preview-name">{{ previewRow.patient.fullName }}</h3>
+            <span class="preview-id">#{{ previewRow.patient.id }}</span>
+        </div>
+        <button class="preview-close" (click)="hidePreview()"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="preview-body">
+        <div class="preview-row"><span class="preview-label">Date</span><span class="preview-val">{{
+                previewRow.appointment.appointmentDate }}</span></div>
+        <div class="preview-row"><span class="preview-label">Time</span><span class="preview-val">{{
+                formatTime(previewRow.appointment.appointmentTime) }}</span></div>
+        <div class="preview-row"><span class="preview-label">Duration</span><span class="preview-val">{{
+                previewRow.appointment.duration }} min</span></div>
+        <div class="preview-row"><span class="preview-label">Type</span><span class="preview-val">{{
+                previewRow.appointment.type }}</span></div>
+        <div class="preview-row"><span class="preview-label">Doctor</span><span class="preview-val">{{
+                previewRow.doctor.fullName }}</span></div>
+        <div class="preview-row"><span class="preview-label">Status</span>
+            <span class="status-badge" [class.status-confirmed]="previewRow.appointment.status === 'confirmed'"
+                [class.status-pending]="previewRow.appointment.status === 'pending'"
+                [class.status-completed]="previewRow.appointment.status === 'completed'"
+                [class.status-cancelled]="previewRow.appointment.status === 'cancelled'">
+                <span class="s-dot"></span>{{ previewRow.appointment.status }}
+            </span>
+        </div>
+        <div class="preview-reason">
+            <span class="preview-label">Reason</span>
+            <p class="preview-reason-text">{{ previewRow.appointment.reason }}</p>
+        </div>
+    </div>
+
+    <div class="preview-footer">
+        @if (previewRow.appointment.status !== 'completed' && previewRow.appointment.status !== 'cancelled') {
+        <button class="btn-complete-full" (click)="markCompleted(previewRow); hidePreview()">
+            <i class="bi bi-patch-check"></i> Mark as Completed
+        </button>
+        }
+        <button class="btn-close-preview" (click)="hidePreview()">Close</button>
+    </div>
+</div>
+}
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK SLOT DIALOG
+════════════════════════════════════════════════════════════ -->
+@if (showBlockDialog) {
+<div class="dialog-backdrop" (click)="cancelBlock()"></div>
+<div class="dialog-card">
+
+    <div class="dialog-header">
+        <div class="dialog-icon"><i class="bi bi-slash-circle-fill"></i></div>
+        <div>
+            <h2 class="dialog-title">Block Time Slot</h2>
+            <p class="dialog-subtitle">Mark a slot as unavailable for bookings.</p>
+        </div>
+    </div>
+
+    <div class="dialog-body">
+
+        <div class="form-input">
+            <label class="input-subtitle">Date</label>
+            <input type="date" class="form-control" [(ngModel)]="blockDate"
+                (ngModelChange)="onBlockDateChange($event)" />
+        </div>
+
+        <div class="form-input">
+            <label class="input-subtitle">Time Slot</label>
+            <select class="form-select" [(ngModel)]="blockTime">
+                <option value="">{{ blockSlots.length === 0 ? 'Pick a date first' : 'Select slot to block' }}</option>
+                @for (slot of blockSlots; track slot.time) {
+                <option [value]="slot.time">{{ slot.label }}</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-input">
+            <label class="input-subtitle">Reason (optional)</label>
+            <input type="text" class="form-control" [(ngModel)]="blockReason"
+                placeholder="e.g. Lunch break, Staff meeting…" />
+        </div>
+
+    </div>
+
+    <div class="dialog-footer">
+        <button class="btn-cancel-dialog" (click)="cancelBlock()">Cancel</button>
+        <button class="btn-confirm-dialog" (click)="confirmBlock()" [disabled]="!blockDate || !blockTime">
+            <i class="bi bi-slash-circle"></i> Block Slot
+        </button>
+    </div>
+
+</div>
+}
