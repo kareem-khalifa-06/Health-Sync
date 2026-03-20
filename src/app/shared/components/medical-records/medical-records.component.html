@@ -1,0 +1,211 @@
+<div class="page-wrapper">
+
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <h1 class="page-title">Medical Records</h1>
+            <span class="total-badge">{{ records.length }} records</span>
+        </div>
+        <div class="page-header-right">
+            <div class="search-wrap">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" placeholder="Search records, patients…" class="filter-input" [(ngModel)]="searchQuery" (ngModelChange)="applySearch(searchQuery)" /> 
+            </div>
+            <button class="btn-add" (click)="openNewRecord()">
+                <i class="bi bi-plus-circle"></i> New Record
+            </button>
+        </div>
+    </div>
+
+    <!-- ── Records List ─────────────────────────────────────────── -->
+    <div class="records-list">
+
+        @for (record of filteredRecords; track record.id) {
+        <div class="record-card">
+
+            <!-- Card Header -->
+            <div class="record-card-header">
+                <div class="record-card-header-left">
+                    <div class="record-icon">
+                        <i class="bi bi-file-earmark-medical-fill"></i>
+                    </div>
+                    <div>
+                        <h2 class="record-title">
+                            Record <span class="record-id">#{{ record.id }}</span>
+                        </h2>
+                        <p class="record-patient">
+                            <i class="bi bi-person-fill"></i>
+                            {{ getPatientName(record.patientId) }}
+                        </p>
+                    </div>
+                </div>
+                <div class="record-card-header-right">
+                    <!-- Follow-up badge if set -->
+                    @if (record.followUpDate) {
+                    <span class="followup-pill">
+                        <i class="bi bi-calendar-event"></i>
+                        Follow-up: {{ record.followUpDate | date:'MMM d, y' }}
+                    </span>
+                    }
+                    <span class="status-badge status-active">
+                        <span class="s-dot"></span>Active
+                    </span>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="record-card-body">
+
+                <!-- ── Meta Info ───────────────────────────────────── -->
+                <div class="info-grid">
+                    <div class="info-cell">
+                        <span class="info-label"><i class="bi bi-calendar3"></i> Visit Date</span>
+                        <span class="info-value">{{ record.date | date:'MMM d, y' }}</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-label"><i class="bi bi-person-badge"></i> Doctor</span>
+                        <span class="info-value">{{ getDoctorName(record.doctorId) }}</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-label"><i class="bi bi-link-45deg"></i> Appointment</span>
+                        <span class="info-value record-id">{{ record.appointmentId }}</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-label"><i class="bi bi-calendar-check"></i> Follow-up</span>
+                        @if (record.followUpDate) {
+                        <span class="info-value">{{ record.followUpDate | date:'MMM d, y' }}</span>
+                        } @else {
+                        <span class="info-value muted-val">None scheduled</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="record-divider"></div>
+
+                <!-- ── Diagnosis + Symptoms ────────────────────────── -->
+                <div class="clinical-row">
+                    <div class="clinical-cell">
+                        <span class="info-label"><i class="bi bi-clipboard2-pulse"></i> Diagnosis</span>
+                        <span class="info-value diagnosis-val">{{ record.diagnosis }}</span>
+                    </div>
+                    <div class="clinical-cell">
+                        <span class="info-label"><i class="bi bi-activity"></i> Symptoms</span>
+                        <div class="tag-row">
+                            @for (symptom of record.symptoms; track symptom) {
+                            <span class="symptom-tag">{{ symptom }}</span>
+                            } @empty {
+                            <span class="muted-val">None recorded</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Vital Signs ─────────────────────────────────── -->
+                <div class="vitals-row">
+                    <div class="vital-cell">
+                        <i class="bi bi-heart-pulse vital-icon" style="color:#dc2626;"></i>
+                        <div class="vital-body">
+                            <span class="vital-label">Blood Pressure</span>
+                            <span class="vital-value">{{ record.vitalSigns.bloodPressure }}</span>
+                        </div>
+                    </div>
+                    <div class="vital-cell">
+                        <i class="bi bi-droplet vital-icon" style="color:#2563eb;"></i>
+                        <div class="vital-body">
+                            <span class="vital-label">Heart Rate</span>
+                            <span class="vital-value">{{ record.vitalSigns.heartRate }} bpm</span>
+                        </div>
+                    </div>
+                    <div class="vital-cell">
+                        <i class="bi bi-thermometer vital-icon" style="color:#d97706;"></i>
+                        <div class="vital-body">
+                            <span class="vital-label">Temperature</span>
+                            <span class="vital-value">{{ record.vitalSigns.temperature }} °F</span>
+                        </div>
+                    </div>
+                    <div class="vital-cell">
+                        <i class="bi bi-person vital-icon" style="color:#7c3aed;"></i>
+                        <div class="vital-body">
+                            <span class="vital-label">Weight</span>
+                            <span class="vital-value">{{ record.vitalSigns.weight }} lbs</span>
+                        </div>
+                    </div>
+                    <div class="vital-cell">
+                        <i class="bi bi-arrows-vertical vital-icon" style="color:#059669;"></i>
+                        <div class="vital-body">
+                            <span class="vital-label">Height</span>
+                            <span class="vital-value">{{ record.vitalSigns.height }} in</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Prescriptions + Lab Tests ───────────────────── -->
+                <div class="orders-row">
+
+                    <!-- Prescriptions — field is `prescription` in backend -->
+                    <div class="orders-cell">
+                        <span class="info-label"><i class="bi bi-capsule"></i> Prescriptions</span>
+                        <div class="orders-list">
+                            @for (rx of record.prescriptions; track rx.medication) {
+                            <div class="order-item order-rx">
+                                <div class="order-item-left">
+                                    <span class="order-name">{{ rx.medication }}</span>
+                                    <span class="order-detail">
+                                        {{ rx.dosage }} · {{ rx.frequency }} · {{ rx.duration }}
+                                    </span>
+                                </div>
+                                <span class="order-badge">Rx</span>
+                            </div>
+                            } @empty {
+                            <p class="empty-orders">No prescriptions</p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Lab Tests — field is `testName` in backend -->
+                    <div class="orders-cell">
+                        <span class="info-label"><i class="bi bi-eyedropper"></i> Lab Tests</span>
+                        <div class="orders-list">
+                            @for (lab of record.labTests; track lab.name) {
+                            <div class="order-item order-lab">
+                                <div class="order-item-left">
+                                    <span class="order-name">{{ lab.name }}</span>
+                                    <span class="order-detail">Ordered: {{ lab.orderedAt| date:'MMM d, y' }}</span>
+                                </div>
+                                <span class="lab-status" [class.lab-pending]="lab.status === 'pending'"
+                                    [class.lab-progress]="lab.status === 'in-progress'"
+                                    [class.lab-completed]="lab.status === 'completed'">
+                                    {{ lab.status }}
+                                </span>
+                            </div>
+                            } @empty {
+                            <p class="empty-orders">No lab tests ordered</p>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── Notes ──────────────────────────────────────── -->
+                @if (record.notes) {
+                <div class="notes-cell">
+                    <span class="info-label"><i class="bi bi-chat-left-text"></i> Notes</span>
+                    <p class="notes-text">{{ record.notes }}</p>
+                </div>
+                }
+
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state">
+            <i class="bi bi-file-earmark-medical"></i>
+            <p>No medical records found.</p>
+            <button class="btn-add" (click)="openNewRecord()">
+                <i class="bi bi-plus-circle"></i> Create First Record
+            </button>
+        </div>
+        }
+
+    </div>
+</div>
+<router-outlet></router-outlet>

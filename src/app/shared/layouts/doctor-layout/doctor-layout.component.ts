@@ -31,14 +31,7 @@ export interface ScheduleDay {
 @Component({
   selector: 'app-doctor-layout',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterLink,
-    RouterOutlet,
-    RouterLinkActive,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterOutlet],
   templateUrl: './doctor-layout.component.html',
   styleUrl: './doctor-layout.component.css',
 })

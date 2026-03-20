@@ -1,0 +1,312 @@
+<div class="page-wrapper">
+
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <button class="btn-back" (click)="onCancel()">
+                <i class="bi bi-arrow-left"></i>
+            </button>
+            <div>
+                <h1 class="page-title">New Medical Record</h1>
+                <p class="page-subtitle">Create a clinical record for this appointment</p>
+            </div>
+        </div>
+        <div class="page-header-right">
+            <button class="btn-cancel" type="button" (click)="onCancel()">Cancel</button>
+            <button class="btn-save" type="button" (click)="onSubmit()" [disabled]="form.invalid">
+                <i class="bi bi-check-circle"></i> Save Record
+            </button>
+        </div>
+    </div>
+
+    <form [formGroup]="form" class="form-body">
+
+        <!-- ── Left Column ───────────────────────────────────────── -->
+        <div class="form-col">
+
+            <!-- Appointment Link -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#eff6ff;color:#2563eb;">
+                        <i class="bi bi-link-45deg"></i>
+                    </div>
+                    <h2>Appointment Info</h2>
+                </div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label class="field-label">Patient</label>
+                        <select formControlName="patientId" class="field-select"
+                            [class.is-invalid]="form.get('patientId')?.invalid && form.get('patientId')?.touched">
+                            <option value="">Select patient</option>
+                            @for (p of patients; track p.id) {
+                            <option [value]="p.id">{{ p.fullName }}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Doctor</label>
+                        <select formControlName="doctorId" class="field-select"
+                            [class.is-invalid]="form.get('doctorId')?.invalid && form.get('doctorId')?.touched">
+                            <option value="">Select doctor</option>
+                            @for (d of doctors; track d.id) {
+                            <option [value]="d.id">{{ d.fullName }}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label class="field-label">Appointment</label>
+                        <select formControlName="appointmentId" class="field-select">
+                            <option value="">Select appointment</option>
+                            @for (a of appointments; track a.id) {
+                            <option [value]="a.id">{{ a.id }} — {{ a.appointmentDate }}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Visit Date</label>
+                        <input type="date" formControlName="date" class="field-input"
+                            [class.is-invalid]="form.get('date')?.invalid && form.get('date')?.touched" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagnosis + Symptoms -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#fef3c7;color:#d97706;">
+                        <i class="bi bi-clipboard2-pulse-fill"></i>
+                    </div>
+                    <h2>Diagnosis &amp; Symptoms</h2>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Diagnosis <span class="required">*</span></label>
+                    <input type="text" formControlName="diagnosis" class="field-input"
+                        placeholder="e.g. Hypertension Stage 1"
+                        [class.is-invalid]="form.get('diagnosis')?.invalid && form.get('diagnosis')?.touched" />
+                    @if (form.get('diagnosis')?.invalid && form.get('diagnosis')?.touched) {
+                    <small class="text-danger">Diagnosis is required</small>
+                    }
+                </div>
+
+                <!-- Symptoms tag input -->
+                <div class="field-group">
+                    <label class="field-label">Symptoms</label>
+                    <div class="tag-input-wrap">
+                        <div class="tag-list">
+                            @for (s of symptoms; track s) {
+                            <span class="symptom-tag">
+                                {{ s }}
+                                <button type="button" class="tag-remove" (click)="removeSymptom(s)">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </span>
+                            }
+                        </div>
+                        <div class="tag-input-row">
+                            <input type="text" class="field-input tag-field" [(ngModel)]="symptomInput"
+                                [ngModelOptions]="{standalone: true}" placeholder="Type symptom and press Enter…"
+                                (keydown.enter)="addSymptom($event)" />
+                            <button type="button" class="btn-add-tag" (click)="addSymptomClick()">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Clinical Notes</label>
+                    <textarea formControlName="notes" class="field-input field-textarea" rows="4"
+                        placeholder="Observations, treatment plan, patient compliance…"></textarea>
+                </div>
+            </div>
+
+            <!-- Follow-up -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#f3e8ff;color:#7c3aed;">
+                        <i class="bi bi-calendar-event-fill"></i>
+                    </div>
+                    <h2>Follow-up</h2>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Follow-up Date</label>
+                    <input type="date" formControlName="followUpDate" class="field-input" />
+                    <small class="field-hint">Leave blank if no follow-up is needed</small>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Right Column ──────────────────────────────────────── -->
+        <div class="form-col">
+
+            <!-- Vital Signs -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#fee2e2;color:#dc2626;">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <h2>Vital Signs</h2>
+                </div>
+                <div class="vitals-grid" formGroupName="vitalSigns">
+                    <div class="vital-input-cell">
+                        <i class="bi bi-heart-pulse vital-icon" style="color:#dc2626;"></i>
+                        <div class="field-group flex-1">
+                            <label class="field-label">Blood Pressure</label>
+                            <input type="text" formControlName="bloodPressure" class="field-input"
+                                placeholder="120/80" />
+                        </div>
+                    </div>
+                    <div class="vital-input-cell">
+                        <i class="bi bi-droplet vital-icon" style="color:#2563eb;"></i>
+                        <div class="field-group flex-1">
+                            <label class="field-label">Heart Rate (bpm)</label>
+                            <input type="number" formControlName="heartRate" class="field-input" placeholder="72" />
+                        </div>
+                    </div>
+                    <div class="vital-input-cell">
+                        <i class="bi bi-thermometer vital-icon" style="color:#d97706;"></i>
+                        <div class="field-group flex-1">
+                            <label class="field-label">Temperature (°F)</label>
+                            <input type="number" formControlName="temperature" class="field-input" placeholder="98.6"
+                                step="0.1" />
+                        </div>
+                    </div>
+                    <div class="vital-input-cell">
+                        <i class="bi bi-person vital-icon" style="color:#7c3aed;"></i>
+                        <div class="field-group flex-1">
+                            <label class="field-label">Weight (lbs)</label>
+                            <input type="number" formControlName="weight" class="field-input" placeholder="160" />
+                        </div>
+                    </div>
+                    <div class="vital-input-cell">
+                        <i class="bi bi-arrows-vertical vital-icon" style="color:#059669;"></i>
+                        <div class="field-group flex-1">
+                            <label class="field-label">Height (in)</label>
+                            <input type="number" formControlName="height" class="field-input" placeholder="70" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prescriptions -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#eff6ff;color:#2563eb;">
+                        <i class="bi bi-capsule-pill"></i>
+                    </div>
+                    <h2>Prescriptions</h2>
+                    <button type="button" class="btn-add-section" (click)="addPrescription()">
+                        <i class="bi bi-plus"></i> Add
+                    </button>
+                </div>
+
+                @for (rx of prescriptions; track rx.id; let i = $index) {
+                <div class="order-entry">
+                    <div class="order-entry-header">
+                        <span class="order-entry-num">Rx {{ i + 1 }}</span>
+                        <button type="button" class="btn-remove-entry" (click)="removePrescription(i)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Medication</label>
+                            <input type="text" class="field-input" [(ngModel)]="rx.medication"
+                                [ngModelOptions]="{standalone: true}" placeholder="e.g. Lisinopril" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Dosage</label>
+                            <input type="text" class="field-input" [(ngModel)]="rx.dosage"
+                                [ngModelOptions]="{standalone: true}" placeholder="e.g. 10mg" />
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Frequency</label>
+                            <select class="field-select" [(ngModel)]="rx.frequency"
+                                [ngModelOptions]="{standalone: true}">
+                                <option value="">Select</option>
+                                <option value="Once daily">Once daily</option>
+                                <option value="Twice daily">Twice daily</option>
+                                <option value="Three times daily">Three times daily</option>
+                                <option value="Every 8 hours">Every 8 hours</option>
+                                <option value="As needed">As needed</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Duration</label>
+                            <input type="text" class="field-input" [(ngModel)]="rx.duration"
+                                [ngModelOptions]="{standalone: true}" placeholder="e.g. 30 days" />
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Refills</label>
+                        <input type="number" class="field-input" [(ngModel)]="rx.dosage"
+                            [ngModelOptions]="{standalone: true}" placeholder="0" min="0" />
+                    </div>
+                </div>
+                } @empty {
+                <div class="empty-section">
+                    <i class="bi bi-capsule"></i>
+                    <span>No prescriptions added yet</span>
+                </div>
+                }
+            </div>
+
+            <!-- Lab Tests -->
+            <div class="form-card">
+                <div class="card-section-title">
+                    <div class="section-icon" style="background:#d1fae5;color:#059669;">
+                        <i class="bi bi-eyedropper-fill"></i>
+                    </div>
+                    <h2>Lab Tests</h2>
+                    <button type="button" class="btn-add-section" (click)="addLabTest()">
+                        <i class="bi bi-plus"></i> Add
+                    </button>
+                </div>
+
+                @for (lab of labTests; track lab.id; let i =$index) {
+                <div class="order-entry order-entry-lab">
+                    <div class="order-entry-header">
+                        <span class="order-entry-num">Lab {{ i + 1 }}</span>
+                        <button type="button" class="btn-remove-entry" (click)="removeLabTest(i)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Test Name</label>
+                            <input type="text" class="field-input" [(ngModel)]="lab.name"
+                                [ngModelOptions]="{standalone: true}" placeholder="e.g. CBC, Lipid Panel" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Ordered Date</label>
+                            <input type="date" class="field-input" [(ngModel)]="lab.orderedAt"
+                                [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Status</label>
+                        <select class="field-select" [(ngModel)]="lab.status" [ngModelOptions]="{standalone: true}">
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                } @empty {
+                <div class="empty-section">
+                    <i class="bi bi-eyedropper"></i>
+                    <span>No lab tests ordered yet</span>
+                </div>
+                }
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

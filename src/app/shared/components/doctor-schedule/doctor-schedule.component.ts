@@ -36,7 +36,7 @@ export interface WeekDay {
 @Component({
   selector: 'app-doctor-schedule',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './doctor-schedule.component.html',
   styleUrl: './doctor-schedule.component.css',
 })

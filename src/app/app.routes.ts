@@ -108,8 +108,15 @@ export const routes: Routes = [
       {
         path: 'medical-records',
         loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => m.AdminLayoutComponent,
+          import('./shared/components/medical-records/medical-records.component').then(
+            (m) => m.MedicalRecordsComponent,
+          ),
+      },
+      {
+        path: 'new-record',
+        loadComponent: () =>
+          import('./shared/components/new-record/new-record.component').then(
+            (m) => m.NewRecordComponent,
           ),
       },
       {
@@ -128,7 +135,6 @@ export const routes: Routes = [
       },
     ],
   },
-
 
   {
     path: 'doctorLayout/:id',
