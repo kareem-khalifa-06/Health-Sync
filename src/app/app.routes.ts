@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { adminRoutes } from './routes/routs';
 
 export const routes: Routes = [
   {
@@ -28,112 +29,7 @@ export const routes: Routes = [
         (m) => m.AdminLayoutComponent,
       ),
     canActivate: [authGuard],
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./shared/components/dashboard/dashboard.component').then(
-            (m) => m.DashboardComponent,
-          ),
-        children: [
-          {
-            path: 'user-profile',
-            loadComponent: () =>
-              import('./shared/layouts/admin-layout/admin-layout.component').then(
-                (m) => m.AdminLayoutComponent,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'appointments',
-        loadComponent: () =>
-          import('./shared/components/appointments/appointments.component').then(
-            (m) => m.AppointmentsComponent,
-          ),
-      },
-      {
-        path: 'new-appointment',
-        loadComponent: () =>
-          import('./shared/components/book-appointment-form/book-appointment-form.component').then(
-            (m) => m.BookAppointmentFormComponent,
-          ),
-      },
-      {
-        path: 'patients',
-        children: [
-          {
-            path: '',
-            loadComponent: () =>
-              import('./shared/components/patients-list/patients-list.component').then(
-                (m) => m.PatientsListComponent,
-              ),
-          },
-          {
-            path: 'details/:id',
-            loadComponent: () =>
-              import('./shared/components/patient-detail/patient-detail.component').then(
-                (m) => m.PatientDetailComponent,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'new-patient',
-        loadComponent: () =>
-          import('./shared/components/new-patient/new-patient.component').then(
-            (m) => m.NewPatientComponent,
-          ),
-      },
-      {
-        path: 'doctors',
-        children: [
-          {
-            path: '',
-            loadComponent: () =>
-              import('./shared/components/doctors-list/doctors-list.component').then(
-                (m) => m.DoctorsListComponent,
-              ),
-          },
-          {
-            path: 'details/:id',
-            loadComponent: () =>
-              import('./shared/components/doctor-detail/doctor-detail.component').then(
-                (m) => m.DoctorDetailComponent,
-              ),
-          },
-        ],
-      },
-      {
-        path: 'medical-records',
-        loadComponent: () =>
-          import('./shared/components/medical-records/medical-records.component').then(
-            (m) => m.MedicalRecordsComponent,
-          ),
-      },
-      {
-        path: 'new-record',
-        loadComponent: () =>
-          import('./shared/components/new-record/new-record.component').then(
-            (m) => m.NewRecordComponent,
-          ),
-      },
-      {
-        path: 'prescriptions',
-        loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => m.AdminLayoutComponent,
-          ),
-      },
-      {
-        path: 'analytics',
-        loadComponent: () =>
-          import('./shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => m.AdminLayoutComponent,
-          ),
-      },
-    ],
+    children:adminRoutes
   },
 
   {
@@ -164,5 +60,21 @@ export const routes: Routes = [
           ),
       },
     ],
+  },
+  {
+    path: 'recipsionistLayout',
+    loadComponent: () =>
+      import('./shared/layouts/recipsionist-layout/recipsionist-layout.component').then(
+        (m) => m.RecipsionistLayoutComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'patientLayout',
+    loadComponent: () =>
+      import('./shared/layouts/patient-layout/patient-layout.component').then(
+        (m) => m.PatientLayoutComponent,
+      ),
+    canActivate: [authGuard],
   },
 ];

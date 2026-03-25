@@ -31,20 +31,25 @@ export class DashboardComponent {
   patientsCount!: number;
   appointmentsCount!: number;
   todayAppointments: Appointment[] = [];
+  pendingCount!:number;
   patient!: Patient;
   doctor!: Doctor;
+  doctors!:Doctor[];
   todayRows!: AppointmentRow[];
   todayDate = dayjs().format('dddd,DD MMMM YYYY');
   td = dayjs().format('YYYY-MM-DD');
   ngOnInit() {
     this._DoctorsService.renderDoctors().subscribe((res) => {
+      
       this.doctorsCount = res.length;
+      this.doctors = res.splice(0, 4);
     });
     this._PatientService.getAllPatients().subscribe((res) => {
       this.patientsCount = res.length;
     });
     this._AppointmentService.renderAppointments().subscribe((res) => {
       this.appointmentsCount = res.length;
+      this.pendingCount=res.filter((a)=>a.status==='pending').length
       this.todayAppointments = res.filter((a) => {
         return a.appointmentDate === this.td;
       });

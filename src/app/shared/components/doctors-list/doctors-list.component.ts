@@ -56,7 +56,7 @@ export class DoctorsListComponent {
       this.currentPage = page;
     }
   }
-  id = signal<number>(10);
+  id = signal<number>(1);
   private _DoctorsService = inject(DoctorsService);
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   specs = SPECIALIZATIONS;
@@ -76,7 +76,6 @@ export class DoctorsListComponent {
     availableDays: new FormControl('', Validators.required),
   });
 
-
   renderDoctors() {
     this._DoctorsService.renderDoctors().subscribe({
       next: (res) => {
@@ -87,6 +86,7 @@ export class DoctorsListComponent {
         this.statusFilter = 'All';
         this.specializationFilter = 'All';
         this.currentPage = 1;
+        this.id.set(res.length)
       },
     });
   }
@@ -168,11 +168,11 @@ export class DoctorsListComponent {
 
   addDoctor(): void {
     if (!this.addDoctorForm.valid) return;
-
+      console.log(this.id());
     const form = this.addDoctorForm.value;
 
     const newDoctor: Doctor = {
-      id: `d${this.id()}`,
+      id: `d${this.id()+1}`,
       userId: crypto.randomUUID(),
       firstName: '',
       lastName: '',
@@ -209,5 +209,6 @@ export class DoctorsListComponent {
     this.id.update((id) => id + 1);
     this.showAddDoctorForm = false;
     this.addDoctorForm.reset();
+    console.log(this.id())
   }
 }

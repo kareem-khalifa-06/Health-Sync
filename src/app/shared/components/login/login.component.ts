@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { _adapters } from 'chart.js';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,10 @@ export class LoginComponent {
           this._Router.navigate(['/adminLayout']);
             if(this._AuthService.getRole()==='doctor')
           this._Router.navigate(['/doctorLayout/' + user.doctorId]);
+            if(this._AuthService.getRole()==='patient')
+              this._Router.navigate(['/patientLayout/'+user.patientId]);
+            if(this._AuthService.getRole()==='receptionist')
+              this._Router.navigate(['/recipsionistLayout']);
           }
           
         },

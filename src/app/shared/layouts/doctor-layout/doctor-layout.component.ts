@@ -17,6 +17,7 @@ import {
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { Doctor } from '../../../models/doctor';
 import { AuthService } from '../../../core/services/auth.service';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 export interface ScheduleSlot {
   start: string;

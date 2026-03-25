@@ -75,7 +75,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   // ── Real-time ────────────────────────────────────────────────
   private destroy$ = new Subject<void>();
-  private readonly REFRESH_INTERVAL = 30000; // 30 seconds
+  private readonly REFRESH_INTERVAL = 3000; // 30 seconds
 
   td = dayjs().format('YYYY-MM-DD');
 

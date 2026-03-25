@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { DoctorsService } from './doctors.service';
 import { Appointment } from '../../models/appointment';
 import { AppointmentService } from './appointments.service';
@@ -29,10 +29,12 @@ export interface BookingResult {
   providedIn: 'root',
 })
 export class BookingService {
+  id=signal<number>(0)
   constructor(
     private _DoctorsService: DoctorsService,
     private _AppointmentService: AppointmentService,
   ) {}
+
   readonly ALL_SLOTS = [
     '09:00',
     '09:30',
@@ -103,6 +105,9 @@ export class BookingService {
   }
 
   book(payload: BookingPayload): Observable<BookingResult> {
+    this._AppointmentService.renderAppointments().subscribe((r)=>{
+      this.id.set(r.length)
+    })
     return this.hasConflict(payload).pipe(
       switchMap((conflict) => {
         if (conflict) {
@@ -112,7 +117,8 @@ export class BookingService {
           });
         }
 
-       const newAppointment: Omit<Appointment, 'id'> = {
+       const newAppointment: Appointment = {
+         id:`a${this.id()+1}`,
          patientId: payload.patientId,
          doctorId: payload.doctorId,
          appointmentDate: payload.appointmentDate,
@@ -127,11 +133,12 @@ export class BookingService {
          createdAt: new Date().toISOString(),
          updatedAt: new Date().toISOString(),
        };
-
+        
         return this._AppointmentService
-          .addAppointment(newAppointment as Appointment)
+          .addAppointment(newAppointment)
           .pipe(
             map((saved) => {
+               this.id.update((id) => id + 1);
               this._simulateNotification(saved);
               return <BookingResult>{ success: true, appointment: saved };
             }),

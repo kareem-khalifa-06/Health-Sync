@@ -70,6 +70,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe((res) => (this.doctors = res));
 
+
     combineLatest([
       this.appointmentForm.get('doctorId')!.valueChanges,
       this.appointmentForm.get('appointmentDate')!.valueChanges,

@@ -33,7 +33,7 @@
         </div>
         <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 3 from yesterday</span>
       </div>
-      <div class="metric-value">{{appointmentsCount}}</div>
+      <div class="metric-value">{{todayAppointments.length}}</div>
       <div class="metric-label">Today's Appointments</div>
     </div>
 
@@ -55,7 +55,7 @@
         </div>
         <span class="metric-trend trend-warn"><i class="bi bi-exclamation-circle"></i> Needs attention</span>
       </div>
-      <div class="metric-value">5</div>
+      <div class="metric-value">{{pendingCount}}</div>
       <div class="metric-label">Pending Approvals</div>
     </div>
 
@@ -95,7 +95,6 @@
               <th>Date &amp; Time</th>
               <th>Type</th>
               <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -125,8 +124,12 @@
               </td>
               <td><span class="type-chip type-checkup">{{row.appointment.type}}</span></td>
               <td><span class="status-badge status-confirmed" [classList]=""><span class="s-dot"></span>{{row.appointment.status}}</span></td>
-              <td><button class="btn-view"><i class="bi bi-eye"></i> View</button></td>
             </tr>
+            }
+            @empty {
+                <tr>
+                  <td colspan="8" class="empty-row">No appointments Today.</td>
+                </tr>
             }
           </tbody>
         </table>
@@ -147,38 +150,16 @@
           <button class="btn-ghost-sm" [routerLink]="['/adminLayout/doctors']">View All</button>
         </div>
         <div class="doctor-list">
-          <div class="doctor-row">
-            <div class="avatar av-teal">SS</div>
+          @for(d of doctors;track d.id){
+            <div class="doctor-row">
+            <div class="avatar av-teal">{{d.initials}}</div>
             <div class="doctor-info">
-              <div class="doctor-name">Dr. Smith</div>
-              <div class="doctor-spec">Cardiology</div>
+              <div class="doctor-name">{{d.fullName}}</div>
+              <div class="doctor-spec">{{d.specialty}}</div>
             </div>
-            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
-          </div>
-          <div class="doctor-row">
-            <div class="avatar av-green">DA</div>
-            <div class="doctor-info">
-              <div class="doctor-name">Dr. Adams</div>
-              <div class="doctor-spec">Neurology</div>
-            </div>
-            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
-          </div>
-          <div class="doctor-row">
-            <div class="avatar av-red">DL</div>
-            <div class="doctor-info">
-              <div class="doctor-name">Dr. Lee</div>
-              <div class="doctor-spec">Orthopedics</div>
-            </div>
-            <span class="duty-badge duty-surgery"><span class="s-dot"></span>Surgery</span>
-          </div>
-          <div class="doctor-row">
-            <div class="avatar av-purple">KE</div>
-            <div class="doctor-info">
-              <div class="doctor-name">Dr.Khadija Elbakry</div>
-              <div class="doctor-spec">Internal Med.</div>
-            </div>
-            <span class="duty-badge duty-active"><span class="s-dot"></span>Active</span>
-          </div>
+            <span class="duty-badge duty-active"><span class="s-dot"></span>{{d.status}}</span>
+          </div>   
+          }
         </div>
       </div>
 

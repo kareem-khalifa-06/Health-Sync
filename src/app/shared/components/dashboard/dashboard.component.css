@@ -577,3 +577,5 @@
   .page-wrapper { padding: 16px; }
   .top-bar { gap: 10px; }
 }
+
+.empty-row { text-align: center; padding: 40px; color: var(--slate-400); font-size: 14px; }

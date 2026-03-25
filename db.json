@@ -104,7 +104,7 @@
       "lastName": "Okafor",
       "phone": "+1-555-0108",
       "avatar": "https://i.pravatar.cc/150?img=18",
-      "doctorId": "d8",
+      "doctorId": null,
       "createdAt": "2024-01-01T00:00:00.000Z"
     },
     {
@@ -116,7 +116,7 @@
       "lastName": "Laurent",
       "phone": "+1-555-0109",
       "avatar": "https://i.pravatar.cc/150?img=60",
-      "doctorId": "d9",
+      "doctorId": null,
       "createdAt": "2024-01-01T00:00:00.000Z"
     },
     {
@@ -175,6 +175,17 @@
       "phone": "01111445265",
       "avatar": "",
       "createdAt": "2026-03-12T11:40:59.200Z"
+    },
+    {
+      "id": "94a60718-83e4-44e5-87f6-2606a6c799f3",
+      "email": "adma.soliman18@gmail.com",
+      "password": "Adammoh18@",
+      "role": "receptionist",
+      "firstName": "Adam",
+      "lastName": "Mohamed",
+      "phone": "010555555555",
+      "avatar": "",
+      "createdAt": "2026-03-21T08:19:50.796Z"
     }
   ],
   "doctors": [
@@ -733,163 +744,6 @@
           "end": "20:00"
         }
       ]
-    },
-    {
-      "id": "d8",
-      "userId": "9",
-      "firstName": "Michael",
-      "lastName": "Okafor",
-      "fullName": "Dr. Michael Okafor",
-      "initials": "MO",
-      "avatarUrl": "https://i.pravatar.cc/150?img=18",
-      "specialty": "Psychiatry",
-      "subSpecialty": "Mood Disorders, Anxiety & PTSD",
-      "department": "Mental Health",
-      "hospital": "Behavioral Health Institute",
-      "location": "Atlanta, GA",
-      "email": "dr.okafor@healthsync.com",
-      "phone": "+1-555-0108",
-      "bio": "Dr. Michael Okafor is a compassionate psychiatrist specializing in mood disorders, anxiety, and PTSD, with a holistic approach to mental health.",
-      "status": "active",
-      "isAvailableToday": true,
-      "consultationFee": 550,
-      "experience": 12,
-      "totalPatients": 750,
-      "rating": 4.9,
-      "totalReviews": 215,
-      "qualifications": [
-        "MD",
-        "DFAPA"
-      ],
-      "languages": [
-        "English",
-        "Yoruba"
-      ],
-      "services": [
-        "Depression & Anxiety Treatment",
-        "PTSD Therapy",
-        "Medication Management",
-        "Cognitive Behavioral Therapy",
-        "Group Therapy Sessions",
-        "Crisis Intervention"
-      ],
-      "education": [
-        {
-          "degree": "DFAPA, Distinguished Fellow",
-          "institution": "American Psychiatric Association",
-          "year": "2018"
-        },
-        {
-          "degree": "Residency, Psychiatry",
-          "institution": "Emory University Hospital",
-          "year": "2015"
-        },
-        {
-          "degree": "MD",
-          "institution": "Morehouse School of Medicine",
-          "year": "2011"
-        }
-      ],
-      "achievements": [
-        "Mental Health Advocate of the Year 2023",
-        "Developed community-based PTSD support program",
-        "Author of 'Understanding Anxiety' guidebook"
-      ],
-      "availableDays": [
-        "Monday",
-        "Tuesday",
-        "Friday",
-        "Saturday"
-      ],
-      "availableTimeSlots": [
-        {
-          "start": "11:00",
-          "end": "15:00"
-        },
-        {
-          "start": "17:00",
-          "end": "20:00"
-        }
-      ]
-    },
-    {
-      "id": "d9",
-      "userId": "10",
-      "firstName": "Sophie",
-      "lastName": "Laurent",
-      "fullName": "Dr. Sophie Laurent",
-      "initials": "SL",
-      "avatarUrl": "https://i.pravatar.cc/150?img=60",
-      "specialty": "Endocrinology",
-      "subSpecialty": "Diabetes, Thyroid & Hormonal Disorders",
-      "department": "Endocrinology & Metabolism",
-      "hospital": "Metabolic Health Center",
-      "location": "Seattle, WA",
-      "email": "dr.laurent@healthsync.com",
-      "phone": "+1-555-0109",
-      "bio": "Dr. Sophie Laurent is an endocrinologist dedicated to managing diabetes, thyroid disorders, and hormonal imbalances with personalized care plans.",
-      "status": "active",
-      "isAvailableToday": false,
-      "consultationFee": 600,
-      "experience": 9,
-      "totalPatients": 1120,
-      "rating": 4.7,
-      "totalReviews": 187,
-      "qualifications": [
-        "MD",
-        "FACE"
-      ],
-      "languages": [
-        "English",
-        "French",
-        "German"
-      ],
-      "services": [
-        "Diabetes Type 1 & 2 Management",
-        "Thyroid Disorder Treatment",
-        "Hormonal Imbalance Evaluation",
-        "Osteoporosis Management",
-        "Adrenal Disorder Care",
-        "Weight Management"
-      ],
-      "education": [
-        {
-          "degree": "FACE, Endocrine Society Fellow",
-          "institution": "American College of Endocrinology",
-          "year": "2019"
-        },
-        {
-          "degree": "Residency, Internal Medicine & Endocrinology",
-          "institution": "University of Washington Medical Center",
-          "year": "2017"
-        },
-        {
-          "degree": "MD",
-          "institution": "Université de Paris",
-          "year": "2013"
-        }
-      ],
-      "achievements": [
-        "Young Investigator Award — Endocrine Society 2022",
-        "Developed diabetes management mobile app",
-        "Published research on thyroid disorders in pregnancy"
-      ],
-      "availableDays": [
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "availableTimeSlots": [
-        {
-          "start": "09:00",
-          "end": "12:00"
-        },
-        {
-          "start": "15:00",
-          "end": "18:00"
-        }
-      ]
     }
   ],
   "doctorSchedules": [
@@ -1328,36 +1182,20 @@
       "updatedAt": "2026-02-09T09:30:00.000Z"
     },
     {
-      "id": "5bff",
-      "patientId": "p2",
+      "id": "a7",
+      "patientId": "p3",
       "doctorId": "d1",
-      "appointmentDate": "2026-03-16",
+      "appointmentDate": "2026-03-24",
       "appointmentTime": "16:30",
       "type": "Consultation",
-      "reason": "kkkkk\n",
+      "reason": "jkmkjb",
       "duration": 30,
       "status": "completed",
       "notes": "",
-      "slotId": "sch-d1-1773665755400",
+      "slotId": "sch-d1-1774217823405",
       "consultationFee": 0,
-      "createdAt": "2026-03-16T12:55:55.400Z",
-      "updatedAt": "2026-03-16T12:55:55.400Z"
-    },
-    {
-      "id": "a36b",
-      "patientId": "p4",
-      "doctorId": "d1",
-      "appointmentDate": "2026-03-17",
-      "appointmentTime": "17:00",
-      "type": "Consultation",
-      "reason": "kkkkkkkkk",
-      "duration": 30,
-      "status": "completed",
-      "notes": "",
-      "slotId": "sch-d1-1773750130802",
-      "consultationFee": 0,
-      "createdAt": "2026-03-17T12:22:10.802Z",
-      "updatedAt": "2026-03-17T12:22:10.802Z"
+      "createdAt": "2026-03-22T22:17:03.405Z",
+      "updatedAt": "2026-03-22T22:17:03.405Z"
     }
   ],
   "medicalRecords": [
