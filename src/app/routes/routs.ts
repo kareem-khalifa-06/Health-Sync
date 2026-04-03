@@ -101,8 +101,8 @@ export const adminRoutes:Route[]=[
       {
         path: 'analytics',
         loadComponent: () =>
-          import('../shared/layouts/admin-layout/admin-layout.component').then(
-            (m) => m.AdminLayoutComponent,
+          import('../shared/components/analytics/analytics.component').then(
+            (m) => m.AnalyticsComponent,
           ),
       },
     
