@@ -27,8 +27,10 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.19",
     "dob-to-age": "^4.0.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "material-icons": "^1.13.14",
-    "ng2-charts": "^4.1.1",
+    "ng2-charts": "^5.0.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

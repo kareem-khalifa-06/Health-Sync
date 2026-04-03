@@ -186,6 +186,114 @@
       "phone": "010555555555",
       "avatar": "",
       "createdAt": "2026-03-21T08:19:50.796Z"
+    },
+    {
+      "id": "14",
+      "email": "sarah.johnson@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "phone": "+1-555-0210",
+      "avatar": "https://i.pravatar.cc/150?img=21",
+      "patientId": "p5",
+      "createdAt": "2024-03-10T00:00:00.000Z"
+    },
+    {
+      "id": "15",
+      "email": "david.wilson@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "David",
+      "lastName": "Wilson",
+      "phone": "+1-555-0211",
+      "avatar": "https://i.pravatar.cc/150?img=22",
+      "patientId": "p6",
+      "createdAt": "2024-04-05T00:00:00.000Z"
+    },
+    {
+      "id": "16",
+      "email": "lisa.martin@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Lisa",
+      "lastName": "Martin",
+      "phone": "+1-555-0212",
+      "avatar": "https://i.pravatar.cc/150?img=23",
+      "patientId": "p7",
+      "createdAt": "2024-05-20T00:00:00.000Z"
+    },
+    {
+      "id": "17",
+      "email": "kevin.moore@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Kevin",
+      "lastName": "Moore",
+      "phone": "+1-555-0213",
+      "avatar": "https://i.pravatar.cc/150?img=24",
+      "patientId": "p8",
+      "createdAt": "2024-06-15T00:00:00.000Z"
+    },
+    {
+      "id": "18",
+      "email": "anna.garcia@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Anna",
+      "lastName": "Garcia",
+      "phone": "+1-555-0214",
+      "avatar": "https://i.pravatar.cc/150?img=26",
+      "patientId": "p9",
+      "createdAt": "2024-07-01T00:00:00.000Z"
+    },
+    {
+      "id": "19",
+      "email": "brian.thomas@email.com",
+      "password": "patient123",
+      "role": "patient",
+      "firstName": "Brian",
+      "lastName": "Thomas",
+      "phone": "+1-555-0215",
+      "avatar": "https://i.pravatar.cc/150?img=27",
+      "patientId": "p10",
+      "createdAt": "2024-08-12T00:00:00.000Z"
+    },
+    {
+      "id": "20",
+      "email": "dr.patel@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Anita",
+      "lastName": "Patel",
+      "phone": "+1-555-0111",
+      "avatar": "https://i.pravatar.cc/150?img=28",
+      "doctorId": "d8",
+      "createdAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "21",
+      "email": "dr.kim@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Jennifer",
+      "lastName": "Kim",
+      "phone": "+1-555-0112",
+      "avatar": "https://i.pravatar.cc/150?img=29",
+      "doctorId": "d9",
+      "createdAt": "2024-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "22",
+      "email": "dr.williams@healthsync.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "firstName": "Thomas",
+      "lastName": "Williams",
+      "phone": "+1-555-0113",
+      "avatar": "https://i.pravatar.cc/150?img=30",
+      "doctorId": "d10",
+      "createdAt": "2024-03-10T00:00:00.000Z"
     }
   ],
   "doctors": [
@@ -744,6 +852,215 @@
           "end": "20:00"
         }
       ]
+    },
+    {
+      "id": "d8",
+      "userId": "20",
+      "firstName": "Anita",
+      "lastName": "Patel",
+      "fullName": "Dr. Anita Patel",
+      "initials": "AP",
+      "avatarUrl": "https://i.pravatar.cc/150?img=28",
+      "specialty": "Psychiatry",
+      "subSpecialty": "Child & Adolescent Psychiatry",
+      "department": "Psychiatry",
+      "hospital": "Mind & Wellness Center",
+      "location": "Los Angeles, CA",
+      "email": "dr.patel@healthsync.com",
+      "phone": "+1-555-0111",
+      "bio": "Dr. Anita Patel is a compassionate psychiatrist specializing in child and adolescent mental health, with expertise in anxiety disorders and depression.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 700,
+      "experience": 11,
+      "totalPatients": 890,
+      "rating": 4.9,
+      "totalReviews": 156,
+      "qualifications": [
+        "MD",
+        "FAPA"
+      ],
+      "languages": [
+        "English",
+        "Gujarati",
+        "Hindi"
+      ],
+      "services": [
+        "Anxiety Disorder Treatment",
+        "Depression Management",
+        "ADHD Evaluation",
+        "Trauma Therapy",
+        "Behavioral Counseling"
+      ],
+      "education": [
+        {
+          "degree": "MD, Psychiatry",
+          "institution": "UCLA Medical Center",
+          "year": "2015"
+        },
+        {
+          "degree": "Residency, Psychiatry",
+          "institution": "Stanford University",
+          "year": "2012"
+        }
+      ],
+      "achievements": [
+        "Excellence in Mental Health Care 2024",
+        "Founder of Youth Mental Health Initiative"
+      ],
+      "availableDays": [
+        "Monday",
+        "Wednesday",
+        "Friday"
+      ],
+      "availableTimeSlots": [
+        {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        {
+          "start": "13:00",
+          "end": "17:00"
+        }
+      ]
+    },
+    {
+      "id": "d9",
+      "userId": "21",
+      "firstName": "Jennifer",
+      "lastName": "Kim",
+      "fullName": "Dr. Jennifer Kim",
+      "initials": "JK",
+      "avatarUrl": "https://i.pravatar.cc/150?img=29",
+      "specialty": "Endocrinology",
+      "subSpecialty": "Diabetes & Metabolism",
+      "department": "Endocrinology",
+      "hospital": "Metabolic Health Institute",
+      "location": "Seattle, WA",
+      "email": "dr.kim@healthsync.com",
+      "phone": "+1-555-0112",
+      "bio": "Dr. Jennifer Kim is a board-certified endocrinologist specializing in diabetes management, thyroid disorders, and metabolic health.",
+      "status": "active",
+      "isAvailableToday": false,
+      "consultationFee": 800,
+      "experience": 9,
+      "totalPatients": 1120,
+      "rating": 4.8,
+      "totalReviews": 203,
+      "qualifications": [
+        "MD",
+        "FACE"
+      ],
+      "languages": [
+        "English",
+        "Korean"
+      ],
+      "services": [
+        "Diabetes Management",
+        "Thyroid Disorder Treatment",
+        "Hormone Replacement Therapy",
+        "Weight Management"
+      ],
+      "education": [
+        {
+          "degree": "MD, Endocrinology Fellowship",
+          "institution": "University of Washington",
+          "year": "2017"
+        },
+        {
+          "degree": "Residency, Internal Medicine",
+          "institution": "Mayo Clinic",
+          "year": "2014"
+        }
+      ],
+      "achievements": [
+        "Young Investigator Award 2022",
+        "Published 12 papers on diabetes management"
+      ],
+      "availableDays": [
+        "Tuesday",
+        "Thursday",
+        "Saturday"
+      ],
+      "availableTimeSlots": [
+        {
+          "start": "08:00",
+          "end": "12:00"
+        },
+        {
+          "start": "13:00",
+          "end": "16:00"
+        }
+      ]
+    },
+    {
+      "id": "d10",
+      "userId": "22",
+      "firstName": "Thomas",
+      "lastName": "Williams",
+      "fullName": "Dr. Thomas Williams",
+      "initials": "TW",
+      "avatarUrl": "https://i.pravatar.cc/150?img=30",
+      "specialty": "Gastroenterology",
+      "subSpecialty": "Digestive Health & Endoscopy",
+      "department": "Gastroenterology",
+      "hospital": "Digestive Care Center",
+      "location": "Denver, CO",
+      "email": "dr.williams@healthsync.com",
+      "phone": "+1-555-0113",
+      "bio": "Dr. Thomas Williams is a gastroenterologist specializing in digestive disorders, colon cancer screening, and advanced endoscopic procedures.",
+      "status": "active",
+      "isAvailableToday": true,
+      "consultationFee": 850,
+      "experience": 16,
+      "totalPatients": 2100,
+      "rating": 4.9,
+      "totalReviews": 342,
+      "qualifications": [
+        "MD",
+        "FACG"
+      ],
+      "languages": [
+        "English"
+      ],
+      "services": [
+        "Colonoscopy",
+        "Endoscopy",
+        "IBS Management",
+        "Crohn's Disease Care"
+      ],
+      "education": [
+        {
+          "degree": "MD, Gastroenterology Fellowship",
+          "institution": "Cleveland Clinic",
+          "year": "2010"
+        },
+        {
+          "degree": "Residency, Internal Medicine",
+          "institution": "University of Colorado",
+          "year": "2007"
+        }
+      ],
+      "achievements": [
+        "Top Gastroenterologist Award 2023",
+        "Performed 5000+ successful colonoscopies"
+      ],
+      "availableDays": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday"
+      ],
+      "availableTimeSlots": [
+        {
+          "start": "07:30",
+          "end": "12:00"
+        },
+        {
+          "start": "13:00",
+          "end": "16:30"
+        }
+      ]
     }
   ],
   "doctorSchedules": [
@@ -887,6 +1204,85 @@
           "available": true
         }
       ]
+    },
+    {
+      "id": "sch-d2-1",
+      "doctorId": "d2",
+      "day": "Monday",
+      "date": "2026-03-11",
+      "dayShort": "Mon",
+      "slots": [
+        {
+          "time": "08:00 AM",
+          "available": true
+        },
+        {
+          "time": "09:30 AM",
+          "available": true
+        },
+        {
+          "time": "11:00 AM",
+          "available": false
+        },
+        {
+          "time": "03:00 PM",
+          "available": true
+        },
+        {
+          "time": "04:30 PM",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "sch-d3-1",
+      "doctorId": "d3",
+      "day": "Wednesday",
+      "date": "2026-03-13",
+      "dayShort": "Wed",
+      "slots": [
+        {
+          "time": "10:00 AM",
+          "available": true
+        },
+        {
+          "time": "11:30 AM",
+          "available": true
+        },
+        {
+          "time": "02:00 PM",
+          "available": false
+        },
+        {
+          "time": "04:00 PM",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": "sch-d4-1",
+      "doctorId": "d4",
+      "day": "Tuesday",
+      "date": "2026-03-12",
+      "dayShort": "Tue",
+      "slots": [
+        {
+          "time": "09:00 AM",
+          "available": true
+        },
+        {
+          "time": "10:30 AM",
+          "available": true
+        },
+        {
+          "time": "01:00 PM",
+          "available": true
+        },
+        {
+          "time": "03:00 PM",
+          "available": false
+        }
+      ]
     }
   ],
   "doctorReviews": [
@@ -944,6 +1340,61 @@
       "date": "2026-02-01",
       "comment": "Dr. Mitchell is brilliant. He diagnosed my condition accurately and explained every step of the treatment.",
       "createdAt": "2026-02-01T13:00:00.000Z"
+    },
+    {
+      "id": "rev6",
+      "doctorId": "d2",
+      "patientId": "p5",
+      "patientName": "Sarah Johnson",
+      "patientInitials": "SJ",
+      "rating": 5,
+      "date": "2026-02-18",
+      "comment": "Dr. Mitchell's expertise in neurology is unmatched. He helped manage my migraines effectively.",
+      "createdAt": "2026-02-18T10:30:00.000Z"
+    },
+    {
+      "id": "rev7",
+      "doctorId": "d3",
+      "patientId": "p6",
+      "patientName": "David Wilson",
+      "patientInitials": "DW",
+      "rating": 4,
+      "date": "2026-02-05",
+      "comment": "Dr. Sharma is great with children. My daughter felt comfortable during her checkup.",
+      "createdAt": "2026-02-05T09:15:00.000Z"
+    },
+    {
+      "id": "rev8",
+      "doctorId": "d4",
+      "patientId": "p7",
+      "patientName": "Lisa Martin",
+      "patientInitials": "LM",
+      "rating": 5,
+      "date": "2026-02-22",
+      "comment": "Dr. Hassan performed my knee replacement surgery. Recovery was smooth and pain was minimal.",
+      "createdAt": "2026-02-22T14:00:00.000Z"
+    },
+    {
+      "id": "rev9",
+      "doctorId": "d8",
+      "patientId": "p8",
+      "patientName": "Kevin Moore",
+      "patientInitials": "KM",
+      "rating": 5,
+      "date": "2026-02-10",
+      "comment": "Dr. Patel is a wonderful psychiatrist. She truly listens and provides effective treatment plans.",
+      "createdAt": "2026-02-10T11:45:00.000Z"
+    },
+    {
+      "id": "rev10",
+      "doctorId": "d9",
+      "patientId": "p9",
+      "patientName": "Anna Garcia",
+      "patientInitials": "AG",
+      "rating": 4,
+      "date": "2026-02-14",
+      "comment": "Dr. Kim helped me manage my diabetes effectively. Great doctor with excellent knowledge.",
+      "createdAt": "2026-02-14T13:20:00.000Z"
     }
   ],
   "patients": [
@@ -1081,6 +1532,222 @@
       "registeredDate": "2024-06-01T00:00:00.000Z",
       "lastVisit": "2025-12-20T09:00:00.000Z",
       "status": "active"
+    },
+    {
+      "id": "p5",
+      "userId": "14",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "fullName": "Sarah Johnson",
+      "initials": "SJ",
+      "avatarUrl": "https://i.pravatar.cc/150?img=21",
+      "dateOfBirth": "1988-09-12",
+      "gender": "female",
+      "bloodGroup": "A-",
+      "address": "567 Maple St, Boston, MA 02108",
+      "email": "sarah.johnson@email.com",
+      "phone": "+1-555-0210",
+      "emergencyContact": {
+        "name": "Mark Johnson",
+        "relationship": "Spouse",
+        "phone": "+1-555-0310"
+      },
+      "insuranceProvider": "Cigna",
+      "insuranceNumber": "CG123987654",
+      "allergies": [],
+      "chronicConditions": [
+        "Migraine"
+      ],
+      "currentMedications": [
+        {
+          "name": "Sumatriptan",
+          "dosage": "50mg",
+          "frequency": "As needed"
+        }
+      ],
+      "registeredDate": "2024-03-10T00:00:00.000Z",
+      "lastVisit": "2026-02-18T10:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p6",
+      "userId": "15",
+      "firstName": "David",
+      "lastName": "Wilson",
+      "fullName": "David Wilson",
+      "initials": "DW",
+      "avatarUrl": "https://i.pravatar.cc/150?img=22",
+      "dateOfBirth": "2020-05-20",
+      "gender": "male",
+      "bloodGroup": "O-",
+      "address": "890 Cedar Ln, Chicago, IL 60601",
+      "email": "david.wilson@email.com",
+      "phone": "+1-555-0211",
+      "emergencyContact": {
+        "name": "Laura Wilson",
+        "relationship": "Mother",
+        "phone": "+1-555-0311"
+      },
+      "insuranceProvider": "BlueCross BlueShield",
+      "insuranceNumber": "BC567891234",
+      "allergies": [],
+      "chronicConditions": [],
+      "currentMedications": [],
+      "registeredDate": "2024-04-05T00:00:00.000Z",
+      "lastVisit": "2026-02-05T09:30:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p7",
+      "userId": "16",
+      "firstName": "Lisa",
+      "lastName": "Martin",
+      "fullName": "Lisa Martin",
+      "initials": "LM",
+      "avatarUrl": "https://i.pravatar.cc/150?img=23",
+      "dateOfBirth": "1965-12-03",
+      "gender": "female",
+      "bloodGroup": "B-",
+      "address": "234 Birch St, Houston, TX 77001",
+      "email": "lisa.martin@email.com",
+      "phone": "+1-555-0212",
+      "emergencyContact": {
+        "name": "Robert Martin",
+        "relationship": "Spouse",
+        "phone": "+1-555-0312"
+      },
+      "insuranceProvider": "Medicare",
+      "insuranceNumber": "MED987654321",
+      "allergies": [
+        "Codeine"
+      ],
+      "chronicConditions": [
+        "Osteoarthritis"
+      ],
+      "currentMedications": [
+        {
+          "name": "Acetaminophen",
+          "dosage": "500mg",
+          "frequency": "As needed"
+        }
+      ],
+      "registeredDate": "2024-05-20T00:00:00.000Z",
+      "lastVisit": "2026-02-22T13:30:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p8",
+      "userId": "17",
+      "firstName": "Kevin",
+      "lastName": "Moore",
+      "fullName": "Kevin Moore",
+      "initials": "KM",
+      "avatarUrl": "https://i.pravatar.cc/150?img=24",
+      "dateOfBirth": "1995-02-28",
+      "gender": "male",
+      "bloodGroup": "AB-",
+      "address": "123 Spruce St, Los Angeles, CA 90001",
+      "email": "kevin.moore@email.com",
+      "phone": "+1-555-0213",
+      "emergencyContact": {
+        "name": "Emma Moore",
+        "relationship": "Sister",
+        "phone": "+1-555-0313"
+      },
+      "insuranceProvider": "Kaiser Permanente",
+      "insuranceNumber": "KP789123456",
+      "allergies": [],
+      "chronicConditions": [
+        "Anxiety"
+      ],
+      "currentMedications": [
+        {
+          "name": "Sertraline",
+          "dosage": "50mg",
+          "frequency": "Once daily"
+        }
+      ],
+      "registeredDate": "2024-06-15T00:00:00.000Z",
+      "lastVisit": "2026-02-10T11:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p9",
+      "userId": "18",
+      "firstName": "Anna",
+      "lastName": "Garcia",
+      "fullName": "Anna Garcia",
+      "initials": "AG",
+      "avatarUrl": "https://i.pravatar.cc/150?img=26",
+      "dateOfBirth": "1972-08-17",
+      "gender": "female",
+      "bloodGroup": "A+",
+      "address": "567 Walnut St, San Francisco, CA 94101",
+      "email": "anna.garcia@email.com",
+      "phone": "+1-555-0214",
+      "emergencyContact": {
+        "name": "Carlos Garcia",
+        "relationship": "Spouse",
+        "phone": "+1-555-0314"
+      },
+      "insuranceProvider": "Aetna",
+      "insuranceNumber": "AE987321654",
+      "allergies": [],
+      "chronicConditions": [
+        "Type 2 Diabetes",
+        "Hypothyroidism"
+      ],
+      "currentMedications": [
+        {
+          "name": "Metformin",
+          "dosage": "1000mg",
+          "frequency": "Twice daily"
+        },
+        {
+          "name": "Levothyroxine",
+          "dosage": "75mcg",
+          "frequency": "Once daily"
+        }
+      ],
+      "registeredDate": "2024-07-01T00:00:00.000Z",
+      "lastVisit": "2026-02-14T14:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "p10",
+      "userId": "19",
+      "firstName": "Brian",
+      "lastName": "Thomas",
+      "fullName": "Brian Thomas",
+      "initials": "BT",
+      "avatarUrl": "https://i.pravatar.cc/150?img=27",
+      "dateOfBirth": "1982-11-22",
+      "gender": "male",
+      "bloodGroup": "O+",
+      "address": "890 Aspen Dr, Seattle, WA 98101",
+      "email": "brian.thomas@email.com",
+      "phone": "+1-555-0215",
+      "emergencyContact": {
+        "name": "Nicole Thomas",
+        "relationship": "Spouse",
+        "phone": "+1-555-0315"
+      },
+      "insuranceProvider": "UnitedHealth",
+      "insuranceNumber": "UH456789321",
+      "allergies": [],
+      "chronicConditions": [
+        "GERD"
+      ],
+      "currentMedications": [
+        {
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "frequency": "Once daily"
+        }
+      ],
+      "registeredDate": "2024-08-12T00:00:00.000Z",
+      "lastVisit": "2026-02-01T10:30:00.000Z",
+      "status": "active"
     }
   ],
   "appointments": [
@@ -1196,6 +1863,151 @@
       "consultationFee": 0,
       "createdAt": "2026-03-22T22:17:03.405Z",
       "updatedAt": "2026-03-22T22:17:03.405Z"
+    },
+    {
+      "id": "a8",
+      "patientId": "p5",
+      "doctorId": "d2",
+      "appointmentDate": "2026-04-10",
+      "appointmentTime": "09:30",
+      "duration": 45,
+      "type": "Consultation",
+      "status": "confirmed",
+      "reason": "Severe headaches and vision changes",
+      "notes": "New patient consultation",
+      "slotId": "sch-d2-1",
+      "consultationFee": 900,
+      "createdAt": "2026-03-15T11:20:00.000Z",
+      "updatedAt": "2026-03-15T11:20:00.000Z"
+    },
+    {
+      "id": "a9",
+      "patientId": "p6",
+      "doctorId": "d3",
+      "appointmentDate": "2026-04-12",
+      "appointmentTime": "10:30",
+      "duration": 30,
+      "type": "Checkup",
+      "status": "confirmed",
+      "reason": "Annual well-child visit",
+      "notes": "",
+      "slotId": "sch-d3-1",
+      "consultationFee": 500,
+      "createdAt": "2026-03-10T14:45:00.000Z",
+      "updatedAt": "2026-03-10T14:45:00.000Z"
+    },
+    {
+      "id": "a10",
+      "patientId": "p7",
+      "doctorId": "d4",
+      "appointmentDate": "2026-04-08",
+      "appointmentTime": "11:00",
+      "duration": 45,
+      "type": "Follow-up",
+      "status": "confirmed",
+      "reason": "Post-operative follow-up for knee surgery",
+      "notes": "Bring X-ray images",
+      "slotId": "sch-d4-1",
+      "consultationFee": 1000,
+      "createdAt": "2026-03-05T09:00:00.000Z",
+      "updatedAt": "2026-03-05T09:00:00.000Z"
+    },
+    {
+      "id": "a11",
+      "patientId": "p8",
+      "doctorId": "d8",
+      "appointmentDate": "2026-04-15",
+      "appointmentTime": "14:00",
+      "duration": 60,
+      "type": "Consultation",
+      "status": "confirmed",
+      "reason": "Anxiety and stress management",
+      "notes": "Initial psychiatric evaluation",
+      "slotId": null,
+      "consultationFee": 700,
+      "createdAt": "2026-03-12T16:30:00.000Z",
+      "updatedAt": "2026-03-12T16:30:00.000Z"
+    },
+    {
+      "id": "a12",
+      "patientId": "p9",
+      "doctorId": "d9",
+      "appointmentDate": "2026-04-18",
+      "appointmentTime": "09:00",
+      "duration": 30,
+      "type": "Follow-up",
+      "status": "confirmed",
+      "reason": "Diabetes management review",
+      "notes": "Bring blood sugar log",
+      "slotId": null,
+      "consultationFee": 800,
+      "createdAt": "2026-03-18T10:15:00.000Z",
+      "updatedAt": "2026-03-18T10:15:00.000Z"
+    },
+    {
+      "id": "a13",
+      "patientId": "p10",
+      "doctorId": "d10",
+      "appointmentDate": "2026-04-20",
+      "appointmentTime": "15:30",
+      "duration": 30,
+      "type": "Consultation",
+      "status": "confirmed",
+      "reason": "Acid reflux symptoms",
+      "notes": "",
+      "slotId": null,
+      "consultationFee": 850,
+      "createdAt": "2026-03-20T13:00:00.000Z",
+      "updatedAt": "2026-03-20T13:00:00.000Z"
+    },
+    {
+      "id": "a14",
+      "patientId": "p1",
+      "doctorId": "d1",
+      "appointmentDate": "2026-04-22",
+      "appointmentTime": "10:00",
+      "duration": 30,
+      "type": "Checkup",
+      "status": "confirmed",
+      "reason": "Routine follow-up for hypertension",
+      "notes": "",
+      "slotId": null,
+      "consultationFee": 750,
+      "createdAt": "2026-03-22T09:45:00.000Z",
+      "updatedAt": "2026-03-22T09:45:00.000Z"
+    },
+    {
+      "id": "a15",
+      "patientId": "p2",
+      "doctorId": "d5",
+      "appointmentDate": "2026-04-05",
+      "appointmentTime": "11:30",
+      "duration": 30,
+      "type": "Consultation",
+      "status": "cancelled",
+      "reason": "Skin rash evaluation",
+      "notes": "Patient cancelled due to scheduling conflict",
+      "cancelReason": "Scheduling conflict",
+      "slotId": null,
+      "consultationFee": 600,
+      "createdAt": "2026-03-01T12:30:00.000Z",
+      "updatedAt": "2026-03-25T08:00:00.000Z"
+    },
+    {
+      "id": "a16",
+      "patientId": "p4",
+      "doctorId": "d6",
+      "appointmentDate": "2026-04-25",
+      "appointmentTime": "14:00",
+      "duration": 45,
+      "type": "Consultation",
+      "status": "confirmed",
+      "reason": "Breast cancer screening follow-up",
+      "notes": "Bring previous mammogram reports",
+      "slotId": null,
+      "consultationFee": 1200,
+      "createdAt": "2026-03-19T14:20:00.000Z",
+      "updatedAt": "2026-03-19T14:20:00.000Z"
     }
   ],
   "medicalRecords": [
@@ -1274,6 +2086,164 @@
       ],
       "notes": "HbA1c improved from 7.5% to 6.8%. Continue current medication and diet plan.",
       "followUpDate": "2026-04-20"
+    },
+    {
+      "id": "mr3",
+      "patientId": "p5",
+      "appointmentId": "a8",
+      "doctorId": "d2",
+      "date": "2026-04-10",
+      "diagnosis": "Chronic Migraine",
+      "symptoms": [
+        "Frequent headaches",
+        "Visual aura",
+        "Nausea"
+      ],
+      "vitalSigns": {
+        "bloodPressure": "118/76",
+        "heartRate": 68,
+        "temperature": 98.2,
+        "weight": 145,
+        "height": 65
+      },
+      "prescription": [
+        {
+          "medication": "Sumatriptan",
+          "dosage": "50mg",
+          "frequency": "As needed at onset of migraine",
+          "duration": "30 days",
+          "refills": 2
+        },
+        {
+          "medication": "Propranolol",
+          "dosage": "40mg",
+          "frequency": "Once daily for prevention",
+          "duration": "90 days",
+          "refills": 2
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Brain MRI",
+          "orderedDate": "2026-04-10",
+          "status": "scheduled"
+        }
+      ],
+      "notes": "Patient reports 4-5 migraine days per month. Started on preventive therapy.",
+      "followUpDate": "2026-05-22"
+    },
+    {
+      "id": "mr4",
+      "patientId": "p7",
+      "appointmentId": "a10",
+      "doctorId": "d4",
+      "date": "2026-04-08",
+      "diagnosis": "Post-operative Knee Recovery",
+      "symptoms": [
+        "Mild swelling",
+        "Decreased range of motion"
+      ],
+      "vitalSigns": {
+        "bloodPressure": "122/78",
+        "heartRate": 72,
+        "temperature": 98.6,
+        "weight": 168,
+        "height": 66
+      },
+      "prescription": [
+        {
+          "medication": "Physical Therapy",
+          "dosage": "3 times per week",
+          "frequency": "For 6 weeks",
+          "duration": "42 days",
+          "refills": 0
+        }
+      ],
+      "labTests": [],
+      "notes": "Patient is recovering well from total knee replacement. Range of motion improving.",
+      "followUpDate": "2026-05-06"
+    },
+    {
+      "id": "mr5",
+      "patientId": "p8",
+      "appointmentId": "a11",
+      "doctorId": "d8",
+      "date": "2026-04-15",
+      "diagnosis": "Generalized Anxiety Disorder",
+      "symptoms": [
+        "Excessive worry",
+        "Difficulty sleeping",
+        "Restlessness"
+      ],
+      "vitalSigns": {
+        "bloodPressure": "125/80",
+        "heartRate": 82,
+        "temperature": 98.4,
+        "weight": 175,
+        "height": 70
+      },
+      "prescription": [
+        {
+          "medication": "Sertraline",
+          "dosage": "50mg",
+          "frequency": "Once daily",
+          "duration": "180 days",
+          "refills": 3
+        }
+      ],
+      "labTests": [],
+      "notes": "Patient reports anxiety affecting work performance. Started on SSRI. Recommend follow-up in 4 weeks.",
+      "followUpDate": "2026-05-13"
+    },
+    {
+      "id": "mr6",
+      "patientId": "p9",
+      "appointmentId": "a12",
+      "doctorId": "d9",
+      "date": "2026-04-18",
+      "diagnosis": "Type 2 Diabetes with Hypothyroidism",
+      "symptoms": [
+        "Fatigue",
+        "Weight gain"
+      ],
+      "vitalSigns": {
+        "bloodPressure": "132/84",
+        "heartRate": 70,
+        "temperature": 98,
+        "weight": 210,
+        "height": 64,
+        "bloodSugar": 138
+      },
+      "prescription": [
+        {
+          "medication": "Metformin",
+          "dosage": "1000mg",
+          "frequency": "Twice daily",
+          "duration": "180 days",
+          "refills": 3
+        },
+        {
+          "medication": "Levothyroxine",
+          "dosage": "88mcg",
+          "frequency": "Once daily",
+          "duration": "180 days",
+          "refills": 3
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "HbA1c",
+          "orderedDate": "2026-04-18",
+          "status": "pending"
+        },
+        {
+          "testName": "TSH",
+          "orderedDate": "2026-04-18",
+          "status": "pending"
+        }
+      ],
+      "notes": "Both diabetes and thyroid levels need monitoring. Adjustments made to medication.",
+      "followUpDate": "2026-07-18"
     }
   ],
   "prescriptions": [
@@ -1313,6 +2283,79 @@
         }
       ],
       "pharmacyNotes": "Brand name required",
+      "status": "active"
+    },
+    {
+      "id": "rx3",
+      "patientId": "p5",
+      "doctorId": "d2",
+      "medicalRecordId": "mr3",
+      "date": "2026-04-10",
+      "medications": [
+        {
+          "name": "Sumatriptan",
+          "dosage": "50mg",
+          "frequency": "As needed at onset of migraine",
+          "duration": "30 days",
+          "refills": 2,
+          "instructions": "Take at first sign of migraine. Do not exceed 2 tablets in 24 hours."
+        },
+        {
+          "name": "Propranolol",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "duration": "90 days",
+          "refills": 2,
+          "instructions": "Take in the morning. May cause drowsiness."
+        }
+      ],
+      "pharmacyNotes": "",
+      "status": "active"
+    },
+    {
+      "id": "rx4",
+      "patientId": "p8",
+      "doctorId": "d8",
+      "medicalRecordId": "mr5",
+      "date": "2026-04-15",
+      "medications": [
+        {
+          "name": "Sertraline",
+          "dosage": "50mg",
+          "frequency": "Once daily",
+          "duration": "180 days",
+          "refills": 3,
+          "instructions": "Take in the morning with food. May take 2-4 weeks to feel full effect."
+        }
+      ],
+      "pharmacyNotes": "Do not stop abruptly. Contact prescriber for side effects.",
+      "status": "active"
+    },
+    {
+      "id": "rx5",
+      "patientId": "p9",
+      "doctorId": "d9",
+      "medicalRecordId": "mr6",
+      "date": "2026-04-18",
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "1000mg",
+          "frequency": "Twice daily with meals",
+          "duration": "180 days",
+          "refills": 3,
+          "instructions": "Take with breakfast and dinner."
+        },
+        {
+          "name": "Levothyroxine",
+          "dosage": "88mcg",
+          "frequency": "Once daily",
+          "duration": "180 days",
+          "refills": 3,
+          "instructions": "Take on empty stomach, 30-60 minutes before breakfast."
+        }
+      ],
+      "pharmacyNotes": "",
       "status": "active"
     }
   ],
@@ -1355,6 +2398,56 @@
       "message": "Your prescription for Lisinopril needs refill in 5 days",
       "read": false,
       "createdAt": "2026-02-27T08:00:00.000Z"
+    },
+    {
+      "id": "n5",
+      "userId": "14",
+      "type": "appointment_reminder",
+      "title": "Appointment Reminder",
+      "message": "Your appointment with Dr. James Mitchell is tomorrow at 09:30 AM",
+      "appointmentId": "a8",
+      "read": false,
+      "createdAt": "2026-04-09T09:00:00.000Z"
+    },
+    {
+      "id": "n6",
+      "userId": "3",
+      "type": "new_appointment",
+      "title": "New Appointment",
+      "message": "Sarah Johnson has scheduled an appointment with you for Apr 10 at 09:30 AM",
+      "appointmentId": "a8",
+      "read": false,
+      "createdAt": "2026-03-15T11:20:00.000Z"
+    },
+    {
+      "id": "n7",
+      "userId": "4",
+      "type": "new_appointment",
+      "title": "New Appointment",
+      "message": "David Wilson has scheduled an appointment with you for Apr 12 at 10:30 AM",
+      "appointmentId": "a9",
+      "read": false,
+      "createdAt": "2026-03-10T14:45:00.000Z"
+    },
+    {
+      "id": "n8",
+      "userId": "16",
+      "type": "appointment_confirmation",
+      "title": "Appointment Confirmed",
+      "message": "Your appointment with Dr. Ahmed Hassan has been confirmed for Apr 8 at 11:00 AM",
+      "appointmentId": "a10",
+      "read": false,
+      "createdAt": "2026-03-05T09:15:00.000Z"
+    },
+    {
+      "id": "n9",
+      "userId": "17",
+      "type": "appointment_confirmation",
+      "title": "Appointment Confirmed",
+      "message": "Your appointment with Dr. Anita Patel has been confirmed for Apr 15 at 02:00 PM",
+      "appointmentId": "a11",
+      "read": false,
+      "createdAt": "2026-03-12T16:45:00.000Z"
     }
   ],
   "payments": [
@@ -1396,6 +2489,72 @@
       "insuranceClaimed": true,
       "insuranceAmount": 750,
       "patientAmount": 0
+    },
+    {
+      "id": "pay4",
+      "appointmentId": "a8",
+      "patientId": "p5",
+      "doctorId": "d2",
+      "amount": 900,
+      "paymentMethod": "Credit Card",
+      "status": "paid",
+      "paymentDate": "2026-04-10T10:00:00.000Z",
+      "invoiceNumber": "INV-2026-004",
+      "insuranceClaimed": true,
+      "insuranceAmount": 720,
+      "patientAmount": 180
+    },
+    {
+      "id": "pay5",
+      "appointmentId": "a9",
+      "patientId": "p6",
+      "doctorId": "d3",
+      "amount": 500,
+      "paymentMethod": "Insurance",
+      "status": "pending",
+      "invoiceNumber": "INV-2026-005",
+      "insuranceClaimed": true,
+      "insuranceAmount": 500,
+      "patientAmount": 0
+    },
+    {
+      "id": "pay6",
+      "appointmentId": "a10",
+      "patientId": "p7",
+      "doctorId": "d4",
+      "amount": 1000,
+      "paymentMethod": "Medicare",
+      "status": "paid",
+      "paymentDate": "2026-04-08T12:30:00.000Z",
+      "invoiceNumber": "INV-2026-006",
+      "insuranceClaimed": true,
+      "insuranceAmount": 800,
+      "patientAmount": 200
+    },
+    {
+      "id": "pay7",
+      "appointmentId": "a11",
+      "patientId": "p8",
+      "doctorId": "d8",
+      "amount": 700,
+      "paymentMethod": "Credit Card",
+      "status": "paid",
+      "paymentDate": "2026-04-15T13:45:00.000Z",
+      "invoiceNumber": "INV-2026-007",
+      "insuranceClaimed": false
+    },
+    {
+      "id": "pay8",
+      "appointmentId": "a15",
+      "patientId": "p2",
+      "doctorId": "d5",
+      "amount": 600,
+      "paymentMethod": "pending",
+      "status": "refunded",
+      "paymentDate": "2026-03-25T09:00:00.000Z",
+      "invoiceNumber": "INV-2026-008",
+      "insuranceClaimed": false,
+      "refundReason": "Appointment cancelled"
     }
   ],
   "departments": [
@@ -1473,7 +2632,7 @@
       "id": "dept8",
       "name": "Psychiatry",
       "description": "Mental health and behavioral medicine",
-      "head": "Dr. Michael Okafor",
+      "head": "Dr. Anita Patel",
       "headDoctorId": "d8",
       "totalDoctors": 4,
       "contactNumber": "+1-555-1008",
@@ -1483,93 +2642,109 @@
       "id": "dept9",
       "name": "Endocrinology",
       "description": "Hormonal and metabolic disorders",
-      "head": "Dr. Sophie Laurent",
+      "head": "Dr. Jennifer Kim",
       "headDoctorId": "d9",
       "totalDoctors": 3,
       "contactNumber": "+1-555-1009",
       "email": "endocrinology@healthsync.com"
+    },
+    {
+      "id": "dept10",
+      "name": "Gastroenterology",
+      "description": "Digestive system disorders",
+      "head": "Dr. Thomas Williams",
+      "headDoctorId": "d10",
+      "totalDoctors": 3,
+      "contactNumber": "+1-555-1010",
+      "email": "gastroenterology@healthsync.com"
     }
   ],
   "statistics": {
-    "totalAppointments": 847,
-    "completedAppointments": 789,
-    "cancelledAppointments": 42,
-    "pendingAppointments": 16,
-    "totalPatients": 1234,
-    "activeDoctors": 9,
-    "totalDoctors": 9,
-    "totalDepartments": 9,
+    "totalAppointments": 855,
+    "completedAppointments": 795,
+    "cancelledAppointments": 43,
+    "pendingAppointments": 17,
+    "totalPatients": 1244,
+    "activeDoctors": 10,
+    "totalDoctors": 10,
+    "totalDepartments": 10,
     "revenue": {
-      "today": 4500,
-      "thisWeek": 28900,
-      "thisMonth": 97500,
-      "thisYear": 856780
+      "today": 5500,
+      "thisWeek": 34200,
+      "thisMonth": 104500,
+      "thisYear": 898780
     },
     "appointmentsByDay": [
       {
         "day": "Monday",
-        "count": 145
+        "count": 148
       },
       {
         "day": "Tuesday",
-        "count": 132
+        "count": 135
       },
       {
         "day": "Wednesday",
-        "count": 156
+        "count": 159
       },
       {
         "day": "Thursday",
-        "count": 128
+        "count": 132
       },
       {
         "day": "Friday",
-        "count": 141
+        "count": 144
       },
       {
         "day": "Saturday",
-        "count": 89
+        "count": 92
       },
       {
         "day": "Sunday",
-        "count": 56
+        "count": 58
       }
     ],
     "appointmentsByStatus": [
       {
         "status": "confirmed",
-        "count": 312
+        "count": 316
       },
       {
         "status": "completed",
-        "count": 789
+        "count": 795
       },
       {
         "status": "pending",
-        "count": 16
+        "count": 17
       },
       {
         "status": "cancelled",
-        "count": 42
+        "count": 43
       }
     ],
     "topDoctors": [
       {
         "doctorId": "d4",
         "name": "Dr. Ahmed Hassan",
-        "totalAppointments": 210,
+        "totalAppointments": 215,
         "rating": 5
       },
       {
         "doctorId": "d1",
         "name": "Dr. khadija elbakry",
-        "totalAppointments": 185,
+        "totalAppointments": 190,
         "rating": 5
       },
       {
         "doctorId": "d2",
         "name": "Dr. James Mitchell",
-        "totalAppointments": 162,
+        "totalAppointments": 168,
+        "rating": 4.9
+      },
+      {
+        "doctorId": "d10",
+        "name": "Dr. Thomas Williams",
+        "totalAppointments": 145,
         "rating": 4.9
       }
     ]
