@@ -19,6 +19,9 @@ import { _adapters } from 'chart.js';
 export class LoginComponent {
   private _AuthService = inject(AuthService);
   private _Router = inject(Router);
+  ngOnInit(){
+    this._AuthService.logout();
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),

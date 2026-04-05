@@ -122,7 +122,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
 
   formatTime = this._BookingService._formatLabel;
   bookAppointmnet(){
-
+   this.router.navigate(['patient'])
   }
   ngOnDestroy() {
     this.destroy$.next();
