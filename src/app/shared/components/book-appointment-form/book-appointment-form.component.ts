@@ -57,7 +57,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
       appointmentTime: ['', Validators.required],
       appointmentDuration: [30, [Validators.required, Validators.min(1)]],
       appointmentType: ['', Validators.required],
-      reason: ['', Validators.required],
+      reason: [''],
     });
 
     this._PatientService

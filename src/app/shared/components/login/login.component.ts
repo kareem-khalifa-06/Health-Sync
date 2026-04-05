@@ -37,11 +37,12 @@ export class LoginComponent {
             if(this._AuthService.getRole()==='admin')
           this._Router.navigate(['/adminLayout']);
             if(this._AuthService.getRole()==='doctor')
-          this._Router.navigate(['/doctorLayout/' + user.doctorId]);
+          this._Router.navigate(['/doctorLayout/' +user.doctorId]);
             if(this._AuthService.getRole()==='patient')
-              this._Router.navigate(['/patientLayout/'+user.patientId]);
+              this._Router.navigate(['/patientDashboard/'+user.patientId]);
             if(this._AuthService.getRole()==='receptionist')
               this._Router.navigate(['/recipsionistLayout']);
+          
           }
           
         },

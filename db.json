@@ -294,6 +294,17 @@
       "avatar": "https://i.pravatar.cc/150?img=30",
       "doctorId": "d10",
       "createdAt": "2024-03-10T00:00:00.000Z"
+    },
+    {
+      "id": "dd028d2b-41d2-48d1-bb2a-f0252617b5a2",
+      "email": "yahyaelbakry11@gmail.com",
+      "password": "Yahya11@@",
+      "role": "patient",
+      "firstName": "Yahya ",
+      "lastName": "Elbakry",
+      "phone": "01117594344",
+      "avatar": "",
+      "createdAt": "2026-04-03T13:35:16.990Z"
     }
   ],
   "doctors": [
@@ -1401,9 +1412,9 @@
     {
       "id": "p1",
       "userId": "11",
-      "firstName": "John",
+      "firstName": "Johnny",
       "lastName": "Smith",
-      "fullName": "John Smith",
+      "fullName": "Johnny Smith",
       "initials": "JS",
       "avatarUrl": "https://i.pravatar.cc/150?img=8",
       "dateOfBirth": "1985-06-15",
@@ -1456,7 +1467,7 @@
         "relationship": "Father",
         "phone": "+1-555-0302"
       },
-      "insuranceProvider": "BlueCross BlueShield",
+      "insuranceProvider": "BlueCross BlueShields",
       "insuranceNumber": "BC987654321",
       "allergies": [
         "Latex"
@@ -2008,6 +2019,22 @@
       "consultationFee": 1200,
       "createdAt": "2026-03-19T14:20:00.000Z",
       "updatedAt": "2026-03-19T14:20:00.000Z"
+    },
+    {
+      "id": "a17",
+      "patientId": "p1",
+      "doctorId": "d4",
+      "appointmentDate": "2026-04-06",
+      "appointmentTime": "14:00",
+      "type": "Consultation",
+      "reason": "",
+      "duration": 30,
+      "status": "pending",
+      "notes": "",
+      "slotId": "sch-d4-1775381023370",
+      "consultationFee": 0,
+      "createdAt": "2026-04-05T09:23:43.370Z",
+      "updatedAt": "2026-04-05T09:23:43.370Z"
     }
   ],
   "medicalRecords": [

@@ -1,0 +1,330 @@
+<div class="page-wrapper">
+
+    <!-- ══════════════════════════════════════════════════════════
+       TOP NAV
+  ══════════════════════════════════════════════════════════ -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i class="bi bi-hospital-fill"></i>
+                <span>HealthSync</span>
+            </div>
+            <div class="nav-links">
+                <a class="nav-link active">Dashboard</a>
+                <a class="nav-link" (click)="goToEdit()">My Profile</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            @if (patient) {
+            <div class="nav-user">
+                @if (patient.avatarUrl) {
+                <img [src]="patient.avatarUrl" class="nav-avatar-img" [alt]="patient.fullName" />
+                } @else {
+                <div class="nav-avatar">{{ patient.initials }}</div>
+                }
+                <div class="nav-user-info">
+                    <span class="nav-user-name">{{ patient.fullName }}</span>
+                    <span class="nav-user-role">Patient</span>
+                </div>
+            </div>
+            <div class="nav-divider"></div>
+            }
+            <button class="btn-logout" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i> Log Out
+            </button>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════════════
+       PAGE HEADER
+  ══════════════════════════════════════════════════════════ -->
+    @if (!patient) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading your dashboard…</p>
+    </div>
+    } @else {
+
+    <div class="page-header">
+        <div class="page-header-left">
+            @if (patient.avatarUrl) {
+            <img [src]="patient.avatarUrl" class="patient-avatar-img" [alt]="patient.fullName" />
+            } @else {
+            <div class="patient-avatar">{{ patient.initials }}</div>
+            }
+            <div>
+                <h1 class="page-title">Welcome back, {{ patient.firstName }}</h1>
+                <p class="page-subtitle">
+                    Last visit: {{ patient.lastVisit | date:'MMM d, y' }}
+                    &nbsp;·&nbsp; Member since {{ patient.registeredDate | date:'MMM y' }}
+                </p>
+            </div>
+        </div>
+        <div class="page-header-right">
+            <button class="btn-download" (click)="downloadReport()">
+                <i class="bi bi-download"></i> Download Report
+            </button>
+            <button class="btn-edit" (click)="goToEdit()">
+                <i class="bi bi-pencil"></i> Edit Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- ── Stats Row ────────────────────────────────────────────── -->
+    <div class="stats-row">
+        <div class="stat-card" style="--accent:#2563eb;">
+            <div class="stat-icon" style="background:#eff6ff;color:#2563eb;">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="stat-body">
+                <span class="stat-value">{{ upcomingAppointments.length }}</span>
+                <span class="stat-label">Upcoming</span>
+            </div>
+        </div>
+        <div class="stat-card" style="--accent:#059669;">
+            <div class="stat-icon" style="background:#d1fae5;color:#059669;">
+                <i class="bi bi-file-earmark-medical"></i>
+            </div>
+            <div class="stat-body">
+                <span class="stat-value">{{ medicalRecords.length }}</span>
+                <span class="stat-label">Records</span>
+            </div>
+        </div>
+        <div class="stat-card" style="--accent:#7c3aed;">
+            <div class="stat-icon" style="background:#f3e8ff;color:#7c3aed;">
+                <i class="bi bi-capsule"></i>
+            </div>
+            <div class="stat-body">
+                <span class="stat-value">{{ activePrescriptions.length }}</span>
+                <span class="stat-label">Medications</span>
+            </div>
+        </div>
+        <div class="stat-card" style="--accent:#dc2626;">
+            <div class="stat-icon" style="background:#fee2e2;color:#dc2626;">
+                <i class="bi bi-heart-pulse"></i>
+            </div>
+            <div class="stat-body">
+                <span class="stat-value">{{ patient.bloodGroup }}</span>
+                <span class="stat-label">Blood Group</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Main Content ──────────────────────────────────────────── -->
+    <div class="content-grid">
+
+        <!-- ── Left Column ────────────────────────────────────────── -->
+        <div class="left-col">
+
+            <!-- Upcoming Appointments -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <div class="section-icon" style="background:#eff6ff;color:#2563eb;">
+                            <i class="bi bi-calendar-week-fill"></i>
+                        </div>
+                        <div>
+                            <h2 class="section-title">Upcoming Appointments</h2>
+                            <p class="section-sub">{{ upcomingAppointments.length }} scheduled</p>
+                        </div>
+                    </div>
+                    <button class="btn-ghost-sm">
+                        <i class="bi bi-plus"></i> Book New
+                    </button>
+                </div>
+
+                <div class="appt-list">
+                    @for (appt of upcomingAppointments; track appt.app.id) {
+                    <div class="appt-item">
+                        <div class="appt-date-block">
+                            <span class="appt-day">{{ appt.app.appointmentDate | date:'d' }}</span>
+                            <span class="appt-month">{{ appt.app.appointmentDate | date:'MMM' }}</span>
+                        </div>
+                        <div class="appt-info">
+                            <span class="appt-doctor">{{ appt.doctor.fullName }}</span>
+                            <span class="appt-meta">
+                                <i class="bi bi-clock"></i> {{ formatTime(appt.app.appointmentTime) }}
+                                &nbsp;·&nbsp;
+                                <i class="bi bi-tag"></i> {{ appt.app.type }}
+                            </span>
+                        </div>
+                        <span class="status-badge" [class.status-confirmed]="appt.app.status === 'confirmed'"
+                            [class.status-pending]="appt.app.status === 'pending'">
+                            <span class="s-dot"></span>{{ appt.app.status }}
+                        </span>
+                    </div>
+                    } @empty {
+                    <div class="empty-state">
+                        <i class="bi bi-calendar-x"></i>
+                        <p>No upcoming appointments</p>
+                        <button class="btn-primary-sm">Book Now</button>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Active Medications -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <div class="section-icon" style="background:#f3e8ff;color:#7c3aed;">
+                            <i class="bi bi-capsule-pill"></i>
+                        </div>
+                        <div>
+                            <h2 class="section-title">Current Medications</h2>
+                            <p class="section-sub">{{ activePrescriptions.length }} active</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rx-list">
+                    @for (med of activePrescriptions; track med.name) {
+                    <div class="rx-item">
+                        <div class="rx-icon"><i class="bi bi-capsule"></i></div>
+                        <div class="rx-info">
+                            <span class="rx-name">{{ med.name }}</span>
+                            <span class="rx-detail">{{ med.dosage }} · {{ med.frequency }}</span>
+                        </div>
+                    </div>
+                    } @empty {
+                    <div class="empty-state">
+                        <i class="bi bi-capsule"></i>
+                        <p>No active medications</p>
+                    </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Right Column ───────────────────────────────────────── -->
+        <div class="right-col">
+
+            <!-- Patient Info Card -->
+            <div class="section-card profile-card">
+                <div class="profile-top">
+                    @if (patient.avatarUrl) {
+                    <img [src]="patient.avatarUrl" class="profile-avatar-lg-img" [alt]="patient.fullName" />
+                    } @else {
+                    <div class="profile-avatar-lg">{{ patient.initials }}</div>
+                    }
+                    <div class="profile-details">
+                        <h3 class="profile-name">{{ patient.fullName }}</h3>
+                        <p class="profile-id">Patient ID: #{{ patient.id }}</p>
+                        <span class="status-badge" [class.status-confirmed]="patient.status === 'active'"
+                            style="width:fit-content;">
+                            <span class="s-dot"></span>{{ patient.status }}
+                        </span>
+                    </div>
+                </div>
+                <div class="profile-info-grid">
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-calendar3"></i> DOB</span>
+                        <span class="info-value">{{ patient.dateOfBirth | date:'MMM d, y' }}</span>
+                    </div>
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-person"></i> Gender</span>
+                        <span class="info-value">{{ patient.gender | titlecase }}</span>
+                    </div>
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-telephone"></i> Phone</span>
+                        <span class="info-value">{{ patient.phone }}</span>
+                    </div>
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-envelope"></i> Email</span>
+                        <span class="info-value">{{ patient.email }}</span>
+                    </div>
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-droplet"></i> Blood</span>
+                        <span class="info-value">{{ patient.bloodGroup }}</span>
+                    </div>
+                    <div class="profile-info-cell">
+                        <span class="info-label"><i class="bi bi-shield-check"></i> Insurance</span>
+                        <span class="info-value">{{ patient.insuranceProvider }}</span>
+                    </div>
+                </div>
+
+                <!-- Allergies + Conditions -->
+                @if (patient.allergies.length || patient.chronicConditions.length) {
+                <div class="medical-tags-section">
+                    @if (patient.allergies.length) {
+                    <div class="tag-group">
+                        <span class="tag-group-label"><i class="bi bi-exclamation-triangle"></i> Allergies</span>
+                        <div class="tag-row">
+                            @for (a of patient.allergies; track a) {
+                            <span class="med-tag tag-red">{{ a }}</span>
+                            }
+                        </div>
+                    </div>
+                    }
+                    @if (patient.chronicConditions.length) {
+                    <div class="tag-group">
+                        <span class="tag-group-label"><i class="bi bi-activity"></i> Conditions</span>
+                        <div class="tag-row">
+                            @for (c of patient.chronicConditions; track c) {
+                            <span class="med-tag tag-amber">{{ c }}</span>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+
+            <!-- Recent Medical Records -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <div class="section-icon" style="background:#d1fae5;color:#059669;">
+                            <i class="bi bi-file-earmark-medical-fill"></i>
+                        </div>
+                        <div>
+                            <h2 class="section-title">Recent Records</h2>
+                            <p class="section-sub">Last {{ recentRecords.length }} visits</p>
+                        </div>
+                    </div>
+                    <button class="btn-ghost-sm">View All</button>
+                </div>
+
+                <div class="records-list">
+                    @for (rec of recentRecords; track rec.id) {
+                    <div class="record-item">
+                        <div class="record-item-left">
+                            <div class="record-date-dot"></div>
+                            <div>
+                                <span class="record-diagnosis">{{ rec.diagnosis }}</span>
+                                <span class="record-meta">{{ rec.date | date:'MMM d, y' }}</span>
+                            </div>
+                        </div>
+                        <button class="btn-record-dl" title="Download">
+                            <i class="bi bi-download"></i>
+                        </button>
+                    </div>
+                    } @empty {
+                    <div class="empty-state">
+                        <i class="bi bi-file-earmark-x"></i>
+                        <p>No records found</p>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Download Report CTA -->
+            <div class="report-cta">
+                <div class="report-cta-left">
+                    <i class="bi bi-file-earmark-pdf-fill" style="font-size:28px;color:#dc2626;"></i>
+                    <div>
+                        <span class="report-cta-title">Full Medical Report</span>
+                        <span class="report-cta-sub">All records, vitals &amp; prescriptions</span>
+                    </div>
+                </div>
+                <button class="btn-download-full" (click)="downloadReport()">
+                    <i class="bi bi-download"></i> Download PDF
+                </button>
+            </div>
+
+        </div>
+    </div>
+    }
+
+</div>

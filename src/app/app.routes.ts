@@ -16,20 +16,13 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'register',
-    loadComponent: () =>
-      import('./shared/components/registeration-form/registeration-form.component').then(
-        (m) => m.RegisterationFormComponent,
-      ),
-  },
-  {
     path: 'adminLayout',
     loadComponent: () =>
       import('./shared/layouts/admin-layout/admin-layout.component').then(
         (m) => m.AdminLayoutComponent,
       ),
     canActivate: [authGuard],
-    children:adminRoutes
+    children: adminRoutes,
   },
 
   {
@@ -70,10 +63,18 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'patientLayout',
+    path: 'patientDashboard/:id',
     loadComponent: () =>
-      import('./shared/layouts/patient-layout/patient-layout.component').then(
-        (m) => m.PatientLayoutComponent,
+      import('./shared/layouts/patient-profile/patient-profile.component').then(
+        (m) => m.PatientDashboardComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'patientProfileEdit/:id',
+    loadComponent: () =>
+      import('./shared/components/patient-profile-edit/patient-profile-edit.component').then(
+        (m) => m.PatientProfileEditComponent,
       ),
     canActivate: [authGuard],
   },

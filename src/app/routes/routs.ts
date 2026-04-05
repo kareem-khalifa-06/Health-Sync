@@ -107,3 +107,6 @@ export const adminRoutes:Route[]=[
       },
     
 ]
+export const patientsRoutes:Route[]=[
+
+]
