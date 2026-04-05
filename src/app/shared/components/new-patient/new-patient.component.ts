@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { PatientService } from '../../../core/services/patient.service';
 import { BloodGroup, Gender, Patient, PatientStatus } from '../../../models/patient';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-new-patient',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
   styleUrl: './new-patient.component.css',
 })
 export class NewPatientComponent {
+  AuthService = inject(AuthService);
+    baseRoute = this.AuthService.getBaseRoute();
   Router=inject(Router)
   id = signal<number>(5);
   patientService = inject(PatientService);
@@ -97,6 +100,6 @@ export class NewPatientComponent {
     this.id.update((id)=>id+1)
   }
   onCancel(){
-   this.Router.navigate(['adminLayout/patients']);
+   this.Router.navigate([this.baseRoute,'patients']);
   }
 }

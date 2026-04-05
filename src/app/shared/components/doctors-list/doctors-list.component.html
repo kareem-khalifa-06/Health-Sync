@@ -6,7 +6,7 @@
       <h1 class="page-title">Doctors List</h1>
       <span class="total-badge">{{ (filteredDoctors() ?? []).length }} total</span>
     </div>
-    <button class="btn-add" (click)="showForm()">
+    <button class="btn-add" (click)="showForm()" [hidden]="userRole!='admin'">
       <i class="bi bi-plus-circle"></i>
       Add Doctor
     </button>
@@ -91,10 +91,10 @@
             </td>
             <td>
               <div class="action-cell">
-                <button class="btn-delete" (click)="onDelete(doctor.id)">
+                <button class="btn-delete" (click)="onDelete(doctor.id)" [hidden]="userRole!='admin'">
                   <i class="bi bi-trash3"></i> Delete
                 </button>
-                <a [routerLink]="['/adminLayout/doctors/details/', doctor.id]">
+                <a [routerLink]="[baseRoute,'doctors/details/', doctor.id]">
                   <button class="btn-view">
                     <i class="bi bi-eye"></i> View
                   </button>

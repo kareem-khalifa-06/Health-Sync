@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { MedicalRecordsService } from '../../../core/services/medical-records.se
 import { PatientService } from '../../../core/services/patient.service';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { MedicalRecord } from '../../../medical-record';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-medical-records',
@@ -17,6 +18,8 @@ import { MedicalRecord } from '../../../medical-record';
   styleUrl: './medical-records.component.css',
 })
 export class MedicalRecordsComponent implements OnInit {
+  AuthService = inject(AuthService);
+    baseRoute = this.AuthService.getBaseRoute();
   searchQuery = '';
   records: MedicalRecord[] = [];
   filteredRecords: MedicalRecord[] = [];
@@ -79,6 +82,6 @@ export class MedicalRecordsComponent implements OnInit {
 
   // ── Navigation ───────────────────────────────────────────────
   openNewRecord() {
-    this._Router.navigate(['adminLayout/new-record']);
+    this._Router.navigate([this.baseRoute,'new-record']);
   }
 }

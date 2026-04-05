@@ -4,8 +4,8 @@
     <h1 class="page-title">Patients</h1>
     <span class="total-badge">{{ (filteredPatientsList() ?? []).length }} total</span>
   </div>
-  <a routerLink="/adminLayout/new-patient">
-    <button class="btn-add">
+  <a  >
+    <button class="btn-add" [routerLink]="['/',baseRoute,'new-patient']">
       <i class="bi bi-plus-circle"></i> Add Patient
     </button>
   </a>
@@ -115,7 +115,7 @@
             <!-- Actions -->
             <td>
               <div class="action-cell">
-                <a [routerLink]="['/adminLayout/patients/details/', p.id]">
+                <a [routerLink]="[baseRoute,'patients/details/', p.id]">
                   <button class="btn-view"><i class="bi bi-eye"></i> View</button>
                 </a>
               </div>

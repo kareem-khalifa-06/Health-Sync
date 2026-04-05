@@ -9,11 +9,21 @@ import { Router } from '@angular/router';
 export class AuthService {
   private base_url = 'http://localhost:3000';
   currentUser = signal<User | null>(null);
-
+  baseRouteMap: any = {
+    admin: 'adminLayout',
+    doctor: 'doctorLayout',
+    patient: 'patientLayout',
+    receptionist: 'receptionistLayout',
+  };
+  baseRoute: string = '';
+  getBaseRoute(): string {
+    const role = this.getRole();
+    return this.baseRouteMap[role!];
+  }
   constructor(private _HttpClient: HttpClient) {
     this.restoreSession();
   }
-  _Router=inject(Router);
+  _Router = inject(Router);
 
   private generateFakeJWT(user: User): string {
     const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
@@ -83,8 +93,8 @@ export class AuthService {
       }),
     );
   }
-  getRole(){
-    return this.currentUser()?.role
+  getRole() {
+    return this.currentUser()?.role;
   }
 
   logout(): void {

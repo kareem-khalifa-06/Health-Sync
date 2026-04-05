@@ -12,6 +12,7 @@ import {
 import { SPECIALIZATIONS } from '../../../Data/specializations';
 import { RouterLink } from '@angular/router';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-doctors-list',
@@ -21,12 +22,12 @@ import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvail
   styleUrl: './doctors-list.component.css',
 })
 export class DoctorsListComponent {
-
+  AuthService = inject(AuthService);
+  baseRoute = this.AuthService.getBaseRoute();
   pageSize = 9;
   currentPage = 1;
 
   get totalPages(): number {
-   
     return Math.ceil((this.filteredDoctors() ?? []).length / this.pageSize);
   }
 
@@ -35,7 +36,6 @@ export class DoctorsListComponent {
   }
 
   get paginatedDoctors(): Doctor[] {
-  
     const start = (this.currentPage - 1) * this.pageSize;
     return (this.filteredDoctors() ?? []).slice(start, start + this.pageSize);
   }
@@ -58,6 +58,8 @@ export class DoctorsListComponent {
   }
   id = signal<number>(1);
   private _DoctorsService = inject(DoctorsService);
+  private _AuthService = inject(AuthService);
+  userRole = this._AuthService.getRole();
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   specs = SPECIALIZATIONS;
   searchQuery = '';
@@ -86,7 +88,7 @@ export class DoctorsListComponent {
         this.statusFilter = 'All';
         this.specializationFilter = 'All';
         this.currentPage = 1;
-        this.id.set(res.length)
+        this.id.set(res.length);
       },
     });
   }
@@ -117,7 +119,6 @@ export class DoctorsListComponent {
   }
 
   applyFilters() {
-  
     this.currentPage = 1;
 
     let doctors = this.doctorsList() ?? [];
@@ -168,11 +169,11 @@ export class DoctorsListComponent {
 
   addDoctor(): void {
     if (!this.addDoctorForm.valid) return;
-      console.log(this.id());
+    console.log(this.id());
     const form = this.addDoctorForm.value;
 
     const newDoctor: Doctor = {
-      id: `d${this.id()+1}`,
+      id: `d${this.id() + 1}`,
       userId: crypto.randomUUID(),
       firstName: '',
       lastName: '',
@@ -209,6 +210,6 @@ export class DoctorsListComponent {
     this.id.update((id) => id + 1);
     this.showAddDoctorForm = false;
     this.addDoctorForm.reset();
-    console.log(this.id())
+    console.log(this.id());
   }
 }

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import {  RouterLink  } from "@angular/router";
 import { calculateAge } from '../../../utils/calculateAge';
 import { BackButtonComponent } from "../back-button/back-button.component";
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-patients-list',
@@ -17,8 +18,10 @@ import { BackButtonComponent } from "../back-button/back-button.component";
   styleUrl: './patients-list.component.css',
 })
 export class PatientsListComponent {
+  AuthService=inject(AuthService);
+   baseRoute = this.AuthService.getBaseRoute();
   bloodGroups = BLOODGROUPS;
-  calculateAge=calculateAge
+  calculateAge = calculateAge;
   patientsList = signal<Patient[] | null>(null);
   filteredPatientsList = signal<Patient[] | null>(this.patientsList());
   medicalConditons = ALL_CHRONIC_CONDITIONS;
@@ -47,7 +50,7 @@ export class PatientsListComponent {
   }
   onBloodGroupFilter(query: string) {
     this.bloodGroupFilter = query;
-    console.log(query)
+    console.log(query);
     this.applyFilters();
   }
   applyFilters() {
@@ -56,25 +59,25 @@ export class PatientsListComponent {
     // search filter
     if (this.searchQuery.trim()) {
       patients = patients.filter((patient) =>
-        patient.fullName.toLowerCase().includes(this.searchQuery.toLowerCase())
+        patient.fullName.toLowerCase().includes(this.searchQuery.toLowerCase()),
       );
     }
     //blood group filter
-    if(this.bloodGroupFilter!=='All'){
-      patients=patients.filter((p)=>{
-      return  p.bloodGroup.toLowerCase()===this.bloodGroupFilter.toLowerCase();
-      })
+    if (this.bloodGroupFilter !== 'All') {
+      patients = patients.filter((p) => {
+        return (
+          p.bloodGroup.toLowerCase() === this.bloodGroupFilter.toLowerCase()
+        );
+      });
     }
     // medical coddition filter
-     if (this.conditionFilter !== 'All') {
-       patients = patients.filter((p) => {
-         return p.chronicConditions.includes(this.conditionFilter)
-       });
-     }
+    if (this.conditionFilter !== 'All') {
+      patients = patients.filter((p) => {
+        return p.chronicConditions.includes(this.conditionFilter);
+      });
+    }
 
     this.filteredPatientsList.set(patients);
   }
-  viewDetails(){
-  
-  }
+  viewDetails() {}
 }

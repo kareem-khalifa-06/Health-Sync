@@ -29,6 +29,7 @@ interface appointmentDetails{
 export class PatientDashboardComponent implements OnInit, OnDestroy {
   patient: Patient | null = null;
   upcomingAppointments: appointmentDetails[] = [];
+  
   medicalRecords: MedicalRecord[] = [];
 
   private destroy$ = new Subject<void>();
@@ -120,7 +121,9 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   }
 
   formatTime = this._BookingService._formatLabel;
+  bookAppointmnet(){
 
+  }
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

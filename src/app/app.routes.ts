@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { adminRoutes } from './routes/routs';
+import { adminRoutes, reciptionstRoutes } from './routes/routs';
 
 export const routes: Routes = [
   {
@@ -55,12 +55,13 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'recipsionistLayout',
+    path: 'receptionistLayout',
     loadComponent: () =>
-      import('./shared/layouts/recipsionist-layout/recipsionist-layout.component').then(
-        (m) => m.RecipsionistLayoutComponent,
+      import('./shared/layouts/receptionist-layout/receptionist-layout.component').then(
+        (m) => m.receptionistLayoutComponent,
       ),
     canActivate: [authGuard],
+    children: reciptionstRoutes,
   },
   {
     path: 'patientDashboard/:id',

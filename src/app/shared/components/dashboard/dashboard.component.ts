@@ -9,6 +9,7 @@ import { Patient } from '../../../models/patient';
 import { Doctor } from '../../../models/doctor';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { Chart } from 'chart.js';
+import { AuthService } from '../../../core/services/auth.service';
 export interface AppointmentRow {
   appointment: Appointment;
   patient: Patient;
@@ -23,6 +24,7 @@ export interface AppointmentRow {
 })
 export class DashboardComponent {
   constructor(
+    private _AuthService:AuthService,
     public _DoctorsService: DoctorsService,
     public _PatientService: PatientService,
     private _Router: Router,
@@ -30,6 +32,7 @@ export class DashboardComponent {
   ) {}
   doctorsCount!: number;
   patientsCount!: number;
+  baseRoute=this._AuthService.getBaseRoute()
   appointmentsCount!: number;
   todayAppointments: Appointment[] = [];
   pendingCount!:number;

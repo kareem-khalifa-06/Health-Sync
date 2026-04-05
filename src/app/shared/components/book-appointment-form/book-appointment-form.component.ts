@@ -17,6 +17,7 @@ import { Doctor } from '../../../models/doctor';
 import { BookingPayload, BookingResult, BookingService, SlotStatus } from '../../../core/services/booking.service';
 import { AppointmentConfirmDialogComponent } from '../appointment-confirm-dialog/appointment-confirm-dialog.component';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-book-appointment-form',
@@ -27,7 +28,7 @@ import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvail
 })
 export class BookAppointmentFormComponent implements OnInit, OnDestroy {
   appointmentForm!: FormGroup;
-
+  baseRoute:string=''
   patients: Patient[] = [];
   doctors: Doctor[] = [];
   slotStatuses: SlotStatus[] = [];
@@ -47,9 +48,11 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
     private _DoctorsService: DoctorsService,
     private _BookingService: BookingService,
     private _Router: Router,
+    private _AuthService: AuthService,
   ) {}
 
   ngOnInit() {
+  this.baseRoute=this._AuthService.getBaseRoute()
     this.appointmentForm = this._fb.group({
       patientId: ['', Validators.required],
       doctorId: ['', Validators.required],
@@ -146,7 +149,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         if (result.success) {
           this.showDialog = false;
-          this._Router.navigate(['/adminLayout/appointments']);
+          this._Router.navigate([this.baseRoute,'appointments']);
         } else {
           this.bookingError = result.error ?? 'Booking failed.';
         }
@@ -154,7 +157,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this._Router.navigate(['/adminLayout/appointments']);
+    this._Router.navigate([this.baseRoute,'appointments']);
   }
 
   onDialogCancelled() {

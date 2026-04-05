@@ -78,7 +78,7 @@
           <p class="card-subtitle">{{todayDate}} · {{todayAppointments.length}} of {{todayAppointments.length}}</p>
         </div>
         <div class="card-actions">
-          <button class="btn-primary-sm" [routerLink]="['/adminLayout/new-appointment']">+ New Appointment</button>
+          <button class="btn-primary-sm" [routerLink]="[baseRoute,'new-appointment']">+ New Appointment</button>
         </div>
       </div>
 
@@ -99,7 +99,7 @@
             <tr class="table-row">
               <td>
                 <div class="person-cell">
-                <div class="avatar av-blue">{{row.patient.initials}}</div>
+                  <div class="avatar av-blue">{{row.patient.initials}}</div>
                   <div>
                     <div class="person-name">{{row.patient.fullName}}</div>
                     <div class="person-sub">{{row.patient.id}}</div>
@@ -119,21 +119,23 @@
                 </div>
               </td>
               <td><span class="type-chip type-checkup">{{row.appointment.type}}</span></td>
-              <td><span class="status-badge status-confirmed" [classList]=""><span class="s-dot"></span>{{row.appointment.status}}</span></td>
+              <td><span class="status-badge status-confirmed" [classList]=""><span
+                    class="s-dot"></span>{{row.appointment.status}}</span></td>
             </tr>
             }
             @empty {
-                <tr>
-                  <td colspan="8" class="empty-row">No appointments Today.</td>
-                </tr>
+            <tr>
+              <td colspan="8" class="empty-row">No appointments Today.</td>
+            </tr>
             }
           </tbody>
         </table>
       </div>
 
       <div class="table-footer">
-        <span class="footer-info">Showing {{todayAppointments.length}} of {{todayAppointments.length}} {{todayAppointments.length>1?'appointments':'appointment'}} today</span>
-        <button class="btn-ghost" [routerLink]="['/adminLayout/appointments']">View all →</button>
+        <span class="footer-info">Showing {{todayAppointments.length}} of {{todayAppointments.length}}
+          {{todayAppointments.length>1?'appointments':'appointment'}} today</span>
+        <button class="btn-ghost" [routerLink]="[baseRoute,'appointments']">View all →</button>
       </div>
     </div>
 
@@ -143,18 +145,18 @@
       <div class="side-card">
         <div class="card-header">
           <h3 class="card-title">On-Duty Doctors</h3>
-          <button class="btn-ghost-sm" [routerLink]="['/adminLayout/doctors']">View All</button>
+          <button class="btn-ghost-sm" [routerLink]="[baseRoute,'doctors']">View All</button>
         </div>
         <div class="doctor-list">
           @for(d of doctors;track d.id){
-            <div class="doctor-row">
+          <div class="doctor-row">
             <div class="avatar av-teal">{{d.initials}}</div>
             <div class="doctor-info">
               <div class="doctor-name">{{d.fullName}}</div>
               <div class="doctor-spec">{{d.specialty}}</div>
             </div>
             <span class="duty-badge duty-active"><span class="s-dot"></span>{{d.status}}</span>
-          </div>   
+          </div>
           }
         </div>
       </div>

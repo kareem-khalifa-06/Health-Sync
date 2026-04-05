@@ -3,7 +3,7 @@ import {
   LabTest,
   MedicalRecord,
 } from './../../../medical-record';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -21,6 +21,7 @@ import { Patient } from '../../../models/patient';
 import { Doctor } from '../../../models/doctor';
 import { Appointment } from '../../../models/appointment';
 import { MedicalRecordsService } from '../../../core/services/medical-records.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-new-record',
@@ -30,6 +31,8 @@ import { MedicalRecordsService } from '../../../core/services/medical-records.se
   styleUrl: './new-record.component.css',
 })
 export class NewRecordComponent implements OnInit {
+  AuthService = inject(AuthService);
+    baseRoute = this.AuthService.getBaseRoute();
   id = signal<number>(3);
   // ── Dropdown data ────────────────────────────────────────────
   patients: Patient[] = [];
@@ -176,13 +179,13 @@ export class NewRecordComponent implements OnInit {
     this._MedicalRecordService.addMedicalRecord(record).subscribe({
       next: () => {
         this.id.update((id) => id + 1);
-        this.router.navigate(['adminLayout/medical-records']);
+        this.router.navigate([this.baseRoute, 'medical-records']);
       },
       error: (err) => console.error('Failed to save record', err),
     });
   }
 
   onCancel() {
-    this.router.navigate(['adminLayout/medical-records']);
+    this.router.navigate([this.baseRoute,'medical-records']);
   }
 }

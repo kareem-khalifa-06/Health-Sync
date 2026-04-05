@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { Doctor } from '../../../models/doctor';
 import { FormsModule } from '@angular/forms';
 import { RescheduleDialogComponent } from '../reschedule-dialog/reschedule-dialog.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 export interface CalendarDay {
   date: string;
@@ -24,7 +25,7 @@ export interface CalendarDay {
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule,RescheduleDialogComponent],
+  imports: [RouterLink, CommonModule, FormsModule, RescheduleDialogComponent],
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.css',
 })
@@ -32,6 +33,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   // ── Data ─────────────────────────────────────────────────────
   appointments = signal<Appointment[]>([]);
   appointmentRows: AppointmentRow[] = [];
+  baseRoute = this._AuthService.getBaseRoute();
   filterAppointments = signal<AppointmentRow[]>([]);
 
   todayAppointments: Appointment[] = [];
@@ -84,6 +86,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     private _PatientService: PatientService,
     private _DoctorsService: DoctorsService,
     public _BookingService: BookingService,
+    private _AuthService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -230,7 +233,6 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       },
     });
   }
-
 
   exportCSV() {
     const targets =

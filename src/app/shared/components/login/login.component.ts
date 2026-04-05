@@ -32,19 +32,17 @@ export class LoginComponent {
       .login(this.loginForm.value.email!, this.loginForm.value.password!)
       .subscribe({
         next: (user) => {
-          if(this._AuthService.isLoggedIn()){ 
+          if (this._AuthService.isLoggedIn()) {
             alert('Logged in successfully');
-            if(this._AuthService.getRole()==='admin')
-          this._Router.navigate(['/adminLayout']);
-            if(this._AuthService.getRole()==='doctor')
-          this._Router.navigate(['/doctorLayout/' +user.doctorId]);
-            if(this._AuthService.getRole()==='patient')
-              this._Router.navigate(['/patientDashboard/'+user.patientId]);
-            if(this._AuthService.getRole()==='receptionist')
-              this._Router.navigate(['/recipsionistLayout']);
-          
+            if (this._AuthService.getRole() === 'admin')
+              this._Router.navigate(['/adminLayout']);
+            if (this._AuthService.getRole() === 'doctor')
+              this._Router.navigate(['/doctorLayout/' + user.doctorId]);
+            if (this._AuthService.getRole() === 'patient')
+              this._Router.navigate(['/patientDashboard/' + user.patientId]);
+            if (this._AuthService.getRole() === 'receptionist')
+              this._Router.navigate(['/receptionistLayout']);
           }
-          
         },
         error: (err) => {
           alert('Wrong credentials!!');

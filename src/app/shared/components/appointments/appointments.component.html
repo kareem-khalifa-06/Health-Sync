@@ -21,7 +21,7 @@
       <button class="btn-ghost-sm" (click)="exportCSV()">
         <i class="bi bi-download"></i> Export
       </button>
-      <button class="btn-add" routerLink="/adminLayout/new-appointment">
+      <button class="btn-add" [routerLink]="['/', baseRoute, 'new-appointment']">
         <i class="bi bi-plus-circle"></i> New Appointment
       </button>
     </div>
