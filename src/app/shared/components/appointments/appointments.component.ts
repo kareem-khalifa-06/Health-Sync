@@ -1,4 +1,4 @@
-import { AppointmentRow } from './../dashboard/dashboard.component';
+import { AppointmentRow } from '../admin-dashboard/dashboard.component';
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppointmentService } from '../../../core/services/appointments.service';

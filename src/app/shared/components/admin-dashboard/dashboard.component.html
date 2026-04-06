@@ -5,7 +5,7 @@
     <div class="top-bar-left">
       <div class="greeting-block">
         <h1 class="page-title">Dashboard</h1>
-        <p class="greeting-sub">Welcome back, Kinoo — here's today's overview.</p>
+        <p class="greeting-sub">Welcome back, Admin — here's today's overview.</p>
       </div>
     </div>
     <div class="top-bar-right">
@@ -135,7 +135,7 @@
       <div class="table-footer">
         <span class="footer-info">Showing {{todayAppointments.length}} of {{todayAppointments.length}}
           {{todayAppointments.length>1?'appointments':'appointment'}} today</span>
-        <button class="btn-ghost" [routerLink]="[baseRoute,'appointments']">View all →</button>
+        <button class="btn-ghost" [routerLink]="['/',baseRoute,'appointments']">View all →</button>
       </div>
     </div>
 
@@ -145,7 +145,7 @@
       <div class="side-card">
         <div class="card-header">
           <h3 class="card-title">On-Duty Doctors</h3>
-          <button class="btn-ghost-sm" [routerLink]="[baseRoute,'doctors']">View All</button>
+          <button class="btn-ghost-sm" [routerLink]="['/',baseRoute,'doctors']">View All</button>
         </div>
         <div class="doctor-list">
           @for(d of doctors;track d.id){

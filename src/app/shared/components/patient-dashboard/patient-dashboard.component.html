@@ -9,10 +9,6 @@
                 <i class="bi bi-hospital-fill"></i>
                 <span>HealthSync</span>
             </div>
-            <div class="nav-links">
-                <a class="nav-link active">Dashboard</a>
-                <a class="nav-link" (click)="goToEdit()">My Profile</a>
-            </div>
         </div>
         <div class="nav-right">
             @if (patient) {
@@ -128,7 +124,7 @@
                             <p class="section-sub">{{ upcomingAppointments.length }} scheduled</p>
                         </div>
                     </div>
-                    <button class="btn-ghost-sm">
+                    <button class="btn-ghost-sm" [routerLink]="['/',baseRoute,'new-appoinment']">
                         <i class="bi bi-plus"></i> Book New
                     </button>
                 </div>

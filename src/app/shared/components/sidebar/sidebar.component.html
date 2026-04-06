@@ -16,28 +16,30 @@
   <!-- ── Nav ───────────────────────────────────────────────────── -->
   <nav class="sidebar-nav">
     <span class="nav-section-label sidebar-label">Main</span>
-     @if(userRole==="admin"){
-      <a [routerLink]="['/', baseRoute, 'dashboard']" class="nav-link " routerLinkActive="active"
-        [title]="collapsed ? 'Dashboard' : ''"> 
+    @if(userRole==="admin"|| userRole==="receptionist"){
+    @if(userRole==="admin"){
+    <a [routerLink]="['/', baseRoute, 'dashboard']" class="nav-link " routerLinkActive="active"
+      [title]="collapsed ? 'Dashboard' : ''">
 
       <i class="bi bi-speedometer2 nav-icon"></i>
       <span class="sidebar-label">Dashboard</span>
     </a>
-     }
-    
-
-    <a [routerLink]="['/', baseRoute, 'appointments']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Appointments' : ''">
+    }
+    <a [routerLink]="['/', baseRoute, 'appointments']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Appointments' : ''">
       <i class="bi bi-calendar-check nav-icon"></i>
       <span class="sidebar-label">Appointments</span>
       <span class="nav-badge sidebar-label">{{todayApps.length}}</span>
     </a>
 
-    <a [routerLink]="['/', baseRoute, 'patients']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Patients' : ''">
+    <a [routerLink]="['/', baseRoute, 'patients']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Patients' : ''">
       <i class="bi bi-people nav-icon"></i>
       <span class="sidebar-label">Patients</span>
     </a>
 
-    <a [routerLink]="['/', baseRoute, 'doctors']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Doctors' : ''">
+    <a [routerLink]="['/', baseRoute, 'doctors']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Doctors' : ''">
       <i class="bi bi-person-badge nav-icon"></i>
       <span class="sidebar-label">Doctors</span>
     </a>
@@ -49,13 +51,42 @@
       <i class="bi bi-folder2-open nav-icon"></i>
       <span class="sidebar-label">Medical Records</span>
     </a>
-  @if(userRole==='admin'){
-    <a [routerLink]="['/', baseRoute, 'analytics']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Analytics' : ''">
+
+    @if(userRole==='admin'){
+    <a [routerLink]="['/', baseRoute, 'analytics']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Analytics' : ''">
       <i class="bi bi-graph-up-arrow nav-icon"></i>
       <span class="sidebar-label">Analytics</span>
     </a>
+    }
+    }
+    @if(userRole==='patient'){
+
+    <a [routerLink]="[ 'dashboard']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Analytics' : ''">
+      <i class="bi bi-speedometer nav-icon"></i>
+      <span class="sidebar-label">Dashboard</span>
+    </a>
+    <a [routerLink]="[ 'profile']" routerLinkActive="active" class="nav-link"
+      [title]="collapsed ? 'Analytics' : ''">
+      <i class="bi bi-person-badge nav-icon"></i>
+      <span class="sidebar-label">profile</span>
+    </a>
+    }
+  @if(userRole==='doctor'){
+    <a [routerLink]="[ 'dashboard']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Analytics' : ''">
+      <i class="bi bi-speedometer nav-icon"></i>
+      <span class="sidebar-label">Dashboard</span>
+    </a>
+    <a [routerLink]="[ 'schedule']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Analytics' : ''">
+      <i class="bi bi-person-badge nav-icon"></i>
+      <span class="sidebar-label">Schedule</span>
+    </a>
   }
-    
+  
+
+
+
   </nav>
 
   <!-- ── Footer ────────────────────────────────────────────────── -->

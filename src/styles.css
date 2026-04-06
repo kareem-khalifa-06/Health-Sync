@@ -1,14 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+/* ── Toastr Overrides ──────────────────────────────────────────── */
+.toast-container.toast-top-right {
+  top: 1.5rem;
+  right: 1.5rem;
+}
 
+.ngx-toastr {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 14px 18px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  font-family: "Segoe UI", system-ui, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  min-width: 280px !important;
+  max-width: 360px !important;
+  border: 1px solid transparent !important;
+  background-image: none !important;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+
+.ngx-toastr:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Title */
+.toast-title {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.1px !important;
+  color: inherit !important;
+}
+
+/* Message */
+.toast-message {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  opacity: 0.8 !important;
+  color: inherit !important;
+}
+
+/* Close button */
+.toast-close-button {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  opacity: 0.5 !important;
+  color: inherit !important;
+  top: 0 !important;
+  right: 0 !important;
+}
+.toast-close-button:hover {
+  opacity: 1 !important;
+}
+
+/* Progress bar */
+.toast-progress {
+  height: 3px !important;
+  opacity: 0.25 !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+/* ── Success ── */
+.toast-success {
+  background: #d1fae5 !important;
+  color: #059669 !important;
+  border-color: #a7f3d0 !important;
+  border-left: 4px solid #059669 !important;
+}
+.toast-success .toast-progress { background: #059669 !important; }
+
+/* ── Error ── */
+.toast-error {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  border-color: #fecaca !important;
+  border-left: 4px solid #dc2626 !important;
+}
+.toast-error .toast-progress { background: #dc2626 !important; }
+
+/* ── Warning ── */
+.toast-warning {
+  background: #fef3c7 !important;
+  color: #d97706 !important;
+  border-color: #fde68a !important;
+  border-left: 4px solid #d97706 !important;
+}
+.toast-warning .toast-progress { background: #d97706 !important; }
+
+/* ── Info ── */
+.toast-info {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+  border-left: 4px solid #2563eb !important;
+}
+.toast-info .toast-progress { background: #2563eb !important; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.wrapper{
-    background-color: white;
-    border-radius: 12px;
-    border: none;
-    padding: 10px;
-   
-}
-.bg-grey{
-    background-color:#f0f4f8;;
-}

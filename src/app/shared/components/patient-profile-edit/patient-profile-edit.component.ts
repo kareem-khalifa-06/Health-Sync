@@ -35,8 +35,8 @@ export class PatientProfileEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const patientId = this.route.snapshot.paramMap.get('id') ?? '';
-
+    const patientId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
+    console.log(patientId);
     this._PatientService
       .getPatientById(patientId)
       .pipe(takeUntil(this.destroy$))

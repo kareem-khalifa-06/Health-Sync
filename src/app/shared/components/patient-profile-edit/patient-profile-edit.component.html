@@ -44,7 +44,7 @@
         </div>
         <div class="page-header-right">
             <button class="btn-cancel" (click)="onCancel()">Cancel</button>
-            <button class="btn-save" (click)="onSave()" [disabled]="form?.invalid || isSaving">
+            <button class="btn-save" (click)="onSave()" [disabled]="form.invalid || isSaving">
                 @if (isSaving) {
                 <span class="btn-spinner"></span> Saving…
                 } @else if (saveSuccess) {

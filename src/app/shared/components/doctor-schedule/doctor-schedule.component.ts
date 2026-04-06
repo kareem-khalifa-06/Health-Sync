@@ -11,7 +11,7 @@ import { PatientService } from '../../../core/services/patient.service';
 import { BookingService } from '../../../core/services/booking.service';
 import { Appointment } from '../../../models/appointment';
 import { Doctor } from '../../../models/doctor';
-import { AppointmentRow } from '../dashboard/dashboard.component';
+import { AppointmentRow } from '../admin-dashboard/dashboard.component';
 
 // ── Types ────────────────────────────────────────────────────
 

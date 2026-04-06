@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Appointment } from '../../models/appointment';
 import dayjs from 'dayjs';
-import { AppointmentRow } from '../../shared/components/dashboard/dashboard.component';
-
+import { AppointmentRow } from '../../shared/components/admin-dashboard/dashboard.component';
 
 @Injectable({
   providedIn: 'root',

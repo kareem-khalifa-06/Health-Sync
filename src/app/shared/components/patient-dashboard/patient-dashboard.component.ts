@@ -1,4 +1,4 @@
-import { Patient } from './../../../models/patient';
+import { Patient } from '../../../models/patient';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
@@ -12,26 +12,25 @@ import { BookingService } from '../../../core/services/booking.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Doctor } from '../../../models/doctor';
 import { DoctorsService } from '../../../core/services/doctors.service';
-interface appointmentDetails{
-  app:Appointment,
-  patient:Patient,
-  doctor:Doctor
-
+interface appointmentDetails {
+  app: Appointment;
+  patient: Patient;
+  doctor: Doctor;
 }
 
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
-  imports: [CommonModule, DatePipe, TitleCasePipe],
-  templateUrl: './patient-profile.component.html',
-  styleUrl: './patient-profile.component.css',
+  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink],
+  templateUrl: './patient-dashboard.component.html',
+  styleUrl: './patient-dashboard.component.css',
 })
 export class PatientDashboardComponent implements OnInit, OnDestroy {
   patient: Patient | null = null;
   upcomingAppointments: appointmentDetails[] = [];
-  
-  medicalRecords: MedicalRecord[] = [];
 
+  medicalRecords: MedicalRecord[] = [];
+  baseRoute = this._AuthService.getBaseRoute();
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -46,7 +45,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const patientId = this.route.snapshot.paramMap.get('id') ?? '';
+    const patientId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
     const today = new Date().toISOString().split('T')[0];
 
     this._PatientService
@@ -61,7 +60,6 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
             records: this._MedicalRecordsService.renderMedicalRecords(),
           }).pipe(
             map(({ appointments, doctors, records }) => {
-
               const upcoming = appointments
                 .filter(
                   (a) =>
@@ -95,7 +93,6 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
       });
   }
 
-
   get activePrescriptions() {
     return this.patient?.currentMedications ?? [];
   }
@@ -121,8 +118,8 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   }
 
   formatTime = this._BookingService._formatLabel;
-  bookAppointmnet(){
-   this.router.navigate(['patient'])
+  bookAppointmnet() {
+    this.router.navigate(['patient']);
   }
   ngOnDestroy() {
     this.destroy$.next();

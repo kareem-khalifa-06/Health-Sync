@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.3.0",
+    "@angular/animations": "^17.3.12",
     "@angular/cdk": "^17.3.10",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
@@ -31,6 +31,7 @@
     "jspdf-autotable": "^5.0.7",
     "material-icons": "^1.13.14",
     "ng2-charts": "^5.0.4",
+    "ngx-toastr": "^19.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

@@ -8,6 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { _adapters } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ import { _adapters } from 'chart.js';
 })
 export class LoginComponent {
   private _AuthService = inject(AuthService);
+  _toastr=inject(ToastrService);
   private _Router = inject(Router);
   ngOnInit(){
     this._AuthService.logout();
@@ -36,19 +38,18 @@ export class LoginComponent {
       .subscribe({
         next: (user) => {
           if (this._AuthService.isLoggedIn()) {
-            alert('Logged in successfully');
             if (this._AuthService.getRole() === 'admin')
               this._Router.navigate(['/adminLayout']);
             if (this._AuthService.getRole() === 'doctor')
               this._Router.navigate(['/doctorLayout/' + user.doctorId]);
             if (this._AuthService.getRole() === 'patient')
-              this._Router.navigate(['/patientDashboard/' + user.patientId]);
+              this._Router.navigate(['/patientLayout/' + user.patientId]);
             if (this._AuthService.getRole() === 'receptionist')
               this._Router.navigate(['/receptionistLayout']);
           }
         },
         error: (err) => {
-          alert('Wrong credentials!!');
+          this._toastr.error('Wrong credentials!!');
           this.loginForm.reset();
         },
       });

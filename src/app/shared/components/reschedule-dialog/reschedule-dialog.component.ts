@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { combineLatest, filter, Subject, switchMap, takeUntil } from 'rxjs';
-import { AppointmentRow } from '../dashboard/dashboard.component';
+import { AppointmentRow } from '../admin-dashboard/dashboard.component';
 import { Appointment } from '../../../models/appointment';
 import {
   BookingService,
