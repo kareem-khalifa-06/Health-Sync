@@ -2702,95 +2702,43 @@
       "email": "gastroenterology@healthsync.com"
     }
   ],
-  "statistics": {
-    "totalAppointments": 855,
-    "completedAppointments": 795,
-    "cancelledAppointments": 43,
-    "pendingAppointments": 17,
-    "totalPatients": 1244,
-    "activeDoctors": 10,
-    "totalDoctors": 10,
-    "totalDepartments": 10,
-    "revenue": {
-      "today": 5500,
-      "thisWeek": 34200,
-      "thisMonth": 104500,
-      "thisYear": 898780
-    },
-    "appointmentsByDay": [
-      {
-        "day": "Monday",
-        "count": 148
-      },
-      {
-        "day": "Tuesday",
-        "count": 135
-      },
-      {
-        "day": "Wednesday",
-        "count": 159
-      },
-      {
-        "day": "Thursday",
-        "count": 132
-      },
-      {
-        "day": "Friday",
-        "count": 144
-      },
-      {
-        "day": "Saturday",
-        "count": 92
-      },
-      {
-        "day": "Sunday",
-        "count": 58
-      }
-    ],
-    "appointmentsByStatus": [
-      {
-        "status": "confirmed",
-        "count": 316
-      },
-      {
-        "status": "completed",
-        "count": 795
-      },
-      {
-        "status": "pending",
-        "count": 17
-      },
-      {
-        "status": "cancelled",
-        "count": 43
-      }
-    ],
-    "topDoctors": [
-      {
-        "doctorId": "d4",
-        "name": "Dr. Ahmed Hassan",
-        "totalAppointments": 215,
-        "rating": 5
-      },
-      {
-        "doctorId": "d1",
-        "name": "Dr. khadija elbakry",
-        "totalAppointments": 190,
-        "rating": 5
-      },
-      {
-        "doctorId": "d2",
-        "name": "Dr. James Mitchell",
-        "totalAppointments": 168,
-        "rating": 4.9
-      },
-      {
-        "doctorId": "d10",
-        "name": "Dr. Thomas Williams",
-        "totalAppointments": 145,
-        "rating": 4.9
-      }
-    ]
+ "statistics": {
+  "totalAppointments": 18,
+  "completedAppointments": 7,
+  "cancelledAppointments": 1,
+  "pendingAppointments": 2,
+  "totalPatients": 10,
+  "activeDoctors": 10,
+  "totalDoctors": 10,
+  "totalDepartments": 10,
+  "revenue": {
+    "today": 0,
+    "thisWeek": 1500,
+    "thisMonth": 4100,
+    "thisYear": 4100
   },
+  "appointmentsByDay": [
+    { "day": "Monday",    "count": 2 },
+    { "day": "Tuesday",   "count": 2 },
+    { "day": "Wednesday", "count": 5 },
+    { "day": "Thursday",  "count": 3 },
+    { "day": "Friday",    "count": 1 },
+    { "day": "Saturday",  "count": 2 },
+    { "day": "Sunday",    "count": 3 }
+  ],
+  "appointmentsByStatus": [
+    { "status": "confirmed",  "count": 8 },
+    { "status": "completed",  "count": 7 },
+    { "status": "pending",    "count": 2 },
+    { "status": "cancelled",  "count": 1 }
+  ],
+  "topDoctors": [
+    { "doctorId": "d1", "name": "Dr. Khadija Elbakry",  "totalAppointments": 7, "rating": 5   },
+    { "doctorId": "d4", "name": "Dr. Ahmed Hassan",     "totalAppointments": 3, "rating": 5   },
+    { "doctorId": "d2", "name": "Dr. James Mitchell",   "totalAppointments": 2, "rating": 4.9 },
+    { "doctorId": "d10","name": "Dr. Thomas Williams",  "totalAppointments": 1, "rating": 4.9 }
+  ]
+},
+
   "$schema": "./node_modules/json-server/schema.json"
 }

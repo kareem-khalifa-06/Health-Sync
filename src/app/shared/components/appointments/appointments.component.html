@@ -119,7 +119,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (row of filterAppointments(); track row.appointment.id) {
+          @for (row of paginatedAppointments; track row.appointment.id) {
           <tr class="table-row" [class.selected]="selectedIds.has(row.appointment.id)">
             <td>
               <input type="checkbox" class="row-checkbox" [checked]="selectedIds.has(row.appointment.id)"
@@ -195,13 +195,25 @@
 
     <div class="pagination-bar">
       <span class="pagination-info">
-        Showing {{ filterAppointments().length }} of {{ appointments().length }} appointments
+        Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filterAppointments().length)
+        }}
+        of {{ filterAppointments().length }} appointments
       </span>
       <nav>
         <ul class="pagination-list">
-          <li><button class="page-btn" disabled><i class="bi bi-chevron-left"></i></button></li>
-          <li><button class="page-btn active">1</button></li>
-          <li><button class="page-btn"><i class="bi bi-chevron-right"></i></button></li>
+          <li>
+            <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+          </li>
+          @for (p of pageNumbers; track p) {
+          <li><button class="page-btn" [class.active]="p === currentPage" (click)="goToPage(p)">{{ p }}</button></li>
+          }
+          <li>
+            <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

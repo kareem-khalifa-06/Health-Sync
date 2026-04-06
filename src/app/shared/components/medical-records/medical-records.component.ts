@@ -18,8 +18,29 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './medical-records.component.css',
 })
 export class MedicalRecordsComponent implements OnInit {
+  currentPage = 1;
+  pageSize = 2; 
+  Math = Math;
+
+  get totalPages() {
+    return Math.ceil(this.filteredRecords.length / this.pageSize);
+  }
+
+  get paginatedRecords() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredRecords.slice(start, start + this.pageSize);
+  }
+
+  get pageNumbers() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
   AuthService = inject(AuthService);
-    baseRoute = this.AuthService.getBaseRoute();
+  baseRoute = this.AuthService.getBaseRoute();
   searchQuery = '';
   records: MedicalRecord[] = [];
   filteredRecords: MedicalRecord[] = [];
@@ -37,7 +58,6 @@ export class MedicalRecordsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     forkJoin({
       patients: this._PatientService.getAllPatients(),
       doctors: this._DoctorsService.renderDoctors(),
@@ -55,7 +75,6 @@ export class MedicalRecordsComponent implements OnInit {
     });
   }
 
- 
   getPatientName(id: string): string {
     return this.patientMap.get(id) ?? id;
   }
@@ -78,10 +97,11 @@ export class MedicalRecordsComponent implements OnInit {
         this.getPatientName(r.patientId).toLowerCase().includes(lower) ||
         this.getDoctorName(r.doctorId).toLowerCase().includes(lower),
     );
+    this.currentPage=1;
   }
 
   // ── Navigation ───────────────────────────────────────────────
   openNewRecord() {
-    this._Router.navigate([this.baseRoute,'new-record']);
+    this._Router.navigate([this.baseRoute, 'new-record']);
   }
 }

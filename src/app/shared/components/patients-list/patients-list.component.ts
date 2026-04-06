@@ -18,8 +18,31 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './patients-list.component.css',
 })
 export class PatientsListComponent {
-  AuthService=inject(AuthService);
-   baseRoute = this.AuthService.getBaseRoute();
+  currentPage = 1;
+  pageSize = 8;
+  Math=Math
+  get totalPages() {
+    return Math.ceil(
+      (this.filteredPatientsList()?.length ?? 0) / this.pageSize,
+    );
+  }
+
+  get paginatedPatients() {
+    const all = this.filteredPatientsList() ?? [];
+    const start = (this.currentPage - 1) * this.pageSize;
+    return all.slice(start, start + this.pageSize);
+  }
+
+  get pageNumbers() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
+  AuthService = inject(AuthService);
+  baseRoute = this.AuthService.getBaseRoute();
   bloodGroups = BLOODGROUPS;
   calculateAge = calculateAge;
   patientsList = signal<Patient[] | null>(null);
@@ -78,6 +101,8 @@ export class PatientsListComponent {
     }
 
     this.filteredPatientsList.set(patients);
+     this.filteredPatientsList.set(patients);
+     this.currentPage = 1;
   }
   viewDetails() {}
 }

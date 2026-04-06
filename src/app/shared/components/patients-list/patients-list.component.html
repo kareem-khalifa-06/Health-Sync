@@ -61,7 +61,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (p of filteredPatientsList(); track p.id) {
+          @for (p of paginatedPatients; track p.id) {
           <tr class="table-row">
 
             <!-- Patient -->
@@ -127,11 +127,24 @@
       </table>
     </div>
 
-    <div class="table-footer">
-      <span class="footer-info">
-        Showing {{ (filteredPatientsList() ?? []).length }} patients
-      </span>
-    </div>
+<div class="table-footer">
+  <span class="footer-info">
+    Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filteredPatientsList()?.length ??
+    0) }}
+    of {{ filteredPatientsList()?.length ?? 0 }} patients
+  </span>
+  <nav class="pagination-nav">
+    <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    @for (p of pageNumbers; track p) {
+    <button class="page-btn" [class.active]="p === currentPage" (click)="goToPage(p)">{{ p }}</button>
+    }
+    <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </nav>
+</div>
     }
   </div>
 </div>

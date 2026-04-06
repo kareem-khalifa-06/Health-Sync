@@ -20,7 +20,7 @@
     <!-- ── Records List ─────────────────────────────────────────── -->
     <div class="records-list">
 
-        @for (record of filteredRecords; track record.id) {
+        @for (record of paginatedRecords; track record.id) {
         <div class="record-card">
 
             <!-- Card Header -->
@@ -205,6 +205,31 @@
             </button>
         </div>
         }
+        @if (totalPages > 1) {
+        <div class="pagination-bar">
+            <span class="pagination-info">
+                Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filteredRecords.length) }}
+                of {{ filteredRecords.length }} records
+            </span>
+            <nav>
+                <ul class="pagination-list">
+                    <li>
+                        <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                    </li>
+                    @for (p of pageNumbers; track p) {
+                    <li><button class="page-btn" [class.active]="p === currentPage" (click)="goToPage(p)">{{ p }}</button></li>
+                    }
+                    <li>
+                        <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
 
     </div>
 </div>

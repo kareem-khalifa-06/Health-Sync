@@ -30,6 +30,28 @@ export interface CalendarDay {
   styleUrl: './appointments.component.css',
 })
 export class AppointmentsComponent implements OnInit, OnDestroy {
+  currentPage = 1;
+  pageSize = 7;
+  Math = Math;
+
+  get totalPages() {
+    return Math.ceil(this.filterAppointments().length / this.pageSize);
+  }
+
+  get paginatedAppointments() {
+    const all = this.filterAppointments();
+    const start = (this.currentPage - 1) * this.pageSize;
+    return all.slice(start, start + this.pageSize);
+  }
+
+  get pageNumbers() {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+  }
   // ── Data ─────────────────────────────────────────────────────
   appointments = signal<Appointment[]>([]);
   appointmentRows: AppointmentRow[] = [];
@@ -303,6 +325,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       );
 
     this.filterAppointments.set(filtered);
+    this.currentPage = 1;
     if (this.currentView === 'calendar') this.buildCalendar();
   }
 
