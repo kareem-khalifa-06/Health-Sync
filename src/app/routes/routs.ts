@@ -209,4 +209,12 @@ export const patientsRoutes: Route[] = [
         (m) => m.PatientProfileEditComponent,
       ),
   },
+  {
+    path: 'new-appointment',
+    loadComponent: () =>
+      import('../shared/components/book-appointment-form/book-appointment-form.component').then(
+        (m) => m.BookAppointmentFormComponent,
+      ),
+  },
+  
 ];

@@ -5,9 +5,9 @@ import { ALL_CHRONIC_CONDITIONS } from '../../../Data/MEDICALCONDITIONS';
 import { Patient } from '../../../models/patient';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {  RouterLink  } from "@angular/router";
+import { RouterLink } from '@angular/router';
 import { calculateAge } from '../../../utils/calculateAge';
-import { BackButtonComponent } from "../back-button/back-button.component";
+import { BackButtonComponent } from '../back-button/back-button.component';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -20,7 +20,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class PatientsListComponent {
   currentPage = 1;
   pageSize = 8;
-  Math=Math
+  Math = Math;
   get totalPages() {
     return Math.ceil(
       (this.filteredPatientsList()?.length ?? 0) / this.pageSize,
@@ -64,7 +64,7 @@ export class PatientsListComponent {
 
   onSearch(search: string) {
     this.searchQuery = search;
-    console.log('khadija');
+    console.log('kareem');
     this.applyFilters();
   }
   onConditionFilter(query: string) {
@@ -101,8 +101,8 @@ export class PatientsListComponent {
     }
 
     this.filteredPatientsList.set(patients);
-     this.filteredPatientsList.set(patients);
-     this.currentPage = 1;
+    this.filteredPatientsList.set(patients);
+    this.currentPage = 1;
   }
   viewDetails() {}
 }

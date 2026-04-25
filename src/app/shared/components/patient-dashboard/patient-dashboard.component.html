@@ -124,7 +124,7 @@
                             <p class="section-sub">{{ upcomingAppointments.length }} scheduled</p>
                         </div>
                     </div>
-                    <button class="btn-ghost-sm" [routerLink]="['/',baseRoute,'new-appoinment']">
+                    <button class="btn-ghost-sm" [routerLink]="['../new-appointment']">
                         <i class="bi bi-plus"></i> Book New
                     </button>
                 </div>
@@ -153,7 +153,7 @@
                     <div class="empty-state">
                         <i class="bi bi-calendar-x"></i>
                         <p>No upcoming appointments</p>
-                        <button class="btn-primary-sm">Book Now</button>
+                        <button class="btn-primary-sm" [routerLink]="['../new-appointment']" >Book Now</button>
                     </div>
                     }
                 </div>

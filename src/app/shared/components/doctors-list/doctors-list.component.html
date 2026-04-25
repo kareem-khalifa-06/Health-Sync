@@ -94,7 +94,7 @@
                 <button class="btn-delete" (click)="onDelete(doctor.id)" [hidden]="userRole!='admin'">
                   <i class="bi bi-trash3"></i> Delete
                 </button>
-                <a [routerLink]="[baseRoute,'doctors/details/', doctor.id]">
+                <a [routerLink]="['details/', doctor.id]">
                   <button class="btn-view">
                     <i class="bi bi-eye"></i> View
                   </button>

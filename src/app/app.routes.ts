@@ -41,8 +41,8 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('./shared/layouts/doctor-layout/doctor-layout.component').then(
-            (m) => m.DoctorLayoutComponent,
+          import('./shared/components/doctor-profile/doctor-profile.component').then(
+            (m) => m.DoctorProfileComponent,
           ),
       },
       {

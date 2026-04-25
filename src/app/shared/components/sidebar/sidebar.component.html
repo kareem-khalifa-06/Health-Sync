@@ -74,12 +74,12 @@
     </a>
     }
   @if(userRole==='doctor'){
-    <a [routerLink]="[ 'dashboard']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Analytics' : ''">
-      <i class="bi bi-speedometer nav-icon"></i>
-      <span class="sidebar-label">Dashboard</span>
+    <a [routerLink]="[ 'profile']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'profile' : ''">
+      <i class="bi bi-person-badge nav-icon"></i>
+      <span class="sidebar-label">profile</span>
     </a>
     <a [routerLink]="[ 'schedule']" routerLinkActive="active" class="nav-link" [title]="collapsed ? 'Analytics' : ''">
-      <i class="bi bi-person-badge nav-icon"></i>
+      <i class="bi bi-calendar-date nav-icon"></i>
       <span class="sidebar-label">Schedule</span>
     </a>
   }

@@ -157,7 +157,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this._Router.navigate([this.baseRoute,'appointments']);
+       history.back();
   }
 
   onDialogCancelled() {

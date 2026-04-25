@@ -13,11 +13,11 @@
     },
     {
       "id": "2",
-      "email": "dr.khadija@healthsync.com",
+      "email": "dr.kareem@healthsync.com",
       "password": "doctor123",
       "role": "doctor",
-      "firstName": "khadija",
-      "lastName": "elbakry",
+      "firstName": "kareem",
+      "lastName": "khalifa",
       "phone": "+1-555-0101",
       "avatar": "https://i.pravatar.cc/150?img=47",
       "doctorId": "d1",
@@ -167,11 +167,11 @@
     },
     {
       "id": "613d64ba-a92c-45d4-983f-9065f6ab9290",
-      "email": "khadijaelbakry19@gmail.com",
-      "password": "Khadija14@",
+      "email": "kareemkhalifa19@gmail.com",
+      "password": "kareem14@",
       "role": "doctor",
-      "firstName": "Khadija",
-      "lastName": "Elbakry",
+      "firstName": "kareem",
+      "lastName": "khalifa",
       "phone": "01111445265",
       "avatar": "",
       "createdAt": "2026-03-12T11:40:59.200Z"
@@ -297,11 +297,11 @@
     },
     {
       "id": "dd028d2b-41d2-48d1-bb2a-f0252617b5a2",
-      "email": "yahyaelbakry11@gmail.com",
+      "email": "yahyakhalifa11@gmail.com",
       "password": "Yahya11@@",
       "role": "patient",
       "firstName": "Yahya ",
-      "lastName": "Elbakry",
+      "lastName": "khalifa",
       "phone": "01117594344",
       "avatar": "",
       "createdAt": "2026-04-03T13:35:16.990Z"
@@ -311,19 +311,19 @@
     {
       "id": "d1",
       "userId": "2",
-      "firstName": "khadija",
-      "lastName": "elbakry",
-      "fullName": "Dr. khadija elbakry",
+      "firstName": "kareem",
+      "lastName": "khalifa",
+      "fullName": "kareem khalifa",
       "initials": "KE",
-      "avatarUrl": "https://i.pravatar.cc/150?img=5",
+      "avatarUrl": "https://i.pravatar.cc/150?img=3",
       "specialty": "Cardiology",
       "subSpecialty": "Interventional Cardiology",
       "department": "Heart & Vascular",
       "hospital": "Metropolitan Heart Institute",
       "location": "New York, NY",
-      "email": "dr.khadija@healthsync.com",
+      "email": "dr.kareem@healthsync.com",
       "phone": "+1-555-0101",
-      "bio": "Dr. khadija elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
+      "bio": "Dr. kareem khalifa is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
       "status": "active",
       "isAvailableToday": true,
       "consultationFee": 10000,
@@ -371,20 +371,42 @@
         "American College of Cardiology Fellow (FACC)"
       ],
       "availableDays": [
+        "Sunday",
         "Monday",
         "Tuesday",
         "Wednesday",
         "Thursday",
-        "Friday"
+        "Friday",
+        "Saturday"
       ],
       "availableTimeSlots": [
         {
           "start": "09:00",
-          "end": "12:00"
+          "end": "17:00"
         },
         {
-          "start": "14:00",
+          "start": "09:00",
           "end": "17:00"
+        },
+        {
+          "start": "09:00",
+          "end": "17:00"
+        },
+        {
+          "start": "09:00",
+          "end": "17:00"
+        },
+        {
+          "start": "09:00",
+          "end": "17:00"
+        },
+        {
+          "start": "09:00",
+          "end": "17:00"
+        },
+        {
+          "start": "09:00",
+          "end": "13:00"
         }
       ]
     },
@@ -1305,7 +1327,7 @@
       "patientInitials": "JR",
       "rating": 5,
       "date": "2026-02-12",
-      "comment": "Dr. elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
+      "comment": "Dr. khalifa is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
       "createdAt": "2026-02-12T11:00:00.000Z"
     },
     {
@@ -1316,7 +1338,7 @@
       "patientInitials": "ML",
       "rating": 5,
       "date": "2026-01-28",
-      "comment": "Dr. elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
+      "comment": "Dr. khalifa is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
       "createdAt": "2026-01-28T14:30:00.000Z"
     },
     {
@@ -1979,7 +2001,7 @@
       "appointmentTime": "10:00",
       "duration": 30,
       "type": "Checkup",
-      "status": "confirmed",
+      "status": "completed",
       "reason": "Routine follow-up for hypertension",
       "notes": "",
       "slotId": null,
@@ -2408,7 +2430,7 @@
       "userId": "11",
       "type": "appointment_reminder",
       "title": "Appointment Reminder",
-      "message": "Your appointment with Dr. khadija elbakry is tomorrow at 09:00 AM",
+      "message": "Your appointment with Dr. kareem khalifa is tomorrow at 09:00 AM",
       "appointmentId": "a1",
       "read": false,
       "createdAt": "2026-03-03T09:00:00.000Z"
@@ -2428,7 +2450,7 @@
       "userId": "12",
       "type": "appointment_confirmation",
       "title": "Appointment Confirmed",
-      "message": "Your appointment with Dr. khadija elbakry has been confirmed for Mar 4 at 10:00 AM",
+      "message": "Your appointment with Dr. kareem khalifa has been confirmed for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
       "read": true,
       "createdAt": "2026-02-28T10:00:00.000Z"
@@ -2605,7 +2627,7 @@
       "id": "dept1",
       "name": "Cardiology",
       "description": "Heart and cardiovascular system care",
-      "head": "Dr. khadija elbakry",
+      "head": "Dr. kareem khalifa",
       "headDoctorId": "d1",
       "totalDoctors": 5,
       "contactNumber": "+1-555-1001",
@@ -2702,43 +2724,95 @@
       "email": "gastroenterology@healthsync.com"
     }
   ],
- "statistics": {
-  "totalAppointments": 18,
-  "completedAppointments": 7,
-  "cancelledAppointments": 1,
-  "pendingAppointments": 2,
-  "totalPatients": 10,
-  "activeDoctors": 10,
-  "totalDoctors": 10,
-  "totalDepartments": 10,
-  "revenue": {
-    "today": 0,
-    "thisWeek": 1500,
-    "thisMonth": 4100,
-    "thisYear": 4100
+  "statistics": {
+    "totalAppointments": 18,
+    "completedAppointments": 7,
+    "cancelledAppointments": 1,
+    "pendingAppointments": 2,
+    "totalPatients": 10,
+    "activeDoctors": 10,
+    "totalDoctors": 10,
+    "totalDepartments": 10,
+    "revenue": {
+      "today": 0,
+      "thisWeek": 1500,
+      "thisMonth": 4100,
+      "thisYear": 4100
+    },
+    "appointmentsByDay": [
+      {
+        "day": "Monday",
+        "count": 2
+      },
+      {
+        "day": "Tuesday",
+        "count": 2
+      },
+      {
+        "day": "Wednesday",
+        "count": 5
+      },
+      {
+        "day": "Thursday",
+        "count": 3
+      },
+      {
+        "day": "Friday",
+        "count": 1
+      },
+      {
+        "day": "Saturday",
+        "count": 2
+      },
+      {
+        "day": "Sunday",
+        "count": 3
+      }
+    ],
+    "appointmentsByStatus": [
+      {
+        "status": "confirmed",
+        "count": 8
+      },
+      {
+        "status": "completed",
+        "count": 7
+      },
+      {
+        "status": "pending",
+        "count": 2
+      },
+      {
+        "status": "cancelled",
+        "count": 1
+      }
+    ],
+    "topDoctors": [
+      {
+        "doctorId": "d1",
+        "name": "Dr. kareem khalifa",
+        "totalAppointments": 7,
+        "rating": 5
+      },
+      {
+        "doctorId": "d4",
+        "name": "Dr. Ahmed Hassan",
+        "totalAppointments": 3,
+        "rating": 5
+      },
+      {
+        "doctorId": "d2",
+        "name": "Dr. James Mitchell",
+        "totalAppointments": 2,
+        "rating": 4.9
+      },
+      {
+        "doctorId": "d10",
+        "name": "Dr. Thomas Williams",
+        "totalAppointments": 1,
+        "rating": 4.9
+      }
+    ]
   },
-  "appointmentsByDay": [
-    { "day": "Monday",    "count": 2 },
-    { "day": "Tuesday",   "count": 2 },
-    { "day": "Wednesday", "count": 5 },
-    { "day": "Thursday",  "count": 3 },
-    { "day": "Friday",    "count": 1 },
-    { "day": "Saturday",  "count": 2 },
-    { "day": "Sunday",    "count": 3 }
-  ],
-  "appointmentsByStatus": [
-    { "status": "confirmed",  "count": 8 },
-    { "status": "completed",  "count": 7 },
-    { "status": "pending",    "count": 2 },
-    { "status": "cancelled",  "count": 1 }
-  ],
-  "topDoctors": [
-    { "doctorId": "d1", "name": "Dr. Khadija Elbakry",  "totalAppointments": 7, "rating": 5   },
-    { "doctorId": "d4", "name": "Dr. Ahmed Hassan",     "totalAppointments": 3, "rating": 5   },
-    { "doctorId": "d2", "name": "Dr. James Mitchell",   "totalAppointments": 2, "rating": 4.9 },
-    { "doctorId": "d10","name": "Dr. Thomas Williams",  "totalAppointments": 1, "rating": 4.9 }
-  ]
-},
-
   "$schema": "./node_modules/json-server/schema.json"
 }

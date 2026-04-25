@@ -1,0 +1,311 @@
+<div class="page-wrapper">
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <div class="page-header">
+        <div class="page-header-left">
+            <div>
+                <h1 class="page-title">Doctor Portal</h1>
+                <p class="page-subtitle">Profile, schedule &amp; statistics</p>
+            </div>
+        </div>
+        <div class="header-actions">
+           
+            <button class="btn-ghost" (click)="toggleEditMode()">
+                <i class="bi" [ngClass]="editMode ? 'bi-x' : 'bi-pencil'"></i>
+                {{ editMode ? 'Cancel' : 'Edit Profile' }}
+            </button>
+            @if (editMode) {
+            <button class="btn-primary" (click)="saveProfile()" [disabled]="editForm.invalid">
+                <i class="bi bi-check-circle"></i> Save Changes
+            </button>
+        }
+        </div>
+    </div>
+    <div class="page-body">
+
+        @if (!doctor) {
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading profile...</p>
+        </div>
+        } @else {
+
+        <!-- ════ LEFT COLUMN ════════════════════════════════════ -->
+        <div class="left-col">
+
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="avatar-section">
+                    <div class="avatar-wrap">
+                        @if (doctor.avatarUrl || previewUrl) {
+                        <img [src]="previewUrl || doctor.avatarUrl" class="avatar-img" alt="Doctor photo" />
+                        } @else {
+                        <div class="avatar-initials">{{ doctor.initials }}</div>
+                        }
+                        @if (editMode) {
+                        <label class="avatar-upload-btn" title="Change photo">
+                            <i class="bi bi-camera-fill"></i>
+                            <input type="file" accept="image/*" (change)="onPhotoSelected($event)" hidden />
+                        </label>
+                        }
+                        <span class="status-dot" [class.online]="doctor.isAvailableToday"></span>
+                    </div>
+                    @if (editMode && selectedFile) {
+                    <div class="upload-hint">
+                        <i class="bi bi-check-circle-fill"></i>
+                        {{ selectedFile.name }}
+                        <button class="upload-remove" type="button" (click)="removePhoto()">✕</button>
+                    </div>
+                    }
+                </div>
+
+                <!-- View Mode -->
+                @if (!editMode) {
+                <div class="profile-info">
+                    <div class="profile-name-row">
+                        <h2 class="doctor-name">{{ doctor.fullName }}</h2>
+                        <span class="fee-badge">USD {{ doctor.consultationFee }}</span>
+                    </div>
+                    <p class="doctor-spec">{{ doctor.specialty }}</p>
+                    @if (doctor.subSpecialty) {
+                    <p class="doctor-subspec">{{ doctor.subSpecialty }}</p>
+                    }
+                    <div class="meta-chips">
+                        <span class="meta-chip chip-blue"><i class="bi bi-building"></i> {{ doctor.department }}</span>
+                        <span class="meta-chip chip-green"><i class="bi bi-patch-check-fill"></i> {{ doctor.experience
+                            }} yrs exp</span>
+                        <span class="meta-chip" [class.chip-green]="doctor.isAvailableToday"
+                            [class.chip-red]="!doctor.isAvailableToday">
+                            <i class="bi bi-circle-fill" style="font-size:7px"></i>
+                            {{ doctor.isAvailableToday ? 'Available Today' : 'Unavailable' }}
+                        </span>
+                    </div>
+                    @if (doctor.bio) { <p class="doctor-bio">{{ doctor.bio }}</p> }
+                    <div class="contact-divider"></div>
+                    <div class="contact-list">
+                        <div class="contact-row"><i class="bi bi-envelope"></i><span>{{ doctor.email }}</span></div>
+                        <div class="contact-row"><i class="bi bi-telephone"></i><span>{{ doctor.phone }}</span></div>
+                        <div class="contact-row"><i class="bi bi-geo-alt"></i><span>{{ doctor.location }}</span></div>
+                        <div class="contact-row"><i class="bi bi-hospital"></i><span>{{ doctor.hospital }}</span></div>
+                    </div>
+                </div>
+                }
+
+                <!-- Edit Mode -->
+                @if (editMode) {
+                <form [formGroup]="editForm" class="edit-form">
+                    <div class="edit-section-label">Personal</div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">First Name</label>
+                            <input class="field-input" formControlName="firstName" placeholder="First name" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Last Name</label>
+                            <input class="field-input" formControlName="lastName" placeholder="Last name" />
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Specialty</label>
+                            <input class="field-input" formControlName="specialty" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Sub-specialty</label>
+                            <input class="field-input" formControlName="subSpecialty" />
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Department</label>
+                            <input class="field-input" formControlName="department" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Experience (yrs)</label>
+                            <input class="field-input" type="number" formControlName="experience" />
+                        </div>
+                    </div>
+                    <div class="edit-section-label">Contact</div>
+                    <div class="field-group">
+                        <label class="field-label">Email</label>
+                        <input class="field-input" type="email" formControlName="email" />
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Phone</label>
+                            <input class="field-input" formControlName="phone" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Fee (USD)</label>
+                            <input class="field-input" type="number" formControlName="consultationFee" />
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label class="field-label">Hospital</label>
+                            <input class="field-input" formControlName="hospital" />
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Location</label>
+                            <input class="field-input" formControlName="location" />
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Bio</label>
+                        <textarea class="field-input field-textarea" formControlName="bio" rows="3"
+                            placeholder="Short professional bio..."></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Availability Today</label>
+                        <div class="toggle-wrap">
+                            <label class="toggle">
+                                <input type="checkbox" formControlName="isAvailableToday" />
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">
+                                {{ editForm.get('isAvailableToday')?.value ? 'Available' : 'Not Available' }}
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                }
+            </div>
+
+            <!-- Qualifications -->
+            <div class="side-card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <div class="section-icon" style="background:#eff6ff;color:#2563eb"><i
+                                class="bi bi-award-fill"></i></div>
+                        <h3 class="card-title">Qualifications</h3>
+                    </div>
+                </div>
+                <div class="tag-list">
+                    @for (q of doctor.qualifications; track q) { <span class="tag tag-blue">{{ q }}</span> }
+                    @if (!doctor.qualifications) { <p class="empty-hint">No qualifications added</p> }
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="side-card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <div class="section-icon" style="background:#f3e8ff;color:#7c3aed"><i
+                                class="bi bi-translate"></i></div>
+                        <h3 class="card-title">Languages</h3>
+                    </div>
+                </div>
+                <div class="tag-list">
+                    @for (lang of doctor.languages; track lang) { <span class="tag tag-purple">{{ lang }}</span> }
+                    @if (!doctor.languages.length) { <p class="empty-hint">No languages added</p> }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ════ RIGHT COLUMN ════════════════════════════════════ -->
+        <div class="right-col">
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card" style="--accent:#2563eb;">
+                    <div class="stat-icon-wrap" style="background:#eff6ff;color:#2563eb;"><i
+                            class="bi bi-people-fill"></i></div>
+                    <div class="stat-body"><span class="stat-value">{{ doctor.totalPatients }}</span><span
+                            class="stat-label">Total Patients</span></div>
+                </div>
+                <div class="stat-card" style="--accent:#059669;">
+                    <div class="stat-icon-wrap" style="background:#d1fae5;color:#059669;"><i
+                            class="bi bi-calendar-check-fill"></i></div>
+                    <div class="stat-body"><span class="stat-value">248</span><span
+                            class="stat-label">Appointments</span></div>
+                </div>
+                <div class="stat-card" style="--accent:#d97706;">
+                    <div class="stat-icon-wrap" style="background:#fef3c7;color:#d97706;"><i
+                            class="bi bi-star-fill"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-value">{{ doctor.rating }}</span>
+                        <span class="stat-label">Rating</span>
+                        <div class="star-row">
+                            @for (s of [1,2,3,4,5]; track s) {
+                            <i class="bi"
+                                [ngClass]="s <= doctor.rating ? 'bi-star-fill star-on' : 'bi-star star-off'"></i>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card" style="--accent:#7c3aed;">
+                    <div class="stat-icon-wrap" style="background:#f3e8ff;color:#7c3aed;"><i
+                            class="bi bi-chat-quote-fill"></i></div>
+                    <div class="stat-body"><span class="stat-value">{{ doctor.totalReviews }}</span><span
+                            class="stat-label">Reviews</span></div>
+                </div>
+            </div>
+
+            <!-- Schedule Editor -->
+            <div class="schedule-card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <div class="section-icon" style="background:#d1fae5;color:#059669"><i
+                                class="bi bi-clock-fill"></i></div>
+                        <div>
+                            <h3 class="card-title">Weekly Schedule</h3>
+                            <p class="card-subtitle">Toggle days and set working hours</p>
+                        </div>
+                    </div>
+                    <button class="btn-save-schedule" type="button" (click)="saveSchedule()">
+                        <i class="bi bi-check2-circle"></i> Save
+                    </button>
+                </div>
+                <div class="schedule-list">
+                    @for (day of scheduleDays; track day.name) {
+                    <div class="schedule-row" [class.schedule-row-active]="day.enabled">
+                        <label class="day-toggle">
+                            <input type="checkbox" [name]="day.name" [(ngModel)]="day.enabled" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="day-name" [class.day-name-muted]="!day.enabled">{{ day.name.slice(0,3) }}</span>
+                        @if (day.enabled) {
+                        <div class="time-slots">
+                            @for (slot of day.slots; track slot; let i = $index) {
+                            <div class="time-slot">
+                                <input type="time" class="time-input" [name]="'start-' + day.name + '-' + i"
+                                    [(ngModel)]="slot.start" />
+                                <span class="time-sep">—</span>
+                                <input type="time" class="time-input" [name]="'end-' + day.name + '-' + i"
+                                    [(ngModel)]="slot.end" />
+                                <button class="slot-remove" type="button" (click)="removeSlot(day, i)" title="Remove"><i
+                                        class="bi bi-x"></i></button>
+                            </div>
+                            }
+                            <button class="slot-add" type="button" (click)="addSlot(day)"><i class="bi bi-plus"></i> Add
+                                slot</button>
+                        </div>
+                        } @else {
+                        <span class="day-off-label">Day off</span>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div class="side-card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <div class="section-icon" style="background:#fef3c7;color:#d97706"><i
+                                class="bi bi-clipboard2-pulse-fill"></i></div>
+                        <h3 class="card-title">Services Offered</h3>
+                    </div>
+                </div>
+                <div class="tag-list">
+                    @for (s of doctor.services; track s) { <span class="tag tag-amber">{{ s }}</span> }
+                    @if (!doctor.services.length) { <p class="empty-hint">No services listed</p> }
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+    
+
+</div>
