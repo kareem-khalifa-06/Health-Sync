@@ -1,3 +1,4 @@
+
 import { Patient } from '../../../models/patient';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
@@ -12,6 +13,9 @@ import { BookingService } from '../../../core/services/booking.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Doctor } from '../../../models/doctor';
 import { DoctorsService } from '../../../core/services/doctors.service';
+
+import { Notifications } from '../../../models/notification';
+import { NotificationsService } from '../../../core/services/notifications.service';
 interface appointmentDetails {
   app: Appointment;
   patient: Patient;
@@ -28,7 +32,7 @@ interface appointmentDetails {
 export class PatientDashboardComponent implements OnInit, OnDestroy {
   patient: Patient | null = null;
   upcomingAppointments: appointmentDetails[] = [];
-
+  notifications: Notifications[] = [];
   medicalRecords: MedicalRecord[] = [];
   baseRoute = this._AuthService.getBaseRoute();
   private destroy$ = new Subject<void>();
@@ -42,9 +46,16 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
     private _MedicalRecordsService: MedicalRecordsService,
     private _AuthService: AuthService,
     public _BookingService: BookingService,
+    private _NotificationsService: NotificationsService,
   ) {}
 
   ngOnInit() {
+    const userId = this._AuthService.currentUser()!.id;
+    this._NotificationsService
+      .getUserNotificationss(userId)
+      .subscribe((res) => {
+        this.notifications = res;
+      });
     const patientId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
     const today = new Date().toISOString().split('T')[0];
 

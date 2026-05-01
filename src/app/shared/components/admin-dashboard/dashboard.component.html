@@ -1,84 +1,118 @@
 <div class="page-wrapper">
-
   <!-- ── Top Bar ─────────────────────────────────────────────── -->
   <div class="top-bar">
     <div class="top-bar-left">
       <div class="greeting-block">
         <h1 class="page-title">Dashboard</h1>
-        <p class="greeting-sub">Welcome back, Admin — here's today's overview.</p>
+        <p class="greeting-sub">
+          Welcome back, Admin — here's today's overview.
+        </p>
       </div>
     </div>
     <div class="top-bar-right">
       <button class="icon-btn" title="Notifications">
         <i class="bi bi-bell-fill"></i>
-        <span class="notif-dot"></span>
+        @if (notifications.length > 0) {
+          <span class="notif-dot">
+            {{ notifications.length > 99 ? "99+" : notifications.length }}
+          </span>
+        }
       </button>
       <button class="icon-btn" title="Settings">
         <i class="bi bi-gear-fill"></i>
       </button>
-      <button class="avatar-btn" routerLink="user-profile" title="Profile">KI</button>
+      <button class="avatar-btn" routerLink="user-profile" title="Profile">
+        KI
+      </button>
     </div>
   </div>
 
   <!-- ── Metric Cards ─────────────────────────────────────────── -->
   <div class="metrics-grid">
-    <div class="metric-card" style="--accent:#2563eb; --accent-lt:#eff6ff;">
+    <div class="metric-card" style="--accent: #2563eb; --accent-lt: #eff6ff">
       <div class="metric-top">
-        <div class="metric-icon-wrap" style="background:#eff6ff; color:#2563eb;">
+        <div
+          class="metric-icon-wrap"
+          style="background: #eff6ff; color: #2563eb"
+        >
           <i class="bi bi-calendar-check-fill"></i>
         </div>
-        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 3 from yesterday</span>
+        <span class="metric-trend trend-up"
+          ><i class="bi bi-arrow-up"></i> 3 from yesterday</span
+        >
       </div>
-      <div class="metric-value">{{todayAppointments.length}}</div>
+      <div class="metric-value">{{ todayAppointments.length }}</div>
       <div class="metric-label">Today's Appointments</div>
     </div>
 
-    <div class="metric-card" style="--accent:#059669; --accent-lt:#d1fae5;">
+    <div class="metric-card" style="--accent: #059669; --accent-lt: #d1fae5">
       <div class="metric-top">
-        <div class="metric-icon-wrap" style="background:#d1fae5; color:#059669;">
+        <div
+          class="metric-icon-wrap"
+          style="background: #d1fae5; color: #059669"
+        >
           <i class="bi bi-people-fill"></i>
         </div>
-        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 23 this month</span>
+        <span class="metric-trend trend-up"
+          ><i class="bi bi-arrow-up"></i> 23 this month</span
+        >
       </div>
-      <div class="metric-value">{{patientsCount+1130}}</div>
+      <div class="metric-value">{{ patientsCount + 1130 }}</div>
       <div class="metric-label">Total Patients</div>
     </div>
 
-    <div class="metric-card" style="--accent:#d97706; --accent-lt:#fef3c7;">
+    <div class="metric-card" style="--accent: #d97706; --accent-lt: #fef3c7">
       <div class="metric-top">
-        <div class="metric-icon-wrap" style="background:#fef3c7; color:#d97706;">
+        <div
+          class="metric-icon-wrap"
+          style="background: #fef3c7; color: #d97706"
+        >
           <i class="bi bi-hourglass-split"></i>
         </div>
-        <span class="metric-trend trend-warn"><i class="bi bi-exclamation-circle"></i> Needs attention</span>
+        <span class="metric-trend trend-warn"
+          ><i class="bi bi-exclamation-circle"></i> Needs attention</span
+        >
       </div>
-      <div class="metric-value">{{pendingCount}}</div>
+      <div class="metric-value">{{ pendingCount }}</div>
       <div class="metric-label">Pending Approvals</div>
     </div>
 
-    <div class="metric-card" style="--accent:#7c3aed; --accent-lt:#f3e8ff;">
+    <div class="metric-card" style="--accent: #7c3aed; --accent-lt: #f3e8ff">
       <div class="metric-top">
-        <div class="metric-icon-wrap" style="background:#f3e8ff; color:#7c3aed;">
+        <div
+          class="metric-icon-wrap"
+          style="background: #f3e8ff; color: #7c3aed"
+        >
           <i class="bi bi-person-badge-fill"></i>
         </div>
-        <span class="metric-trend trend-up"><i class="bi bi-arrow-up"></i> 2 new this week</span>
+        <span class="metric-trend trend-up"
+          ><i class="bi bi-arrow-up"></i> 2 new this week</span
+        >
       </div>
-      <div class="metric-value">{{doctorsCount}}</div>
+      <div class="metric-value">{{ doctorsCount }}</div>
       <div class="metric-label">Active Doctors</div>
     </div>
   </div>
 
   <!-- ── Content Row ──────────────────────────────────────────── -->
   <div class="content-row">
-
     <!-- Schedule Table -->
     <div class="table-card">
       <div class="card-header">
         <div>
           <h2 class="card-title">Today's Schedule</h2>
-          <p class="card-subtitle">{{todayDate}} · {{todayAppointments.length}} of {{todayAppointments.length}}</p>
+          <p class="card-subtitle">
+            {{ todayDate }} · {{ todayAppointments.length }} of
+            {{ todayAppointments.length }}
+          </p>
         </div>
         <div class="card-actions">
-          <button class="btn-primary-sm" [routerLink]="['/',baseRoute,'new-appointment']">+ New Appointment</button>
+          <button
+            class="btn-primary-sm"
+            [routerLink]="['/', baseRoute, 'new-appointment']"
+          >
+            + New Appointment
+          </button>
         </div>
       </div>
 
@@ -95,47 +129,67 @@
           </thead>
           <tbody>
             <!-- need to be updated -->
-            @for(row of todayRows;track $index){
-            <tr class="table-row">
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-blue">{{row.patient.initials}}</div>
-                  <div>
-                    <div class="person-name">{{row.patient.fullName}}</div>
-                    <div class="person-sub">{{row.patient.id}}</div>
+            @for (row of todayRows; track $index) {
+              <tr class="table-row">
+                <td>
+                  <div class="person-cell">
+                    <div class="avatar av-blue">{{ row.patient.initials }}</div>
+                    <div>
+                      <div class="person-name">{{ row.patient.fullName }}</div>
+                      <div class="person-sub">{{ row.patient.id }}</div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="person-cell">
-                  <div class="avatar av-teal">{{row.doctor.initials}}</div>
-                  <span class="person-name">{{row.doctor.fullName}}</span>
-                </div>
-              </td>
-              <td>
-                <div class="datetime-cell">
-                  <span class="date-val">{{row.appointment.appointmentDate}}</span>
-                  <span class="time-val">{{row.appointment.appointmentTime}}</span>
-                </div>
-              </td>
-              <td><span class="type-chip type-checkup">{{row.appointment.type}}</span></td>
-              <td><span class="status-badge status-confirmed" [classList]=""><span
-                    class="s-dot"></span>{{row.appointment.status}}</span></td>
-            </tr>
-            }
-            @empty {
-            <tr>
-              <td colspan="8" class="empty-row">No appointments Today.</td>
-            </tr>
+                </td>
+                <td>
+                  <div class="person-cell">
+                    <div class="avatar av-teal">{{ row.doctor.initials }}</div>
+                    <span class="person-name">{{ row.doctor.fullName }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="datetime-cell">
+                    <span class="date-val">{{
+                      row.appointment.appointmentDate
+                    }}</span>
+                    <span class="time-val">{{
+                      row.appointment.appointmentTime
+                    }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="type-chip type-checkup">{{
+                    row.appointment.type
+                  }}</span>
+                </td>
+                <td>
+                  <span class="status-badge status-confirmed" [classList]=""
+                    ><span class="s-dot"></span
+                    >{{ row.appointment.status }}</span
+                  >
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="8" class="empty-row">No appointments Today.</td>
+              </tr>
             }
           </tbody>
         </table>
       </div>
 
       <div class="table-footer">
-        <span class="footer-info">Showing {{todayAppointments.length}} of {{todayAppointments.length}}
-          {{todayAppointments.length>1?'appointments':'appointment'}} today</span>
-        <button class="btn-ghost" [routerLink]="['/',baseRoute,'appointments']">View all →</button>
+        <span class="footer-info"
+          >Showing {{ todayAppointments.length }} of
+          {{ todayAppointments.length }}
+          {{ todayAppointments.length > 1 ? "appointments" : "appointment" }}
+          today</span
+        >
+        <button
+          class="btn-ghost"
+          [routerLink]="['/', baseRoute, 'appointments']"
+        >
+          View all →
+        </button>
       </div>
     </div>
 
@@ -145,22 +199,28 @@
       <div class="side-card">
         <div class="card-header">
           <h3 class="card-title">On-Duty Doctors</h3>
-          <button class="btn-ghost-sm" [routerLink]="['/',baseRoute,'doctors']">View All</button>
+          <button
+            class="btn-ghost-sm"
+            [routerLink]="['/', baseRoute, 'doctors']"
+          >
+            View All
+          </button>
         </div>
         <div class="doctor-list">
-          @for(d of doctors;track d.id){
-          <div class="doctor-row">
-            <div class="avatar av-teal">{{d.initials}}</div>
-            <div class="doctor-info">
-              <div class="doctor-name">{{d.fullName}}</div>
-              <div class="doctor-spec">{{d.specialty}}</div>
+          @for (d of doctors; track d.id) {
+            <div class="doctor-row">
+              <div class="avatar av-teal">{{ d.initials }}</div>
+              <div class="doctor-info">
+                <div class="doctor-name">{{ d.fullName }}</div>
+                <div class="doctor-spec">{{ d.specialty }}</div>
+              </div>
+              <span class="duty-badge duty-active"
+                ><span class="s-dot"></span>{{ d.status }}</span
+              >
             </div>
-            <span class="duty-badge duty-active"><span class="s-dot"></span>{{d.status}}</span>
-          </div>
           }
         </div>
       </div>
-
     </div>
   </div>
 </div>

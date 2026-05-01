@@ -2427,7 +2427,7 @@
   "notifications": [
     {
       "id": "n1",
-      "userId": "11",
+      "userId": "6f02803a-6b1f-4c92-b930-f9bc26b1a7ed",
       "type": "appointment_reminder",
       "title": "Appointment Reminder",
       "message": "Your appointment with Dr. kareem khalifa is tomorrow at 09:00 AM",
@@ -2437,7 +2437,7 @@
     },
     {
       "id": "n2",
-      "userId": "2",
+      "userId": "6f02803a-6b1f-4c92-b930-f9bc26b1a7ed",
       "type": "new_appointment",
       "title": "New Appointment Request",
       "message": "Emily Davis has requested an appointment for Mar 4 at 10:00 AM",

@@ -1,3 +1,4 @@
+import { Notifications } from './../../../models/notification';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { DoctorsService } from '../../../core/services/doctors.service';
@@ -10,6 +11,7 @@ import { Doctor } from '../../../models/doctor';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { Chart } from 'chart.js';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationsService } from '../../../core/services/notifications.service';
 export interface AppointmentRow {
   appointment: Appointment;
   patient: Patient;
@@ -29,6 +31,7 @@ export class DashboardComponent {
     public _PatientService: PatientService,
     private _Router: Router,
     private _AppointmentService: AppointmentService,
+    private _NotificationsService:NotificationsService
   ) {}
   doctorsCount!: number;
   patientsCount!: number;
@@ -41,8 +44,15 @@ export class DashboardComponent {
   doctors!:Doctor[];
   todayRows!: AppointmentRow[];
   todayDate = dayjs().format('dddd,DD MMMM YYYY');
+  notifications:Notifications[]=[]
+
   td = dayjs().format('YYYY-MM-DD');
   ngOnInit() {
+       const  userId=this._AuthService.currentUser()!.id;
+  this._NotificationsService.getUserNotificationss(userId).subscribe((res)=>{
+        this.notifications=res;
+        console.log(this.notifications.length)
+     });
     this._DoctorsService.renderDoctors().subscribe((res) => {
       
       this.doctorsCount = res.length;
