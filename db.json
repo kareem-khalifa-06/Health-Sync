@@ -13,11 +13,11 @@
     },
     {
       "id": "2",
-      "email": "dr.kareem@healthsync.com",
+      "email": "dr.khadija@healthsync.com",
       "password": "doctor123",
       "role": "doctor",
-      "firstName": "kareem",
-      "lastName": "khalifa",
+      "firstName": "khadija",
+      "lastName": "elbakry",
       "phone": "+1-555-0101",
       "avatar": "https://i.pravatar.cc/150?img=47",
       "doctorId": "d1",
@@ -167,11 +167,11 @@
     },
     {
       "id": "613d64ba-a92c-45d4-983f-9065f6ab9290",
-      "email": "kareemkhalifa19@gmail.com",
-      "password": "kareem14@",
+      "email": "khadijaelbakry19@gmail.com",
+      "password": "khadija14@",
       "role": "doctor",
-      "firstName": "kareem",
-      "lastName": "khalifa",
+      "firstName": "khadija",
+      "lastName": "elbakry",
       "phone": "01111445265",
       "avatar": "",
       "createdAt": "2026-03-12T11:40:59.200Z"
@@ -297,11 +297,11 @@
     },
     {
       "id": "dd028d2b-41d2-48d1-bb2a-f0252617b5a2",
-      "email": "yahyakhalifa11@gmail.com",
+      "email": "yahyaelbakry11@gmail.com",
       "password": "Yahya11@@",
       "role": "patient",
       "firstName": "Yahya ",
-      "lastName": "khalifa",
+      "lastName": "elbakry",
       "phone": "01117594344",
       "avatar": "",
       "createdAt": "2026-04-03T13:35:16.990Z"
@@ -311,9 +311,9 @@
     {
       "id": "d1",
       "userId": "2",
-      "firstName": "kareem",
-      "lastName": "khalifa",
-      "fullName": "kareem khalifa",
+      "firstName": "khadija",
+      "lastName": "elbakry",
+      "fullName": "Dr.khadija elbakry",
       "initials": "KE",
       "avatarUrl": "https://i.pravatar.cc/150?img=3",
       "specialty": "Cardiology",
@@ -321,9 +321,9 @@
       "department": "Heart & Vascular",
       "hospital": "Metropolitan Heart Institute",
       "location": "New York, NY",
-      "email": "dr.kareem@healthsync.com",
+      "email": "dr.khadija@healthsync.com",
       "phone": "+1-555-0101",
-      "bio": "Dr. kareem khalifa is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
+      "bio": "Dr. khadija elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
       "status": "active",
       "isAvailableToday": true,
       "consultationFee": 10000,
@@ -1327,7 +1327,7 @@
       "patientInitials": "JR",
       "rating": 5,
       "date": "2026-02-12",
-      "comment": "Dr. khalifa is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
+      "comment": "Dr. elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
       "createdAt": "2026-02-12T11:00:00.000Z"
     },
     {
@@ -1338,7 +1338,7 @@
       "patientInitials": "ML",
       "rating": 5,
       "date": "2026-01-28",
-      "comment": "Dr. khalifa is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
+      "comment": "Dr. elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
       "createdAt": "2026-01-28T14:30:00.000Z"
     },
     {
@@ -1434,9 +1434,9 @@
     {
       "id": "p1",
       "userId": "11",
-      "firstName": "Johnny",
+      "firstName": "John",
       "lastName": "Smith",
-      "fullName": "Johnny Smith",
+      "fullName": "John Smith",
       "initials": "JS",
       "avatarUrl": "https://i.pravatar.cc/150?img=8",
       "dateOfBirth": "1985-06-15",
@@ -2073,6 +2073,22 @@
       "consultationFee": 0,
       "createdAt": "2026-04-05T11:53:18.034Z",
       "updatedAt": "2026-04-05T11:53:18.034Z"
+    },
+    {
+      "id": "a19",
+      "patientId": "p8",
+      "doctorId": "d1",
+      "appointmentDate": "2026-05-09",
+      "appointmentTime": "15:30",
+      "type": "Follow-up",
+      "reason": "",
+      "duration": 30,
+      "status": "confirmed",
+      "notes": "",
+      "slotId": "sch-d1-1777811321349",
+      "consultationFee": 0,
+      "createdAt": "2026-05-03T12:28:41.349Z",
+      "updatedAt": "2026-05-03T12:28:41.349Z"
     }
   ],
   "medicalRecords": [
@@ -2430,9 +2446,9 @@
       "userId": "6f02803a-6b1f-4c92-b930-f9bc26b1a7ed",
       "type": "appointment_reminder",
       "title": "Appointment Reminder",
-      "message": "Your appointment with Dr. kareem khalifa is tomorrow at 09:00 AM",
+      "message": "Your appointment with Dr. khadija elbakry is tomorrow at 09:00 AM",
       "appointmentId": "a1",
-      "read": false,
+      "read": true,
       "createdAt": "2026-03-03T09:00:00.000Z"
     },
     {
@@ -2442,7 +2458,7 @@
       "title": "New Appointment Request",
       "message": "Emily Davis has requested an appointment for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
-      "read": false,
+      "read": true,
       "createdAt": "2026-02-28T09:15:00.000Z"
     },
     {
@@ -2450,7 +2466,7 @@
       "userId": "12",
       "type": "appointment_confirmation",
       "title": "Appointment Confirmed",
-      "message": "Your appointment with Dr. kareem khalifa has been confirmed for Mar 4 at 10:00 AM",
+      "message": "Your appointment with Dr. khadija elbakry has been confirmed for Mar 4 at 10:00 AM",
       "appointmentId": "a2",
       "read": true,
       "createdAt": "2026-02-28T10:00:00.000Z"
@@ -2461,7 +2477,7 @@
       "type": "prescription_refill",
       "title": "Prescription Refill Reminder",
       "message": "Your prescription for Lisinopril needs refill in 5 days",
-      "read": false,
+      "read": true,
       "createdAt": "2026-02-27T08:00:00.000Z"
     },
     {
@@ -2627,7 +2643,7 @@
       "id": "dept1",
       "name": "Cardiology",
       "description": "Heart and cardiovascular system care",
-      "head": "Dr. kareem khalifa",
+      "head": "Dr. khadija elbakry",
       "headDoctorId": "d1",
       "totalDoctors": 5,
       "contactNumber": "+1-555-1001",
@@ -2790,7 +2806,7 @@
     "topDoctors": [
       {
         "doctorId": "d1",
-        "name": "Dr. kareem khalifa",
+        "name": "Dr. khadija elbakry",
         "totalAppointments": 7,
         "rating": 5
       },

@@ -16,6 +16,7 @@ import { DoctorsService } from '../../../core/services/doctors.service';
 
 import { Notifications } from '../../../models/notification';
 import { NotificationsService } from '../../../core/services/notifications.service';
+import { NotificationsDropdownComponent } from '../notifications-dropdown/notifications-dropdown.component';
 interface appointmentDetails {
   app: Appointment;
   patient: Patient;
@@ -25,7 +26,7 @@ interface appointmentDetails {
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
-  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink],
+  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink,NotificationsDropdownComponent],
   templateUrl: './patient-dashboard.component.html',
   styleUrl: './patient-dashboard.component.css',
 })
@@ -35,6 +36,8 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   notifications: Notifications[] = [];
   medicalRecords: MedicalRecord[] = [];
   baseRoute = this._AuthService.getBaseRoute();
+  unreadNotifications=this.notifications.filter((n)=>!n.read);
+  showNotifications = false;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -52,7 +55,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const userId = this._AuthService.currentUser()!.id;
     this._NotificationsService
-      .getUserNotificationss(userId)
+      .getUserNotifications(userId)
       .subscribe((res) => {
         this.notifications = res;
       });
@@ -135,5 +138,12 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  toggleNotifications(){
+    this.showNotifications=!this.showNotifications;
+  }
+  closeNotifications(){
+    this.showNotifications=false;
   }
 }

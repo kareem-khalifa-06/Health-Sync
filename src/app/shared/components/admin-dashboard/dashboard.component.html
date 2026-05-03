@@ -10,19 +10,33 @@
       </div>
     </div>
     <div class="top-bar-right">
-      <button class="icon-btn" title="Notifications">
-        <i class="bi bi-bell-fill"></i>
-        @if (notifications.length > 0) {
-          <span class="notif-dot">
-            {{ notifications.length > 99 ? "99+" : notifications.length }}
-          </span>
+      <div class="notif-wrap">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          (click)="toggleNotifications()"
+        >
+          <i class="bi bi-bell-fill"></i>
+          @if (unreadNotifications.length > 0) {
+            <span class="notif-dot">
+              {{ unreadNotifications.length > 99 ? "99+" : unreadNotifications.length }}
+            </span>
+          }
+        </button>
+
+        @if (showNotifications) {
+          <div class="notif-backdrop" (click)="closeNotifications()"></div>
+          <app-notifications-dropdown
+            [notifications]="notifications"
+            (closed)="closeNotifications()"
+          />
         }
-      </button>
-      <button class="icon-btn" title="Settings">
-        <i class="bi bi-gear-fill"></i>
+      </div>
+      <button class="btn-logout" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Log Out
       </button>
       <button class="avatar-btn" routerLink="user-profile" title="Profile">
-       KI
+        KI
       </button>
     </div>
   </div>

@@ -26,14 +26,28 @@
             <span class="nav-user-role">Patient</span>
           </div>
         </div>
-        <button class="icon-btn" title="Notifications">
+        <div class="notif-wrap">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          (click)="toggleNotifications()"
+        >
           <i class="bi bi-bell-fill"></i>
-          @if (notifications.length > 0) {
+          @if (unreadNotifications.length > 0) {
             <span class="notif-dot">
-              {{ notifications.length > 99 ? "99+" : notifications.length }}
+              {{ unreadNotifications.length > 99 ? "99+" : unreadNotifications.length }}
             </span>
           }
         </button>
+
+        @if (showNotifications) {
+          <div class="notif-backdrop" (click)="closeNotifications()"></div>
+          <app-notifications-dropdown
+            [notifications]="notifications"
+            (closed)="closeNotifications()"
+          />
+        }
+      </div>
         <div class="nav-divider"></div>
       }
       <button class="btn-logout" (click)="logout()">

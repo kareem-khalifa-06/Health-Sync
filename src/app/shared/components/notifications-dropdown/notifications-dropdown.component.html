@@ -1,1 +1,59 @@
-<p>Notificationss-dropdown works!</p>
+<div class="notif-dropdown">
+  <!-- Header -->
+  <div class="notif-header">
+    <div class="notif-header-left">
+      <span class="notif-title">Notifications</span>
+      @if (unread > 0) {
+        <span class="unread-badge">{{ unread }} new</span>
+      }
+    </div>
+    <div class="notif-header-right">
+      @if (unread > 0) {
+        <button class="btn-mark-all" (click)="markAllRead()">
+          Mark all read
+        </button>
+      }
+      <button class="btn-close-notif" (click)="closed.emit()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- List -->
+  <div class="notif-list">
+    @for (n of unreadNotifications(); track n.id) {
+      <div class="notif-item" [class.unread]="!n.read">
+        <div
+          class="notif-icon-wrap"
+          [style.background]="getIconBg(n.type)"
+          [style.color]="getIconColor(n.type)"
+        >
+          <i class="bi" [ngClass]="getIcon(n.type)"></i>
+        </div>
+        <div class="notif-body">
+          <p class="notif-message">{{ n.message }}</p>
+          <span class="notif-time">{{ timeAgo(n.createdAt) }}</span>
+        </div>
+        @if (!n.read) {
+          <span class="unread-dot"></span>
+        }
+      </div>
+    } @empty {
+      <div class="notif-empty">
+        <i class="bi bi-bell-slash"></i>
+        <p>You're all caught up!</p>
+      </div>
+    }
+  </div>
+
+  <!-- Footer -->
+  <div class="notif-footer">
+    <button class="btn-view-all" (click)="toggleFilters()">
+      @if (isFiltered) {
+        View Unread Notifications
+      } @else {
+        View all notifications
+      }
+    </button>
+  </div>
+</div>

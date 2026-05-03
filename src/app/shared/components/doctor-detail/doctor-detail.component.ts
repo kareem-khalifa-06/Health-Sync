@@ -130,7 +130,7 @@ export class DoctorDetailComponent implements OnInit {
       date: '2026-02-12',
       createdAt: '2026-02-12T11:00:00.000Z',
       comment:
-        'Dr.kareem khalifa is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.',
+        'Dr.khadija elbakry is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.',
     },
     {
       id: 'rev2',
@@ -142,7 +142,7 @@ export class DoctorDetailComponent implements OnInit {
       date: '2026-01-28',
       createdAt: '2026-01-28T14:30:00.000Z',
       comment:
-        'Dr.kareem khalifa is thorough, warm, and highly professional. Best cardiologist I have ever seen.',
+        'Dr.khadija elbakry is thorough, warm, and highly professional. Best cardiologist I have ever seen.',
     },
     {
       id: 'rev3',

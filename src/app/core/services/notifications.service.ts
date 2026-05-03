@@ -14,7 +14,7 @@ export class NotificationsService {
     return this._HttpClient.get<Notifications>(`${this.baseUrl}+${id}`);
   }
   markAsRead(n: Notifications): Observable<Notifications> {
-    return this._HttpClient.put<Notifications>(`${this.baseUrl}+${n.id}`, {
+    return this._HttpClient.put<Notifications>(`${this.baseUrl}${n.id}`, {
       ...n,
       read: true,
     });
@@ -23,7 +23,7 @@ export class NotificationsService {
     return this._HttpClient.post<Notifications>(`${this.baseUrl}`, n);
   }
 
-  getUserNotificationss(userId: string): Observable<Notifications[]> {
+  getUserNotifications(userId: string): Observable<Notifications[]> {
     return this._HttpClient
       .get<Notifications[]>(this.baseUrl)
       .pipe(map((res) => res.filter((n) => n.userId === userId)));

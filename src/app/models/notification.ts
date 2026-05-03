@@ -1,10 +1,10 @@
+
 export interface Notifications {
-  id: string;
-  userId: string;
-  type: string;
-  title: string;
-  message: string;
-  appointmentId: string;
-  read: boolean;
-  createdAt: Date;
+  id:        string;
+  userId:    string;
+  message:   string;
+  type:      'appointment' | 'reminder' | 'alert' | 'message';
+   appointmentId: string;
+  read:      boolean;
+  createdAt: string; 
 }

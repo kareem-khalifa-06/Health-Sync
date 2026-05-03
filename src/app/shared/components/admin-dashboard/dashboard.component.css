@@ -51,6 +51,16 @@
   flex-wrap: wrap;
 }
 
+.btn-logout {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  background: var(--red-lt); color: var(--red);
+  border: 1px solid #fca5a5; border-radius: 8px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; transition: all .15s;
+}
+.btn-logout:hover { background: var(--red); color: white; }
+
 .page-title {
   font-size: 22px;
   font-weight: 800;
@@ -143,6 +153,15 @@
   justify-content: center;
   padding: 0 4px;
   line-height: 1;
+}
+.notif-wrap {
+  position: relative;
+}
+ 
+.notif-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
 }
 
 .avatar-btn {

@@ -12,6 +12,8 @@ import { forkJoin, of, switchMap } from 'rxjs';
 import { Chart } from 'chart.js';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationsService } from '../../../core/services/notifications.service';
+import { CommonModule } from '@angular/common';
+import { NotificationsDropdownComponent } from '../notifications-dropdown/notifications-dropdown.component';
 export interface AppointmentRow {
   appointment: Appointment;
   patient: Patient;
@@ -20,7 +22,7 @@ export interface AppointmentRow {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule,NotificationsDropdownComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -44,19 +46,21 @@ export class DashboardComponent {
   doctors!:Doctor[];
   todayRows!: AppointmentRow[];
   todayDate = dayjs().format('dddd,DD MMMM YYYY');
-  notifications:Notifications[]=[]
+  notifications:Notifications[]=[];
+  unreadNotifications=this.notifications.filter((n)=>!n.read);
+  showNotifications = false;
 
   td = dayjs().format('YYYY-MM-DD');
   ngOnInit() {
        const  userId=this._AuthService.currentUser()!.id;
-  this._NotificationsService.getUserNotificationss(userId).subscribe((res)=>{
+  this._NotificationsService.getUserNotifications(userId).subscribe((res)=>{
         this.notifications=res;
         console.log(this.notifications.length)
      });
     this._DoctorsService.renderDoctors().subscribe((res) => {
       
       this.doctorsCount = res.length;
-      this.doctors = res.splice(0, 4);
+      this.doctors = res.splice(Math.floor(Math.random()*4), 4);
     });
     this._PatientService.getAllPatients().subscribe((res) => {
       this.patientsCount = res.length;
@@ -95,4 +99,14 @@ export class DashboardComponent {
         this.todayRows = rows;
       });
   }
+
+  toggleNotifications() {
+  this.showNotifications = !this.showNotifications;
+}
+ logout(){
+  this._AuthService.logout();
+ }
+closeNotifications() {
+  this.showNotifications = false;
+}
 }
