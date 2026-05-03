@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
 import { adminRoutes, patientsRoutes, reciptionstRoutes } from './routes/routs';
+import { patientGuard } from './core/guards/patient-guard.guard';
+import { recepionistGaurd } from './core/guards/recipionist-guard.guard';
+import { doctorGaurd } from './core/guards/doctor-guard.guard';
+import { adminGuard } from './core/guards/admin-guard.guard';
 
 export const routes: Routes = [
   {
@@ -21,7 +24,7 @@ export const routes: Routes = [
       import('./shared/layouts/admin-layout/admin-layout.component').then(
         (m) => m.AdminLayoutComponent,
       ),
-    canActivate: [authGuard],
+    canActivate: [adminGuard],
     children: adminRoutes,
   },
 
@@ -31,7 +34,7 @@ export const routes: Routes = [
       import('./shared/layouts/doctor-layout/doctor-layout.component').then(
         (m) => m.DoctorLayoutComponent,
       ),
-    canActivate: [authGuard],
+    canActivate: [doctorGaurd],
     children: [
       {
         path: '',
@@ -60,7 +63,7 @@ export const routes: Routes = [
       import('./shared/layouts/receptionist-layout/receptionist-layout.component').then(
         (m) => m.receptionistLayoutComponent,
       ),
-    canActivate: [authGuard],
+    canActivate: [recepionistGaurd],
     children: reciptionstRoutes,
   },
   {
@@ -69,7 +72,7 @@ export const routes: Routes = [
       import('./shared/layouts/patient-layout/patient-layout.component').then(
         (m) => m.PatientLayoutComponent,
       ),
-    canActivate: [authGuard],
+    canActivate:[patientGuard],
     children: patientsRoutes,
   },
 ];
