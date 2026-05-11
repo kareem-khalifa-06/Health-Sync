@@ -313,7 +313,7 @@
       "userId": "2",
       "firstName": "khadija",
       "lastName": "elbakry",
-      "fullName": "Dr.khadija elbakry",
+      "fullName": "Dr. khadija elbakry",
       "initials": "KE",
       "avatarUrl": "https://i.pravatar.cc/150?img=3",
       "specialty": "Cardiology",
@@ -326,7 +326,7 @@
       "bio": "Dr. khadija elbakry is a board-certified cardiologist with over 12 years of experience in treating heart conditions. She specializes in interventional cardiology and has helped hundreds of patients manage complex cardiovascular diseases with a patient-first approach.",
       "status": "active",
       "isAvailableToday": true,
-      "consultationFee": 10000,
+      "consultationFee": 11000,
       "experience": 12,
       "totalPatients": 847,
       "rating": 5,
@@ -374,39 +374,12 @@
         "Sunday",
         "Monday",
         "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
+        "Wednesday"
       ],
       "availableTimeSlots": [
         {
           "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "17:00"
-        },
-        {
-          "start": "09:00",
-          "end": "13:00"
+          "end": "15:00"
         }
       ]
     },
