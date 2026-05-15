@@ -1,6 +1,6 @@
 {
   "name": "health-sync",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "node --max-old-space-size=4096 node_modules/@angular/cli/bin/ng serve",
@@ -50,4 +50,14 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
   }
+  {
+  "name": "healthsync-api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
 }
