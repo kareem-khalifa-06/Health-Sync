@@ -1,16 +1,22 @@
 <div class="doctor-detail-wrapper">
-
   <!-- ─── Page Header ────────────────────────────────────────────────────── -->
   <div class="page-header">
     <app-back-button></app-back-button>
-
 
     <h1 class="page-title">Doctor Profile</h1>
 
     <div class="header-actions">
       <button class="btn-icon" aria-label="Share">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <circle cx="18" cy="5" r="3" />
           <circle cx="6" cy="12" r="3" />
           <circle cx="18" cy="19" r="3" />
@@ -18,9 +24,22 @@
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
         </svg>
       </button>
-      <button class="btn-icon" [class.saved]="isSaved" (click)="toggleSave()" aria-label="Save doctor">
-        <svg width="18" height="18" viewBox="0 0 24 24" [attr.fill]="isSaved ? '#0ea5e9' : 'none'" stroke="currentColor"
-          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button
+        class="btn-icon"
+        [class.saved]="isSaved"
+        (click)="toggleSave()"
+        aria-label="Save doctor"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          [attr.fill]="isSaved ? '#0ea5e9' : 'none'"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
         </svg>
       </button>
@@ -29,13 +48,16 @@
 
   <!-- ─── Profile Card ────────────────────────────────────────────────────── -->
   <div class="card profile-card">
-
     <!-- Avatar + Identity -->
     <div class="profile-identity">
       <div class="avatar-wrapper">
         <!-- avatarUrl → show image; else → show initials -->
-        <img *ngIf="doctor.avatarUrl; else initialsBlock" [src]="doctor.avatarUrl" [alt]="doctor.fullName"
-          class="avatar avatar-img" />
+        <img
+          *ngIf="doctor!.avatarUrl; else initialsBlock"
+          [src]="doctor.avatarUrl"
+          [alt]="doctor.fullName"
+          class="avatar avatar-img"
+        />
         <ng-template #initialsBlock>
           <div class="avatar">{{ doctor.initials }}</div>
         </ng-template>
@@ -46,20 +68,35 @@
         <div class="name-row">
           <h2 class="doctor-name">{{ doctor.fullName }}</h2>
           <span class="verified-badge" title="Verified">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
-              stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </span>
         </div>
         <!-- "Cardiology · MD, FACC" -->
-        <p class="specialty">{{ doctor.specialty }} · {{ doctor.qualifications.join(', ') }}</p>
+        <p class="specialty">
+          {{ doctor.specialty }} · {{ doctor.qualifications.join(", ") }}
+        </p>
         <p class="sub-specialty">{{ doctor.subSpecialty }}</p>
 
         <!-- doctor.rating / doctor.totalReviews — flat fields from db.json -->
         <div class="rating-row">
           <div class="stars">
-            <span *ngFor="let filled of getStarArray(doctor.rating)" class="star" [class.filled]="filled">★</span>
+            <span
+              *ngFor="let filled of getStarArray(doctor.rating)"
+              class="star"
+              [class.filled]="filled"
+              >★</span
+            >
           </div>
           <span class="rating-value">{{ doctor.rating }}</span>
           <span class="review-count">({{ doctor.totalReviews }} reviews)</span>
@@ -70,8 +107,16 @@
     <!-- Meta Row -->
     <div class="meta-row">
       <div class="meta-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0ea5e9"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
           <circle cx="12" cy="10" r="3" />
         </svg>
@@ -79,8 +124,16 @@
       </div>
       <div class="meta-divider"></div>
       <div class="meta-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0ea5e9"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
           <polyline points="9 22 9 12 15 12 15 22" />
         </svg>
@@ -88,13 +141,21 @@
       </div>
       <div class="meta-divider"></div>
       <div class="meta-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#0ea5e9"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <circle cx="12" cy="12" r="10" />
           <line x1="2" y1="12" x2="22" y2="12" />
           <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
         </svg>
-        <span>{{ doctor.languages.join(', ') }}</span>
+        <span>{{ doctor.languages.join(", ") }}</span>
       </div>
       <div class="meta-divider"></div>
       <div class="meta-item fee">
@@ -112,7 +173,9 @@
       </div>
       <div class="stat-card">
         <div class="stat-icon">👥</div>
-        <div class="stat-value">{{ formatPatientCount(doctor.totalPatients) }}</div>
+        <div class="stat-value">
+          {{ formatPatientCount(doctor.totalPatients) }}
+        </div>
         <div class="stat-label">Patients</div>
       </div>
       <div class="stat-card">
@@ -128,33 +191,42 @@
     </div>
 
     <!-- Availability Banner — doctor.isAvailableToday -->
-    <div class="availability-banner" [class.available]="handleDoctorAvailabilityStatus(doctor)"
-      [class.unavailable]="!handleDoctorAvailabilityStatus(doctor)">
+    <div
+      class="availability-banner"
+      [class.available]="handleDoctorAvailabilityStatus(doctor)"
+      [class.unavailable]="!handleDoctorAvailabilityStatus(doctor)"
+    >
       <div class="avail-left">
         <span class="avail-dot"></span>
-        <span>{{ handleDoctorAvailabilityStatus(doctor)? 'Available Today' : 'Not Available Today' }}</span>
+        <span>{{
+          handleDoctorAvailabilityStatus(doctor)
+            ? "Available Today"
+            : "Not Available Today"
+        }}</span>
       </div>
       <span *ngIf="handleDoctorAvailabilityStatus(doctor)" class="avail-slots">
-        {{ doctor.availableDays.length }} working days →
+        {{schedule.length }} working days →
       </span>
     </div>
-
   </div>
 
   <!-- ─── Tabs ─────────────────────────────────────────────────────────────── -->
   <div class="tabs-bar card">
-    <button *ngFor="let tab of tabs" class="tab-btn" [class.active]="activeTab === tab.key"
-      (click)="setActiveTab(tab.key)">
+    <button
+      *ngFor="let tab of tabs"
+      class="tab-btn"
+      [class.active]="activeTab === tab.key"
+      (click)="setActiveTab(tab.key)"
+    >
       <span class="tab-icon">{{ tab.icon }}</span>
       {{ tab.label }}
     </button>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
+  <!-- 
        OVERVIEW TAB
-  ════════════════════════════════════════════════════════════════════════ -->
+ -->
   <div *ngIf="activeTab === 'overview'" class="tab-content">
-
     <!-- About -->
     <div class="card section-card">
       <h3 class="section-title">About</h3>
@@ -198,7 +270,11 @@
     <div class="card section-card">
       <h3 class="section-title">Education & Training</h3>
       <div class="timeline">
-        <div *ngFor="let edu of doctor.education; let last = last" class="timeline-item" [class.last]="last">
+        <div
+          *ngFor="let edu of doctor.education; let last = last"
+          class="timeline-item"
+          [class.last]="last"
+        >
           <div class="timeline-icon">🎓</div>
           <div class="timeline-content">
             <div class="timeline-degree">{{ edu.degree }}</div>
@@ -228,26 +304,24 @@
         </span>
       </div>
     </div>
-
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
+  <!-- 
        SCHEDULE TAB
-       Source : schedule[]  ←  doctorSchedules[] filtered by doctorId
-       Shape  : { id, doctorId, day, date, dayShort,
-                  slots: [{ time: "09:00 AM", available: boolean }] }
-  ════════════════════════════════════════════════════════════════════════ -->
+ -->
   <div *ngIf="activeTab === 'schedule'" class="tab-content">
-
-    <!-- Day Selector — iterates schedule[], NOT doctor.schedule -->
     <div class="card section-card">
       <h3 class="section-title">Select a Day</h3>
       <div class="day-selector">
-        <button *ngFor="let day of schedule" class="day-btn" [class.active]="selectedDay?.id === day.id"
-          (click)="selectDay(day)">
+        <button
+          *ngFor="let day of schedule"
+          class="day-btn"
+          [class.active]="selectedDay?.id === day.id"
+          (click)="selectDay(day)"
+        >
           <span class="day-short">{{ day.dayShort }}</span>
-          <!-- day.date is "2026-03-04" — use date pipe -->
-          <span class="day-date">{{ day.date | date:'MMM d' }}</span>
+
+          <span class="day-date">{{ day.date | date: "MMM d" }}</span>
         </button>
       </div>
     </div>
@@ -256,22 +330,37 @@
     <div class="card section-card" *ngIf="selectedDay">
       <div class="slots-header">
         <h3 class="section-title">Available Slots</h3>
-        <span class="slots-day-label">{{ selectedDay.day }}, {{ selectedDay.date | date:'MMM d' }}</span>
+        <span class="slots-day-label"
+          >{{ selectedDay.day }}</span
+        >
       </div>
 
       <div class="slots-grid">
-        <button *ngFor="let slot of selectedDay.slots" class="slot-btn"
-          [class.active]="selectedSlot?.start === slot.start" [class.booked]="!slot.available"
-          [disabled]="!slot.available" (click)="selectSlot(slot)">
+        <button
+          *ngFor="let slot of selectedDay.slots"
+          class="slot-btn"
+          [class.active]="selectedSlot?.start === slot.start"
+          [class.booked]="!slot.available"
+          [disabled]="!slot.available"
+          (click)="selectSlot(slot)"
+        >
           <span class="slot-time">{{ slot.start }}</span>
-          <span class="slot-status">{{ slot.available ? 'Open' : 'Booked' }}</span>
+          <span class="slot-status">{{
+            slot.available ? "Open" : "Booked"
+          }}</span>
         </button>
       </div>
 
       <div class="slot-legend">
-        <div class="legend-item"><span class="legend-dot open"></span>Available</div>
-        <div class="legend-item"><span class="legend-dot booked"></span>Booked</div>
-        <div class="legend-item"><span class="legend-dot selected"></span>Selected</div>
+        <div class="legend-item">
+          <span class="legend-dot open"></span>Available
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot booked"></span>Booked
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot selected"></span>Selected
+        </div>
       </div>
     </div>
 
@@ -280,24 +369,28 @@
       <div class="confirm-icon">✅</div>
       <div class="confirm-text">
         <strong>Slot Selected</strong>
-        <span>{{ selectedDay?.day }}, {{ selectedDay?.date | date:'MMM d' }} at {{ selectedSlot.start }}</span>
+        <span
+          >{{ selectedDay?.day }}, {{ selectedDay?.date | date: "MMM d" }} at
+          {{ selectedSlot.start }}</span
+        >
       </div>
     </div>
 
     <!-- Working Schedule — doctor.availableDays[] + doctor.availableTimeSlots[] -->
     <div class="card section-card">
       <h3 class="section-title">Working Schedule</h3>
-      <div class="tag-list" style="margin-bottom: 12px;">
-        <span *ngFor="let d of doctor.availableDays" class="tag tag-primary">{{ d }}</span>
+      <div class="tag-list" style="margin-bottom: 12px">
+        <span *ngFor="let d of schedule" class="tag tag-primary">{{
+          d.day
+        }}</span>
       </div>
       <div class="info-grid">
-        <div *ngFor="let slot of doctor.availableTimeSlots" class="info-item">
+        <div *ngFor="let slot of selectedDay?.slots" class="info-item">
           <span class="info-label">Session</span>
           <span class="info-value">{{ slot.start }} – {{ slot.end }}</span>
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
@@ -306,52 +399,64 @@
        Shape  : { id, doctorId, patientId, patientName,
                   patientInitials, rating, date, comment, createdAt }
   ════════════════════════════════════════════════════════════════════════ -->
-  @if(activeTab==='reviews'){
-  <div class="tab-content">
-
-    <!-- Rating Summary — doctor.rating + doctor.totalReviews (flat fields) -->
-    <div class="card section-card rating-summary ">
-      <div class="rating-big">
-        <div class="rating-number">{{ doctor.rating }}</div>
-        <div class="stars">
-          <span *ngFor="let filled of getStarArray(doctor.rating)" class="star" [class.filled]="filled">★</span>
-        </div>
-        <div class="rating-total">{{ doctor.totalReviews }} reviews</div>
-      </div>
-
-      <!-- Bars computed live from reviews[] -->
-      <div class="rating-bars">
-        <div *ngFor="let star of [5, 4, 3, 2, 1]" class="rating-bar-row">
-          <span class="bar-label">{{ star }}★</span>
-          <div class="bar-track">
-            <div class="bar-fill" [style.width]="getRatingBarWidth(star)"></div>
+  @if (activeTab === "reviews") {
+    <div class="tab-content">
+      <!-- Rating Summary — doctor.rating + doctor.totalReviews (flat fields) -->
+      <div class="card section-card rating-summary">
+        <div class="rating-big">
+          <div class="rating-number">{{ doctor.rating }}</div>
+          <div class="stars">
+            <span
+              *ngFor="let filled of getStarArray(doctor.rating)"
+              class="star"
+              [class.filled]="filled"
+              >★</span
+            >
           </div>
-          <span class="bar-pct">{{ getRatingBarWidth(star) }}</span>
+          <div class="rating-total">{{ doctor.totalReviews }} reviews</div>
         </div>
-      </div>
-    </div>
 
-    <!-- Review Cards — reviews[], NOT doctor.reviews -->
-    <div class="card review-card" *ngFor="let review of reviews">
-      <div class="review-header">
-        <div class="reviewer-info">
-          <div class="reviewer-avatar">{{ review.patientInitials }}</div>
-          <div>
-            <div class="reviewer-name">{{ review.patientName }}</div>
-            <!-- review.date is "2026-02-12" ISO — pipe to readable format -->
-            <div class="review-date">{{ review.date | date:'MMM d, yyyy' }}</div>
+        <!-- Bars computed live from reviews[] -->
+        <div class="rating-bars">
+          <div *ngFor="let star of [5, 4, 3, 2, 1]" class="rating-bar-row">
+            <span class="bar-label">{{ star }}★</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                [style.width]="getRatingBarWidth(star)"
+              ></div>
+            </div>
+            <span class="bar-pct">{{ getRatingBarWidth(star) }}</span>
           </div>
         </div>
-        <div class="review-stars">
-          <span *ngFor="let filled of getStarArray(review.rating)" class="star sm" [class.filled]="filled">★</span>
-        </div>
       </div>
-      <p class="review-comment">{{ review.comment }}</p>
-    </div>
 
-  </div>
+      <!-- Review Cards — reviews[], NOT doctor.reviews -->
+      <div class="card review-card" *ngFor="let review of reviews">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">{{ review.patientInitials }}</div>
+            <div>
+              <div class="reviewer-name">{{ review.patientName }}</div>
+              <!-- review.date is "2026-02-12" ISO — pipe to readable format -->
+              <div class="review-date">
+                {{ review.date | date: "MMM d, yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span
+              *ngFor="let filled of getStarArray(review.rating)"
+              class="star sm"
+              [class.filled]="filled"
+              >★</span
+            >
+          </div>
+        </div>
+        <p class="review-comment">{{ review.comment }}</p>
+      </div>
+    </div>
   }
-
 
   <!-- ─── Sticky CTA ────────────────────────────────────────────────────────── -->
   <div class="sticky-cta">
@@ -360,10 +465,7 @@
         <span class="cta-fee">${{ doctor.consultationFee }}</span>
         <span class="cta-fee-label">/ session</span>
       </div>
-      <button class="btn-primary" (click)="bookAppointment()" [disabled]="activeTab === 'schedule' && !canBook">
-        {{ bookButtonLabel }}
-      </button>
+
     </div>
   </div>
-
 </div>

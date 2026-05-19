@@ -153,7 +153,7 @@ export class BookAppointmentFormComponent implements OnInit, OnDestroy {
         } else {
           this.bookingError = result.error ?? 'Booking failed.';
         }
-      });
+      }); 
   }
 
   onCancel() {

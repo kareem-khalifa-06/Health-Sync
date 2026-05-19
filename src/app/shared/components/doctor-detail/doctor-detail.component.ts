@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
+import { forkJoin } from 'rxjs';
+import { BookingPayload, BookingService } from '../../../core/services/booking.service';
 
 type TabType = 'overview' | 'schedule' | 'reviews';
 
@@ -23,15 +25,37 @@ type TabType = 'overview' | 'schedule' | 'reviews';
 export class DoctorDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   doctorService = inject(DoctorsService);
+  bookingService=inject(BookingService)
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor!: Doctor;
+  reviews: DoctorReview[] = [];
+  schedule: DoctorSchedule[] = [];
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.doctorService.getDoctorById(id!).subscribe((res) => {
-      this.doctor = res;
-    });
+    if (id) {
+      this.doctorService.getDoctorById(id).subscribe((res) => {
+        this.doctor = res;
+
+        this.doctorService
+          .getDoctorReviews(this.doctor.id)
+          .subscribe((reviewsRes) => {
+            this.reviews = reviewsRes;
+            console.log(this.reviews);
+          });
+
+        this.doctorService
+          .getDoctorSchedule(this.doctor.id)
+          .subscribe((scheduleRes) => {
+            this.schedule = scheduleRes.filter((d)=>d.enabled);
+            console.log(this.schedule);
+            if (this.schedule.length > 0) {
+              this.selectedDay = this.schedule[0];
+            }
+          });
+      });
+    }
   }
 
   activeTab: TabType = 'overview';
@@ -44,11 +68,6 @@ export class DoctorDetailComponent implements OnInit {
     { key: 'schedule', label: 'Schedule', icon: '📅' },
     { key: 'reviews', label: 'Reviews', icon: '⭐' },
   ];
-
-  
-  schedule: DoctorSchedule[] =[];
-  // ── reviews — matches db.json doctorReviews[] filtered by doctorId="d1" ────
-  reviews: DoctorReview[] =[];
 
   setActiveTab(tab: TabType): void {
     this.activeTab = tab;
@@ -70,6 +89,7 @@ export class DoctorDetailComponent implements OnInit {
   getStarArray(rating: number): boolean[] {
     return Array.from({ length: 5 }, (_, i) => i < Math.round(rating));
   }
+
   getRatingBarWidth(star: number): string {
     if (!this.reviews.length) return '0%';
     const count = this.reviews.filter(
@@ -81,25 +101,28 @@ export class DoctorDetailComponent implements OnInit {
   formatPatientCount(count: number): string {
     return count >= 1000 ? `${(count / 1000).toFixed(1)}k` : `${count}`;
   }
+
   get bookButtonLabel(): string {
     if (this.selectedDay && this.selectedSlot) {
       return `Confirm — ${this.selectedDay.dayShort}, ${this.selectedSlot.start}`;
     }
     return 'Book Appointment';
   }
+
   get canBook(): boolean {
     return !!(this.selectedDay && this.selectedSlot?.available);
   }
 
   bookAppointment(): void {
-    if (!this.canBook) return;
-    console.log('Booking payload:', {
-      doctorId: this.doctor.id,
-      scheduleId: this.selectedDay!.id,
-      day: this.selectedDay!.day,
-      date: this.selectedDay!.date,
-      time: this.selectedSlot!.start,
-      fee: this.doctor.consultationFee,
-    });
+  //   if (!this.canBook) return;
+  //  const Bookingpayload:BookingPayload={
+  //     doctorId: this.doctor.id,
+  //     scheduleId: this.selectedDay!.id,
+  //     day: this.selectedDay!.day,
+  //     date: this.selectedDay!.date,
+  //     time: this.selectedSlot!.start,
+  //     fee: this.doctor.consultationFee,
+  //   };
+    
   }
 }

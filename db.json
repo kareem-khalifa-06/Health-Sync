@@ -372,7 +372,6 @@
       ],
       "availableDays": [
         "Sunday",
-        "Tuesday",
         "Wednesday",
         "Thursday",
         "Friday",
@@ -387,21 +386,6 @@
         {
           "start": "10:00",
           "end": "11:00",
-          "available": true
-        },
-        {
-          "start": "10:00",
-          "end": "11:00",
-          "available": true
-        },
-        {
-          "start": "11:30",
-          "end": "12:30",
-          "available": true
-        },
-        {
-          "start": "14:00",
-          "end": "15:00",
           "available": true
         },
         {
@@ -1214,7 +1198,6 @@
       "id": "sch-d1-1",
       "doctorId": "d1",
       "day": "Sunday",
-      "date": "2026-03-01",
       "dayShort": "Sun",
       "enabled": true,
       "slots": [
@@ -1234,7 +1217,6 @@
       "id": "sch-d1-2",
       "doctorId": "d1",
       "day": "Monday",
-      "date": "2026-03-02",
       "dayShort": "Mon",
       "enabled": false,
       "slots": [
@@ -1259,9 +1241,8 @@
       "id": "sch-d1-3",
       "doctorId": "d1",
       "day": "Tuesday",
-      "date": "2026-03-03",
       "dayShort": "Tue",
-      "enabled": true,
+      "enabled": false,
       "slots": [
         {
           "start": "09:00",
@@ -1294,7 +1275,6 @@
       "id": "sch-d1-4",
       "doctorId": "d1",
       "day": "Wednesday",
-      "date": "2026-03-04",
       "dayShort": "Wed",
       "enabled": true,
       "slots": [
@@ -1329,7 +1309,6 @@
       "id": "sch-d1-5",
       "doctorId": "d1",
       "day": "Thursday",
-      "date": "2026-03-05",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -1364,7 +1343,6 @@
       "id": "sch-d1-6",
       "doctorId": "d1",
       "day": "Friday",
-      "date": "2026-03-06",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -1389,7 +1367,6 @@
       "id": "sch-d1-7",
       "doctorId": "d1",
       "day": "Saturday",
-      "date": "2026-03-07",
       "dayShort": "Sat",
       "enabled": true,
       "slots": [
@@ -1404,7 +1381,6 @@
       "id": "sch-d2-1",
       "doctorId": "d2",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -1413,7 +1389,6 @@
       "id": "sch-d2-2",
       "doctorId": "d2",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -1453,7 +1428,6 @@
       "id": "sch-d2-3",
       "doctorId": "d2",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -1488,7 +1462,6 @@
       "id": "sch-d2-4",
       "doctorId": "d2",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -1523,7 +1496,6 @@
       "id": "sch-d2-5",
       "doctorId": "d2",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -1558,7 +1530,6 @@
       "id": "sch-d2-6",
       "doctorId": "d2",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -1588,7 +1559,6 @@
       "id": "sch-d2-7",
       "doctorId": "d2",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -1597,7 +1567,6 @@
       "id": "sch-d3-1",
       "doctorId": "d3",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -1606,7 +1575,6 @@
       "id": "sch-d3-2",
       "doctorId": "d3",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -1641,7 +1609,6 @@
       "id": "sch-d3-3",
       "doctorId": "d3",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -1676,7 +1643,6 @@
       "id": "sch-d3-4",
       "doctorId": "d3",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -1706,7 +1672,6 @@
       "id": "sch-d3-5",
       "doctorId": "d3",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -1741,7 +1706,6 @@
       "id": "sch-d3-6",
       "doctorId": "d3",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -1771,7 +1735,6 @@
       "id": "sch-d3-7",
       "doctorId": "d3",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -1780,7 +1743,6 @@
       "id": "sch-d4-1",
       "doctorId": "d4",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -1789,7 +1751,6 @@
       "id": "sch-d4-2",
       "doctorId": "d4",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -1829,7 +1790,6 @@
       "id": "sch-d4-3",
       "doctorId": "d4",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -1864,7 +1824,6 @@
       "id": "sch-d4-4",
       "doctorId": "d4",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -1899,7 +1858,6 @@
       "id": "sch-d4-5",
       "doctorId": "d4",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -1929,7 +1887,6 @@
       "id": "sch-d4-6",
       "doctorId": "d4",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -1959,7 +1916,6 @@
       "id": "sch-d4-7",
       "doctorId": "d4",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -1968,7 +1924,6 @@
       "id": "sch-d5-1",
       "doctorId": "d5",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -1977,7 +1932,6 @@
       "id": "sch-d5-2",
       "doctorId": "d5",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2012,7 +1966,6 @@
       "id": "sch-d5-3",
       "doctorId": "d5",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2047,7 +2000,6 @@
       "id": "sch-d5-4",
       "doctorId": "d5",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": true,
       "slots": [
@@ -2077,7 +2029,6 @@
       "id": "sch-d5-5",
       "doctorId": "d5",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": false,
       "slots": [
@@ -2107,7 +2058,6 @@
       "id": "sch-d5-6",
       "doctorId": "d5",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -2137,7 +2087,6 @@
       "id": "sch-d5-7",
       "doctorId": "d5",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -2146,7 +2095,6 @@
       "id": "sch-d6-1",
       "doctorId": "d6",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -2155,7 +2103,6 @@
       "id": "sch-d6-2",
       "doctorId": "d6",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2190,7 +2137,6 @@
       "id": "sch-d6-3",
       "doctorId": "d6",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2225,7 +2171,6 @@
       "id": "sch-d6-4",
       "doctorId": "d6",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -2255,7 +2200,6 @@
       "id": "sch-d6-5",
       "doctorId": "d6",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -2290,7 +2234,6 @@
       "id": "sch-d6-6",
       "doctorId": "d6",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -2320,7 +2263,6 @@
       "id": "sch-d6-7",
       "doctorId": "d6",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -2329,7 +2271,6 @@
       "id": "sch-d7-1",
       "doctorId": "d7",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -2338,7 +2279,6 @@
       "id": "sch-d7-2",
       "doctorId": "d7",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2373,7 +2313,6 @@
       "id": "sch-d7-3",
       "doctorId": "d7",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2408,7 +2347,6 @@
       "id": "sch-d7-4",
       "doctorId": "d7",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -2438,7 +2376,6 @@
       "id": "sch-d7-5",
       "doctorId": "d7",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -2473,7 +2410,6 @@
       "id": "sch-d7-6",
       "doctorId": "d7",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -2498,7 +2434,6 @@
       "id": "sch-d7-7",
       "doctorId": "d7",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -2507,7 +2442,6 @@
       "id": "sch-d8-1",
       "doctorId": "d8",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -2516,7 +2450,6 @@
       "id": "sch-d8-2",
       "doctorId": "d8",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2556,7 +2489,6 @@
       "id": "sch-d8-3",
       "doctorId": "d8",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2591,7 +2523,6 @@
       "id": "sch-d8-4",
       "doctorId": "d8",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": true,
       "slots": [
@@ -2626,7 +2557,6 @@
       "id": "sch-d8-5",
       "doctorId": "d8",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": false,
       "slots": [
@@ -2656,7 +2586,6 @@
       "id": "sch-d8-6",
       "doctorId": "d8",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -2686,7 +2615,6 @@
       "id": "sch-d8-7",
       "doctorId": "d8",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -2695,7 +2623,6 @@
       "id": "sch-d9-1",
       "doctorId": "d9",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -2704,7 +2631,6 @@
       "id": "sch-d9-2",
       "doctorId": "d9",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2739,7 +2665,6 @@
       "id": "sch-d9-3",
       "doctorId": "d9",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2774,7 +2699,6 @@
       "id": "sch-d9-4",
       "doctorId": "d9",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -2809,7 +2733,6 @@
       "id": "sch-d9-5",
       "doctorId": "d9",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -2844,7 +2767,6 @@
       "id": "sch-d9-6",
       "doctorId": "d9",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -2874,7 +2796,6 @@
       "id": "sch-d9-7",
       "doctorId": "d9",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
@@ -2883,7 +2804,6 @@
       "id": "sch-d10-1",
       "doctorId": "d10",
       "day": "Sunday",
-      "date": "2026-03-08",
       "dayShort": "Sun",
       "enabled": false,
       "slots": []
@@ -2892,7 +2812,6 @@
       "id": "sch-d10-2",
       "doctorId": "d10",
       "day": "Monday",
-      "date": "2026-03-09",
       "dayShort": "Mon",
       "enabled": true,
       "slots": [
@@ -2932,7 +2851,6 @@
       "id": "sch-d10-3",
       "doctorId": "d10",
       "day": "Tuesday",
-      "date": "2026-03-10",
       "dayShort": "Tue",
       "enabled": true,
       "slots": [
@@ -2967,7 +2885,6 @@
       "id": "sch-d10-4",
       "doctorId": "d10",
       "day": "Wednesday",
-      "date": "2026-03-11",
       "dayShort": "Wed",
       "enabled": false,
       "slots": [
@@ -3007,7 +2924,6 @@
       "id": "sch-d10-5",
       "doctorId": "d10",
       "day": "Thursday",
-      "date": "2026-03-12",
       "dayShort": "Thu",
       "enabled": true,
       "slots": [
@@ -3032,7 +2948,6 @@
       "id": "sch-d10-6",
       "doctorId": "d10",
       "day": "Friday",
-      "date": "2026-03-13",
       "dayShort": "Fri",
       "enabled": true,
       "slots": [
@@ -3062,10 +2977,352 @@
       "id": "sch-d10-7",
       "doctorId": "d10",
       "day": "Saturday",
-      "date": "2026-03-14",
       "dayShort": "Sat",
       "enabled": false,
       "slots": []
+    }
+  ],
+  "doctorReviews": [
+    {
+      "id": "rev1",
+      "doctorId": "d1",
+      "patientId": "p1",
+      "patientName": "James Roberts",
+      "patientInitials": "JR",
+      "rating": 5,
+      "date": "2026-02-12",
+      "comment": "Dr. Kareem Khalifa is absolutely incredible. She took the time to explain everything clearly and made me feel at ease throughout. I would highly recommend her.",
+      "createdAt": "2026-02-12T11:00:00.000Z"
+    },
+    {
+      "id": "rev2",
+      "doctorId": "d1",
+      "patientId": "p2",
+      "patientName": "Maria Lopez",
+      "patientInitials": "ML",
+      "rating": 5,
+      "date": "2026-01-28",
+      "comment": "Dr.Kareem Khalifa is thorough, warm, and highly professional. Best cardiologist I have ever seen.",
+      "createdAt": "2026-01-28T14:30:00.000Z"
+    },
+    {
+      "id": "rev3",
+      "doctorId": "d1",
+      "patientId": "p3",
+      "patientName": "Thomas Brown",
+      "patientInitials": "TB",
+      "rating": 4,
+      "date": "2026-01-05",
+      "comment": "Great experience overall. Very knowledgeable and attentive. Highly recommend.",
+      "createdAt": "2026-01-05T10:00:00.000Z"
+    },
+    {
+      "id": "rev4",
+      "doctorId": "d1",
+      "patientId": "p4",
+      "patientName": "Sophia Chen",
+      "patientInitials": "SC",
+      "rating": 5,
+      "date": "2025-12-20",
+      "comment": "Exceptional doctor. Her expertise and compassion made my recovery journey much easier.",
+      "createdAt": "2025-12-20T09:00:00.000Z"
+    },
+    {
+      "id": "rev5",
+      "doctorId": "d2",
+      "patientId": "p5",
+      "patientName": "John Smith",
+      "patientInitials": "JS",
+      "rating": 5,
+      "date": "2026-02-01",
+      "comment": "Dr. Mitchell is brilliant. He diagnosed my condition accurately and explained every step of the treatment.",
+      "createdAt": "2026-02-01T13:00:00.000Z"
+    },
+    {
+      "id": "rev6",
+      "doctorId": "d2",
+      "patientId": "p6",
+      "patientName": "Sarah Johnson",
+      "patientInitials": "SJ",
+      "rating": 5,
+      "date": "2026-02-18",
+      "comment": "Dr. Mitchell's expertise in neurology is unmatched. He helped manage my migraines effectively.",
+      "createdAt": "2026-02-18T10:30:00.000Z"
+    },
+    {
+      "id": "rev7",
+      "doctorId": "d2",
+      "patientId": "p7",
+      "patientName": "Robert Williams",
+      "patientInitials": "RW",
+      "rating": 4,
+      "date": "2026-01-25",
+      "comment": "Very professional and thorough. The wait time was a bit long but overall good experience.",
+      "createdAt": "2026-01-25T09:15:00.000Z"
+    },
+    {
+      "id": "rev8",
+      "doctorId": "d3",
+      "patientId": "p8",
+      "patientName": "David Wilson",
+      "patientInitials": "DW",
+      "rating": 4,
+      "date": "2026-02-05",
+      "comment": "Dr. Sharma is great with children. My daughter felt comfortable during her checkup.",
+      "createdAt": "2026-02-05T09:15:00.000Z"
+    },
+    {
+      "id": "rev9",
+      "doctorId": "d3",
+      "patientId": "p9",
+      "patientName": "Emily Brown",
+      "patientInitials": "EB",
+      "rating": 5,
+      "date": "2026-01-20",
+      "comment": "Wonderful pediatrician! Very patient and explains everything in simple terms.",
+      "createdAt": "2026-01-20T11:00:00.000Z"
+    },
+    {
+      "id": "rev10",
+      "doctorId": "d3",
+      "patientId": "p10",
+      "patientName": "Michael Lee",
+      "patientInitials": "ML",
+      "rating": 5,
+      "date": "2025-12-15",
+      "comment": "Dr. Sharma has been our family pediatrician for 5 years. Always reliable and caring.",
+      "createdAt": "2025-12-15T14:30:00.000Z"
+    },
+    {
+      "id": "rev11",
+      "doctorId": "d4",
+      "patientId": "p11",
+      "patientName": "Lisa Martin",
+      "patientInitials": "LM",
+      "rating": 5,
+      "date": "2026-02-22",
+      "comment": "Dr. Hassan performed my knee replacement surgery. Recovery was smooth and pain was minimal.",
+      "createdAt": "2026-02-22T14:00:00.000Z"
+    },
+    {
+      "id": "rev12",
+      "doctorId": "d4",
+      "patientId": "p12",
+      "patientName": "Chris Evans",
+      "patientInitials": "CE",
+      "rating": 4,
+      "date": "2026-01-30",
+      "comment": "Very skilled orthopedic surgeon. Follow-up care was excellent.",
+      "createdAt": "2026-01-30T10:00:00.000Z"
+    },
+    {
+      "id": "rev13",
+      "doctorId": "d4",
+      "patientId": "p13",
+      "patientName": "Nancy Davis",
+      "patientInitials": "ND",
+      "rating": 5,
+      "date": "2025-12-10",
+      "comment": "Dr. Hassan saved my mobility! Forever grateful for his expertise.",
+      "createdAt": "2025-12-10T13:20:00.000Z"
+    },
+    {
+      "id": "rev14",
+      "doctorId": "d5",
+      "patientId": "p14",
+      "patientName": "Patricia Taylor",
+      "patientInitials": "PT",
+      "rating": 5,
+      "date": "2026-02-15",
+      "comment": "Dr. Chen is an exceptional dermatologist. Cleared my skin issues completely.",
+      "createdAt": "2026-02-15T11:45:00.000Z"
+    },
+    {
+      "id": "rev15",
+      "doctorId": "d5",
+      "patientId": "p15",
+      "patientName": "Richard White",
+      "patientInitials": "RW",
+      "rating": 4,
+      "date": "2026-01-18",
+      "comment": "Very knowledgeable about skin conditions. Would definitely recommend.",
+      "createdAt": "2026-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "rev16",
+      "doctorId": "d5",
+      "patientId": "p16",
+      "patientName": "Jennifer Garcia",
+      "patientInitials": "JG",
+      "rating": 5,
+      "date": "2025-12-05",
+      "comment": "Dr. Chen's cosmetic dermatology work is amazing. Natural results.",
+      "createdAt": "2025-12-05T15:30:00.000Z"
+    },
+    {
+      "id": "rev17",
+      "doctorId": "d6",
+      "patientId": "p17",
+      "patientName": "William Martinez",
+      "patientInitials": "WM",
+      "rating": 5,
+      "date": "2026-02-20",
+      "comment": "Dr. Thompson is the best OB-GYN. Makes you feel completely at ease.",
+      "createdAt": "2026-02-20T12:00:00.000Z"
+    },
+    {
+      "id": "rev18",
+      "doctorId": "d6",
+      "patientId": "p18",
+      "patientName": "Linda Rodriguez",
+      "patientInitials": "LR",
+      "rating": 5,
+      "date": "2026-01-10",
+      "comment": "Very compassionate and professional. Delivered both my babies safely.",
+      "createdAt": "2026-01-10T08:30:00.000Z"
+    },
+    {
+      "id": "rev19",
+      "doctorId": "d6",
+      "patientId": "p19",
+      "patientName": "Barbara Wilson",
+      "patientInitials": "BW",
+      "rating": 4,
+      "date": "2025-12-28",
+      "comment": "Good doctor but sometimes hard to get an appointment.",
+      "createdAt": "2025-12-28T10:45:00.000Z"
+    },
+    {
+      "id": "rev20",
+      "doctorId": "d7",
+      "patientId": "p20",
+      "patientName": "Joseph Anderson",
+      "patientInitials": "JA",
+      "rating": 5,
+      "date": "2026-02-25",
+      "comment": "Dr. Brooks is a lifesaver. His treatment plan for my back pain worked wonders.",
+      "createdAt": "2026-02-25T14:15:00.000Z"
+    },
+    {
+      "id": "rev21",
+      "doctorId": "d7",
+      "patientId": "p21",
+      "patientName": "Margaret Thomas",
+      "patientInitials": "MT",
+      "rating": 5,
+      "date": "2026-01-22",
+      "comment": "Very thorough physical therapist. Helped me recover from sports injury.",
+      "createdAt": "2026-01-22T11:30:00.000Z"
+    },
+    {
+      "id": "rev22",
+      "doctorId": "d7",
+      "patientId": "p22",
+      "patientName": "Charles Jackson",
+      "patientInitials": "CJ",
+      "rating": 4,
+      "date": "2025-12-18",
+      "comment": "Professional and knowledgeable staff. Would recommend.",
+      "createdAt": "2025-12-18T09:45:00.000Z"
+    },
+    {
+      "id": "rev23",
+      "doctorId": "d8",
+      "patientId": "p23",
+      "patientName": "Kevin Moore",
+      "patientInitials": "KM",
+      "rating": 5,
+      "date": "2026-02-10",
+      "comment": "Dr. Patel is a wonderful psychiatrist. She truly listens and provides effective treatment plans.",
+      "createdAt": "2026-02-10T11:45:00.000Z"
+    },
+    {
+      "id": "rev24",
+      "doctorId": "d8",
+      "patientId": "p24",
+      "patientName": "Amanda Lee",
+      "patientInitials": "AL",
+      "rating": 5,
+      "date": "2026-01-15",
+      "comment": "Dr. Patel helped me through a difficult time. So grateful for her support.",
+      "createdAt": "2026-01-15T13:00:00.000Z"
+    },
+    {
+      "id": "rev25",
+      "doctorId": "d8",
+      "patientId": "p25",
+      "patientName": "Steven Clark",
+      "patientInitials": "SC",
+      "rating": 4,
+      "date": "2025-12-08",
+      "comment": "Very understanding doctor. Medication management is excellent.",
+      "createdAt": "2025-12-08T10:00:00.000Z"
+    },
+    {
+      "id": "rev26",
+      "doctorId": "d9",
+      "patientId": "p26",
+      "patientName": "Anna Garcia",
+      "patientInitials": "AG",
+      "rating": 4,
+      "date": "2026-02-14",
+      "comment": "Dr. Kim helped me manage my diabetes effectively. Great doctor with excellent knowledge.",
+      "createdAt": "2026-02-14T13:20:00.000Z"
+    },
+    {
+      "id": "rev27",
+      "doctorId": "d9",
+      "patientId": "p27",
+      "patientName": "Daniel Moore",
+      "patientInitials": "DM",
+      "rating": 5,
+      "date": "2026-01-08",
+      "comment": "Excellent endocrinologist. My blood sugar levels are finally under control.",
+      "createdAt": "2026-01-08T08:30:00.000Z"
+    },
+    {
+      "id": "rev28",
+      "doctorId": "d9",
+      "patientId": "p28",
+      "patientName": "Rachel Adams",
+      "patientInitials": "RA",
+      "rating": 5,
+      "date": "2025-12-22",
+      "comment": "Dr. Kim is very thorough and takes time to explain everything.",
+      "createdAt": "2025-12-22T15:45:00.000Z"
+    },
+    {
+      "id": "rev29",
+      "doctorId": "d10",
+      "patientId": "p29",
+      "patientName": "Peter Nelson",
+      "patientInitials": "PN",
+      "rating": 5,
+      "date": "2026-02-28",
+      "comment": "Dr. Wright is an amazing ophthalmologist. Corrected my vision perfectly.",
+      "createdAt": "2026-02-28T11:15:00.000Z"
+    },
+    {
+      "id": "rev30",
+      "doctorId": "d10",
+      "patientId": "p30",
+      "patientName": "Catherine Hill",
+      "patientInitials": "CH",
+      "rating": 4,
+      "date": "2026-01-12",
+      "comment": "Very professional eye care. The LASIK procedure was painless.",
+      "createdAt": "2026-01-12T09:30:00.000Z"
+    },
+    {
+      "id": "rev31",
+      "doctorId": "d10",
+      "patientId": "p31",
+      "patientName": "Edward Baker",
+      "patientInitials": "EB",
+      "rating": 5,
+      "date": "2025-12-30",
+      "comment": "Dr. Wright has great bedside manner and is highly skilled. Best eye doctor in town.",
+      "createdAt": "2025-12-30T14:00:00.000Z"
     }
   ],
   "patients": [
@@ -3743,6 +4000,22 @@
       "consultationFee": 0,
       "createdAt": "2026-05-19T15:11:25.567Z",
       "updatedAt": "2026-05-19T15:11:25.567Z"
+    },
+    {
+      "id": "a21",
+      "patientId": "p3",
+      "doctorId": "d4",
+      "appointmentDate": "2026-05-21",
+      "appointmentTime": "09:00",
+      "type": "Consultation",
+      "reason": "",
+      "duration": 30,
+      "status": "pending",
+      "notes": "",
+      "slotId": "sch-d4-1779225547151",
+      "consultationFee": 0,
+      "createdAt": "2026-05-19T21:19:07.151Z",
+      "updatedAt": "2026-05-19T21:19:07.151Z"
     }
   ],
   "medicalRecords": [

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Doctor } from '../../models/doctor';
+import { Doctor, DoctorReview } from '../../models/doctor';
 import { DoctorSchedule } from '../../models/doctor';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ export class DoctorsService {
   _HttpClient = inject(HttpClient);
   base_url          = 'http://localhost:3000/doctors';
   schedule_url      = 'http://localhost:3000/doctorSchedules';
+  review_url      = 'http://localhost:3000/doctorReviews';
 
 
   addDoctor(newDoctor: Doctor): Observable<Doctor> {
@@ -34,6 +35,11 @@ export class DoctorsService {
   getDoctorSchedule(doctorId: string): Observable<DoctorSchedule[]> {
     return this._HttpClient.get<DoctorSchedule[]>(
       `${this.schedule_url}?doctorId=${doctorId}`
+    );
+  }
+  getDoctorReviews(doctorId: string): Observable<DoctorReview[]> {
+    return this._HttpClient.get<DoctorReview[]>(
+      `${this.review_url}?doctorId=${doctorId}`
     );
   }
 
