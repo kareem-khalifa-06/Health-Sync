@@ -100,12 +100,12 @@
                 >
                 <span
                   class="meta-chip"
-                  [class.chip-green]="doctor.isAvailableToday"
-                  [class.chip-red]="!doctor.isAvailableToday"
+                  [class.chip-green]="handleDoctorAvailabilityStatus(doctor)"
+                  [class.chip-red]="!handleDoctorAvailabilityStatus(doctor)"
                 >
                   <i class="bi bi-circle-fill" style="font-size: 7px"></i>
                   {{
-                    doctor.isAvailableToday ? "Available Today" : "Unavailable"
+                    handleDoctorAvailabilityStatus(doctor) ? "Available Today" : "Unavailable Today"
                   }}
                 </span>
               </div>
@@ -377,7 +377,7 @@
             </button>
           </div>
           <div class="schedule-list">
-            @for (day of scheduleDays; track day.name) {
+            @for (day of doctorSchedule; track day) {
               <div
                 class="schedule-row"
                 [class.schedule-row-active]="day.enabled"
@@ -385,29 +385,30 @@
                 <label class="day-toggle">
                   <input
                     type="checkbox"
-                    [name]="day.name"
+                    [name]="day.day"
                     [(ngModel)]="day.enabled"
                   />
                   <span class="toggle-slider"></span>
                 </label>
                 <span class="day-name" [class.day-name-muted]="!day.enabled">{{
-                  day.name.slice(0, 3)
+                  day.dayShort
                 }}</span>
                 @if (day.enabled) {
                   <div class="time-slots">
                     @for (slot of day.slots; track slot; let i = $index) {
-                      <div class="time-slot">
+                      @if(slot.available){
+                         <div class="time-slot">
                         <input
                           type="time"
                           class="time-input"
-                          [name]="'start-' + day.name + '-' + i"
+                          [name]="'start-' + slot.start + '-' + i"
                           [(ngModel)]="slot.start"
                         />
                         <span class="time-sep">—</span>
                         <input
                           type="time"
                           class="time-input"
-                          [name]="'end-' + day.name + '-' + i"
+                          [name]="'end-' + day.day + '-' + i"
                           [(ngModel)]="slot.end"
                         />
                         <button
@@ -419,6 +420,11 @@
                           <i class="bi bi-x"></i>
                         </button>
                       </div>
+                      }
+                      @else {
+
+                      }
+                     
                     }
                     <button
                       class="slot-add"

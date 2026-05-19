@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { forkJoin, interval, of, Subject, switchMap, takeUntil } from 'rxjs';
 import dayjs from 'dayjs';
 
@@ -9,8 +9,7 @@ import { AppointmentService } from '../../../core/services/appointments.service'
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { PatientService } from '../../../core/services/patient.service';
 import { BookingService } from '../../../core/services/booking.service';
-import { Appointment } from '../../../models/appointment';
-import { Doctor } from '../../../models/doctor';
+import { Doctor, DoctorSchedule } from '../../../models/doctor';
 import { AppointmentRow } from '../admin-dashboard/dashboard.component';
 
 // ── Types ────────────────────────────────────────────────────
@@ -41,16 +40,15 @@ export interface WeekDay {
   styleUrl: './doctor-schedule.component.css',
 })
 export class DoctorScheduleComponent implements OnInit, OnDestroy {
+  route = inject(ActivatedRoute);
   // ── Data ─────────────────────────────────────────────────
-  doctors: Doctor[] = [];
-  selectedDoctor: Doctor | null = null;
-  selectedDoctorId = '';
-
+  doctor!: Doctor;
+  doctorId = '';
   allRows: AppointmentRow[] = [];
   todayRows: AppointmentRow[] = [];
   weekDays: WeekDay[] = [];
   blockedSlots: BlockedSlot[] = [];
-
+  DoctorSchedule: DoctorSchedule[] = [];
   // ── View ─────────────────────────────────────────────────
   currentView: 'timeline' | 'week' = 'timeline';
 
@@ -109,29 +107,22 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._DoctorsService
-      .renderDoctors()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.doctors = res;
-        if (res.length > 0) {
-          this.selectedDoctorId = res[0].id;
-          this.selectedDoctor = res[0];
-          this.loadData();
-        }
-      });
+    this.doctorId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
+    this._DoctorsService.getDoctorById(this.doctorId).subscribe((res) => {
+      this.doctor = res;
+      console.log(this.doctor, this.doctorId);
+    });
+    this._DoctorsService.getDoctorSchedule(this.doctorId).subscribe({
+      next: (res) => {
+        this.DoctorSchedule = res;
+        console.log('Dijooo  ', this.DoctorSchedule);
+      }
+    });
 
     // Real-time refresh every 30s
     interval(30000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.loadData(true));
-  }
-
-  // ── Doctor switcher ───────────────────────────────────────
-  onDoctorChange(id: string) {
-    this.selectedDoctorId = id;
-    this.selectedDoctor = this.doctors.find((d) => d.id === id) ?? null;
-    this.loadData();
   }
 
   // ── Load appointments for selected doctor ─────────────────
@@ -143,7 +134,7 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         switchMap((apps) => {
-          const mine = apps.filter((a) => a.doctorId === this.selectedDoctorId);
+          const mine = apps.filter((a) => a.doctorId === this.doctorId);
           if (mine.length === 0) return of([]);
           return forkJoin(
             mine.map((a) =>
@@ -240,9 +231,9 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
   }
 
   loadBlockSlots(date: string) {
-    if (!date || !this.selectedDoctorId) return;
+    if (!date || !this.doctorId) return;
     this._BookingService
-      .getSlotStatuses(this.selectedDoctorId, date)
+      .getSlotStatuses(this.doctorId, date)
       .pipe(takeUntil(this.destroy$))
       .subscribe((slots) => {
         this.blockSlots = slots

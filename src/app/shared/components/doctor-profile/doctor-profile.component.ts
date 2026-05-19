@@ -7,14 +7,13 @@ import {
   FormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorsService } from '../../../core/services/doctors.service';
-import { Doctor } from '../../../models/doctor';
+import { Doctor, DoctorSchedule } from '../../../models/doctor';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { ConstantPool } from '@angular/compiler';
+import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
+import { catchError, concat, forkJoin, of, toArray } from 'rxjs';
 
 export interface ScheduleSlot {
   start: string;
@@ -38,13 +37,13 @@ export class DoctorProfileComponent implements OnInit {
   private _router = inject(Router);
   private _doctorsService = inject(DoctorsService);
   private _authService = inject(AuthService);
-
+  handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor: Doctor | undefined = undefined;
   doctorId = '';
   editMode = false;
   selectedFile: File | null = null;
   previewUrl: string | null = null;
-
+  doctorSchedule: DoctorSchedule[] = [];
   // ── Edit Form ────────────────────────────────────────────────
   editForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -62,48 +61,27 @@ export class DoctorProfileComponent implements OnInit {
     isAvailableToday: new FormControl(true),
   });
 
-  // ── Weekly Schedule ──────────────────────────────────────────
-  scheduleDays: ScheduleDay[] = [
-    { name: 'Sunday', enabled: false, slots: [] },
-    {
-      name: 'Monday',
-      enabled: true,
-      slots: [{ start: '09:00', end: '17:00' }],
-    },
-    {
-      name: 'Tuesday',
-      enabled: true,
-      slots: [{ start: '09:00', end: '17:00' }],
-    },
-    {
-      name: 'Wednesday',
-      enabled: true,
-      slots: [{ start: '09:00', end: '13:00' }],
-    },
-    {
-      name: 'Thursday',
-      enabled: true,
-      slots: [{ start: '09:00', end: '17:00' }],
-    },
-    { name: 'Friday', enabled: false, slots: [] },
-    { name: 'Saturday', enabled: false, slots: [] },
-  ];
-
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
-    console.log(this._route);
     this.doctorId = this._route.snapshot.parent?.paramMap.get('id') ?? '';
-    console.log(this.doctorId);
-    // Set active tab from current URL
+
     const url = this._router.url;
 
     this._doctorsService.getDoctorById(this.doctorId).subscribe({
       next: (doc) => {
         this.doctor = doc;
         console.log(doc);
-        this.syncScheduleFromDoctor(doc);
       },
       error: (err) => console.error('Failed to load doctor', err),
+    });
+    this._doctorsService.getDoctorSchedule(this.doctorId).subscribe({
+      next: (res) => {
+        this.doctorSchedule = res;
+        console.log(res);
+      },
+      error: () => {
+        console.log('Failed');
+      },
     });
   }
 
@@ -138,13 +116,18 @@ export class DoctorProfileComponent implements OnInit {
 
   saveProfile(): void {
     if (this.editForm.invalid || !this.doctor) return;
+
     const v = this.editForm.value;
+
     const updated: Doctor = {
       ...this.doctor,
       ...(v as Partial<Doctor>),
-      fullName: `${v.firstName} ${v.lastName}`,
+      fullName: `Dr. ${v.firstName} ${v.lastName}`,
+      // ← persist the new photo as avatarUrl
+      avatarUrl: this.previewUrl ?? this.doctor.avatarUrl,
     };
-    this._doctorsService.updateDoctor(updated,this.doctorId).subscribe({
+
+    this._doctorsService.updateDoctor(updated, this.doctorId).subscribe({
       next: () => {
         this.doctor = updated;
         this.editMode = false;
@@ -180,39 +163,50 @@ export class DoctorProfileComponent implements OnInit {
   }
 
   // ── Schedule ─────────────────────────────────────────────────
-  syncScheduleFromDoctor(doc: Doctor): void {
-    if (!doc.availableDays?.length) return;
-    this.scheduleDays = this.scheduleDays.map((d) => {
-      const enabled = doc.availableDays.includes(d.name);
-      const slots = doc.availableTimeSlots?.length
-        ? [...doc.availableTimeSlots]
-        : [{ start: '09:00', end: '17:00' }];
-      return { ...d, enabled, slots: enabled ? slots : [] };
-    });
-  }
+saveSchedule(): void {
+  if (!this.doctor) return;
 
-  addSlot(day: ScheduleDay): void {
-    day.slots.push({ start: '09:00', end: '17:00' });
+  const scheduleUpdates = this.doctorSchedule.map((d) =>
+    this._doctorsService.updateSchedule(d).pipe(
+      catchError((err) => {
+        console.error(`Failed to update schedule for ${d.day}`, err);
+        return of(null);
+      })
+    )
+  );
+
+  concat(...scheduleUpdates)
+    .pipe(toArray())
+    .subscribe({
+      next: () => {
+        const updatedDoctor: Doctor = {
+          ...this.doctor!,
+          availableDays: this.doctorSchedule
+            .filter((d) => d.enabled)
+            .map((d) => d.day),
+          availableTimeSlots: this.doctorSchedule
+            .filter((d) => d.enabled)
+            .flatMap((d) => d.slots.filter((s) => s.available)),
+        };
+
+        this._doctorsService
+          .updateDoctor(updatedDoctor, this.doctorId)
+          .subscribe({
+            next: (res) => {
+              this.doctor = res;
+              console.log('Schedule and doctor updated successfully');
+            },
+            error: (err) => console.error('Failed to update doctor', err),
+          });
+      },
+      error: (err) => console.error('Failed to update schedules', err),
+    });
+}
+  addSlot(day: DoctorSchedule) {
+    day.slots.push({ start: '09:00', end: '10:00', available: true });
   }
-  removeSlot(day: ScheduleDay, i: number): void {
+  removeSlot(day: DoctorSchedule, i: number) {
     day.slots.splice(i, 1);
-  }
-
-  saveSchedule(): void {
-    if (!this.doctor) return;
-    const updated: Doctor = {
-      ...this.doctor,
-      availableDays: this.scheduleDays
-        .filter((d) => d.enabled)
-        .map((d) => d.name),
-      availableTimeSlots: this.scheduleDays
-        .filter((d) => d.enabled)
-        .flatMap((d) => d.slots),
-    };
-    this._doctorsService.updateDoctor(updated,this.doctorId).subscribe({
-      next: () => (this.doctor = updated),
-      error: (err) => console.error('Schedule save failed', err),
-    });
   }
 
   logout() {

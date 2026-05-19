@@ -1,8 +1,3 @@
-// ─── doctor.model.ts ─────────────────────────────────────────────────────────
-// All interfaces match db.json structure 1-to-1
-// ─────────────────────────────────────────────────────────────────────────────
-
-// ── doctors[] ────────────────────────────────────────────────────────────────
 
 export interface DoctorEducation {
   degree: string; // "MD, FACC — Board-Certified Cardiologist"
@@ -16,12 +11,12 @@ export interface AvailableTimeSlot {
 }
 
 export interface Doctor {
-  id: string; // "d1"
-  userId: string; // "2"
+  id: string; 
+  userId: string; 
   firstName: string;
   lastName: string;
-  fullName: string; // "Dr. khadija elbakry"
-  initials: string; // "KE"
+  fullName: string;
+  initials: string; 
   avatarUrl: string;
   specialty: string; // "Cardiology"
   subSpecialty: string; // "Interventional Cardiology"
@@ -50,7 +45,8 @@ export interface Doctor {
 // ── doctorSchedules[] ────────────────────────────────────────────────────────
 
 export interface TimeSlot {
-  time: string; // "09:00 AM"
+  start: string;
+  end: string;
   available: boolean;
 }
 
@@ -60,6 +56,7 @@ export interface DoctorSchedule {
   day: string; // "Monday"
   date: string; // "2026-03-04"
   dayShort: string; // "Mon"
+  enabled:boolean;
   slots: TimeSlot[];
 }
 

@@ -64,7 +64,7 @@ export class PatientsListComponent {
 
   onSearch(search: string) {
     this.searchQuery = search;
-    console.log('khadija');
+    console.log('kareem');
     this.applyFilters();
   }
   onConditionFilter(query: string) {

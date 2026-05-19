@@ -534,6 +534,6 @@ export class AnalyticsComponent implements AfterViewInit {
     }
 
     doc.save(`analytics-report-${new Date().toISOString().slice(0, 10)}.pdf`);
-    console.log('khadija');
+    console.log('kareem');
   }
 }

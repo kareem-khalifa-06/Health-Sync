@@ -261,9 +261,9 @@
 
       <div class="slots-grid">
         <button *ngFor="let slot of selectedDay.slots" class="slot-btn"
-          [class.active]="selectedSlot?.time === slot.time" [class.booked]="!slot.available"
+          [class.active]="selectedSlot?.start === slot.start" [class.booked]="!slot.available"
           [disabled]="!slot.available" (click)="selectSlot(slot)">
-          <span class="slot-time">{{ slot.time }}</span>
+          <span class="slot-time">{{ slot.start }}</span>
           <span class="slot-status">{{ slot.available ? 'Open' : 'Booked' }}</span>
         </button>
       </div>
@@ -280,7 +280,7 @@
       <div class="confirm-icon">✅</div>
       <div class="confirm-text">
         <strong>Slot Selected</strong>
-        <span>{{ selectedDay?.day }}, {{ selectedDay?.date | date:'MMM d' }} at {{ selectedSlot.time }}</span>
+        <span>{{ selectedDay?.day }}, {{ selectedDay?.date | date:'MMM d' }} at {{ selectedSlot.start }}</span>
       </div>
     </div>
 
