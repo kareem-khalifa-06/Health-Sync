@@ -324,9 +324,15 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
         (r) => r.appointment.appointmentDate === this.dateFilter,
       );
 
-    this.filterAppointments.set(filtered);
-    this.currentPage = 1;
+    this.filterAppointments.set(
+  filtered.sort((a, b) => 
+    a.appointment.appointmentDate > b.appointment.appointmentDate ? -1 : 1
+  )
+);
+
+    this.currentPage =this.searchQuery?1:this.currentPage;
     if (this.currentView === 'calendar') this.buildCalendar();
+
   }
 
   onSearch(q: string) {

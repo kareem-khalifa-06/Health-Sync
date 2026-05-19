@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ConstantPool } from '@angular/compiler';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 import { catchError, concat, forkJoin, of, toArray } from 'rxjs';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 export interface ScheduleSlot {
   start: string;
@@ -37,6 +38,7 @@ export class DoctorProfileComponent implements OnInit {
   private _router = inject(Router);
   private _doctorsService = inject(DoctorsService);
   private _authService = inject(AuthService);
+  _toast=inject(ToastrService);
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor: Doctor | undefined = undefined;
   doctorId = '';
@@ -194,13 +196,17 @@ saveSchedule(): void {
           .subscribe({
             next: (res) => {
               this.doctor = res;
+              this._toast.success("Schedules Updated Successfully!!")
               console.log('Schedule and doctor updated successfully');
             },
             error: (err) => console.error('Failed to update doctor', err),
           });
       },
-      error: (err) => console.error('Failed to update schedules', err),
+      error: (err) => {console.error('Failed to update schedules', err)
+        this._toast.error("Failed to Update Schedule")
+      },
     });
+    
 }
   addSlot(day: DoctorSchedule) {
     day.slots.push({ start: '09:00', end: '10:00', available: true });

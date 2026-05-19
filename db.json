@@ -372,7 +372,6 @@
       ],
       "availableDays": [
         "Sunday",
-        "Monday",
         "Tuesday",
         "Wednesday",
         "Thursday",
@@ -380,11 +379,6 @@
         "Saturday"
       ],
       "availableTimeSlots": [
-        {
-          "start": "09:00",
-          "end": "10:00",
-          "available": true
-        },
         {
           "start": "09:00",
           "end": "10:00",
@@ -1228,6 +1222,11 @@
           "start": "09:00",
           "end": "10:00",
           "available": true
+        },
+        {
+          "start": "10:00",
+          "end": "11:00",
+          "available": true
         }
       ]
     },
@@ -1237,7 +1236,7 @@
       "day": "Monday",
       "date": "2026-03-02",
       "dayShort": "Mon",
-      "enabled": true,
+      "enabled": false,
       "slots": [
         {
           "start": "09:00",
