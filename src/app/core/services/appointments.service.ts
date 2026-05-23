@@ -11,7 +11,7 @@ import { AppointmentRow } from '../../shared/components/admin-dashboard/dashboar
 })
 export class AppointmentService {
   _HttpClient = inject(HttpClient);
-  base_url = 'http://localhost:3000/appointments';
+  base_url = 'https://health-sync-production-e86c.up.railway.app/appointments';
   today = dayjs().format('dddd MMMM YYYY');
 
   addAppointment(newAppointment: Appointment): Observable<Appointment> {
