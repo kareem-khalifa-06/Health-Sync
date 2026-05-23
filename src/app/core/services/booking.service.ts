@@ -4,6 +4,7 @@ import { Appointment } from '../../models/appointment';
 import { AppointmentService } from './appointments.service';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { _adapters } from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 export interface BookingPayload {
   patientId: string;
   doctorId: string;
@@ -33,6 +34,7 @@ export class BookingService {
   constructor(
     private _DoctorsService: DoctorsService,
     private _AppointmentService: AppointmentService,
+    private _Toastr: ToastrService,
   ) {}
 
   readonly ALL_SLOTS = [
@@ -138,6 +140,7 @@ export class BookingService {
           map((saved) => {
             this.id.update((id) => id + 1);
             this._simulateNotifications(saved);
+            this._Toastr.success('Appointment Booked Successfully');
             return <BookingResult>{ success: true, appointment: saved };
           }),
           catchError((err) => {

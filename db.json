@@ -4016,6 +4016,22 @@
       "consultationFee": 0,
       "createdAt": "2026-05-19T21:19:07.151Z",
       "updatedAt": "2026-05-19T21:19:07.151Z"
+    },
+    {
+      "id": "a22",
+      "patientId": "p10",
+      "doctorId": "d1",
+      "appointmentDate": "2026-05-31",
+      "appointmentTime": "12:30",
+      "type": "Consultation",
+      "reason": "",
+      "duration": 30,
+      "status": "pending",
+      "notes": "",
+      "slotId": "sch-d1-1779227615046",
+      "consultationFee": 0,
+      "createdAt": "2026-05-19T21:53:35.046Z",
+      "updatedAt": "2026-05-19T21:53:35.046Z"
     }
   ],
   "medicalRecords": [
