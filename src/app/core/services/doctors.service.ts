@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DoctorsService {
   _HttpClient = inject(HttpClient);
-  base_url = 'https://health-sync-production-e86c.up.railway.app/doctors';
+  base_url = 'health-sync-production-d340.up.railway.app/doctors';
   schedule_url =
-    'https://health-sync-production-e86c.up.railway.app/doctorSchedules';
+    'health-sync-production-d340.up.railway.app/doctorSchedules';
   review_url =
-    'https://health-sync-production-e86c.up.railway.app/doctorReviews';
+    'health-sync-production-d340.up.railway.app/doctorReviews';
 
   addDoctor(newDoctor: Doctor): Observable<Doctor> {
     return this._HttpClient.post<Doctor>(this.base_url, newDoctor);

@@ -8,7 +8,7 @@ import { ReturnStatement } from '@angular/compiler';
   providedIn: 'root',
 })
 export class PatientService {
-  base_url = 'https://health-sync-production-e86c.up.railway.app/patients';
+  base_url = 'health-sync-production-d340.up.railway.app/patients';
   constructor(private _HttpClient: HttpClient) {}
   getAllPatients(): Observable<Patient[]> {
     return this._HttpClient.get<Patient[]>(this.base_url);

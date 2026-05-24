@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private base_url = 'https://health-sync-production-e86c.up.railway.app';
+  private base_url = 'health-sync-production-d340.up.railway.app';
   currentUser = signal<User | null>(null);
   baseRouteMap: any = {
     admin: 'adminLayout',
