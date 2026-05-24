@@ -9,7 +9,7 @@ import { Observable, filter, map } from 'rxjs';
 export class NotificationsService {
   constructor(private _HttpClient: HttpClient) {}
 
-  baseUrl = 'http://localhost:3000/notifications/';
+  baseUrl = 'https://health-sync-production-d340.up.railway.app/notifications/';
   getNotificationsById(id: string): Observable<Notifications> {
     return this._HttpClient.get<Notifications>(`${this.baseUrl}+${id}`);
   }

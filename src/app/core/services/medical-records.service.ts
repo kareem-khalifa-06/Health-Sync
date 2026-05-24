@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class MedicalRecordsService {
   constructor(private _HttpClient: HttpClient) {}
- base_url = 'health-sync-production-d340.up.railway.app/medicalRecords';
+ base_url = 'https://health-sync-production-d340.up.railway.app/medicalRecords';
   today = dayjs().format('dddd MMMM YYYY');
 
   addMedicalRecord(newMedicalRecord: MedicalRecord): Observable<MedicalRecord> {
