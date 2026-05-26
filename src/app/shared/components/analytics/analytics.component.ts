@@ -56,7 +56,7 @@ export class AnalyticsComponent implements AfterViewInit {
   constructor(private _HttpClient: HttpClient) {}
   ngAfterViewInit() {
     this._HttpClient
-      .get<Statistics>('http://localhost:3000/statistics')
+      .get<Statistics>('https://health-sync-production-d340.up.railway.app/statistics')
       .subscribe((res) => {
         this.data = res;
         console.log(this.data);
