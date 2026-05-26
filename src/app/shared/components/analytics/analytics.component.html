@@ -1,188 +1,191 @@
 <div class="analytics-page">
-
-    <!-- ── Header ──────────────────────────────────────────────── -->
-    <div class="page-header">
-        <div class="page-header-left">
-            <h1 class="page-title">Analytics</h1>
-            <span class="total-badge">Overview</span>
-        </div>
-        <div class="page-header-right">
-         
-            <button class="btn-export" (click)="exportAsPDF()">
-                <i class="bi bi-download"></i> Export as PDF
-            </button>
-        </div>
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1 class="page-title">Analytics</h1>
+      <span class="total-badge">Overview</span>
     </div>
+    <div class="page-header-right">
+      <button
+        class="btn-export"
+        (click)="exportAsPDF()"
+        [disabled]="isExporting"
+      >
+        <i
+          class="bi"
+          [class.bi-download]="!isExporting"
+          [class.bi-hourglass-split]="isExporting"
+        ></i>
+        {{ isExporting ? "Generating..." : "Export as PDF" }}
+      </button>
+    </div>
+  </div>
 
-    @if(!data) {
+  @if (!data) {
     <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Loading statistics…</p>
+      <div class="spinner"></div>
+      <p>Loading statistics…</p>
     </div>
-    } @else  {
-
+  } @else {
     <!-- ── Metric Cards ─────────────────────────────────────────── -->
     <div class="metrics-grid">
-
-        <div class="metric-card" style="--accent:#2563eb; --accent-lt:#eff6ff;">
-            <div class="metric-top">
-                <div class="metric-icon" style="background:#eff6ff; color:#2563eb;">
-                    <i class="bi bi-calendar-check-fill"></i>
-                </div>
-                <span class="metric-trend trend-up">
-                    <i class="bi bi-check-circle"></i>
-                    {{data.completedAppointments}} completed
-                </span>
-            </div>
-            <div class="metric-value">{{data.totalAppointments}}</div>
-            <div class="metric-label">Total Appointments</div>
-            <div class="metric-sub-row">
-                <span class="sub-pill sub-pending">{{data.pendingAppointments}} pending</span>
-                <span class="sub-pill sub-cancelled">{{data.cancelledAppointments}} cancelled</span>
-            </div>
+      <div class="metric-card" style="--accent: #2563eb; --accent-lt: #eff6ff">
+        <div class="metric-top">
+          <div class="metric-icon" style="background: #eff6ff; color: #2563eb">
+            <i class="bi bi-calendar-check-fill"></i>
+          </div>
+          <span class="metric-trend trend-up">
+            <i class="bi bi-check-circle"></i>
+            {{ data.completedAppointments }} completed
+          </span>
         </div>
-
-        <div class="metric-card" style="--accent:#059669; --accent-lt:#d1fae5;">
-            <div class="metric-top">
-                <div class="metric-icon" style="background:#d1fae5; color:#059669;">
-                    <i class="bi bi-currency-dollar"></i>
-                </div>
-                <span class="metric-trend trend-up">
-                    <i class="bi bi-arrow-up"></i> This month
-                </span>
-                <select class="filter-select" name="dateFilter" [(ngModel)]="timeFilter">
-                    <option value="today">Today</option>
-                    <option value="month">This Month</option>
-                    <option value="week">This Week</option>
-                    <option value="year">This Year</option>
-                </select>
-            </div>
-            <div class="metric-value">
-                {{currentRevenue}} $
-            </div>
-           
-            @switch (timeFilter) {
-            @case ('month') {
-            <div class="metric-label">
-                Monthly
-                Revenue</div>
-            }
-            @case ('year') {
-            <div class="metric-label">
-                Yearly
-                Revenue</div>
-            }
-            @case ('today') {
-            <div class="metric-label">
-                Today's
-                Revenue</div>
-            }
-            @case ('week') {
-            <div class="metric-label">
-                Weekly
-                Revenue</div>
-            }
-            }
+        <div class="metric-value">{{ data.totalAppointments }}</div>
+        <div class="metric-label">Total Appointments</div>
+        <div class="metric-sub-row">
+          <span class="sub-pill sub-pending"
+            >{{ data.pendingAppointments }} pending</span
+          >
+          <span class="sub-pill sub-cancelled"
+            >{{ data.cancelledAppointments }} cancelled</span
+          >
         </div>
+      </div>
 
-        <div class="metric-card" style="--accent:#7c3aed; --accent-lt:#f3e8ff;">
-            <div class="metric-top">
-                <div class="metric-icon" style="background:#f3e8ff; color:#7c3aed;">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <span class="metric-trend trend-up">
-                    <i class="bi bi-arrow-up"></i> Active
-                </span>
-            </div>
-            <div class="metric-value">{{totalPatients}}</div>
-            <div class="metric-label">Total Patients</div>
+      <div class="metric-card" style="--accent: #059669; --accent-lt: #d1fae5">
+        <div class="metric-top">
+          <div class="metric-icon" style="background: #d1fae5; color: #059669">
+            <i class="bi bi-currency-dollar"></i>
+          </div>
+          <span class="metric-trend trend-up">
+            <i class="bi bi-arrow-up"></i> This month
+          </span>
+          <select
+            class="filter-select"
+            name="dateFilter"
+            [(ngModel)]="timeFilter"
+          >
+            <option value="today">Today</option>
+            <option value="month">This Month</option>
+            <option value="week">This Week</option>
+            <option value="year">This Year</option>
+          </select>
         </div>
+        <div class="metric-value">{{ currentRevenue }} $</div>
 
-        <div class="metric-card" style="--accent:#d97706; --accent-lt:#fef3c7;">
-            <div class="metric-top">
-                <div class="metric-icon" style="background:#fef3c7; color:#d97706;">
-                    <i class="bi bi-person-badge-fill"></i>
-                </div>
-                <span class="metric-trend trend-neutral">
-                    <i class="bi bi-check-circle"></i> All active
-                </span>
-            </div>
-            <div class="metric-value">{{activeDoctors}}</div>
-            <div class="metric-label">Active Doctors</div>
-            <div class="metric-sub-row">
-                <span class="sub-pill sub-neutral">{{totalDepartments}} departments</span>
-            </div>
+        @switch (timeFilter) {
+          @case ("month") {
+            <div class="metric-label">Monthly Revenue</div>
+          }
+          @case ("year") {
+            <div class="metric-label">Yearly Revenue</div>
+          }
+          @case ("today") {
+            <div class="metric-label">Today's Revenue</div>
+          }
+          @case ("week") {
+            <div class="metric-label">Weekly Revenue</div>
+          }
+        }
+      </div>
+
+      <div class="metric-card" style="--accent: #7c3aed; --accent-lt: #f3e8ff">
+        <div class="metric-top">
+          <div class="metric-icon" style="background: #f3e8ff; color: #7c3aed">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <span class="metric-trend trend-up">
+            <i class="bi bi-arrow-up"></i> Active
+          </span>
         </div>
+        <div class="metric-value">{{ totalPatients }}</div>
+        <div class="metric-label">Total Patients</div>
+      </div>
 
+      <div class="metric-card" style="--accent: #d97706; --accent-lt: #fef3c7">
+        <div class="metric-top">
+          <div class="metric-icon" style="background: #fef3c7; color: #d97706">
+            <i class="bi bi-person-badge-fill"></i>
+          </div>
+          <span class="metric-trend trend-neutral">
+            <i class="bi bi-check-circle"></i> All active
+          </span>
+        </div>
+        <div class="metric-value">{{ activeDoctors }}</div>
+        <div class="metric-label">Active Doctors</div>
+        <div class="metric-sub-row">
+          <span class="sub-pill sub-neutral"
+            >{{ totalDepartments }} departments</span
+          >
+        </div>
+      </div>
     </div>
 
     <!-- ── Status breakdown ──────────────────────────────────────── -->
     <div class="status-row">
-        <div class="status-cell status-confirmed">
-            <i class="bi bi-check-circle-fill"></i>
-            <div>
-                <span
-                    class="status-count">{{data.totalAppointments-data.completedAppointments-data.cancelledAppointments-data.pendingAppointments}}</span>
-                <span class="status-label">Confirmed</span>
-            </div>
+      <div class="status-cell status-confirmed">
+        <i class="bi bi-check-circle-fill"></i>
+        <div>
+          <span class="status-count">{{
+            data.totalAppointments -
+              data.completedAppointments -
+              data.cancelledAppointments -
+              data.pendingAppointments
+          }}</span>
+          <span class="status-label">Confirmed</span>
         </div>
-        <div class="status-cell status-completed">
-            <i class="bi bi-patch-check-fill"></i>
-            <div>
-                <span class="status-count">{{data.completedAppointments}}</span>
-                <span class="status-label">Completed</span>
-            </div>
+      </div>
+      <div class="status-cell status-completed">
+        <i class="bi bi-patch-check-fill"></i>
+        <div>
+          <span class="status-count">{{ data.completedAppointments }}</span>
+          <span class="status-label">Completed</span>
         </div>
-        <div class="status-cell status-pending">
-            <i class="bi bi-hourglass-split"></i>
-            <div>
-                <span class="status-count">{{data.pendingAppointments}}</span>
-                <span class="status-label">Pending</span>
-            </div>
+      </div>
+      <div class="status-cell status-pending">
+        <i class="bi bi-hourglass-split"></i>
+        <div>
+          <span class="status-count">{{ data.pendingAppointments }}</span>
+          <span class="status-label">Pending</span>
         </div>
-        <div class="status-cell status-cancelled">
-            <i class="bi bi-x-circle-fill"></i>
-            <div>
-                <span class="status-count">{{data.cancelledAppointments}}</span>
-                <span class="status-label">Cancelled</span>
-            </div>
+      </div>
+      <div class="status-cell status-cancelled">
+        <i class="bi bi-x-circle-fill"></i>
+        <div>
+          <span class="status-count">{{ data.cancelledAppointments }}</span>
+          <span class="status-label">Cancelled</span>
         </div>
+      </div>
+    </div>
+  }
+  <!-- ── Charts Row ────────────────────────────────────────────── -->
+
+  <div class="charts-row" [hidden]="!data">
+    <div class="chart-card chart-wide">
+      <div class="chart-card-header">
+        <div>
+          <h2 class="chart-title">Appointments by Day</h2>
+          <p class="chart-subtitle">Weekly distribution</p>
+        </div>
+        <div class="chart-legend">
+          <span class="legend-dot" style="background: #2563eb"></span>
+          <span class="legend-label">Appointments</span>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas #appointmentsChart></canvas>
+      </div>
     </div>
 
-
-
-    }
-    <!-- ── Charts Row ────────────────────────────────────────────── -->
-
-    <div class="charts-row" [hidden]="!data">
-
-        <div class="chart-card chart-wide">
-            <div class="chart-card-header">
-                <div>
-                    <h2 class="chart-title">Appointments by Day</h2>
-                    <p class="chart-subtitle">Weekly distribution</p>
-                </div>
-                <div class="chart-legend">
-                    <span class="legend-dot" style="background:#2563eb;"></span>
-                    <span class="legend-label">Appointments</span>
-                </div>
-            </div>
-            <div class="chart-wrap">
-                <canvas #appointmentsChart></canvas>
-            </div>
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <div>
+          <h2 class="chart-title">Top Doctors</h2>
+          <p class="chart-subtitle">By appointment count</p>
         </div>
-
-        <div class="chart-card">
-            <div class="chart-card-header">
-                <div>
-                    <h2 class="chart-title">Top Doctors</h2>
-                    <p class="chart-subtitle">By appointment count</p>
-                </div>
-            </div>
-            <div class="chart-wrap">
-                <canvas #topDoctorsChart></canvas>
-            </div>
-        </div>
-
+      </div>
+      <div class="chart-wrap">
+        <canvas #topDoctorsChart></canvas>
+      </div>
     </div>
+  </div>
 </div>
