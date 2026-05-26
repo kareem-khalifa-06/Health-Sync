@@ -1,8 +1,6 @@
 <div class="login-page">
-
   <!-- ── Left Branding ─────────────────────────────────────────── -->
   <section class="branding-panel">
-
     <!-- Background decoration -->
     <div class="bg-circle bg-circle-1"></div>
     <div class="bg-circle bg-circle-2"></div>
@@ -11,7 +9,9 @@
     <div class="branding-content">
       <div class="brand-logo">
         <div class="brand-icon"><i class="bi bi-prescription2"></i></div>
-        <span class="brand-name">Health<span class="brand-accent">Sync</span></span>
+        <span class="brand-name"
+          >Health<span class="brand-accent">Sync</span></span
+        >
       </div>
 
       <p class="brand-tagline">Modern Healthcare<br />Management System</p>
@@ -38,19 +38,23 @@
   <!-- ── Right Form ─────────────────────────────────────────────── -->
   <section class="form-panel">
     <div class="form-card">
-
       <div class="form-header">
         <h2 class="form-title">Welcome back</h2>
         <p class="form-subtitle">Sign in to your Account</p>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
         <div class="field-group">
           <label class="field-label" for="email">Email address</label>
           <div class="input-wrap">
             <i class="bi bi-envelope input-icon"></i>
-            <input type="email" id="email" class="field-input" placeholder="you@example.com" formControlName="email" />
+            <input
+              type="email"
+              id="email"
+              class="field-input"
+              placeholder="you@example.com"
+              formControlName="email"
+            />
           </div>
         </div>
 
@@ -58,20 +62,55 @@
           <label class="field-label" for="password">Password</label>
           <div class="input-wrap">
             <i class="bi bi-lock input-icon"></i>
-            <input type="password" id="password" class="field-input" placeholder="Enter your password"
-              formControlName="password" />
+            <input
+              type="password"
+              id="password"
+              class="field-input"
+              placeholder="Enter your password"
+              formControlName="password"
+            />
           </div>
         </div>
-
-
 
         <button type="submit" class="btn-submit">
           <span>Sign In</span>
           <i class="bi bi-arrow-right"></i>
         </button>
-
       </form>
+      <div class="demo-box">
+        <div class="demo-header">
+          <i class="fa-solid fa-circle-info"></i>
+          Demo Credentials
+        </div>
+        <div class="cred-row">
+          <div class="cred-dot admin-dot"></div>
+          <div class="cred-info">
+            <span class="cred-role">Admin</span>
+            <span class="cred-value">karemkhalifa&#64;gmail.com / kareem20</span>
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-dot doctor-dot"></div>
+          <div class="cred-info">
+            <span class="cred-role">Doctor</span>
+            <span class="cred-value">dr.kareem&#64;healthsync.com / doctor123</span>
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-dot patient-dot"></div>
+          <div class="cred-info">
+            <span class="cred-role">Pateint</span>
+            <span class="cred-value">john.patient&#64;email.com / patient123</span>
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-dot recepionist-dot"></div>
+          <div class="cred-info">
+            <span class="cred-role">Recepionist</span>
+            <span class="cred-value">receptionist&#64;healthsync.com /recep123</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-
 </div>
