@@ -99,7 +99,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   // ── Real-time ────────────────────────────────────────────────
   private destroy$ = new Subject<void>();
-  private readonly REFRESH_INTERVAL = 3000; // 30 seconds
+  private readonly REFRESH_INTERVAL = 30000;
 
   td = dayjs().format('YYYY-MM-DD');
 
@@ -117,10 +117,9 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => (this.doctors = res));
 
-    // Initial load
     this.loadData();
 
-    // ── Task 4: Real-time polling every 30s ──────────────────
+   
     interval(this.REFRESH_INTERVAL)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.loadData(true));
@@ -129,45 +128,46 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   loadData(silent = false) {
     if (!silent) this.isLoading = true;
 
-    this._AppointmentService
-      .renderAppointments()
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap((apps) => {
-          this.appointments.set(apps);
-          this.todayAppointments = apps.filter(
+    forkJoin({
+      appointments: this._AppointmentService.renderAppointments(),
+      patients: this._PatientService.getAllPatients(),
+      doctors: this._DoctorsService.renderDoctors(),
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: ({ appointments, patients, doctors }) => {
+          // Build lookup maps — O(1) access instead of HTTP
+          const patientMap = new Map(patients.map((p) => [p.id, p]));
+          const doctorMap = new Map(doctors.map((d) => [d.id, d]));
+
+          this.appointments.set(appointments);
+          this.todayAppointments = appointments.filter(
             (a) => a.appointmentDate === this.td,
           );
-          this.pendingAppointments = apps.filter((a) => a.status === 'pending');
-          this.confirmedAppointments = apps.filter(
+          this.pendingAppointments = appointments.filter(
+            (a) => a.status === 'pending',
+          );
+          this.confirmedAppointments = appointments.filter(
             (a) => a.status === 'confirmed',
           );
-          this.cancelledAppointments = apps.filter(
+          this.cancelledAppointments = appointments.filter(
             (a) => a.status === 'cancelled',
           );
-          this.completedAppointments = apps.filter(
+          this.completedAppointments = appointments.filter(
             (a) => a.status === 'completed',
           );
 
-          if (apps.length === 0) return of([]);
+        
+          this.appointmentRows = appointments
+            .filter(
+              (a) => patientMap.has(a.patientId) && doctorMap.has(a.doctorId),
+            )
+            .map((a) => ({
+              appointment: a,
+              patient: patientMap.get(a.patientId)!,
+              doctor: doctorMap.get(a.doctorId)!,
+            }));
 
-          return forkJoin(
-            apps.map((a) =>
-              forkJoin({
-                patient: this._PatientService.getPatientById(a.patientId),
-                doctor: this._DoctorsService.getDoctorById(a.doctorId),
-              }).pipe(
-                switchMap(({ patient, doctor }) =>
-                  of({ appointment: a, patient, doctor }),
-                ),
-              ),
-            ),
-          );
-        }),
-      )
-      .subscribe({
-        next: (rows) => {
-          this.appointmentRows = rows;
           this.applyFilters();
           this.buildCalendar();
           this.isLoading = false;
@@ -179,25 +179,24 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  // ── Task 1: Status update with optimistic UI + rollback ──────
+
   updateStatus(
     row: AppointmentRow,
     status: 'cancelled' | 'confirmed' | 'completed',
   ) {
     const previous = row.appointment.status;
-    row.appointment.status = status; // optimistic update
+    row.appointment.status = status; 
     this.applyFilters();
 
     this._AppointmentService.updateAppointment(row.appointment).subscribe({
       next: () => this.loadData(true),
       error: () => {
-        row.appointment.status = previous; // rollback
+        row.appointment.status = previous; 
         this.applyFilters();
       },
     });
   }
 
-  // ── Task 2: Reschedule dialog ────────────────────────────────
   openReschedule(row: AppointmentRow) {
     this.rescheduleRow = row;
     this.showReschedule = true;
@@ -325,14 +324,13 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       );
 
     this.filterAppointments.set(
-  filtered.sort((a, b) => 
-    a.appointment.appointmentDate > b.appointment.appointmentDate ? -1 : 1
-  )
-);
+      filtered.sort((a, b) =>
+        a.appointment.appointmentDate > b.appointment.appointmentDate ? -1 : 1,
+      ),
+    );
 
-    this.currentPage =this.searchQuery?1:this.currentPage;
+    this.currentPage = this.searchQuery ? 1 : this.currentPage;
     if (this.currentView === 'calendar') this.buildCalendar();
-
   }
 
   onSearch(q: string) {
