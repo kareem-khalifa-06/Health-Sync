@@ -1,8 +1,8 @@
 <div class="page-wrapper ">
-    <h1 class="page-title top-bar">Book Appointment</h1>
+    <h1 class="page-title">Book Appointment</h1>
 
     <div class="form-wrapper">
-        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="form">
+        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
 
             <!-- Doctor & Patient -->
             <div class="form-section">
@@ -121,7 +121,7 @@
                 <h2>Additional Information</h2>
                 <hr>
                 <div class="form-row">
-                    <div class="form-input">
+                    <div class="form-y">
                         <label class="input-subtitle">Reason for Visit (Optional)</label>
                         <textarea formControlName="reason" class="form-control form-text-area"
                             placeholder="Describe the reason for this appointment..."

@@ -11,8 +11,11 @@ export const adminGuard: CanActivateFn = (route, state) => {
     _toastr.success('logged in successfully')
     return true
   }
-   _toastr.error('Access Denied!!')
+  else{
+    _toastr.error('Access Denied!!')
     _Router.navigate(['/login']);
     return false;
+  }
+   
  
 };

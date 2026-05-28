@@ -21,52 +21,32 @@
   flex-direction: column;
   gap: 22px;
   padding: 28px 26px 48px;
-  min-height: 100vh;
+  height: 100vh;
   background: #f0f4f8;
   font-family: "Segoe UI", system-ui, sans-serif;
   color: var(--slate-800);
 }
-
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--white);
-  padding: 14px 22px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--slate-200);
-  gap: 16px;
-  flex-wrap: wrap;
+.page-title {
+  font-weight: 600;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius:15px;
 }
-
 .appointment-form {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  gap:20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   animation: cardIn 0.35s ease both;
 }
 .appointment-form:nth-child(0) { animation-delay: .05s; }
 .appointment-form:nth-child(1) { animation-delay: .10s; }
-.page-title {
-  font-weight: 800;
-  background-color: white;
-  margin: 15px 0px;
-  padding: 10px 20px;
-}
+
 .form-wrapper {
   background-color: white;
-  border-radius: 20px;
-  margin: 20px;
+  border-radius: 15px;
   padding: 50px 100px;
-  height: 800px;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+
 }
 .form-section {
   display: flex;
