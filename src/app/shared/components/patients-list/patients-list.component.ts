@@ -93,7 +93,7 @@ export class PatientsListComponent {
         );
       });
     }
-    // medical coddition filter
+
     if (this.conditionFilter !== 'All') {
       patients = patients.filter((p) => {
         return p.chronicConditions.includes(this.conditionFilter);

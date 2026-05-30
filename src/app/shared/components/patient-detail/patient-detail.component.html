@@ -10,8 +10,7 @@
             </div>
         </div>
         <div class="header-actions">
-            <button class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
-            <button class="btn-primary" (click)="bookAppoinment()"><i class="bi bi-plus-circle"></i> New Appointment</button>
+            <button class="btn-primary" [routerLink]="['/',baseRoute,'new-appointment']"><i class="bi bi-plus-circle"></i> New Appointment</button>
         </div>
     </div>
 

@@ -5,20 +5,21 @@ import { PatientService } from '../../../core/services/patient.service';
 import { calculateAge } from '../../../utils/calculateAge';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { SlicePipe, UpperCasePipe } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
+import { _adapters } from 'chart.js';
 
 @Component({
   selector: 'app-patient-detail',
   standalone: true,
-  imports: [BackButtonComponent, SlicePipe, UpperCasePipe],
+  imports: [BackButtonComponent, SlicePipe, UpperCasePipe, RouterLink],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.css',
 })
 export class PatientDetailComponent {
   _Router = inject(Router);
+  _Auth=inject(AuthService);
+  baseRoute:string='';
   patient!: Patient;
-  bookAppoinment() {
-    this._Router.navigate(['new-appointment']);
-  }
   calculateAge = calculateAge;
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -26,6 +27,7 @@ export class PatientDetailComponent {
   ) {}
 
   ngOnInit() {
+    this.baseRoute= this._Auth.getBaseRoute();
     const id = this._activatedRoute.snapshot.paramMap.get('id');
     const sub = this._patientservice.getPatientById(id!).subscribe({
       next: (r) => (this.patient = r),
