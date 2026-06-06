@@ -6,14 +6,17 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { tokenInterceptorInterceptor } from './core/interceptors/token-interceptor.interceptor';
+import { loadInterceptorInterceptor } from './core/interceptors/load-interceptor.interceptor';
+import { errorHandlerInterceptorInterceptor } from './core/interceptors/error-handler-interceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([tokenInterceptorInterceptor,loadInterceptorInterceptor,errorHandlerInterceptorInterceptor])),
     provideAnimationsAsync(),
     provideToastr({
       timeOut: 3500,

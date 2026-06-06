@@ -1,7 +1,8 @@
 import { FormsModule } from '@angular/forms';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
+import { AppointmentService } from '../../../core/services/appointments.service';
 
 interface Statistics {
   totalAppointments: number;
@@ -35,8 +36,8 @@ export class AnalyticsComponent implements AfterViewInit {
 
   data: Statistics | null = null;
   timeFilter: string = 'month';
-  isExporting: boolean = false; // ✅ NEW: loading state for export button
-
+  isExporting: boolean = false; 
+  appointmentService=inject(AppointmentService);
   constructor(private _HttpClient: HttpClient) {}
 
   ngAfterViewInit() {

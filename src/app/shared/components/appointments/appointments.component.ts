@@ -1,7 +1,6 @@
 import { AppointmentRow } from '../admin-dashboard/dashboard.component';
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AppointmentService } from '../../../core/services/appointments.service';
 import { Appointment } from '../../../models/appointment';
 import { CommonModule } from '@angular/common';
 import { forkJoin, interval, of, Subject, switchMap, takeUntil } from 'rxjs';
@@ -11,8 +10,10 @@ import { BookingService } from '../../../core/services/booking.service';
 import dayjs from 'dayjs';
 import { Doctor } from '../../../models/doctor';
 import { FormsModule } from '@angular/forms';
-import { RescheduleDialogComponent } from '../reschedule-dialog/reschedule-dialog.component';
+
 import { AuthService } from '../../../core/services/auth.service';
+import { AppointmentService } from '../../../core/services/appointments.service';
+import { RescheduleDialogComponent } from '../reschedule-dialog/reschedule-dialog.component';
 
 export interface CalendarDay {
   date: string;
@@ -33,6 +34,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSize = 7;
   Math = Math;
+  
 
   get totalPages() {
     return Math.ceil(this.filterAppointments().length / this.pageSize);

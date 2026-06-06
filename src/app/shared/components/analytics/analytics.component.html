@@ -21,12 +21,13 @@
     </div>
   </div>
 
-  @if (!data) {
+  @if (appointmentService.startLoader()) {
     <div class="loading-state">
       <div class="spinner"></div>
       <p>Loading statistics…</p>
     </div>
-  } @else {
+  }
+   @if(data) {
     <!-- ── Metric Cards ─────────────────────────────────────────── -->
     <div class="metrics-grid">
       <div class="metric-card" style="--accent: #2563eb; --accent-lt: #eff6ff">
@@ -155,6 +156,12 @@
           <span class="status-label">Cancelled</span>
         </div>
       </div>
+    </div>
+  }
+  @else {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>No Statistics Available…</p>
     </div>
   }
   <!-- ── Charts Row ────────────────────────────────────────────── -->
