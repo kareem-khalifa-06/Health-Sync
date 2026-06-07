@@ -1,5 +1,8 @@
-
 @import 'ngx-toastr/toastr';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ── Toastr Overrides ──────────────────────────────────────────── */
 .toast-container.toast-top-right {
   top: 1.5rem;
