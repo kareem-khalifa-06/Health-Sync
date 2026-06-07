@@ -23,9 +23,10 @@
 
   @if (appointmentService.startLoader()) {
     <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Loading statistics…</p>
+       <mat-spinner class="blue-spinner"></mat-spinner>
     </div>
+   
+
   }
    @if(data) {
     <!-- ── Metric Cards ─────────────────────────────────────────── -->
@@ -160,7 +161,6 @@
   }
   @else {
     <div class="loading-state">
-      <div class="spinner"></div>
       <p>No Statistics Available…</p>
     </div>
   }

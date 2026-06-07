@@ -99,7 +99,9 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-
+:host ::ng-deep .blue-spinner circle{
+  stroke: var(--primary) !important;
+}
 .metric-card {
   background: var(--white);
   border-radius: var(--radius);

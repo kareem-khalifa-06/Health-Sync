@@ -1,9 +1,9 @@
 import { FormsModule } from '@angular/forms';
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Chart } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { AppointmentService } from '../../../core/services/appointments.service';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 interface Statistics {
   totalAppointments: number;
   completedAppointments: number;
@@ -26,7 +26,7 @@ interface Statistics {
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,MatProgressSpinnerModule],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css',
 })

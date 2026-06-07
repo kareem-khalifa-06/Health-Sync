@@ -27,6 +27,6 @@ export const appConfig: ApplicationConfig = {
       closeButton: true,
       easing: 'ease-in-out',
       easeTime: 300,
-    }),
+    }), provideAnimationsAsync()
   ],
 };

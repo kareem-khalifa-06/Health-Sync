@@ -5,7 +5,9 @@
   top: 1.5rem;
   right: 1.5rem;
 }
-
+/* .mat-mdc-progress-spinner circle {
+    stroke: #2563eb !important;
+} */
 .ngx-toastr {
   display: flex !important;
   align-items: center !important;
@@ -153,5 +155,7 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
