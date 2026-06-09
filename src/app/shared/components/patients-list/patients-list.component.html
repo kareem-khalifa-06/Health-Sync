@@ -2,149 +2,194 @@
 <div class="page-header">
   <div class="page-header-left">
     <h1 class="page-title">Patients</h1>
-    <span class="total-badge">{{ (filteredPatientsList() ?? []).length }} total</span>
+    <span class="total-badge"
+      >{{ (filteredPatientsList() ?? []).length }} total</span
+    >
   </div>
-  <a  >
-    <button class="btn-add" [routerLink]="['/',baseRoute,'new-patient']">
+  <a>
+    <button class="btn-add" [routerLink]="['/', baseRoute, 'new-patient']">
       <i class="bi bi-plus-circle"></i> Add Patient
     </button>
   </a>
 </div>
-
-<!-- ── Main Content ───────────────────────────────────────────── -->
-<div class="page-body">
-
-  <!-- Filters -->
-  <div class="filters-bar">
-    <div class="search-wrap">
-      <i class="bi bi-search search-icon"></i>
-      <input type="text" placeholder="Search patients by name or ID..." class="filter-input" [(ngModel)]="searchQuery"
-        (input)="onSearch(searchQuery)" />
-    </div>
-
-    <select class="filter-select" [(ngModel)]="bloodGroupFilter" (ngModelChange)="onBloodGroupFilter(bloodGroupFilter)">
-      <option value="All">All Blood Groups</option>
-      @for (bg of bloodGroups; track $index) {
-      <option [value]="bg">{{ bg }}</option>
-      }
-    </select>
-
-    <select class="filter-select" [(ngModel)]="conditionFilter" (ngModelChange)="onConditionFilter(conditionFilter)">
-      <option value="All">All Conditions</option>
-      @for (condition of medicalConditons; track $index) {
-      <option [value]="condition">{{ condition }}</option>
-      }
-    </select>
+@if (appState.startLoader()) {
+  <div class="loading-state">
+    <mat-spinner class="loading-spinner"></mat-spinner>
+    <div>Fetching Data.....</div>
   </div>
+} @else {
+  <div class="page-body">
+    <!-- Filters -->
+    <div class="filters-bar">
+      <div class="search-wrap">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          placeholder="Search patients by name or ID..."
+          class="filter-input"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch(searchQuery)"
+        />
+      </div>
 
-  <!-- Table Card -->
-  <div class="table-card">
+      <select
+        class="filter-select"
+        [(ngModel)]="bloodGroupFilter"
+        (ngModelChange)="onBloodGroupFilter(bloodGroupFilter)"
+      >
+        <option value="All">All Blood Groups</option>
+        @for (bg of bloodGroups; track $index) {
+          <option [value]="bg">{{ bg }}</option>
+        }
+      </select>
 
-    @if ((filteredPatientsList() ?? []).length === 0) {
-    <div class="empty-state">
-      <i class="bi bi-person-x empty-icon"></i>
-      <p>No patients match your filters.</p>
-      <span>Try adjusting your search or filter criteria.</span>
+      <select
+        class="filter-select"
+        [(ngModel)]="conditionFilter"
+        (ngModelChange)="onConditionFilter(conditionFilter)"
+      >
+        <option value="All">All Conditions</option>
+        @for (condition of medicalConditons; track $index) {
+          <option [value]="condition">{{ condition }}</option>
+        }
+      </select>
     </div>
-    } @else {
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Patient</th>
-            <th>DOB / Age</th>
-            <th>Blood</th>
-            <th>Insurance</th>
-            <th>Last Visit</th>
-            <th>Conditions</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (p of paginatedPatients; track p.id) {
-          <tr class="table-row">
 
-            <!-- Patient -->
-            <td>
-              <div class="person-cell">
-                <div class="avatar av-gradient">{{ p.initials }}</div>
-                <div>
-                  <div class="person-name">{{ p.fullName }}</div>
-                  <div class="person-id">#{{ p.id }}</div>
-                </div>
-              </div>
-            </td>
+    <!-- Table Card -->
+    <div class="table-card">
+      @if ((filteredPatientsList() ?? []).length === 0) {
+        <div class="empty-state">
+          <i class="bi bi-person-x empty-icon"></i>
+          <p>No patients match your filters.</p>
+          <span>Try adjusting your search or filter criteria.</span>
+        </div>
+      } @else {
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>DOB / Age</th>
+                <th>Blood</th>
+                <th>Insurance</th>
+                <th>Last Visit</th>
+                <th>Conditions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of paginatedPatients; track p.id) {
+                <tr class="table-row">
+                  <!-- Patient -->
+                  <td>
+                    <div class="person-cell">
+                      <div class="avatar av-gradient">{{ p.initials }}</div>
+                      <div>
+                        <div class="person-name">{{ p.fullName }}</div>
+                        <div class="person-id">#{{ p.id }}</div>
+                      </div>
+                    </div>
+                  </td>
 
-            <!-- DOB -->
-            <td>
-              <div class="datetime-cell">
-                <span class="date-val">{{ p.dateOfBirth | date: 'mediumDate' }}</span>
-                <span class="time-val">Age {{ calculateAge(p.dateOfBirth) }}</span>
-              </div>
-            </td>
+                  <!-- DOB -->
+                  <td>
+                    <div class="datetime-cell">
+                      <span class="date-val">{{
+                        p.dateOfBirth | date: "mediumDate"
+                      }}</span>
+                      <span class="time-val"
+                        >Age {{ calculateAge(p.dateOfBirth) }}</span
+                      >
+                    </div>
+                  </td>
 
-            <!-- Blood Group -->
-            <td>
-              <span class="blood-chip">{{ p.bloodGroup }}</span>
-            </td>
+                  <!-- Blood Group -->
+                  <td>
+                    <span class="blood-chip">{{ p.bloodGroup }}</span>
+                  </td>
 
-            <!-- Insurance -->
-            <td>
-              <span class="insurance-text">{{ p.insuranceProvider }}</span>
-            </td>
+                  <!-- Insurance -->
+                  <td>
+                    <span class="insurance-text">{{
+                      p.insuranceProvider
+                    }}</span>
+                  </td>
 
-            <!-- Last Visit -->
-            <td>
-              <span class="date-val">{{ p.lastVisit | date: 'mediumDate' }}</span>
-            </td>
+                  <!-- Last Visit -->
+                  <td>
+                    <span class="date-val">{{
+                      p.lastVisit | date: "mediumDate"
+                    }}</span>
+                  </td>
 
-            <!-- Conditions -->
-            <td>
-              @if (p.chronicConditions.length) {
-              <span class="condition-chip condition-active">
-                <i class="bi bi-exclamation-circle-fill"></i>
-                {{ p.chronicConditions.join(', ') }}
-              </span>
-              } @else {
-              <span class="condition-chip condition-none">
-                <i class="bi bi-check-circle-fill"></i> None
-              </span>
+                  <!-- Conditions -->
+                  <td>
+                    @if (p.chronicConditions.length) {
+                      <span class="condition-chip condition-active">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        {{ p.chronicConditions.join(", ") }}
+                      </span>
+                    } @else {
+                      <span class="condition-chip condition-none">
+                        <i class="bi bi-check-circle-fill"></i> None
+                      </span>
+                    }
+                  </td>
+
+                  <!-- Actions -->
+                  <td>
+                    <div class="action-cell">
+                      <a [routerLink]="['details/', p.id]">
+                        <button class="btn-view">
+                          <i class="bi bi-eye"></i> View
+                        </button>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
               }
-            </td>
+            </tbody>
+          </table>
+        </div>
 
-            <!-- Actions -->
-            <td>
-              <div class="action-cell">
-                <a [routerLink]="['details/', p.id]">
-                  <button class="btn-view"><i class="bi bi-eye"></i> View</button>
-                </a>
-              </div>
-            </td>
-
-          </tr>
-          }
-        </tbody>
-      </table>
+        <div class="table-footer">
+          <span class="footer-info">
+            Showing {{ (currentPage - 1) * pageSize + 1 }}–{{
+              Math.min(
+                currentPage * pageSize,
+                filteredPatientsList()?.length ?? 0
+              )
+            }}
+            of {{ filteredPatientsList()?.length ?? 0 }} patients
+          </span>
+          <nav class="pagination-nav">
+            <button
+              class="page-btn"
+              [disabled]="currentPage === 1"
+              (click)="goToPage(currentPage - 1)"
+            >
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            @for (p of pageNumbers; track p) {
+              <button
+                class="page-btn"
+                [class.active]="p === currentPage"
+                (click)="goToPage(p)"
+              >
+                {{ p }}
+              </button>
+            }
+            <button
+              class="page-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="goToPage(currentPage + 1)"
+            >
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </nav>
+        </div>
+      }
     </div>
-
-<div class="table-footer">
-  <span class="footer-info">
-    Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, filteredPatientsList()?.length ??
-    0) }}
-    of {{ filteredPatientsList()?.length ?? 0 }} patients
-  </span>
-  <nav class="pagination-nav">
-    <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-      <i class="bi bi-chevron-left"></i>
-    </button>
-    @for (p of pageNumbers; track p) {
-    <button class="page-btn" [class.active]="p === currentPage" (click)="goToPage(p)">{{ p }}</button>
-    }
-    <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </nav>
-</div>
-    }
   </div>
-</div>
+}
+<!-- ── Main Content ───────────────────────────────────────────── -->

@@ -56,13 +56,13 @@
         </div>
     </div>
 
-    @if (!patient || !form) {
+    @if (appState.startLoader()) {
     <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Loading profile…</p>
+      <mat-spinner class="loading-spinner"></mat-spinner>
+      <div>Fetching Data.....</div>
     </div>
     } @else {
-
+    @if(patient&&form){
     <form [formGroup]="form" class="edit-grid">
 
         <!-- ── Left — Avatar + Quick Info ───────────────────────── -->
@@ -270,5 +270,5 @@
         </div>
     </form>
     }
-
+}
 </div>

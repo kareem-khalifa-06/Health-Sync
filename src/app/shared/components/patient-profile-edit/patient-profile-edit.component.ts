@@ -1,5 +1,5 @@
 import { Patient } from './../../../models/patient';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -11,11 +11,13 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { PatientService } from '../../../core/services/patient.service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AppStateService } from '../../../core/services/app-state.service';
 
 @Component({
   selector: 'app-patient-profile-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatProgressSpinner],
   templateUrl: './patient-profile-edit.component.html',
   styleUrl: './patient-profile-edit.component.css',
 })
@@ -24,7 +26,7 @@ export class PatientProfileEditComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   isSaving = false;
   saveSuccess = false;
-
+  appState=inject(AppStateService);
   private destroy$ = new Subject<void>();
 
   constructor(

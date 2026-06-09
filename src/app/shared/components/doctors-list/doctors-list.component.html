@@ -11,7 +11,12 @@
       Add Doctor
     </button>
   </div>
-
+     @if (appState.startLoader()) {
+    <div class="loading-state">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+      <div>Fetching Data.....</div>
+    </div>
+  } @else{
   <!-- ── Filters ─────────────────────────────────────────────── -->
   <div class="filters-bar">
     <div class="search-wrap">
@@ -142,6 +147,7 @@
     </div>
     }
   </div>
+}
 </div>
 
 <!-- ── Add Doctor Modal ────────────────────────────────────────── -->

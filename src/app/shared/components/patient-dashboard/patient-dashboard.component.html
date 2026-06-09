@@ -61,8 +61,8 @@
   ══════════════════════════════════════════════════════════ -->
   @if (!patient) {
     <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Loading your dashboard…</p>
+      <mat-spinner class="loading-spinner"></mat-spinner>
+      <div>Fetching Data.....</div>
     </div>
   } @else {
     <div class="page-header">

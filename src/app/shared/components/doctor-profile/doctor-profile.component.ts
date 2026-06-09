@@ -15,6 +15,8 @@ import { ConstantPool } from '@angular/compiler';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 import { catchError, concat, forkJoin, of, toArray } from 'rxjs';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AppStateService } from '../../../core/services/app-state.service';
 
 export interface ScheduleSlot {
   start: string;
@@ -29,13 +31,14 @@ export interface ScheduleDay {
 @Component({
   selector: 'app-doctor-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatProgressSpinner],
   templateUrl: './doctor-profile.component.html',
   styleUrl: './doctor-profile.component.css',
 })
 export class DoctorProfileComponent implements OnInit {
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
+   appState=inject(AppStateService);
   private _doctorsService = inject(DoctorsService);
   private _authService = inject(AuthService);
   _toast=inject(ToastrService);

@@ -9,11 +9,13 @@ import { RouterLink } from '@angular/router';
 import { calculateAge } from '../../../utils/calculateAge';
 import { BackButtonComponent } from '../back-button/back-button.component';
 import { AuthService } from '../../../core/services/auth.service';
+import { AppStateService } from '../../../core/services/app-state.service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-patients-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, MatProgressSpinner],
   templateUrl: './patients-list.component.html',
   styleUrl: './patients-list.component.css',
 })
@@ -21,6 +23,7 @@ export class PatientsListComponent {
   currentPage = 1;
   pageSize = 8;
   Math = Math;
+  appState=inject(AppStateService);
   get totalPages() {
     return Math.ceil(
       (this.filteredPatientsList()?.length ?? 0) / this.pageSize,

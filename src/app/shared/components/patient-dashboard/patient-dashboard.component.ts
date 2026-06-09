@@ -17,6 +17,7 @@ import { DoctorsService } from '../../../core/services/doctors.service';
 import { Notifications } from '../../../models/notification';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { NotificationsDropdownComponent } from '../notifications-dropdown/notifications-dropdown.component';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 interface appointmentDetails {
   app: Appointment;
   patient: Patient;
@@ -26,7 +27,7 @@ interface appointmentDetails {
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
-  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink,NotificationsDropdownComponent],
+  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink, NotificationsDropdownComponent, MatProgressSpinner],
   templateUrl: './patient-dashboard.component.html',
   styleUrl: './patient-dashboard.component.css',
 })
@@ -132,7 +133,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   }
 
   formatTime = this._BookingService._formatLabel;
-  bookAppointmnet() {
+  bookAppointment() {
     this.router.navigate(['patient']);
   }
   ngOnDestroy() {

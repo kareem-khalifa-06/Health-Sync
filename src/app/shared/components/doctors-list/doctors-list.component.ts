@@ -13,16 +13,19 @@ import { SPECIALIZATIONS } from '../../../Data/specializations';
 import { RouterLink } from '@angular/router';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 import { AuthService } from '../../../core/services/auth.service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AppStateService } from '../../../core/services/app-state.service';
 
 @Component({
   selector: 'app-doctors-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, MatProgressSpinner],
   templateUrl: './doctors-list.component.html',
   styleUrl: './doctors-list.component.css',
 })
 export class DoctorsListComponent {
   AuthService = inject(AuthService);
+  appState=inject(AppStateService);
   baseRoute = this.AuthService.getBaseRoute();
   pageSize = 9;
   currentPage = 1;

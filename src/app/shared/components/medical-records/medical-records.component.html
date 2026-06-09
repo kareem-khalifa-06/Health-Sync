@@ -16,9 +16,14 @@
             </button>
         </div>
     </div>
-
-    <!-- ── Records List ─────────────────────────────────────────── -->
-    <div class="records-list">
+         @if (appState.startLoader()) {
+    <div class="loading-state">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+      <div>Fetching Data.....</div>
+    </div>
+  }
+     @else {
+       <div class="records-list">
 
         @for (record of paginatedRecords; track record.id) {
         <div class="record-card">
@@ -231,6 +236,8 @@
         </div>
     }
 
-    </div>
+    </div>  
+     }
+   
 </div>
 <router-outlet></router-outlet>

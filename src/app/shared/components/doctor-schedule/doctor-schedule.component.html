@@ -37,7 +37,13 @@
       </button>
     </div>
   </div>
-
+     @if (appState.startLoader()) {
+    <div class="loading-state">
+      <mat-spinner class="loading-spinner"></mat-spinner>
+      <div>Fetching Data.....</div>
+    </div>
+  }
+     @else {
   <!-- ── Stat Cards ───────────────────────────────────────────── -->
   <div class="stats-row">
     <div class="stat-card" style="--accent: #2563eb">
@@ -305,7 +311,7 @@
       </div>
     </div>
   }
-</div>
+
 
 <!-- ════════════════════════════════════════════════════════════
      PATIENT PREVIEW PANEL
@@ -393,7 +399,8 @@
     </div>
   </div>
 }
-
+     }
+</div>
 <!-- ════════════════════════════════════════════════════════════
      BLOCK SLOT DIALOG
 ════════════════════════════════════════════════════════════ -->
@@ -458,3 +465,5 @@
     </div>
   </div>
 }
+
+

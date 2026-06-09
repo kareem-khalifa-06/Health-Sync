@@ -11,6 +11,8 @@ import { PatientService } from '../../../core/services/patient.service';
 import { BookingService } from '../../../core/services/booking.service';
 import { Doctor, DoctorSchedule } from '../../../models/doctor';
 import { AppointmentRow } from '../admin-dashboard/dashboard.component';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AppStateService } from '../../../core/services/app-state.service';
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -35,12 +37,13 @@ export interface WeekDay {
 @Component({
   selector: 'app-doctor-schedule',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatProgressSpinner],
   templateUrl: './doctor-schedule.component.html',
   styleUrl: './doctor-schedule.component.css',
 })
 export class DoctorScheduleComponent implements OnInit, OnDestroy {
   route = inject(ActivatedRoute);
+  appState=inject(AppStateService);
   // ── Data ─────────────────────────────────────────────────
   doctor!: Doctor;
   doctorId = '';

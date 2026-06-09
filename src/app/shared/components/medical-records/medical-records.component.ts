@@ -9,11 +9,13 @@ import { PatientService } from '../../../core/services/patient.service';
 import { DoctorsService } from '../../../core/services/doctors.service';
 import { MedicalRecord } from '../../../medical-record';
 import { AuthService } from '../../../core/services/auth.service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AppStateService } from '../../../core/services/app-state.service';
 
 @Component({
   selector: 'app-medical-records',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, RouterOutlet, FormsModule, MatProgressSpinner],
   templateUrl: './medical-records.component.html',
   styleUrl: './medical-records.component.css',
 })
@@ -21,7 +23,7 @@ export class MedicalRecordsComponent implements OnInit {
   currentPage = 1;
   pageSize = 2; 
   Math = Math;
-
+  appState=inject(AppStateService);
   get totalPages() {
     return Math.ceil(this.filteredRecords.length / this.pageSize);
   }
