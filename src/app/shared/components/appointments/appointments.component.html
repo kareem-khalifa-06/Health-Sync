@@ -157,6 +157,12 @@
           >
             <i class="bi bi-x-lg"></i> Cancel All
           </button>
+          <button
+            class="bulk-btn bulk-complete"
+            (click)="bulkUpdateStatus('completed')"
+          >
+            <i class="bi bi-patch-check"></i> Complete All
+          </button>
           <button class="bulk-btn bulk-export" (click)="exportCSV()">
             <i class="bi bi-download"></i> Export Selected
           </button>

@@ -241,7 +241,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     this.selectedIds = new Set();
   }
 
-  bulkUpdateStatus(status: 'confirmed' | 'cancelled') {
+  bulkUpdateStatus(status: 'confirmed' | 'cancelled'|'completed') {
     const targets = this.appointmentRows.filter((r) =>
       this.selectedIds.has(r.appointment.id),
     );
