@@ -4,6 +4,7 @@ import { Chart } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { AppointmentService } from '../../../core/services/appointments.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppStateService } from '../../../core/services/app-state.service';
 interface Statistics {
   totalAppointments: number;
   completedAppointments: number;
@@ -37,7 +38,7 @@ export class AnalyticsComponent implements AfterViewInit {
   data: Statistics | null = null;
   timeFilter: string = 'month';
   isExporting: boolean = false; 
-  appointmentService=inject(AppointmentService);
+  appState=inject(AppStateService);
   constructor(private _HttpClient: HttpClient) {}
 
   ngAfterViewInit() {

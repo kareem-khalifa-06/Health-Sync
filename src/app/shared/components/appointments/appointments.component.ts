@@ -1,5 +1,5 @@
 import { AppointmentRow } from '../admin-dashboard/dashboard.component';
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Appointment } from '../../../models/appointment';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { AppointmentService } from '../../../core/services/appointments.service';
 import { RescheduleDialogComponent } from '../reschedule-dialog/reschedule-dialog.component';
+import { AppStateService } from '../../../core/services/app-state.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 export interface CalendarDay {
   date: string;
@@ -26,7 +28,7 @@ export interface CalendarDay {
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, RescheduleDialogComponent],
+  imports: [RouterLink, CommonModule, FormsModule, RescheduleDialogComponent, MatProgressSpinner],
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.css',
 })
@@ -35,7 +37,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   pageSize = 7;
   Math = Math;
   
-
+  appState=inject(AppStateService);
   get totalPages() {
     return Math.ceil(this.filterAppointments().length / this.pageSize);
   }

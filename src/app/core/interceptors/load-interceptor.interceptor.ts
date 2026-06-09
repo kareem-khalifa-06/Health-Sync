@@ -2,10 +2,11 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { finalize } from 'rxjs';
 import { AppointmentService } from '../services/appointments.service';
+import { AppStateService } from '../services/app-state.service';
 
 
 export const loadInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
-  const _loaderState = inject(AppointmentService);
+  const _loaderState = inject(AppStateService);
     let updatedReq = req;
 
    

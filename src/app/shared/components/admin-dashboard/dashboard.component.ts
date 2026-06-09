@@ -14,6 +14,8 @@ import { AuthService } from '../../../core/services/auth.service';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { CommonModule } from '@angular/common';
 import { NotificationsDropdownComponent } from '../notifications-dropdown/notifications-dropdown.component';
+import { MatProgressSpinnerModule, MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AppStateService } from '../../../core/services/app-state.service';
 export interface AppointmentRow {
   appointment: Appointment;
   patient: Patient;
@@ -22,7 +24,7 @@ export interface AppointmentRow {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink,CommonModule,NotificationsDropdownComponent],
+  imports: [RouterLink, CommonModule, NotificationsDropdownComponent, MatProgressSpinner],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -33,7 +35,8 @@ export class DashboardComponent {
     public _PatientService: PatientService,
     private _Router: Router,
     private _AppointmentService: AppointmentService,
-    private _NotificationsService:NotificationsService
+    private _NotificationsService:NotificationsService,
+    public _AppStateService:AppStateService
   ) {}
   doctorsCount!: number;
   patientsCount!: number;

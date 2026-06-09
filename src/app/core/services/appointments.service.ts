@@ -10,8 +10,7 @@ import { AppointmentRow } from '../../shared/components/admin-dashboard/dashboar
   providedIn: 'root',
 })
 export class AppointmentService {
-  startLoader=signal<boolean>(false);
-  endLoader=signal<boolean>(false);
+
   _HttpClient = inject(HttpClient);
   base_url = 'https://health-sync-production-d340.up.railway.app/appointments';
   today = dayjs().format('dddd MMMM YYYY');

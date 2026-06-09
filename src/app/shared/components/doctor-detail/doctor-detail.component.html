@@ -45,8 +45,12 @@
       </button>
     </div>
   </div>
-
-  <!-- ─── Profile Card ────────────────────────────────────────────────────── -->
+    @if (true) {
+    <div class="loading-state">
+      <mat-spinner></mat-spinner>
+      <div>Fetching Data.....</div>
+    </div>
+  } @else {  <!-- ─── Profile Card ────────────────────────────────────────────────────── -->
   <div class="card profile-card">
     <!-- Avatar + Identity -->
     <div class="profile-identity">
@@ -331,13 +335,13 @@
       <div class="slots-header">
         <h3 class="section-title">Available Slots</h3>
         <span class="slots-day-label"
-          >{{ selectedDay.day }}</span
+          >{{ selectedDay?.day }}</span
         >
       </div>
 
       <div class="slots-grid">
         <button
-          *ngFor="let slot of selectedDay.slots"
+          *ngFor="let slot of selectedDay?.slots"
           class="slot-btn"
           [class.active]="selectedSlot?.start === slot.start"
           [class.booked]="!slot.available"
@@ -371,7 +375,7 @@
         <strong>Slot Selected</strong>
         <span
           >{{ selectedDay?.day }}, {{ selectedDay?.date | date: "MMM d" }} at
-          {{ selectedSlot.start }}</span
+          {{ selectedSlot?.start }}</span
         >
       </div>
     </div>
@@ -468,4 +472,5 @@
 
     </div>
   </div>
+}
 </div>

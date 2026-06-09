@@ -12,20 +12,23 @@ import { BackButtonComponent } from '../back-button/back-button.component';
 import { handleDoctorAvailabilityStatus } from '../../../utils/handleDoctorAvailabilityStatus';
 import { forkJoin } from 'rxjs';
 import { BookingPayload, BookingService } from '../../../core/services/booking.service';
+import { AppStateService } from '../../../core/services/app-state.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 type TabType = 'overview' | 'schedule' | 'reviews';
 
 @Component({
   selector: 'app-doctor-detail',
   standalone: true,
-  imports: [CommonModule, BackButtonComponent],
+  imports: [CommonModule, BackButtonComponent, MatProgressSpinner],
   templateUrl: './doctor-detail.component.html',
   styleUrls: ['./doctor-detail.component.css'],
 })
 export class DoctorDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   doctorService = inject(DoctorsService);
-  bookingService=inject(BookingService)
+  bookingService=inject(BookingService);
+  appState=inject(AppStateService);
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor!: Doctor;
   reviews: DoctorReview[] = [];
