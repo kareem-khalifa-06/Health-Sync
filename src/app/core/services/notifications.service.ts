@@ -24,8 +24,8 @@ export class NotificationsService {
   }
 
   getUserNotifications(userId: string): Observable<Notifications[]> {
-    return this._HttpClient
-      .get<Notifications[]>(this.baseUrl)
-      .pipe(map((res) => res.filter((n) => n.userId === userId)));
+    return this._HttpClient.get<Notifications[]>(
+      `${this.baseUrl}?userId=${userId}`,
+    );
   }
 }

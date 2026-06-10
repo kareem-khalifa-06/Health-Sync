@@ -43,7 +43,7 @@ export class LoginComponent {
             if (this._AuthService.getRole() === 'doctor')
               this._Router.navigate(['/doctorLayout/' + user.doctorId]);
             if (this._AuthService.getRole() === 'patient')
-              this._Router.navigate(['/patientLayout/' + user.patientId]);
+              this._Router.navigate([`/patientLayout/` + user.patientId]);
             if (this._AuthService.getRole() === 'receptionist')
               this._Router.navigate(['/receptionistLayout']);
           }

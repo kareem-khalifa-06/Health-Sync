@@ -17,6 +17,9 @@ import { catchError, concat, forkJoin, of, toArray } from 'rxjs';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AppStateService } from '../../../core/services/app-state.service';
+import { NotificationsService } from '../../../core/services/notifications.service';
+import { Notifications } from '../../../models/notification';
+import { NotificationsDropdownComponent } from "../notifications-dropdown/notifications-dropdown.component";
 
 export interface ScheduleSlot {
   start: string;
@@ -31,17 +34,21 @@ export interface ScheduleDay {
 @Component({
   selector: 'app-doctor-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatProgressSpinner],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatProgressSpinner, NotificationsDropdownComponent],
   templateUrl: './doctor-profile.component.html',
   styleUrl: './doctor-profile.component.css',
 })
 export class DoctorProfileComponent implements OnInit {
+  showNotifications=false;
+  notifications:Notifications[]=[];
+  unreadNotifications:Notifications[]=[];
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
    appState=inject(AppStateService);
   private _doctorsService = inject(DoctorsService);
   private _authService = inject(AuthService);
   _toast=inject(ToastrService);
+  private _NotificationsService=inject(NotificationsService);
   handleDoctorAvailabilityStatus = handleDoctorAvailabilityStatus;
   doctor: Doctor | undefined = undefined;
   doctorId = '';
@@ -69,7 +76,12 @@ export class DoctorProfileComponent implements OnInit {
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
     this.doctorId = this._route.snapshot.parent?.paramMap.get('id') ?? '';
-
+    this._NotificationsService.getUserNotifications(this.doctorId).subscribe((res)=>{
+        this.notifications=res;
+        this.unreadNotifications=res.filter((n)=>!n.read);
+        console.log(this.unreadNotifications,this.notifications)
+         
+    })
     const url = this._router.url;
 
     this._doctorsService.getDoctorById(this.doctorId).subscribe({
@@ -220,5 +232,11 @@ saveSchedule(): void {
 
   logout() {
     this._authService.logout();
+  }
+  toggleNotifications(){
+    this.showNotifications=!this.showNotifications;
+  }
+  closeNotifications(){
+    this.showNotifications=false;
   }
 }

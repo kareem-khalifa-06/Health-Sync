@@ -80,6 +80,7 @@ export class AuthService {
           const token = this.generateFakeJWT(user);
           localStorage.setItem('token', token);
           this.currentUser.set(user);
+          localStorage.setItem('currentUser',JSON.stringify(user));
         }),
       );
   }

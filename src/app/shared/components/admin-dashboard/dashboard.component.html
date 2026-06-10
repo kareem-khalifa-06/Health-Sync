@@ -10,32 +10,7 @@
       </div>
     </div>
     <div class="top-bar-right">
-      <div class="notif-wrap">
-        <button
-          class="icon-btn"
-          title="Notifications"
-          (click)="toggleNotifications()"
-        >
-          <i class="bi bi-bell-fill"></i>
-          @if (unreadNotifications.length > 0) {
-            <span class="notif-dot">
-              {{
-                unreadNotifications.length > 99
-                  ? "99+"
-                  : unreadNotifications.length
-              }}
-            </span>
-          }
-        </button>
-
-        @if (showNotifications) {
-          <div class="notif-backdrop" (click)="closeNotifications()"></div>
-          <app-notifications-dropdown
-            [notifications]="notifications"
-            (closed)="closeNotifications()"
-          />
-        }
-      </div>
+      <app-notifications-dropdown></app-notifications-dropdown>
       <button class="btn-logout" (click)="logout()">
         <i class="bi bi-box-arrow-right"></i> Log Out
       </button>

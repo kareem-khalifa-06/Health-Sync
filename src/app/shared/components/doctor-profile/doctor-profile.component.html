@@ -7,7 +7,9 @@
         <p class="page-subtitle">Profile, schedule &amp; statistics</p>
       </div>
     </div>
+    
     <div class="header-actions">
+      <app-notifications-dropdown></app-notifications-dropdown>
       <button class="btn-ghost" (click)="toggleEditMode()">
         <i class="bi" [ngClass]="editMode ? 'bi-x' : 'bi-pencil'"></i>
         {{ editMode ? "Cancel" : "Edit Profile" }}

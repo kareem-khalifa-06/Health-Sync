@@ -1,4 +1,3 @@
-
 import { Patient } from '../../../models/patient';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
@@ -17,7 +16,7 @@ import { DoctorsService } from '../../../core/services/doctors.service';
 import { Notifications } from '../../../models/notification';
 import { NotificationsService } from '../../../core/services/notifications.service';
 import { NotificationsDropdownComponent } from '../notifications-dropdown/notifications-dropdown.component';
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 interface appointmentDetails {
   app: Appointment;
   patient: Patient;
@@ -27,7 +26,14 @@ interface appointmentDetails {
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
-  imports: [CommonModule, DatePipe, TitleCasePipe, RouterLink, NotificationsDropdownComponent, MatProgressSpinner],
+  imports: [
+    CommonModule,
+    DatePipe,
+    TitleCasePipe,
+    RouterLink,
+    NotificationsDropdownComponent,
+    MatProgressSpinner,
+  ],
   templateUrl: './patient-dashboard.component.html',
   styleUrl: './patient-dashboard.component.css',
 })
@@ -37,7 +43,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   notifications: Notifications[] = [];
   medicalRecords: MedicalRecord[] = [];
   baseRoute = this._AuthService.getBaseRoute();
-  unreadNotifications=this.notifications.filter((n)=>!n.read);
+  unreadNotifications = this.notifications.filter((n) => !n.read);
   showNotifications = false;
   private destroy$ = new Subject<void>();
 
@@ -54,12 +60,13 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const userId = this._AuthService.currentUser()!.id;
-    this._NotificationsService
-      .getUserNotifications(userId)
-      .subscribe((res) => {
-        this.notifications = res;
-      });
+    const user = JSON.parse(localStorage.getItem('currentUser')!);
+    const userId = user.id;
+    console.log(userId);
+    this._NotificationsService.getUserNotifications(userId).subscribe((res) => {
+      this.notifications = res;
+      console.log(this.notifications);
+    });
     const patientId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
     const today = new Date().toISOString().split('T')[0];
 
@@ -119,8 +126,8 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   // ── Actions ──────────────────────────────────────────────────
 
   goToEdit() {
-    const patientId = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(['patientProfileEdit', patientId]);
+    const patientId = this.route.parent?.snapshot.paramMap.get('id');
+    this.router.navigate(['patientLayout', patientId, 'profile']);
   }
 
   logout() {
@@ -141,10 +148,10 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  toggleNotifications(){
-    this.showNotifications=!this.showNotifications;
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
   }
-  closeNotifications(){
-    this.showNotifications=false;
+  closeNotifications() {
+    this.showNotifications = false;
   }
 }
