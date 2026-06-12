@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { forkJoin, interval, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { forkJoin, interval, min, of, Subject, switchMap, takeUntil } from 'rxjs';
 import dayjs from 'dayjs';
 
 import { AppointmentService } from '../../../core/services/appointments.service';
@@ -118,7 +118,7 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
     this._DoctorsService.getDoctorSchedule(this.doctorId).subscribe({
       next: (res) => {
         this.DoctorSchedule = res;
-        console.log('Dijooo  ', this.DoctorSchedule);
+        console.log( this.DoctorSchedule);
       }
     });
 
@@ -138,6 +138,7 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         switchMap((apps) => {
           const mine = apps.filter((a) => a.doctorId === this.doctorId);
+          console.log(mine)
           if (mine.length === 0) return of([]);
           return forkJoin(
             mine.map((a) =>
@@ -158,6 +159,7 @@ export class DoctorScheduleComponent implements OnInit, OnDestroy {
           this.allRows = rows;
           this.todayRows = rows.filter(
             (r) => r.appointment.appointmentDate === this.td,
+            console.log(rows)
           );
           this.isLoading = false;
           this.lastUpdated = dayjs().format('HH:mm:ss');

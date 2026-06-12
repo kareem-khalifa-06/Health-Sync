@@ -1,17 +1,17 @@
-
 const ws = require('ws');
 const { createClient } = require('@supabase/supabase-js');
 const { randomUUID } = require('crypto');
 
-// ─── CONFIG ──────────────────────────────────────────────────────────────────
-const SUPABASE_URL  = 'https://ldvcweeokaxvydfbofjf.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkdmN3ZWVva2F4dnlkZmJvZmpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMDcxMTAsImV4cCI6MjA5NjU4MzExMH0.cDg2Tnyqvr8rFh3-zAd8p5RPBihnMU2kMq1Lceg8Qzg'; 
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── CONFIG ───────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://ldvcweeokaxvydfbofjf.supabase.co';
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON, {
+// IMPORTANT: service role client
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   realtime: { transport: ws }
 });
 
+const uuid = () => randomUUID();
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const uuid = () => randomUUID();
 const log  = (msg) => console.log(`\n✔  ${msg}`);
@@ -69,7 +69,7 @@ async function seedClinics() {
 async function seedUsers() {
   const rows = [
     // Admin
-    { id: uuid(), clinic_id: clinicId, full_name: 'Admin User',        role: 'admin',         phone: '+201090222247', specialization: null },
+    { id: uuid(), clinic_id: clinicId, full_name: 'Kareem Khalifa',        role: 'admin',         phone: '+201090222247', specialization: null },
     // Receptionist
     { id: uuid(), clinic_id: clinicId, full_name: 'Lisa Martinez',     role: 'receptionist',  phone: '+1-555-0110', specialization: null },
 
