@@ -123,7 +123,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
     this.loadData();
 
-   
+    console.log(this.appointmentRows)
     interval(this.REFRESH_INTERVAL)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.loadData(true));
@@ -176,6 +176,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
           this.buildCalendar();
           this.isLoading = false;
           this.lastUpdated = dayjs().format('HH:mm:ss');
+          console.log(this.appointmentRows);
         },
         error: () => {
           this.isLoading = false;
