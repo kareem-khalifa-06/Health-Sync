@@ -1,31 +1,65 @@
-import { Notifications } from './../../models/notification';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, filter, map } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, from } from 'rxjs';
+import { Notifications } from '../../models/notification';
+import { SupabaseService } from './supabase.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class NotificationsService {
-  constructor(private _HttpClient: HttpClient) {}
-
-  baseUrl = 'https://health-sync-production-d340.up.railway.app/notifications/';
-  getNotificationsById(id: string): Observable<Notifications> {
-    return this._HttpClient.get<Notifications>(`${this.baseUrl}+${id}`);
-  }
-  markAsRead(n: Notifications): Observable<Notifications> {
-    return this._HttpClient.put<Notifications>(`${this.baseUrl}${n.id}`, {
-      ...n,
-      read: true,
-    });
-  }
-  sendNotifications(n: Notifications): Observable<Notifications> {
-    return this._HttpClient.post<Notifications>(`${this.baseUrl}`, n);
-  }
+  private supabase = inject(SupabaseService);
 
   getUserNotifications(userId: string): Observable<Notifications[]> {
-    return this._HttpClient.get<Notifications[]>(
-      `${this.baseUrl}?userId=${userId}`,
+    return from(
+      this.supabase.execute<Notifications[]>(
+        this.supabase.client
+          .from('notifications')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+      )
+    );
+  }
+
+  getNotificationsById(id: string): Observable<Notifications> {
+    return from(
+      this.supabase.execute<Notifications>(
+        this.supabase.client
+          .from('notifications')
+          .select('*')
+          .eq('id', id)
+          .single()
+      )
+    );
+  }
+
+  markAsRead(n: Notifications): Observable<Notifications> {
+    return from(
+      this.supabase.execute<Notifications>(
+        this.supabase.client
+          .from('notifications')
+          .update({ read: true })
+          .eq('id', n.id)
+          .select()
+          .single()
+      )
+    );
+  }
+
+  sendNotifications(n: Notifications): Observable<Notifications> {
+    return from(
+      this.supabase.execute<Notifications>(
+        this.supabase.client
+          .from('notifications')
+          .insert({
+            clinic_id:      this.supabase.clinicId,
+            user_id:        n.userId,
+            appointment_id: n.appointmentId ?? null,
+            message:        n.message,
+            type:           n.type,
+            read:           false,
+          })
+          .select()
+          .single()
+      )
     );
   }
 }

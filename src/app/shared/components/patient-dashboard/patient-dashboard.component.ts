@@ -60,7 +60,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const user = JSON.parse(localStorage.getItem('currentUser')!);
+    const user = JSON.parse(localStorage.getItem('hs_user')!);
     const userId = user.id;
     console.log(userId);
     this._NotificationsService.getUserNotifications(userId).subscribe((res) => {

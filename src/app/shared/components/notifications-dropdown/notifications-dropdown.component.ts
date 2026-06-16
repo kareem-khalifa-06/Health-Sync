@@ -1,10 +1,4 @@
-import {
-  Component,
-  HostListener,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../../../models/notification';
 import { NotificationsService } from '../../../core/services/notifications.service';
@@ -31,8 +25,7 @@ export class NotificationsDropdownComponent implements OnInit {
   }
 
   loadNotifications(): void {
-    const user = JSON.parse(localStorage.getItem('currentUser')!);
-
+    const user = JSON.parse(localStorage.getItem('hs_user')!);
     if (!user) return;
 
     this._NotificationsService
@@ -40,7 +33,7 @@ export class NotificationsDropdownComponent implements OnInit {
       .subscribe((res) => {
         this.notifications = res;
         this.displayedNotifications.set(
-          res.filter((n) => !n.read)
+          [...res].sort((a, b) => Number(a.read) - Number(b.read)),
         );
       });
   }
@@ -79,10 +72,12 @@ export class NotificationsDropdownComponent implements OnInit {
     this.isFiltered = !this.isFiltered;
 
     if (this.isFiltered) {
-      this.displayedNotifications.set(this.notifications);
+      this.displayedNotifications.set(
+        this.notifications.filter((n) => !n.read),
+      );
     } else {
       this.displayedNotifications.set(
-        this.notifications.filter((n) => !n.read)
+        [...this.notifications].sort((a, b) => Number(a.read) - Number(b.read)),
       );
     }
   }
@@ -90,6 +85,8 @@ export class NotificationsDropdownComponent implements OnInit {
   getIcon(type: string): string {
     switch (type) {
       case 'appointment':
+      case 'appointment_reminder':
+      case 'new_appointment':
         return 'bi-calendar-check';
       case 'reminder':
         return 'bi-clock';
@@ -105,6 +102,8 @@ export class NotificationsDropdownComponent implements OnInit {
   getIconColor(type: string): string {
     switch (type) {
       case 'appointment':
+      case 'appointment_reminder':
+      case 'new_appointment':
         return '#2563eb';
       case 'reminder':
         return '#d97706';
@@ -120,6 +119,8 @@ export class NotificationsDropdownComponent implements OnInit {
   getIconBg(type: string): string {
     switch (type) {
       case 'appointment':
+      case 'appointment_reminder':
+      case 'new_appointment':
         return '#eff6ff';
       case 'reminder':
         return '#fef3c7';

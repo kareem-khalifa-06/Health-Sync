@@ -1,8 +1,9 @@
 // src/app/core/services/patient.service.ts
 import { Injectable, inject } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { Patient } from '../../models/patient';
 import { SupabaseService } from './supabase.service';
+import { enrichPatient } from '../../utils/models-helpers';
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
@@ -13,7 +14,7 @@ export class PatientService {
       this.supabase.execute<Patient[]>(
         this.supabase.client.from('patients').select('*')
       )
-    );
+    ).pipe(map((p)=>p.map(enrichPatient)));
   }
 
   getPatientById(id: string): Observable<Patient> {
@@ -25,7 +26,7 @@ export class PatientService {
           .eq('id', id)
           .single()
       )
-    );
+    ).pipe(map(enrichPatient));
   }
 
   addPatient(p: Patient): Observable<Patient> {
