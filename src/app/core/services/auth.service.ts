@@ -1,65 +1,56 @@
-// src/app/core/services/auth.service.ts
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { SupabaseService } from './supabase.service';
 
-const USER_CACHE_KEY = 'hs_user';
+const CACHE_KEY = 'hs_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private supabase = inject(SupabaseService);
   private router   = inject(Router);
 
-  // Signals
   currentUser = signal<User | null>(null);
-  isReady     = signal(false); // ← guards wait for this before redirecting
+  isReady     = signal(false);
 
-  readonly baseRouteMap: Record<string, string> = {
+  baseRouteMap: Record<string, string> = {
     admin:        'adminLayout',
     doctor:       'doctorLayout',
-    receptionist: 'receptionistLayout',
     patient:      'patientLayout',
+    receptionist: 'receptionistLayout',
   };
 
-  constructor() {
-    this.restoreSession();
-  }
+  constructor() { this.restoreSession(); }
 
-  // ── Session restore ───────────────────────────────────────────────
-  // Step 1: paint instantly from cache (synchronous, 0ms)
-  // Step 2: verify with Supabase in background (non-blocking)
+  // ── Session restore ───────────────────────────────────────────
+  // Step 1: paint from cache instantly (0ms)
+  // Step 2: verify Supabase Auth session in background
   private restoreSession(): void {
-    // Instant restore — unblocks rendering immediately
-    const cached = localStorage.getItem(USER_CACHE_KEY);
-    if (cached) {
-      this.currentUser.set(JSON.parse(cached));
-    }
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) this.currentUser.set(JSON.parse(cached));
 
-    // Background verify — corrects stale cache silently
     this.supabase.client.auth.getSession().then(({ data }) => {
       if (data.session?.user.email) {
-        this.loadUserProfile(data.session.user.email).then(() => {
-          this.isReady.set(true);
-        });
+        this.loadProfile(data.session.user.email).then(() => this.isReady.set(true));
       } else {
         this.clearSession();
         this.isReady.set(true);
       }
     });
 
-    // Stay in sync on token refresh / sign-out in other tabs
+    // Sync on token refresh or sign-out in another tab
     this.supabase.client.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT' || !session) {
         this.clearSession();
       } else if (event === 'TOKEN_REFRESHED') {
-        this.loadUserProfile(session.user.email!);
+        this.loadProfile(session.user.email!);
       }
     });
   }
 
-  private async loadUserProfile(email: string): Promise<void> {
+  // Uses execute() → toCamelCase() → correct User shape
+  private async loadProfile(email: string): Promise<void> {
     try {
       const user = await this.supabase.execute<User>(
         this.supabase.client
@@ -69,56 +60,48 @@ export class AuthService {
           .maybeSingle()
       );
       if (user) {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(user)); // camelCase cached
         this.currentUser.set(user);
-        localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user)); // keep cache fresh
       }
     } catch {
       this.clearSession();
     }
   }
 
-  private clearSession(): void {
-    localStorage.removeItem(USER_CACHE_KEY);
-    this.currentUser.set(null);
-  }
-
-  // ── Login ─────────────────────────────────────────────────────────
+  // ── Login ─────────────────────────────────────────────────────
+  // signInWithPassword → creates Supabase Auth session → RLS JWT is valid
+  // loadProfile        → fetches camelCase User via execute()
   login(email: string, password: string): Observable<User> {
     return from(
       this.supabase.client.auth
         .signInWithPassword({ email, password })
         .then(async ({ error }) => {
           if (error) throw new Error('Invalid credentials');
-
-          const user = await this.supabase.execute<User>(
-            this.supabase.client
-              .from('users')
-              .select('*')
-              .eq('email', email)
-              .maybeSingle()
-          );
-          if (!user) throw new Error('User profile not found');
+          await this.loadProfile(email);
+          const user = this.currentUser();
+          if (!user) throw new Error('Profile not found');
           return user;
         })
     ).pipe(
-      tap((user) => {
-        localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
-        this.currentUser.set(user);
-        this.isReady.set(true);
-      })
+      tap(() => this.isReady.set(true))
     );
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────
+  // ── Helpers ───────────────────────────────────────────────────
   getRole()      { return this.currentUser()?.role; }
   getBaseRoute() { return this.baseRouteMap[this.getRole()!]; }
   isLoggedIn()   { return !!this.currentUser(); }
 
-  // ── Logout ────────────────────────────────────────────────────────
+  // ── Logout ────────────────────────────────────────────────────
   logout(): void {
     this.supabase.client.auth.signOut().then(() => {
       this.clearSession();
       this.router.navigate(['/']);
     });
+  }
+
+  private clearSession(): void {
+    localStorage.removeItem(CACHE_KEY);
+    this.currentUser.set(null);
   }
 }
