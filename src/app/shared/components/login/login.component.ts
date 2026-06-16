@@ -13,15 +13,15 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   private _AuthService = inject(AuthService);
-  _toastr=inject(ToastrService);
+  _toastr = inject(ToastrService);
   private _Router = inject(Router);
-  ngOnInit(){
+  ngOnInit() {
     this._AuthService.logout();
   }
 
@@ -37,18 +37,26 @@ export class LoginComponent {
       .login(this.loginForm.value.email!, this.loginForm.value.password!)
       .subscribe({
         next: (user) => {
-          if (this._AuthService.isLoggedIn()) {
-            if (this._AuthService.getRole() === 'admin')
-              this._Router.navigate(['/adminLayout']);
-            if (this._AuthService.getRole() === 'doctor')
-              this._Router.navigate(['/doctorLayout/' + user.doctorId]);
-            if (this._AuthService.getRole() === 'patient')
-              this._Router.navigate([`/patientLayout/` + user.patientId]);
-            if (this._AuthService.getRole() === 'receptionist')
-              this._Router.navigate(['/receptionistLayout']);
-          }
+          console.log(user)
+          if (!this._AuthService.isLoggedIn()) return;
+
+          const role = this._AuthService.getRole();
+
+          if (role === 'admin') this._Router.navigate(['/adminLayout']);
+
+          if (role === 'doctor')
+           {
+            this._Router.navigate(['/doctorLayout/' + user.doctorId]);
+
+           } 
+
+          if (role === 'patient')
+            this._Router.navigate(['/patientLayout/' + user.patientId]);
+
+          if (role === 'receptionist')
+            this._Router.navigate(['/receptionistLayout']);
         },
-        error: (err) => {
+        error: () => {
           this._toastr.error('Wrong credentials!!');
           this.loginForm.reset();
         },

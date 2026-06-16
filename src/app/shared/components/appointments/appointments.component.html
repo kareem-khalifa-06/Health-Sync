@@ -198,7 +198,7 @@
               </tr>
             </thead>
             <tbody>
-              @for (row of paginatedAppointments; track row.appointment.id) {
+              @for (row of paginatedAppointments; track $index) {
                 <tr
                   class="table-row"
                   [class.selected]="selectedIds.has(row.appointment.id)"
@@ -212,7 +212,7 @@
                     />
                   </td>
                   <td>
-                    <span class="id-chip">{{ row.appointment.id }}</span>
+                    <span class="id-chip">{{ $index+1 }}</span>
                   </td>
                   <td>
                     <div class="datetime-cell">
@@ -422,10 +422,10 @@
               <span class="kanban-col-count">{{ col.rows.length }}</span>
             </div>
 
-            @for (row of col.rows; track row.appointment.id) {
+            @for (row of col.rows; track $index) {
               <div class="kanban-card">
                 <div class="kanban-card-top">
-                  <span class="kanban-id">{{ row.appointment.id }}</span>
+                  <span class="kanban-id">{{ $index+1 }}</span>
                   <span
                     class="type-chip"
                     [class.type-checkup]="row.appointment.type === 'checkup'"

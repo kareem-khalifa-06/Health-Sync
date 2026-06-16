@@ -4,7 +4,7 @@ import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subject, takeUntil, switchMap, of, map } from 'rxjs';
 import { Appointment } from '../../../models/appointment';
-import { MedicalRecord } from '../../../medical-record';
+import { MedicalRecord } from '../../../models/medical-record';
 import { PatientService } from '../../../core/services/patient.service';
 import { AppointmentService } from '../../../core/services/appointments.service';
 import { MedicalRecordsService } from '../../../core/services/medical-records.service';
