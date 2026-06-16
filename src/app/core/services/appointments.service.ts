@@ -34,6 +34,7 @@ export class AppointmentService {
   }
 
   addAppointment(a: Appointment): Observable<Appointment> {
+      console.log('clinic_id being sent:', this.supabase.clinicId);
     return from(
       this.supabase.execute<Appointment>(
         this.supabase.client
