@@ -1,10 +1,18 @@
 import { FormsModule } from '@angular/forms';
-import { AfterViewInit, Component, ElementRef, inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { Chart } from 'chart.js';
-import { HttpClient } from '@angular/common/http';
-import { AppointmentService } from '../../../core/services/appointments.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppStateService } from '../../../core/services/app-state.service';
+import { SupabaseService } from '../../../core/services/supabase.service';
+import { RealtimeChannel } from '@supabase/supabase-js';
+
 interface Statistics {
   totalAppointments: number;
   completedAppointments: number;
@@ -19,163 +27,335 @@ interface Statistics {
     thisMonth: number;
     thisYear: number;
   };
-  appointmentsByDay: [{ day: string; count: number }];
-  appointmentsByStatus: [{ status: string; count: number }];
-  topDoctors: [{ doctorId: string; name: string; totalAppointments: number; rating: number }];
+  appointmentsByDay: { day: string; count: number }[];
+  appointmentsByStatus: { status: string; count: number }[];
+  topDoctors: {
+    doctorId: string;
+    name: string;
+    totalAppointments: number;
+    rating: number;
+  }[];
 }
 
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [FormsModule,MatProgressSpinnerModule],
+  imports: [FormsModule, MatProgressSpinnerModule],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css',
 })
-export class AnalyticsComponent implements AfterViewInit {
+export class AnalyticsComponent implements AfterViewInit, OnDestroy {
   @ViewChild('topDoctorsChart') topDoctorsChart!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('appointmentsChart') appointmentsChart!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('appointmentsChart')
+  appointmentsChart!: ElementRef<HTMLCanvasElement>;
+
+  private supabase = inject(SupabaseService);
+  appState = inject(AppStateService);
 
   data: Statistics | null = null;
   timeFilter: string = 'month';
-  isExporting: boolean = false; 
-  appState=inject(AppStateService);
-  constructor(private _HttpClient: HttpClient) {}
+  isExporting: boolean = false;
+  isLoading: boolean = true;
 
-  ngAfterViewInit() {
-    this._HttpClient
-      .get<Statistics>('https://health-sync-production-d340.up.railway.app/statistics')
-      .subscribe((res) => {
-        this.data = res;
-        this.buildCharts();
-      });
+  private charts: Chart<any, any, any>[] = [];
+  private channel: RealtimeChannel | null = null;
+
+  // ── Lifecycle ─────────────────────────────────────────────────────
+
+  async ngAfterViewInit() {
+    await this.fetchStatistics();
+    this.subscribeToChanges();
   }
+
+  ngOnDestroy() {
+    this.charts.forEach((c) => c.destroy());
+    if (this.channel) this.supabase.client.removeChannel(this.channel);
+  }
+
+  // ── Data fetching ─────────────────────────────────────────────────
+
+  private async fetchStatistics() {
+    this.isLoading = true;
+    try {
+      const { data, error } = await this.supabase.client.rpc('get_statistics', {
+        p_clinic_id: this.supabase.clinicId,
+      });
+
+      if (error) throw error;
+      this.data = data as Statistics;
+      this.rebuildCharts();
+    } catch (err) {
+      console.error('Failed to load statistics:', err);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  // ── Realtime — re-fetch on any relevant table change ──────────────
+
+  private subscribeToChanges() {
+    this.channel = this.supabase.client
+      .channel('statistics-live')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'appointments',
+          filter: `clinic_id=eq.${this.supabase.clinicId}`,
+        },
+        () => this.fetchStatistics(),
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'patients',
+          filter: `clinic_id=eq.${this.supabase.clinicId}`,
+        },
+        () => this.fetchStatistics(),
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'payments',
+          filter: `clinic_id=eq.${this.supabase.clinicId}`,
+        },
+        () => this.fetchStatistics(),
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'doctors',
+          filter: `clinic_id=eq.${this.supabase.clinicId}`,
+        },
+        () => this.fetchStatistics(),
+      )
+      .subscribe();
+  }
+
+  // ── Charts ────────────────────────────────────────────────────────
+
+  private rebuildCharts() {
+    // Destroy previous chart instances before rebuilding
+    this.charts.forEach((c) => c.destroy());
+    this.charts = [];
+    this.buildCharts();
+  }
+
+  // ── Revenue helper ────────────────────────────────────────────────
 
   get currentRevenue() {
     if (!this.data) return 0;
     switch (this.timeFilter) {
-      case 'today': return this.data.revenue.today;
-      case 'year':  return this.data.revenue.thisYear;
-      case 'week':  return this.data.revenue.thisWeek;
-      default:      return this.data.revenue.thisMonth;
+      case 'today':
+        return this.data.revenue.today;
+      case 'year':
+        return this.data.revenue.thisYear;
+      case 'week':
+        return this.data.revenue.thisWeek;
+      default:
+        return this.data.revenue.thisMonth;
     }
   }
 
-  get totalPatients()    { return this.data?.totalPatients; }
-  get activeDoctors()    { return this.data?.activeDoctors; }
-  get totalDepartments() { return this.data?.totalDepartments; }
+  get totalPatients() {
+    return this.data?.totalPatients;
+  }
+  get activeDoctors() {
+    return this.data?.activeDoctors;
+  }
+  get totalDepartments() {
+    return this.data?.totalDepartments;
+  }
+
+  // ── Chart builder (unchanged logic, now uses rebuildCharts) ───────
 
   buildCharts() {
     const primaryGradientColors = [
-      '#4F8EF7', '#6C63FF', '#43C6AC', '#F7971E', '#F64F59',
-      '#11998e', '#38ef7d', '#FC5C7D', '#6A82FB', '#FDDB92',
+      '#4F8EF7',
+      '#6C63FF',
+      '#43C6AC',
+      '#F7971E',
+      '#F64F59',
+      '#11998e',
+      '#38ef7d',
+      '#FC5C7D',
+      '#6A82FB',
+      '#FDDB92',
     ];
 
     // ── Appointments By Day ──────────────────────────────────────────
     const appointmentsCtx = this.appointmentsChart.nativeElement;
-    const appointmentsGradient = appointmentsCtx.getContext('2d')!.createLinearGradient(0, 0, 0, 400);
+    const appointmentsGradient = appointmentsCtx
+      .getContext('2d')!
+      .createLinearGradient(0, 0, 0, 400);
     appointmentsGradient.addColorStop(0, 'rgba(79, 142, 247, 0.85)');
     appointmentsGradient.addColorStop(1, 'rgba(79, 142, 247, 0.15)');
 
-    new Chart(appointmentsCtx, {
-      type: 'bar',
-      data: {
-        labels: this.data?.appointmentsByDay.map((d) => d.day),
-        datasets: [{
-          label: 'Appointments',
-          data: this.data?.appointmentsByDay.map((d) => d.count),
-          backgroundColor: appointmentsGradient,
-          borderColor: 'rgba(79, 142, 247, 1)',
-          borderWidth: 2,
-          borderRadius: 8,
-          borderSkipped: false,
-          hoverBackgroundColor: 'rgba(108, 99, 255, 0.9)',
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            labels: {
-              color: '#CBD5E1',
-              font: { family: "'DM Sans', sans-serif", size: 13, weight: 500 },
-              boxWidth: 14, boxHeight: 14, borderRadius: 4,
+    this.charts.push(
+      new Chart(appointmentsCtx, {
+        type: 'bar',
+        data: {
+          labels: this.data?.appointmentsByDay.map((d) => d.day),
+          datasets: [
+            {
+              label: 'Appointments',
+              data: this.data?.appointmentsByDay.map((d) => d.count),
+              backgroundColor: appointmentsGradient,
+              borderColor: 'rgba(79, 142, 247, 1)',
+              borderWidth: 2,
+              borderRadius: 8,
+              borderSkipped: false,
+              hoverBackgroundColor: 'rgba(108, 99, 255, 0.9)',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              labels: {
+                color: '#CBD5E1',
+                font: {
+                  family: "'DM Sans', sans-serif",
+                  size: 13,
+                  weight: 500,
+                },
+                boxWidth: 14,
+                boxHeight: 14,
+                borderRadius: 4,
+              },
+            },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              titleColor: '#94A3B8',
+              bodyColor: '#F1F5F9',
+              borderColor: 'rgba(79, 142, 247, 0.4)',
+              borderWidth: 1,
+              padding: 12,
+              cornerRadius: 10,
+              titleFont: { family: "'DM Sans', sans-serif", size: 11 },
+              bodyFont: {
+                family: "'DM Sans', sans-serif",
+                size: 14,
+                weight: 600,
+              },
+              callbacks: { label: (ctx) => `  ${ctx.parsed.y} appointments` },
             },
           },
-          tooltip: {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            titleColor: '#94A3B8', bodyColor: '#F1F5F9',
-            borderColor: 'rgba(79, 142, 247, 0.4)', borderWidth: 1,
-            padding: 12, cornerRadius: 10,
-            titleFont: { family: "'DM Sans', sans-serif", size: 11 },
-            bodyFont: { family: "'DM Sans', sans-serif", size: 14, weight: 600 },
-            callbacks: { label: (ctx) => `  ${ctx.parsed.y} appointments` },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                color: '#94A3B8',
+                font: { family: "'DM Sans', sans-serif", size: 12 },
+              },
+            },
+            y: {
+              grid: { color: 'rgba(148, 163, 184, 0.08)', lineWidth: 1 },
+              border: { display: false, dash: [4, 4] },
+              ticks: {
+                color: '#94A3B8',
+                font: { family: "'DM Sans', sans-serif", size: 12 },
+                stepSize: 1,
+                padding: 8,
+              },
+              beginAtZero: true,
+            },
           },
+          animation: { duration: 900, easing: 'easeOutQuart' },
         },
-        scales: {
-          x: {
-            grid: { display: false }, border: { display: false },
-            ticks: { color: '#94A3B8', font: { family: "'DM Sans', sans-serif", size: 12 } },
-          },
-          y: {
-            grid: { color: 'rgba(148, 163, 184, 0.08)', lineWidth: 1 },
-            border: { display: false, dash: [4, 4] },
-            ticks: { color: '#94A3B8', font: { family: "'DM Sans', sans-serif", size: 12 }, stepSize: 1, padding: 8 },
-            beginAtZero: true,
-          },
-        },
-        animation: { duration: 900, easing: 'easeOutQuart' },
-      },
-    });
+      }),
+    );
 
     // ── Top Doctors ──────────────────────────────────────────────────
-    new Chart(this.topDoctorsChart.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: this.data?.topDoctors.map((doc) => doc.name),
-        datasets: [{
-          label: 'Total Appointments',
-          data: this.data?.topDoctors.map((doc) => doc.totalAppointments),
-          backgroundColor: primaryGradientColors.slice(0, this.data?.topDoctors.length),
-          borderColor: primaryGradientColors.slice(0, this.data?.topDoctors.length).map((c) => c + 'CC'),
-          borderWidth: 2, borderRadius: 8, borderSkipped: false, hoverBorderWidth: 3,
-        }],
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            titleColor: '#94A3B8', bodyColor: '#F1F5F9',
-            borderColor: 'rgba(108, 99, 255, 0.4)', borderWidth: 1,
-            padding: 12, cornerRadius: 10,
-            titleFont: { family: "'DM Sans', sans-serif", size: 11 },
-            bodyFont: { family: "'DM Sans', sans-serif", size: 14, weight: 600 },
-            callbacks: { label: (ctx) => `  ${ctx.parsed.x} appointments` },
-          },
+    this.charts.push(
+      new Chart(this.topDoctorsChart.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: this.data?.topDoctors.map((doc) => doc.name),
+          datasets: [
+            {
+              label: 'Total Appointments',
+              data: this.data?.topDoctors.map((doc) => doc.totalAppointments),
+              backgroundColor: primaryGradientColors.slice(
+                0,
+                this.data?.topDoctors.length,
+              ),
+              borderColor: primaryGradientColors
+                .slice(0, this.data?.topDoctors.length)
+                .map((c) => c + 'CC'),
+              borderWidth: 2,
+              borderRadius: 8,
+              borderSkipped: false,
+              hoverBorderWidth: 3,
+            },
+          ],
         },
-        scales: {
-          x: {
-            grid: { color: 'rgba(148, 163, 184, 0.08)', lineWidth: 1 },
-            border: { display: false },
-            ticks: { color: '#94A3B8', font: { family: "'DM Sans', sans-serif", size: 12 }, stepSize: 1 },
-            beginAtZero: true,
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              titleColor: '#94A3B8',
+              bodyColor: '#F1F5F9',
+              borderColor: 'rgba(108, 99, 255, 0.4)',
+              borderWidth: 1,
+              padding: 12,
+              cornerRadius: 10,
+              titleFont: { family: "'DM Sans', sans-serif", size: 11 },
+              bodyFont: {
+                family: "'DM Sans', sans-serif",
+                size: 14,
+                weight: 600,
+              },
+              callbacks: { label: (ctx) => `  ${ctx.parsed.x} appointments` },
+            },
           },
-          y: {
-            grid: { display: false }, border: { display: false },
-            ticks: { color: '#020b17', font: { family: "'DM Sans', sans-serif", size: 13, weight: 500 } },
+          scales: {
+            x: {
+              grid: { color: 'rgba(148, 163, 184, 0.08)', lineWidth: 1 },
+              border: { display: false },
+              ticks: {
+                color: '#94A3B8',
+                font: { family: "'DM Sans', sans-serif", size: 12 },
+                stepSize: 1,
+              },
+              beginAtZero: true,
+            },
+            y: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                color: '#020b17',
+                font: {
+                  family: "'DM Sans', sans-serif",
+                  size: 13,
+                  weight: 500,
+                },
+              },
+            },
           },
+          animation: { duration: 1000, easing: 'easeOutQuart' },
         },
-        animation: { duration: 1000, easing: 'easeOutQuart' },
-      },
-    });
+      }),
+    );
   }
 
-  // ✅ async + dynamic imports — jsPDF/html2canvas only download on click
+  // ── PDF export (unchanged) ────────────────────────────────────────
+
   async exportAsPDF() {
     this.isExporting = true;
 
@@ -191,7 +371,6 @@ export class AnalyticsComponent implements AfterViewInit {
     const darkColor: [number, number, number] = [15, 23, 42];
     const mutedColor: [number, number, number] = [148, 163, 184];
 
-    // ── Header Banner ────────────────────────────────────────────────
     doc.setFillColor(...darkColor);
     doc.rect(0, 0, pageWidth, 28, 'F');
     doc.setFillColor(...primaryColor);
@@ -205,15 +384,16 @@ export class AnalyticsComponent implements AfterViewInit {
     doc.setTextColor(...mutedColor);
     doc.text(
       `Generated on ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`,
-      pageWidth - 14, 17, { align: 'right' }
+      pageWidth - 14,
+      17,
+      { align: 'right' },
     );
 
-    // ── KPI Cards ────────────────────────────────────────────────────
     const cards = [
       { label: 'Total Appointments', value: this.data?.totalAppointments ?? 0 },
-      { label: 'Total Patients',     value: this.data?.totalPatients ?? 0 },
-      { label: 'Active Doctors',     value: this.data?.activeDoctors ?? 0 },
-      { label: 'Departments',        value: this.data?.totalDepartments ?? 0 },
+      { label: 'Total Patients', value: this.data?.totalPatients ?? 0 },
+      { label: 'Active Doctors', value: this.data?.activeDoctors ?? 0 },
+      { label: 'Departments', value: this.data?.totalDepartments ?? 0 },
     ];
     const cardW = (pageWidth - 28 - 9) / 4;
     cards.forEach((card, i) => {
@@ -223,108 +403,177 @@ export class AnalyticsComponent implements AfterViewInit {
       doc.roundedRect(x, y, cardW, 20, 2, 2, 'F');
       doc.setFillColor(...primaryColor);
       doc.rect(x, y, 3, 20, 'F');
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(...darkColor);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(...darkColor);
       doc.text(String(card.value), x + 7, y + 11);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...mutedColor);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...mutedColor);
       doc.text(card.label.toUpperCase(), x + 7, y + 17);
     });
 
-    // ── Revenue ──────────────────────────────────────────────────────
     let y = 62;
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...darkColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...darkColor);
     doc.text('Revenue Overview', 14, y);
-    doc.setFillColor(...primaryColor); doc.rect(14, y + 1.5, 28, 1, 'F');
+    doc.setFillColor(...primaryColor);
+    doc.rect(14, y + 1.5, 28, 1, 'F');
     y += 7;
     autoTable(doc, {
       startY: y,
       head: [['Period', 'Revenue']],
       body: [
-        ['Today',      `$${this.data?.revenue.today.toLocaleString() ?? 0}`],
-        ['This Week',  `$${this.data?.revenue.thisWeek.toLocaleString() ?? 0}`],
-        ['This Month', `$${this.data?.revenue.thisMonth.toLocaleString() ?? 0}`],
-        ['This Year',  `$${this.data?.revenue.thisYear.toLocaleString() ?? 0}`],
+        ['Today', `$${this.data?.revenue.today.toLocaleString() ?? 0}`],
+        ['This Week', `$${this.data?.revenue.thisWeek.toLocaleString() ?? 0}`],
+        [
+          'This Month',
+          `$${this.data?.revenue.thisMonth.toLocaleString() ?? 0}`,
+        ],
+        ['This Year', `$${this.data?.revenue.thisYear.toLocaleString() ?? 0}`],
       ],
       theme: 'grid',
-      headStyles: { fillColor: primaryColor, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 9 },
+      headStyles: {
+        fillColor: primaryColor,
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 9,
+      },
       bodyStyles: { fontSize: 9, textColor: darkColor },
       alternateRowStyles: { fillColor: [245, 248, 255] },
-      columnStyles: { 0: { cellWidth: 40 }, 1: { cellWidth: 40, fontStyle: 'bold' } },
+      columnStyles: {
+        0: { cellWidth: 40 },
+        1: { cellWidth: 40, fontStyle: 'bold' },
+      },
       margin: { left: 14, right: 14 },
     });
 
-    // ── Status Breakdown ─────────────────────────────────────────────
     y = (doc as any).lastAutoTable.finalY + 10;
     const statusCards = [
-      { label: 'Completed', value: this.data?.completedAppointments ?? 0, color: [34, 197, 94] as [number, number, number] },
-      { label: 'Pending',   value: this.data?.pendingAppointments ?? 0,   color: [251, 191, 36] as [number, number, number] },
-      { label: 'Cancelled', value: this.data?.cancelledAppointments ?? 0, color: [239, 68, 68] as [number, number, number] },
+      {
+        label: 'Completed',
+        value: this.data?.completedAppointments ?? 0,
+        color: [34, 197, 94] as [number, number, number],
+      },
+      {
+        label: 'Pending',
+        value: this.data?.pendingAppointments ?? 0,
+        color: [251, 191, 36] as [number, number, number],
+      },
+      {
+        label: 'Cancelled',
+        value: this.data?.cancelledAppointments ?? 0,
+        color: [239, 68, 68] as [number, number, number],
+      },
     ];
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...darkColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...darkColor);
     doc.text('Appointment Status', 14, y);
-    doc.setFillColor(...primaryColor); doc.rect(14, y + 1.5, 36, 1, 'F');
+    doc.setFillColor(...primaryColor);
+    doc.rect(14, y + 1.5, 36, 1, 'F');
     y += 7;
     const sCardW = (pageWidth - 28 - 6) / 3;
     statusCards.forEach((card, i) => {
       const x = 14 + i * (sCardW + 3);
-      doc.setFillColor(250, 250, 255); doc.roundedRect(x, y, sCardW, 18, 2, 2, 'F');
-      doc.setFillColor(...card.color); doc.roundedRect(x, y, sCardW, 18, 2, 2, 'F');
-      doc.setFillColor(250, 250, 255); doc.rect(x + 3, y, sCardW - 3, 18, 'F');
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(...darkColor);
+      doc.setFillColor(250, 250, 255);
+      doc.roundedRect(x, y, sCardW, 18, 2, 2, 'F');
+      doc.setFillColor(...card.color);
+      doc.roundedRect(x, y, sCardW, 18, 2, 2, 'F');
+      doc.setFillColor(250, 250, 255);
+      doc.rect(x + 3, y, sCardW - 3, 18, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(...darkColor);
       doc.text(String(card.value), x + 8, y + 10);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...mutedColor);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...mutedColor);
       doc.text(card.label.toUpperCase(), x + 8, y + 16);
     });
 
-    // ── Appointments By Day ──────────────────────────────────────────
     y += 26;
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...darkColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...darkColor);
     doc.text('Appointments by Day', 14, y);
-    doc.setFillColor(...primaryColor); doc.rect(14, y + 1.5, 38, 1, 'F');
+    doc.setFillColor(...primaryColor);
+    doc.rect(14, y + 1.5, 38, 1, 'F');
     y += 7;
     autoTable(doc, {
       startY: y,
       head: [['Day', 'Appointments']],
       body: this.data?.appointmentsByDay.map((d) => [d.day, d.count]) ?? [],
       theme: 'striped',
-      headStyles: { fillColor: primaryColor, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 9 },
+      headStyles: {
+        fillColor: primaryColor,
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 9,
+      },
       bodyStyles: { fontSize: 9, textColor: darkColor },
       alternateRowStyles: { fillColor: [245, 248, 255] },
       margin: { left: 14, right: 14 },
     });
 
-    // ── Top Doctors ──────────────────────────────────────────────────
     y = (doc as any).lastAutoTable.finalY + 10;
     if (y + 50 > pageHeight) {
       doc.addPage();
-      doc.setFillColor(...darkColor); doc.rect(0, 0, pageWidth, 12, 'F');
-      doc.setFont('helvetica', 'italic'); doc.setFontSize(8); doc.setTextColor(...mutedColor);
+      doc.setFillColor(...darkColor);
+      doc.rect(0, 0, pageWidth, 12, 'F');
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(...mutedColor);
       doc.text('Analytics Report (continued)', 14, 8);
       y = 20;
     }
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...darkColor);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...darkColor);
     doc.text('Top Doctors', 14, y);
-    doc.setFillColor(...primaryColor); doc.rect(14, y + 1.5, 22, 1, 'F');
+    doc.setFillColor(...primaryColor);
+    doc.rect(14, y + 1.5, 22, 1, 'F');
     y += 7;
     autoTable(doc, {
       startY: y,
       head: [['#', 'Doctor Name', 'Appointments', 'Rating']],
-      body: this.data?.topDoctors.map((d, i) => [i + 1, d.name, d.totalAppointments, `⭐ ${d.rating.toFixed(1)}`]) ?? [],
+      body:
+        this.data?.topDoctors.map((d, i) => [
+          i + 1,
+          d.name,
+          d.totalAppointments,
+          `⭐ ${Number(d.rating).toFixed(1)}`,
+        ]) ?? [],
       theme: 'grid',
-      headStyles: { fillColor: primaryColor, textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 9 },
+      headStyles: {
+        fillColor: primaryColor,
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 9,
+      },
       bodyStyles: { fontSize: 9, textColor: darkColor },
       alternateRowStyles: { fillColor: [245, 248, 255] },
-      columnStyles: { 0: { cellWidth: 10, halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'center' } },
+      columnStyles: {
+        0: { cellWidth: 10, halign: 'center' },
+        2: { halign: 'center' },
+        3: { halign: 'center' },
+      },
       margin: { left: 14, right: 14 },
     });
 
-    // ── Footer ───────────────────────────────────────────────────────
     const totalPages = (doc as any).internal.getNumberOfPages();
     for (let p = 1; p <= totalPages; p++) {
       doc.setPage(p);
-      doc.setFillColor(...darkColor); doc.rect(0, pageHeight - 10, pageWidth, 10, 'F');
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...mutedColor);
+      doc.setFillColor(...darkColor);
+      doc.rect(0, pageHeight - 10, pageWidth, 10, 'F');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...mutedColor);
       doc.text('Confidential — Internal Use Only', 14, pageHeight - 3.5);
-      doc.text(`Page ${p} of ${totalPages}`, pageWidth - 14, pageHeight - 3.5, { align: 'right' });
+      doc.text(`Page ${p} of ${totalPages}`, pageWidth - 14, pageHeight - 3.5, {
+        align: 'right',
+      });
     }
 
     doc.save(`analytics-report-${new Date().toISOString().slice(0, 10)}.pdf`);
