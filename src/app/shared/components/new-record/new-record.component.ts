@@ -2,7 +2,7 @@ import {
   Prescription,
   LabTest,
   MedicalRecord,
-} from './../../../medical-record';
+} from '../../../models/medical-record';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -32,7 +32,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class NewRecordComponent implements OnInit {
   AuthService = inject(AuthService);
-    baseRoute = this.AuthService.getBaseRoute();
+  baseRoute = this.AuthService.getBaseRoute();
   id = signal<number>(3);
   // ── Dropdown data ────────────────────────────────────────────
   patients: Patient[] = [];
@@ -186,6 +186,6 @@ export class NewRecordComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate([this.baseRoute,'medical-records']);
+    this.router.navigate([this.baseRoute, 'medical-records']);
   }
 }

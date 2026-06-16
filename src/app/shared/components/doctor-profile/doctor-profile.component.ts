@@ -76,6 +76,7 @@ export class DoctorProfileComponent implements OnInit {
   // ── Lifecycle ────────────────────────────────────────────────
   ngOnInit(): void {
     this.doctorId = this._route.snapshot.parent?.paramMap.get('id') ?? '';
+    console.log(this.doctorId)
     this._NotificationsService.getUserNotifications(this.doctorId).subscribe((res)=>{
         this.notifications=res;
         this.unreadNotifications=res.filter((n)=>!n.read);

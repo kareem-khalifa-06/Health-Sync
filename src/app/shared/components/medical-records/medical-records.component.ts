@@ -7,9 +7,9 @@ import { forkJoin } from 'rxjs';
 import { MedicalRecordsService } from '../../../core/services/medical-records.service';
 import { PatientService } from '../../../core/services/patient.service';
 import { DoctorsService } from '../../../core/services/doctors.service';
-import { MedicalRecord } from '../../../medical-record';
+import { MedicalRecord } from '../../../models/medical-record';
 import { AuthService } from '../../../core/services/auth.service';
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AppStateService } from '../../../core/services/app-state.service';
 
 @Component({
@@ -21,9 +21,9 @@ import { AppStateService } from '../../../core/services/app-state.service';
 })
 export class MedicalRecordsComponent implements OnInit {
   currentPage = 1;
-  pageSize = 2; 
+  pageSize = 2;
   Math = Math;
-  appState=inject(AppStateService);
+  appState = inject(AppStateService);
   get totalPages() {
     return Math.ceil(this.filteredRecords.length / this.pageSize);
   }
@@ -99,7 +99,7 @@ export class MedicalRecordsComponent implements OnInit {
         this.getPatientName(r.patientId).toLowerCase().includes(lower) ||
         this.getDoctorName(r.doctorId).toLowerCase().includes(lower),
     );
-    this.currentPage=1;
+    this.currentPage = 1;
   }
 
   // ── Navigation ───────────────────────────────────────────────

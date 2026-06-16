@@ -1,93 +1,97 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { from, Observable } from 'rxjs';
-
-import { Appointment } from '../../models/appointment';
+// src/app/core/services/appointments.service.ts
+import { Injectable, inject } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import dayjs from 'dayjs';
-import { AppointmentRow } from '../../shared/components/admin-dashboard/dashboard.component';
+import { Appointment } from '../../models/appointment';
 import { SupabaseService } from './supabase.service';
-import { environment } from '../../../environments/environment.development';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AppointmentService {
-  supaBase = inject(SupabaseService);
+  private supabase = inject(SupabaseService);
   today = dayjs().format('dddd MMMM YYYY');
 
-  addAppointment(newAppointment: Appointment): Observable<Appointment> {
-    return from(
-      this.supaBase.client
-        .from('appointments')
-        .insert({ ...newAppointment, clinic_id: environment.clinicId })
-        .select()
-        .single()
-        .then(({ data, error }) => {
-          if (error) throw error;
-          return data as Appointment;
-        }),
-    );
-  }
-
-  updateAppointment(updatedAppointment: Appointment): Observable<Appointment> {
-    return from(
-      this.supaBase.client
-        .from('appointments')
-        .update(updatedAppointment)
-        .eq('id', updatedAppointment.id)
-        .select()
-        .single()
-        .then(({ data, error }) => {
-          if (error) throw error;
-          return data as Appointment;
-        }),
-    );
-  }
-
   renderAppointments(): Observable<Appointment[]> {
-  return from(
-    this.supaBase.client
-      .from('appointments')
-      .select('*')
-      .order('scheduled_at', { ascending: true })
-      .then(({ data, error }) => {
-        if (error) throw error;
-        return data.map((a: any) => ({
-          ...a,
-          patientId: a.patient_id,
-          doctorId: a.doctor_id,
-          appointmentDate: a.scheduled_at?.split('T')[0],
-          appointmentTime: a.scheduled_at?.split('T')[1]?.slice(0, 5),
-        })) as Appointment[];
-      })
-  );
-}
+    return from(
+      this.supabase.execute<Appointment[]>(
+        this.supabase.client
+          .from('appointments')
+          .select('*')
+          .order('appointment_date', { ascending: true })
+      )
+    );
+  }
+
+  getAppointmentById(id: string): Observable<Appointment> {
+    return from(
+      this.supabase.execute<Appointment>(
+        this.supabase.client
+          .from('appointments')
+          .select('*')
+          .eq('id', id)
+          .single()
+      )
+    );
+  }
+
+  addAppointment(a: Appointment): Observable<Appointment> {
+    return from(
+      this.supabase.execute<Appointment>(
+        this.supabase.client
+          .from('appointments')
+          .insert({
+            clinic_id:        this.supabase.clinicId,
+            patient_id:       a.patientId,
+            doctor_id:        a.doctorId,
+            appointment_date: a.appointmentDate,
+            appointment_time: a.appointmentTime,
+            duration:         a.duration,
+            type:             a.type,
+            status:           a.status,
+            reason:           a.reason,
+            notes:            a.notes,
+            consultation_fee: a.consultationFee ?? 0,
+          })
+          .select()
+          .single()
+      )
+    );
+  }
+
+  updateAppointment(a: Appointment): Observable<Appointment> {
+    return from(
+      this.supabase.execute<Appointment>(
+        this.supabase.client
+          .from('appointments')
+          .update({
+            patient_id:       a.patientId,
+            doctor_id:        a.doctorId,
+            appointment_date: a.appointmentDate,
+            appointment_time: a.appointmentTime,
+            duration:         a.duration,
+            type:             a.type,
+            status:           a.status,
+            reason:           a.reason,
+            notes:            a.notes,
+            consultation_fee: a.consultationFee,
+            updated_at:       new Date().toISOString(),
+          })
+          .eq('id', a.id)
+          .select()
+          .single()
+      )
+    );
+  }
 
   deleteAppointment(id: string): Observable<Appointment> {
     return from(
-      this.supaBase.client
-        .from('appointments')
-        .delete()
-        .eq('id', id)
-        .select()
-        .single()
-        .then(({ data, error }) => {
-          if (error) throw error;
-          console.log(data)
-          return data as Appointment;
-        }),
-    );
-  }
-  getAppointmentById(id: string): Observable<Appointment> {
-    return from(
-      this.supaBase.client
-        .from('appointments')
-        .select()
-        .eq('id', id)
-        .single()
-        .then(({ data, error }) => {
-          if (error) throw error;
-          return data as Appointment;
-        }),
+      this.supabase.execute<Appointment>(
+        this.supabase.client
+          .from('appointments')
+          .delete()
+          .eq('id', id)
+          .select()
+          .single()
+      )
     );
   }
 }
