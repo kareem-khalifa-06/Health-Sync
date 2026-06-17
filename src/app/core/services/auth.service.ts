@@ -69,9 +69,8 @@ export class AuthService {
   }
 
   // ── Login ─────────────────────────────────────────────────────
-  // signInWithPassword → creates Supabase Auth session → RLS JWT is valid
-  // loadProfile        → fetches camelCase User via execute()
   login(email: string, password: string): Observable<User> {
+    console.log(email,password)
     return from(
       this.supabase.client.auth
         .signInWithPassword({ email, password })
