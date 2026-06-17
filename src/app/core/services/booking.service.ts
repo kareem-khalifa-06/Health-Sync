@@ -3,7 +3,15 @@ import { Injectable, signal } from '@angular/core';
 import { DoctorsService } from './doctors.service';
 import { Appointment } from '../../models/appointment';
 import { AppointmentService } from './appointments.service';
-import { catchError, forkJoin, map, Observable, of, switchMap, take } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import { _adapters } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 import { Notifications } from '../../models/notification';
@@ -100,126 +108,93 @@ export class BookingService {
       map((appointments) =>
         appointments.some(
           (a) =>
-            a.doctorId === payload.doctorId &&
+            a.status !== 'cancelled' &&
+            a.id !== excludeId &&
             a.appointmentDate === payload.appointmentDate &&
             a.appointmentTime === payload.appointmentTime &&
-            a.status !== 'cancelled' &&
-            a.id !== excludeId,
+            // [Certain] doctor conflict
+            (a.doctorId === payload.doctorId ||
+              // [Certain] patient conflict — the missing check
+              a.patientId === payload.patientId),
         ),
       ),
       catchError(() => of(false)),
     );
   }
+  book(payload: BookingPayload): Observable<BookingResult> {
+    return this.hasConflict(payload).pipe(
+      switchMap((conflict) => {
+        if (conflict) {
+          return of<BookingResult>({
+            success: false,
+            error: 'This time slot is already taken. Please choose another.',
+          });
+        }
 
- book(payload: BookingPayload): Observable<BookingResult> {
-  return this._AppointmentService.renderAppointments().pipe(
-    take(1),
+        const newAppointment: Appointment = {
+          // ← no id — Supabase generates UUID
+          patientId: payload.patientId,
+          doctorId: payload.doctorId,
+          appointmentDate: payload.appointmentDate,
+          appointmentTime: payload.appointmentTime,
+          type: payload.type,
+          reason: payload.reason,
+          duration: payload.appointmentDuration,
+          status: 'pending',
+          notes: '',
+          consultationFee: 0,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        } as Appointment;
 
-    switchMap((appointments) => {
-      this.id.set(appointments.length);
+        return forkJoin({
+          doctor: this._DoctorsService.getDoctorById(payload.doctorId),
+          patient: this._PatientService.getPatientById(payload.patientId),
+        }).pipe(
+          switchMap(({ doctor, patient }) =>
+            this._AppointmentService.addAppointment(newAppointment).pipe(
+              switchMap((saved) => {
+                const doctorNotif: Notifications = {
+                  id: crypto.randomUUID(),
+                  userId: doctor.userId,
+                  message: `New appointment: ${patient.fullName} on ${payload.appointmentDate} at ${payload.appointmentTime}`,
+                  type: 'appointment',
+                  appointmentId: saved.id,
+                  read: false,
+                  createdAt: new Date().toISOString(),
+                };
+                const patientNotif: Notifications = {
+                  id: crypto.randomUUID(),
+                  userId: patient.userId,
+                  message: `Your appointment with ${doctor.fullName} on ${payload.appointmentDate} is confirmed.`,
+                  type: 'appointment',
+                  appointmentId: saved.id,
+                  read: false,
+                  createdAt: new Date().toISOString(),
+                };
+                return forkJoin([
+                  this.NotificationsService.sendNotifications(doctorNotif),
+                  this.NotificationsService.sendNotifications(patientNotif),
+                ]).pipe(map(() => saved));
+              }),
+            ),
+          ),
+          map((saved) => {
+            this._Toastr.success('Appointment Booked Successfully');
+            return { success: true, appointment: saved } as BookingResult;
+          }),
+        );
+      }),
 
-      return this.hasConflict(payload);
-    }),
-
-    switchMap((conflict) => {
-      if (conflict) {
-        return of<BookingResult>({
-          success: false,
-          error: 'This time slot was just taken. Please choose another.',
-        });
-      }
-
-      const newAppointment: Appointment = {
-        id: `a${this.id() + 1}`,
-        patientId: payload.patientId,
-        doctorId: payload.doctorId,
-        appointmentDate: payload.appointmentDate,
-        appointmentTime: payload.appointmentTime,
-        type: payload.type,
-        reason: payload.reason,
-        duration: payload.appointmentDuration,
-        status: 'pending',
-        notes: '',
-        slotId: `sch-${payload.doctorId}-${Date.now()}`,
-        consultationFee: 0,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      return forkJoin({
-        doctor: this._DoctorsService.getDoctorById(payload.doctorId),
-        patient: this._PatientService.getPatientById(payload.patientId),
-      }).pipe(
-        switchMap(({ doctor, patient }) => {
-          const newDoctorNotification: Notifications = {
-            id: crypto.randomUUID(),
-            userId: doctor.userId,
-            message: `You have an appointment scheduled.`,
-            type: 'appointment',
-            appointmentId: newAppointment.id,
-            read: false,
-            createdAt: new Date().toISOString(),
-          };
-
-          const newPatientNotification: Notifications = {
-            id: crypto.randomUUID(),
-            userId: patient.userId,
-            message: `You have an appointment scheduled.`,
-            type: 'appointment',
-            appointmentId: newAppointment.id,
-            read: false,
-            createdAt: new Date().toISOString(),
-          };
-
-          return this._AppointmentService.addAppointment(
-            newAppointment
-          ).pipe(
-            switchMap((savedAppointment) =>
-              forkJoin([
-                this.NotificationsService.sendNotifications(
-                  newDoctorNotification
-                ),
-                this.NotificationsService.sendNotifications(
-                  newPatientNotification
-                ),
-              ]).pipe(
-                map(() => savedAppointment)
-              )
-            )
-          );
-        })
-      );
-    }),
-
-    map((savedAppointment) => {
-      if (!savedAppointment) {
-        return savedAppointment;
-      }
-
-      this.id.update((id) => id + 1);
-      this._Toastr.success('Appointment Booked Successfully');
-
-      return {
-        success: true,
-        appointment: savedAppointment as Appointment,
-      };
-    }),
-
-    catchError((err) => {
-      const message =
-        err?.status === 0
-          ? 'Network error. Check your connection and try again.'
-          : err?.status === 409
-          ? 'This slot was just booked by someone else. Please pick another.'
-          : 'Something went wrong while saving. Please try again.';
-
-      return of<BookingResult>({
-        success: false,
-        error: message,
-      });
-    })
-  );
-}
+      catchError((err) => {
+        const message =
+          err?.status === 0
+            ? 'Network error. Check your connection.'
+            : 'Something went wrong. Please try again.';
+        return of<BookingResult>({ success: false, error: message });
+      }),
+    );
+  }
 
   _formatLabel(time: string): string {
     const [h, m] = time.split(':').map(Number);
