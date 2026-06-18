@@ -48,7 +48,7 @@
       </button>
     </div>
   </div>
-  @if (appState.startLoader()&&!appointmentRows) {
+  @if (appState.startLoader()) {
     <div class="loading-state">
       <mat-spinner class="loading-spinner"></mat-spinner>
       <div>Fetching Data.....</div>
