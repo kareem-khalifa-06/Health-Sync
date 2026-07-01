@@ -4,6 +4,7 @@ import { adminRoutes, patientsRoutes, reciptionstRoutes } from './routes/routs';
 import { patientGuard } from './core/guards/patient-guard.guard';
 import { adminGuard } from './core/guards/admin-guard.guard';
 import { receptionistGuard } from './core/guards/recipionist-guard.guard';
+import { subscriptionGuard } from './core/guards/subscription.guard';
 
 export const routes: Routes = [
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
       import('./shared/layouts/admin-layout/admin-layout.component').then(
         (m) => m.AdminLayoutComponent,
       ),
-    canActivate: [adminGuard],
+    canActivate: [adminGuard, subscriptionGuard],
     children: adminRoutes,
   },
 
@@ -34,9 +35,7 @@ export const routes: Routes = [
       import('./shared/layouts/doctor-layout/doctor-layout.component').then(
         (m) => m.DoctorLayoutComponent,
       ),
-    canActivate: [doctorGuard
-      
-    ],
+    canActivate: [doctorGuard, subscriptionGuard],
     children: [
       {
         path: '',
@@ -65,7 +64,7 @@ export const routes: Routes = [
       import('./shared/layouts/receptionist-layout/receptionist-layout.component').then(
         (m) => m.receptionistLayoutComponent,
       ),
-    canActivate: [receptionistGuard],
+    canActivate: [receptionistGuard, subscriptionGuard],
     children: reciptionstRoutes,
   },
   {
@@ -74,7 +73,14 @@ export const routes: Routes = [
       import('./shared/layouts/patient-layout/patient-layout.component').then(
         (m) => m.PatientLayoutComponent,
       ),
-    canActivate:[patientGuard],
+    canActivate: [patientGuard, subscriptionGuard],
     children: patientsRoutes,
+  },
+  {
+    path: 'expired',
+    loadComponent: () =>
+      import('./shared/components/expired/expired.component').then(
+        (m) => m.ExpiredComponent,
+      ),
   },
 ];

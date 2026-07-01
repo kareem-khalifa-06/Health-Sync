@@ -1,0 +1,82 @@
+<div class="page">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <span class="brand-name">HealthSync</span>
+    </div>
+    <button class="logout-btn" (click)="logout()">Sign out</button>
+  </header>
+
+  <!-- Main content -->
+  <main class="content">
+
+    <!-- Icon -->
+    <div class="icon-wrap">
+      <div class="icon-ring"></div>
+      <svg class="icon-lock" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.75"/>
+        <path d="M8 11V7a4 4 0 1 1 8 0v4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        <circle cx="12" cy="16" r="1.25" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Headline -->
+    <p class="eyebrow">Trial ended</p>
+    <h1 class="headline">Your 14-day free trial<br>has expired</h1>
+    <p class="sub">
+      Choose a plan to keep your clinic data, appointments,<br>
+      and records — nothing is deleted.
+    </p>
+
+    <!-- Plans -->
+    <div class="plans">
+      @for (plan of plans; track plan.name) {
+        <div class="plan" [class.plan--featured]="plan.tag">
+
+          @if (plan.tag) {
+            <div class="plan-tag">{{ plan.tag }}</div>
+          }
+
+          <div class="plan-header">
+            <span class="plan-name">{{ plan.name }}</span>
+            <div class="plan-price">
+              <span class="plan-amount">{{ plan.price }}</span>
+              <span class="plan-period">{{ plan.period }}</span>
+            </div>
+          </div>
+
+          <ul class="plan-features">
+            @for (f of plan.features; track f) {
+              <li class="plan-feature">
+                <svg class="check" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/>
+                  <path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ f }}
+              </li>
+            }
+          </ul>
+
+          <button class="plan-cta" (click)="openWhatsApp(plan.wa)">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.13.558 4.13 1.535 5.864L.057 23.5l5.79-1.519A11.96 11.96 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.865 0-3.617-.49-5.13-1.348l-.369-.218-3.437.901.918-3.352-.24-.386A9.937 9.937 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
+            Get {{ plan.name }} on WhatsApp
+          </button>
+
+        </div>
+      }
+    </div>
+
+    <!-- Footer note -->
+    <p class="note">
+      Payments are collected via Instapay or bank transfer.
+      We will activate your plan within minutes of confirmation.
+    </p>
+
+  </main>
+
+</div>
