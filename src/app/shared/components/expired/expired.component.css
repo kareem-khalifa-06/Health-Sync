@@ -1,0 +1,284 @@
+/* ── Page ──────────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background:  #070f1f;
+  display:     flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+  color:       #f1f5f9;
+}
+
+/* ── Topbar ────────────────────────────────────────────────────── */
+.topbar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         1.25rem 2rem;
+  border-bottom:   1px solid rgba(255,255,255,.06);
+}
+
+.brand {
+  display:     flex;
+  align-items: center;
+  gap:         .6rem;
+}
+
+.brand-dot {
+  width:         10px;
+  height:        10px;
+  border-radius: 50%;
+  background:    #4f8ef7;
+  box-shadow:    0 0 8px #4f8ef7cc;
+}
+
+.brand-name {
+  font-size:   1.05rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color:       #f1f5f9;
+}
+
+.logout-btn {
+  background:    transparent;
+  border:        1px solid rgba(255,255,255,.12);
+  color:         #94a3b8;
+  padding:       .4rem 1rem;
+  border-radius: .5rem;
+  font-size:     .85rem;
+  cursor:        pointer;
+  transition:    border-color .2s, color .2s;
+}
+.logout-btn:hover {
+  border-color: rgba(255,255,255,.25);
+  color:        #f1f5f9;
+}
+
+/* ── Main ──────────────────────────────────────────────────────── */
+.content {
+  flex:            1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  padding:         3.5rem 1.5rem 4rem;
+}
+
+/* ── Lock icon ─────────────────────────────────────────────────── */
+.icon-wrap {
+  position: relative;
+  width:    72px;
+  height:   72px;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.icon-ring {
+  position:      absolute;
+  inset:         0;
+  border-radius: 50%;
+  background:    radial-gradient(circle, rgba(79,142,247,.18) 0%, transparent 70%);
+  animation:     pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.18); opacity: .6; }
+}
+
+.icon-lock {
+  width:  38px;
+  height: 38px;
+  color:  #4f8ef7;
+  position: relative;
+  z-index:  1;
+}
+
+/* ── Text ──────────────────────────────────────────────────────── */
+.eyebrow {
+  font-size:      .75rem;
+  font-weight:    600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color:          #4f8ef7;
+  margin:         0 0 .75rem;
+}
+
+.headline {
+  font-size:     2rem;
+  font-weight:   700;
+  line-height:   1.2;
+  text-align:    center;
+  margin:        0 0 1rem;
+  letter-spacing: -.03em;
+  color:         #f8fafc;
+}
+
+.sub {
+  font-size:   1rem;
+  color:       #94a3b8;
+  text-align:  center;
+  line-height: 1.6;
+  margin:      0 0 3rem;
+}
+
+/* ── Plans ─────────────────────────────────────────────────────── */
+.plans {
+  display:   flex;
+  gap:       1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width:     100%;
+  max-width: 700px;
+}
+
+.plan {
+  position:      relative;
+  flex:          1;
+  min-width:     280px;
+  max-width:     320px;
+  background:    #0d1b2e;
+  border:        1px solid rgba(255,255,255,.08);
+  border-radius: 1rem;
+  padding:       1.75rem;
+  display:       flex;
+  flex-direction: column;
+  gap:           1.25rem;
+  transition:    border-color .25s, transform .25s;
+}
+
+.plan:hover {
+  border-color: rgba(79,142,247,.35);
+  transform:    translateY(-2px);
+}
+
+.plan--featured {
+  border-color: rgba(79,142,247,.45);
+  background:   linear-gradient(160deg, #0d1b2e 60%, #0e2040 100%);
+}
+
+.plan-tag {
+  position:      absolute;
+  top:           -12px;
+  left:          50%;
+  transform:     translateX(-50%);
+  background:    #4f8ef7;
+  color:         #fff;
+  font-size:     .72rem;
+  font-weight:   700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding:       .25rem .85rem;
+  border-radius: 2rem;
+  white-space:   nowrap;
+}
+
+.plan-header {
+  display:        flex;
+  flex-direction: column;
+  gap:            .4rem;
+}
+
+.plan-name {
+  font-size:   .85rem;
+  font-weight: 600;
+  color:       #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.plan-price {
+  display:     flex;
+  align-items: baseline;
+  gap:         .4rem;
+}
+
+.plan-amount {
+  font-size:   2.25rem;
+  font-weight: 700;
+  color:       #f8fafc;
+  letter-spacing: -.04em;
+}
+
+.plan-period {
+  font-size: .85rem;
+  color:     #64748b;
+}
+
+/* ── Features ──────────────────────────────────────────────────── */
+.plan-features {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+  display:    flex;
+  flex-direction: column;
+  gap:        .65rem;
+  flex:       1;
+}
+
+.plan-feature {
+  display:     flex;
+  align-items: center;
+  gap:         .6rem;
+  font-size:   .88rem;
+  color:       #cbd5e1;
+  line-height: 1.4;
+}
+
+.check {
+  width:       18px;
+  height:      18px;
+  flex-shrink: 0;
+  color:       #4f8ef7;
+}
+
+/* ── CTA button ────────────────────────────────────────────────── */
+.plan-cta {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             .5rem;
+  width:           100%;
+  padding:         .85rem;
+  border-radius:   .65rem;
+  border:          none;
+  font-size:       .92rem;
+  font-weight:     600;
+  cursor:          pointer;
+  transition:      opacity .2s, transform .15s;
+  background:      #1a2c3d;
+  color:           #f1f5f9;
+}
+
+.plan--featured .plan-cta {
+  background: #4f8ef7;
+  color:      #fff;
+  box-shadow: 0 4px 20px rgba(79,142,247,.35);
+}
+
+.plan-cta:hover {
+  opacity:   .88;
+  transform: translateY(-1px);
+}
+
+.plan-cta:active {
+  transform: translateY(0);
+}
+
+/* ── Footer note ───────────────────────────────────────────────── */
+.note {
+  margin-top: 2.5rem;
+  font-size:  .82rem;
+  color:      #475569;
+  text-align: center;
+  line-height: 1.6;
+  max-width:  420px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .headline { font-size: 1.6rem; }
+  .topbar   { padding: 1rem 1.25rem; }
+  .plans    { flex-direction: column; align-items: center; }
+  .plan     { max-width: 100%; }
+}
