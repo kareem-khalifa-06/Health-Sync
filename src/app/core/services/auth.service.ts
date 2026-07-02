@@ -9,19 +9,21 @@ const CACHE_KEY = 'hs_user';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private supabase = inject(SupabaseService);
-  private router   = inject(Router);
+  private router = inject(Router);
 
   currentUser = signal<User | null>(null);
-  isReady     = signal(false);
+  isReady = signal(false);
 
   baseRouteMap: Record<string, string> = {
-    admin:        'adminLayout',
-    doctor:       'doctorLayout',
-    patient:      'patientLayout',
+    admin: 'adminLayout',
+    doctor: 'doctorLayout',
+    patient: 'patientLayout',
     receptionist: 'receptionistLayout',
   };
 
-  constructor() { this.restoreSession(); }
+  constructor() {
+    this.restoreSession();
+  }
 
   // ── Session restore ───────────────────────────────────────────
   // Step 1: paint from cache instantly (0ms)
@@ -32,7 +34,9 @@ export class AuthService {
 
     this.supabase.client.auth.getSession().then(({ data }) => {
       if (data.session?.user.email) {
-        this.loadProfile(data.session.user.email).then(() => this.isReady.set(true));
+        this.loadProfile(data.session.user.email).then(() =>
+          this.isReady.set(true),
+        );
       } else {
         this.clearSession();
         this.isReady.set(true);
@@ -57,7 +61,7 @@ export class AuthService {
           .from('users')
           .select('*')
           .eq('email', email)
-          .maybeSingle()
+          .maybeSingle(),
       );
       if (user) {
         localStorage.setItem(CACHE_KEY, JSON.stringify(user)); // camelCase cached
@@ -70,7 +74,7 @@ export class AuthService {
 
   // ── Login ─────────────────────────────────────────────────────
   login(email: string, password: string): Observable<User> {
-    console.log(email,password)
+    console.log(email, password);
     return from(
       this.supabase.client.auth
         .signInWithPassword({ email, password })
@@ -80,16 +84,20 @@ export class AuthService {
           const user = this.currentUser();
           if (!user) throw new Error('Profile not found');
           return user;
-        })
-    ).pipe(
-      tap(() => this.isReady.set(true))
-    );
+        }),
+    ).pipe(tap(() => this.isReady.set(true)));
   }
 
   // ── Helpers ───────────────────────────────────────────────────
-  getRole()      { return this.currentUser()?.role; }
-  getBaseRoute() { return this.baseRouteMap[this.getRole()!]; }
-  isLoggedIn()   { return !!this.currentUser(); }
+  getRole() {
+    return this.currentUser()?.role;
+  }
+  getBaseRoute() {
+    return this.baseRouteMap[this.getRole()!];
+  }
+  isLoggedIn() {
+    return !!this.currentUser();
+  }
 
   // ── Logout ────────────────────────────────────────────────────
   logout(): void {

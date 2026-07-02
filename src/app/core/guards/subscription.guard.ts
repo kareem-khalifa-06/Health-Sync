@@ -2,10 +2,12 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { SupabaseService } from '../services/supabase.service';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 export const subscriptionGuard: CanActivateFn = async () => {
   const supabase = inject(SupabaseService);
   const router = inject(Router);
+  const toastr= inject(ToastrService);
 
   const clinicId = supabase.clinicId;
   if (!clinicId) return router.createUrlTree(['/']);
@@ -24,6 +26,7 @@ export const subscriptionGuard: CanActivateFn = async () => {
   const isActive = clinic.plan === 'starter' || clinic.plan === 'pro';
 
   if (isTrialExpired && !isActive) {
+    toastr.error('Your Subscription Expired!!');
     return router.createUrlTree(['/expired']);
   }
 
